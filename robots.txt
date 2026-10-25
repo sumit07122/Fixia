@@ -1,0 +1,6 @@
+# FIXIA Production Robots Configuration
+User-agent: *
+Allow: /
+Disallow: /admin.html
+
+Sitemap: https://www.fixia.in/sitemap.xml

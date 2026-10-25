@@ -1,0 +1,24 @@
+{
+  "name": "FIXIA — High-Performance Software, Mobile Apps & ERP Engineering",
+  "short_name": "FIXIA",
+  "description": "Custom business software, Android apps, and high-converting web applications that replace operational chaos.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0C0D12",
+  "theme_color": "#FF4A1C",
+  "icons": [
+    {
+      "src": "logo/fixia-favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "logo/fixia-mark-white.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ],
+  "categories": ["business", "productivity", "utilities"]
+}

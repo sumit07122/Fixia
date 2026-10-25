@@ -213,6 +213,7 @@ const REAL_PROJECTS = [
 ];
 
 try { JSON.parse(localStorage.getItem('fx-projects') || '[]').forEach(p => REAL_PROJECTS.push(p)); } catch (e) {}
+if (typeof window !== 'undefined') window.REAL_PROJECTS = REAL_PROJECTS;
 /* Helper: Render macOS-Style Browser Mockup Frame */
 function renderBrowserFrame(p, isHero = false) {
   return `
@@ -250,6 +251,7 @@ if (typeof window !== 'undefined' && !window.va) {
 }
 
 /* Base Shell Setup */
+if (PG !== 'admin' && B.dataset.page !== 'admin' && PG !== '404' && B.dataset.page !== '404') {
 B.insertAdjacentHTML('afterbegin', `
   <svg width="0" height="0" style="position:absolute" aria-hidden="true">
     <symbol id="arr" viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9"/></symbol>
@@ -338,6 +340,7 @@ B.insertAdjacentHTML('beforeend', `
     </div>
   </div>
 `);
+}
 
 /* Project Modal Handlers */
 const modalBackdrop = $('#projModal'), modalBody = $('#modalBody');
@@ -375,8 +378,9 @@ function openProjectModal(id) {
         </div>
       </div>
     </div>
-    <div style="margin-top:2rem;display:flex;gap:1rem;flex-wrap:wrap;align-items:center;border-top:1px solid #EEF0F4;padding-top:1.5rem">
+    <div style="margin-top:2rem;display:flex;gap:0.75rem;flex-wrap:wrap;align-items:center;border-top:1px solid #EEF0F4;padding-top:1.5rem">
       <a class="btn" href="${p.url}" target="_blank" rel="noopener noreferrer">Visit Live Website ${ic('arr')}</a>
+      <a class="btn ghost" href="case-study-detail.html?id=${p.id}">Deep-Dive Case Study ↗</a>
       <a class="btn ghost" href="contact.html?p=${encodeURIComponent('I want something like ' + p.title + '.')}">Build something like this</a>
     </div>
   `;

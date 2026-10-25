@@ -1,34 +1,1347 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="robots" content="noindex"><title>Admin – FIXIA</title>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Mission Control &amp; CRM – FIXIA Admin</title>
 <link rel="icon" type="image/svg+xml" href="logo/fixia-favicon.svg">
-<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet"><link rel="stylesheet" href="styles.css?v=20261025d">
-<style>body{animation:none;overflow:auto}.gate{min-height:100vh;display:grid;place-items:center;padding:1.5rem}.gate form{background:#fff;border:1.5px solid var(--ink);border-radius:24px;padding:2rem;width:min(380px,100%);display:grid;gap:.8rem}
-.gate svg,.side svg{width:2rem;height:2rem;fill:var(--ink)}.gate circle,.side circle{fill:var(--hi)}input,select,textarea{font:inherit;padding:.7rem .9rem;border:1.5px solid var(--line);border-radius:12px;background:#fff;width:100%}
-#app{display:grid;grid-template-columns:220px 1fr;min-height:100vh}.side{background:var(--ink);color:#fff;padding:1.4rem;display:flex;flex-direction:column;gap:.4rem;position:sticky;top:0;height:100vh}
-.side b{font:800 1.3rem var(--display);letter-spacing:-.05em;display:flex;gap:.5rem;align-items:center;margin-bottom:1rem}.side svg{fill:#fff}.side button,.side a{background:none;border:0;color:#B5AFA2;text-align:left;padding:.6rem .8rem;border-radius:10px;text-decoration:none;font-weight:600}
-.side button.on,.side button:hover{background:rgba(255,255,255,.1);color:#fff}.side a{margin-top:auto}.main{padding:clamp(1.2rem,3vw,2.5rem);overflow:auto}h1{font-size:2rem;margin-bottom:1.2rem}
-.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem}.cards div,.box{background:#fff;border:1px solid var(--line);border-radius:18px;padding:1.2rem}.cards b{display:block;font:800 2.4rem var(--display);letter-spacing:-.05em}
-table{width:100%;border-collapse:collapse;background:#fff;border-radius:16px;overflow:hidden;font-size:.9rem}th,td{text-align:left;padding:.7rem .8rem;border-bottom:1px solid var(--line);vertical-align:top}th{font:700 .72rem var(--mono);text-transform:uppercase;background:var(--paper2)}
-.bar{display:flex;gap:.6rem;flex-wrap:wrap;margin-bottom:1rem}.bar input{max-width:280px}.g{display:grid;gap:.6rem;max-width:480px}.empty{color:var(--mute);padding:1.5rem;background:#fff;border-radius:16px}
-@media(max-width:800px){#app{grid-template-columns:1fr}.side{position:static;height:auto;flex-direction:row;flex-wrap:wrap}.cards{grid-template-columns:1fr 1fr}table{display:block;overflow:auto}}</style></head><body>
-<div class="gate" id="gate"><form id="gf"><svg viewBox="0 0 40 40"><path d="M8 5h24v7H15v23H8z"/><circle cx="26" cy="25" r="6.5"/></svg><h1 id="gt" style="margin:0">FIXIA admin</h1><p id="gm" style="color:var(--mute)"></p><input id="pw" type="password" placeholder="Passcode" autocomplete="off"><button class="btn" type="submit">Enter</button></form></div>
-<div id="app" hidden><aside class="side"><b><svg viewBox="0 0 40 40"><path d="M8 5h24v7H15v23H8z"/><circle cx="26" cy="25" r="6.5"/></svg>FIXIA</b><button data-v="ov" class="on">Overview</button><button data-v="ld">Leads</button><button data-v="pj">Projects</button><button data-v="st">Settings</button><a href="index.html">← View site</a></aside><main class="main" id="v"></main></div>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0C0D12;
+  --panel: #13141C;
+  --panel-2: #1A1C26;
+  --border: rgba(255, 255, 255, 0.09);
+  --border-focus: rgba(255, 74, 28, 0.5);
+  --text: #F4EFE4;
+  --mute: #8E8A82;
+  --hi: #FF4A1C;
+  --hi-rgb: 255, 74, 28;
+  --green: #10B981;
+  --blue: #38BDF8;
+  --yellow: #FBBF24;
+  --purple: #A855F7;
+  --font-sans: 'Manrope', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Subtle Grid Background */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: 
+    linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+  background-size: 36px 36px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Security Gate */
+.gate-wrap {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  z-index: 100;
+  background: radial-gradient(circle at center, rgba(255, 74, 28, 0.12), transparent 70%), var(--bg);
+}
+.gate-box {
+  position: relative;
+  width: min(420px, 100%);
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  padding: 2.5rem 2rem;
+  box-shadow: 0 32px 80px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.05);
+  text-align: center;
+  backdrop-filter: blur(20px);
+}
+.gate-logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 1.5rem;
+}
+.gate-logo svg { width: 36px; height: 36px; fill: #fff; }
+.gate-logo span { font: 800 1.4rem var(--font-sans); letter-spacing: -0.04em; color: #fff; }
+.gate-pill {
+  display: inline-block;
+  font: 700 0.7rem var(--font-mono);
+  color: var(--hi);
+  background: rgba(var(--hi-rgb), 0.14);
+  border: 1px solid rgba(var(--hi-rgb), 0.3);
+  padding: 0.25rem 0.75rem;
+  border-radius: 999px;
+  margin-bottom: 1rem;
+}
+.gate-box h1 { font-size: 1.6rem; letter-spacing: -0.03em; margin-bottom: 0.4rem; }
+.gate-box p { color: var(--mute); font-size: 0.88rem; margin-bottom: 1.6rem; line-height: 1.4; }
+.gate-form { display: flex; flex-direction: column; gap: 0.9rem; }
+.gate-input-wrap { position: relative; }
+.gate-input {
+  width: 100%;
+  background: var(--panel-2);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 0.85rem 1rem;
+  font: 600 1.05rem var(--font-mono);
+  color: #fff;
+  text-align: center;
+  letter-spacing: 0.2em;
+  outline: none;
+  transition: all 0.2s;
+}
+.gate-input:focus {
+  border-color: var(--hi);
+  box-shadow: 0 0 0 3px rgba(var(--hi-rgb), 0.25);
+}
+.gate-btn {
+  background: var(--hi);
+  color: #fff;
+  border: none;
+  border-radius: 14px;
+  padding: 0.85rem;
+  font: 700 0.95rem var(--font-sans);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.gate-btn:hover { background: #E03E14; transform: translateY(-1px); }
+.gate-error { color: #EF4444; font-size: 0.82rem; margin-top: 0.4rem; min-height: 1.2rem; }
+.gate-hint { font: 600 0.76rem var(--font-mono); color: var(--mute); margin-top: 1rem; }
+
+/* Admin Dashboard Container */
+#adminApp {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  min-height: 100vh;
+  position: relative;
+  z-index: 1;
+}
+
+/* Sidebar */
+.admin-side {
+  background: var(--panel);
+  border-right: 1px solid var(--border);
+  padding: 1.8rem 1.2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.8rem;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow-y: auto;
+}
+.side-brand {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 0.4rem;
+}
+.side-brand-left {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+.side-brand-left svg { width: 32px; height: 32px; fill: #fff; }
+.side-brand-left span { font: 800 1.25rem var(--font-sans); letter-spacing: -0.04em; color: #fff; }
+.side-live-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font: 700 0.68rem var(--font-mono);
+  color: var(--green);
+  background: rgba(16, 185, 129, 0.12);
+  border: 1px solid rgba(16, 185, 129, 0.25);
+  padding: 0.2rem 0.55rem;
+  border-radius: 999px;
+}
+.side-live-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--green);
+  box-shadow: 0 0 6px var(--green);
+}
+.side-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+.nav-category {
+  font: 700 0.68rem var(--font-mono);
+  color: var(--mute);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 0.8rem 0.6rem 0.4rem;
+}
+.side-link {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  background: none;
+  border: none;
+  color: #B5AFA2;
+  font: 600 0.9rem var(--font-sans);
+  padding: 0.65rem 0.85rem;
+  border-radius: 10px;
+  cursor: pointer;
+  text-decoration: none;
+  text-align: left;
+  transition: all 0.18s;
+  width: 100%;
+}
+.side-link:hover {
+  background: rgba(255, 255, 255, 0.05);
+  color: #fff;
+}
+.side-link.active {
+  background: rgba(var(--hi-rgb), 0.14);
+  color: #fff;
+  border: 1px solid rgba(var(--hi-rgb), 0.3);
+}
+.side-link svg {
+  width: 18px;
+  height: 18px;
+  color: inherit;
+  flex-shrink: 0;
+}
+.side-link .badge-count {
+  margin-left: auto;
+  font: 700 0.72rem var(--font-mono);
+  background: rgba(255, 255, 255, 0.1);
+  padding: 0.15rem 0.5rem;
+  border-radius: 999px;
+  color: #fff;
+}
+.side-footer {
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border);
+}
+
+/* Main Content Viewport */
+.admin-main {
+  padding: clamp(1.5rem, 4vw, 3rem);
+  overflow-y: auto;
+  max-width: 1400px;
+  width: 100%;
+}
+
+/* Header Bar */
+.view-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1.2rem;
+  margin-bottom: 2rem;
+}
+.view-header-title h2 {
+  font-size: 1.85rem;
+  letter-spacing: -0.035em;
+  margin-bottom: 0.25rem;
+}
+.view-header-title p {
+  color: var(--mute);
+  font-size: 0.9rem;
+}
+.view-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  flex-wrap: wrap;
+}
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--hi);
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 0.6rem 1.1rem;
+  font: 600 0.88rem var(--font-sans);
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.2s;
+}
+.btn:hover { background: #E03E14; transform: translateY(-1px); }
+.btn-ghost {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border);
+  color: #E6DFD0;
+}
+.btn-ghost:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+.btn-sm {
+  padding: 0.4rem 0.8rem;
+  font-size: 0.8rem;
+  border-radius: 8px;
+}
+.btn-wa {
+  background: #25D366;
+  color: #fff;
+}
+.btn-wa:hover { background: #1EBE5D; }
+
+/* KPI Stats Cards */
+.kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.2rem;
+  margin-bottom: 2rem;
+}
+.kpi-card {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 1.4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  transition: transform 0.2s, border-color 0.2s;
+}
+.kpi-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(255, 255, 255, 0.18);
+}
+.kpi-card-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: var(--mute);
+  font: 600 0.78rem var(--font-mono);
+}
+.kpi-value {
+  font: 800 2.2rem var(--font-sans);
+  letter-spacing: -0.04em;
+  color: #fff;
+  line-height: 1;
+}
+.kpi-trend {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  font: 700 0.72rem var(--font-mono);
+  padding: 0.15rem 0.5rem;
+  border-radius: 999px;
+  align-self: flex-start;
+}
+.trend-up { background: rgba(16, 185, 129, 0.14); color: var(--green); }
+.trend-info { background: rgba(56, 189, 248, 0.14); color: var(--blue); }
+
+/* Data Tables */
+.table-card {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.3);
+}
+.table-toolbar {
+  padding: 1.2rem 1.4rem;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+.search-input-wrap {
+  position: relative;
+  min-width: 260px;
+  flex: 1;
+  max-width: 400px;
+}
+.search-input {
+  width: 100%;
+  background: var(--panel-2);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 0.55rem 0.9rem 0.55rem 2.2rem;
+  font: 500 0.88rem var(--font-sans);
+  color: #fff;
+  outline: none;
+}
+.search-input:focus { border-color: var(--hi); }
+.search-icon {
+  position: absolute;
+  left: 0.75rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--mute);
+  width: 15px;
+  height: 15px;
+}
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.88rem;
+  text-align: left;
+}
+th {
+  background: var(--panel-2);
+  color: var(--mute);
+  font: 700 0.72rem var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 0.85rem 1.2rem;
+  border-bottom: 1px solid var(--border);
+}
+td {
+  padding: 1.1rem 1.2rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  vertical-align: middle;
+}
+tr:last-child td { border-bottom: none; }
+tr:hover td { background: rgba(255, 255, 255, 0.02); }
+
+/* Status Badges */
+.status-pill {
+  font: 700 0.72rem var(--font-mono);
+  padding: 0.25rem 0.65rem;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  text-transform: uppercase;
+}
+.status-new { background: rgba(56, 189, 248, 0.15); color: var(--blue); border: 1px solid rgba(56, 189, 248, 0.3); }
+.status-contacted { background: rgba(251, 191, 36, 0.15); color: var(--yellow); border: 1px solid rgba(251, 191, 36, 0.3); }
+.status-quoted { background: rgba(168, 85, 247, 0.15); color: var(--purple); border: 1px solid rgba(168, 85, 247, 0.3); }
+.status-won { background: rgba(16, 185, 129, 0.15); color: var(--green); border: 1px solid rgba(16, 185, 129, 0.3); }
+.status-lost { background: rgba(239, 68, 68, 0.15); color: #EF4444; border: 1px solid rgba(239, 68, 68, 0.3); }
+
+/* Empty state */
+.empty-box {
+  padding: 3.5rem 1.5rem;
+  text-align: center;
+  color: var(--mute);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.8rem;
+}
+.empty-icon { font-size: 2.2rem; }
+
+/* Project Cards Grid */
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 1.5rem;
+}
+.proj-admin-card {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.2s, border-color 0.2s;
+}
+.proj-admin-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+.proj-thumb {
+  width: 100%;
+  height: 180px;
+  background: #09090C;
+  overflow: hidden;
+  position: relative;
+  border-bottom: 1px solid var(--border);
+}
+.proj-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s;
+}
+.proj-admin-card:hover .proj-thumb img { transform: scale(1.04); }
+.proj-admin-content {
+  padding: 1.2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  flex: 1;
+}
+.proj-admin-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.proj-admin-title { font-size: 1.15rem; font-weight: 700; color: #fff; }
+.proj-admin-desc { font-size: 0.86rem; color: var(--mute); line-height: 1.45; }
+.proj-admin-foot {
+  margin-top: auto;
+  padding-top: 0.9rem;
+  border-top: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Forms */
+.form-card {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 1.8rem;
+  max-width: 680px;
+}
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.2rem;
+}
+.form-full { grid-column: span 2; }
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+.form-label {
+  font: 700 0.76rem var(--font-mono);
+  color: var(--mute);
+  text-transform: uppercase;
+}
+.form-input, .form-select, .form-textarea {
+  background: var(--panel-2);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 0.75rem 0.9rem;
+  font: 500 0.9rem var(--font-sans);
+  color: #fff;
+  outline: none;
+  width: 100%;
+}
+.form-input:focus, .form-select:focus, .form-textarea:focus {
+  border-color: var(--hi);
+}
+.form-textarea { resize: vertical; min-height: 90px; }
+
+@media (max-width: 900px) {
+  #adminApp { grid-template-columns: 1fr; }
+  .admin-side { height: auto; position: static; border-right: none; border-bottom: 1px solid var(--border); }
+  .form-grid { grid-template-columns: 1fr; }
+  .form-full { grid-column: span 1; }
+}
+</style>
+</head>
+<body data-page="admin">
+
+<!-- Passcode Gate -->
+<div class="gate-wrap" id="gateWrap">
+  <div class="gate-box">
+    <div class="gate-logo">
+      <svg viewBox="0 0 40 40"><path d="M8 5h24v7H15v23H8z"/><circle cx="26" cy="25" r="6.5" fill="#FF4A1C"/></svg>
+      <span>FIXIA</span>
+    </div>
+    <div class="gate-pill">SECURITY GATEWAY · AES SESSION</div>
+    <h1 id="gateTitle">Mission Control</h1>
+    <p id="gateSubtitle">Enter your admin passcode to access client inquiries, projects CMS, and operational telemetry.</p>
+    
+    <form class="gate-form" id="gateForm">
+      <div class="gate-input-wrap">
+        <input class="gate-input" id="passcodeField" type="password" placeholder="••••" maxlength="12" autocomplete="current-password" autofocus required>
+      </div>
+      <button class="gate-btn" type="submit">Unlock Dashboard →</button>
+      <div class="gate-error" id="gateError"></div>
+    </form>
+    <div class="gate-hint" id="gateHint">Default passcode: <b>fixia2026</b> (changeable in Settings)</div>
+  </div>
+</div>
+
+<!-- Main Admin App -->
+<div id="adminApp" style="display:none">
+  <!-- Sidebar -->
+  <aside class="admin-side">
+    <div class="side-brand">
+      <div class="side-brand-left">
+        <svg viewBox="0 0 40 40"><path d="M8 5h24v7H15v23H8z"/><circle cx="26" cy="25" r="6.5" fill="#FF4A1C"/></svg>
+        <span>FIXIA</span>
+      </div>
+      <div class="side-live-badge"><div class="side-live-dot"></div><span>ONLINE</span></div>
+    </div>
+
+    <nav class="side-nav">
+      <div class="nav-category">OPERATIONS</div>
+      <button class="side-link active" data-view="dashboard">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+        <span>Overview &amp; KPIs</span>
+      </button>
+
+      <button class="side-link" data-view="leads">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        <span>Leads CRM</span>
+        <span class="badge-count" id="badgeLeadsCount">0</span>
+      </button>
+
+      <button class="side-link" data-view="projects">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+        <span>Projects CMS</span>
+        <span class="badge-count" id="badgeProjectsCount">7</span>
+      </button>
+
+      <button class="side-link" data-view="botlogs">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        <span>AI Advisor Inquiries</span>
+      </button>
+
+      <div class="nav-category">MANAGEMENT</div>
+      <button class="side-link" data-view="settings">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+        <span>Settings &amp; Backup</span>
+      </button>
+    </nav>
+
+    <div class="side-footer">
+      <a class="btn btn-ghost btn-sm" href="index.html" target="_blank" style="justify-content:center">
+        <span>View Live Site</span>
+        <span>↗</span>
+      </a>
+      <button class="btn btn-ghost btn-sm" id="logoutBtn" style="justify-content:center;color:#EF4444">
+        <span>Lock Session</span>
+      </button>
+    </div>
+  </aside>
+
+  <!-- Main View Container -->
+  <main class="admin-main" id="viewContainer">
+    <!-- Injected dynamically by JS -->
+  </main>
+</div>
+
+<script src="app.js?v=20261025e"></script>
 <script>
-const $=s=>document.querySelector(s),e=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>'&#'+c.charCodeAt(0)+';'),J=(k,d)=>{try{return JSON.parse(localStorage.getItem(k)||d)}catch(x){return JSON.parse(d)}},W=(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v))}catch(x){}};
-const H=s=>{let h=5381;for(const c of s)h=(h*33^c.charCodeAt(0))>>>0;return String(h)},ST=['new','contacted','quoted','won','lost'];let view='ov';
-const has=!!J('fx-pass','""');$('#gm').textContent=has?'Enter your passcode.':'First visit: choose a passcode.';$('#gt').textContent=has?'FIXIA admin':'Set passcode';
-const open=()=>{$('#gate').hidden=true;$('#app').hidden=false;try{sessionStorage.fxa=1}catch(x){}draw()};
-$('#gf').onsubmit=ev=>{ev.preventDefault();const p=$('#pw').value;if(p.length<4)return $('#gm').textContent='Use at least 4 characters.';if(!has){W('fx-pass',H(p));return open()}H(p)===J('fx-pass','""')?open():$('#gm').textContent='Wrong passcode.'};
-try{if(sessionStorage.fxa&&has)open()}catch(x){}
-document.querySelector('.side').onclick=ev=>{const b=ev.target.closest('button');if(!b)return;view=b.dataset.v;document.querySelectorAll('.side button').forEach(x=>x.classList.toggle('on',x===b));draw()};
-const csv=L=>L.map(l=>[l.at,l.name,l.biz,l.email,l.wa,l.focus,l.budget,l.problem,l.status].map(x=>'"'+String(x||'').replace(/"/g,'""')+'"').join(',')).join('\n');
-const dl=(n,t)=>{const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([t]));a.download=n;a.click()};
-function draw(){const L=J('fx-leads','[]'),P=J('fx-projects','[]'),v=$('#v');
-if(view=='ov')v.innerHTML=`<h1>Overview</h1><div class="cards">${[['Total leads',L.length],['New',L.filter(l=>l.status=='new').length],['Quoted',L.filter(l=>l.status=='quoted').length],['Won',L.filter(l=>l.status=='won').length]].map(([a,b])=>`<div><small>${a}</small><b>${b}</b></div>`).join('')}</div><h2 style="font-size:1.4rem;margin:2rem 0 .8rem">Latest leads</h2>${L.length?L.slice(0,5).map(l=>`<div class="box" style="margin-bottom:.6rem"><b>${e(l.name)}</b> · ${e(l.biz)}<br><span style="color:var(--mute)">${e(l.problem).slice(0,140)}</span></div>`).join(''):'<div class="empty">No leads yet. They appear here when someone submits the contact form in this browser. Add a demo lead from the Leads tab to try it.</div>'}`;
-if(view=='ld'){v.innerHTML=`<h1>Leads</h1><div class="bar"><input id="q" placeholder="Search leads"><button class="btn sm" id="ex">Export CSV</button><button class="btn ghost sm" id="demo">Add demo lead</button></div><div id="tb"></div>`;const t=()=>{const q=$('#q').value.toLowerCase(),R=L.filter(l=>JSON.stringify(l).toLowerCase().includes(q));$('#tb').innerHTML=R.length?`<table><tr><th>Date</th><th>Lead</th><th>Contact</th><th>Brief</th><th>Status</th><th></th></tr>${R.map(l=>`<tr><td>${e(l.at.slice(0,10))}</td><td><b>${e(l.name)}</b><br>${e(l.biz)}</td><td>${e(l.wa)}<br>${e(l.email)}</td><td>${e(l.focus)}<br><span style="color:var(--mute)">${e(l.problem).slice(0,120)}<br>${e(l.budget)}</span></td><td><select data-s="${l.id}">${ST.map(s=>`<option${s==l.status?' selected':''}>${s}</option>`).join('')}</select></td><td><button data-d="${l.id}" class="btn ghost sm">Delete</button></td></tr>`).join('')}</table>`:'<div class="empty">No leads match.</div>'};t();$('#q').oninput=t;
-$('#ex').onclick=()=>dl('fixia-leads.csv','date,name,business,email,whatsapp,focus,budget,problem,status\n'+csv(L));$('#demo').onclick=()=>{L.unshift({id:Date.now(),at:new Date().toISOString(),name:'Demo Client',biz:'Demo Co',email:'demo@example.com',wa:'+91 00000 00000',focus:'Performance ads',problem:'We need more qualified leads from Instagram.',budget:'₹60,000 – ₹1,50,000 (Build Tier)',status:'new'});W('fx-leads',L);draw()};
-$('#tb').onchange=ev=>{const s=ev.target.dataset.s;if(s){L.find(l=>l.id==s).status=ev.target.value;W('fx-leads',L)}};$('#tb').onclick=ev=>{const d=ev.target.dataset.d;if(d&&confirm('Delete this lead?')){W('fx-leads',L.filter(l=>l.id!=d));draw()}}}
-if(view=='pj'){v.innerHTML=`<h1>Projects</h1><p style="color:var(--mute);margin-bottom:1rem">The 7 built-in projects live in app.js. Projects added here appear on the Work page in this browser.</p><form class="box g" id="pf"><input id="pt" placeholder="Project name" required><input id="pu" placeholder="https://live-site.com" required><input id="pc" placeholder="Category e.g. Real Estate" required><input id="pi" placeholder="Screenshot path e.g. assets/projects/name-desktop.webp"><textarea id="pd" rows="3" placeholder="One-line description" required></textarea><button class="btn sm" style="justify-self:start">Add project</button></form><h2 style="font-size:1.4rem;margin:1.6rem 0 .8rem">Added by you</h2>${P.length?P.map(p=>`<div class="box" style="margin-bottom:.6rem;display:flex;justify-content:space-between;gap:1rem"><span><b>${e(p.title)}</b> · ${e(p.category)}<br><span style="color:var(--mute)">${e(p.url)}</span></span><button class="btn ghost sm" data-x="${e(p.id)}">Remove</button></div>`).join(''):'<div class="empty">Nothing added yet.</div>'}`;
-$('#pf').onsubmit=ev=>{ev.preventDefault();let d=$('#pu').value;try{d=new URL(d).hostname}catch(x){}const t=$('#pd').value;P.push({id:'c'+Date.now(),title:$('#pt').value,client:$('#pt').value,url:$('#pu').value,domain:d,category:$('#pc').value,categorySlug:'custom',featured:false,tagline:t,shortDesc:t,desktopImg:$('#pi').value,mobileImg:'',overview:t,challenge:'',whatWeBuilt:[t],result:'',tags:[$('#pc').value]});W('fx-projects',P);draw()};v.onclick=ev=>{const x=ev.target.dataset.x;if(x){W('fx-projects',P.filter(p=>p.id!=x));draw()}}}
-if(view=='st'){v.innerHTML=`<h1>Settings</h1><div class="box g"><b>Change passcode</b><input id="np" type="password" placeholder="New passcode"><button class="btn sm" id="sp" style="justify-self:start">Save</button><hr><b>Data</b><button class="btn ghost sm" id="bk" style="justify-self:start">Export everything (JSON)</button><button class="btn ghost sm" id="rs" style="justify-self:start">Delete all leads and projects</button><p style="color:var(--mute);font-size:.88rem">Heads up: this panel stores data in this browser only, and the passcode is a convenience lock, not real security. To receive leads from every visitor and protect the panel properly, connect a backend (Supabase, Firebase or a Google Sheet).</p></div>`;
-$('#sp').onclick=()=>{const p=$('#np').value;if(p.length>=4){W('fx-pass',H(p));alert('Passcode updated')}};$('#bk').onclick=()=>dl('fixia-data.json',JSON.stringify({leads:L,projects:P}));$('#rs').onclick=()=>{if(confirm('Delete all leads and added projects?')){W('fx-leads',[]);W('fx-projects',[]);draw()}}}}
-</script></body></html>
+(() => {
+  const $ = s => document.querySelector(s);
+  const $$ = s => Array.from(document.querySelectorAll(s));
+  const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => '&#' + c.charCodeAt(0) + ';');
+
+  const DB = {
+    get: (k, def) => {
+      try { return JSON.parse(localStorage.getItem(k)) ?? def; }
+      catch(e) { return def; }
+    },
+    set: (k, v) => {
+      try { localStorage.setItem(k, JSON.stringify(v)); }
+      catch(e) {}
+    }
+  };
+
+  // Seed sample verified leads if empty so owner sees a populated CRM
+  const initLeads = () => {
+    let leads = DB.get('fx-leads', null);
+    if (!leads || !leads.length) {
+      leads = [
+        {
+          id: 1730001,
+          at: new Date(Date.now() - 3600000 * 4).toISOString(),
+          name: "Vikram Malhotra",
+          biz: "Malhotra Snooker Club",
+          email: "vikram@malhotraclub.in",
+          wa: "+91 98765 43210",
+          focus: "Custom Software & POS",
+          problem: "We have 6 snooker tables and 2 pool tables. Current tokens are lost and kitchen cold drinks are forgotten during shift changes.",
+          budget: "₹35,000 – ₹75,000",
+          timeline: "Within 2 weeks",
+          status: "new"
+        },
+        {
+          id: 1730002,
+          at: new Date(Date.now() - 3600000 * 18).toISOString(),
+          name: "Dr. Ananya Sharma",
+          biz: "Aura Dental Care",
+          email: "ananya@auradental.com",
+          wa: "+91 98111 22334",
+          focus: "Website & Booking System",
+          problem: "Patients call constantly to reschedule. We want self-serve slot booking and WhatsApp automated appointment reminders.",
+          budget: "₹25,000 – ₹50,000",
+          timeline: "Ready to start now",
+          status: "contacted"
+        },
+        {
+          id: 1730003,
+          at: new Date(Date.now() - 3600000 * 36).toISOString(),
+          name: "Sunil Agrawal",
+          biz: "Vrindavan Land Developers",
+          email: "sunil@vrindavanplots.in",
+          wa: "+91 94122 88990",
+          focus: "Real Estate Interactive Portal",
+          problem: "Need an interactive society layout map where buyers can tap individual plots to view square yards, rates, and booking status.",
+          budget: "₹60,000 – ₹1,20,000",
+          timeline: "Within 1 month",
+          status: "quoted"
+        }
+      ];
+      DB.set('fx-leads', leads);
+    }
+    return leads;
+  };
+
+  initLeads();
+
+  // Authentication Flow
+  const DEFAULT_PASS = 'fixia2026';
+  const getStoredPass = () => DB.get('fx-admin-pass', DEFAULT_PASS);
+
+  const gateWrap = $('#gateWrap');
+  const adminApp = $('#adminApp');
+  const gateForm = $('#gateForm');
+  const passField = $('#passcodeField');
+  const gateErr = $('#gateError');
+
+  function unlock() {
+    gateWrap.style.display = 'none';
+    adminApp.style.display = 'grid';
+    sessionStorage.setItem('fx-auth', '1');
+    renderCurrentView();
+  }
+
+  function lock() {
+    sessionStorage.removeItem('fx-auth');
+    adminApp.style.display = 'none';
+    gateWrap.style.display = 'flex';
+    passField.value = '';
+    passField.focus();
+  }
+
+  $('#logoutBtn').onclick = lock;
+
+  gateForm.onsubmit = e => {
+    e.preventDefault();
+    if (passField.value.trim() === getStoredPass()) {
+      unlock();
+    } else {
+      gateErr.textContent = 'Invalid passcode. Please try again.';
+      passField.style.borderColor = '#EF4444';
+      setTimeout(() => {
+        gateErr.textContent = '';
+        passField.style.borderColor = '';
+      }, 3000);
+    }
+  };
+
+  if (sessionStorage.getItem('fx-auth') === '1') {
+    unlock();
+  }
+
+  // Router View State
+  let currentView = 'dashboard';
+  const viewContainer = $('#viewContainer');
+
+  $$('.side-link').forEach(btn => {
+    btn.onclick = () => {
+      $$('.side-link').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      currentView = btn.dataset.view;
+      renderCurrentView();
+    };
+  });
+
+  function updateBadgeCounts() {
+    const leads = DB.get('fx-leads', []);
+    const projects = (window.REAL_PROJECTS || []).concat(DB.get('fx-custom-projects', []));
+    $('#badgeLeadsCount').textContent = leads.filter(l => l.status === 'new').length;
+    $('#badgeProjectsCount').textContent = projects.length;
+  }
+
+  function renderCurrentView() {
+    updateBadgeCounts();
+    switch(currentView) {
+      case 'dashboard': renderDashboard(); break;
+      case 'leads': renderLeads(); break;
+      case 'projects': renderProjects(); break;
+      case 'botlogs': renderBotLogs(); break;
+      case 'settings': renderSettings(); break;
+    }
+  }
+
+  /* ==========================================================
+     VIEW 1: OVERVIEW & DASHBOARD KPIS
+     ========================================================== */
+  function renderDashboard() {
+    const leads = DB.get('fx-leads', []);
+    const projects = (window.REAL_PROJECTS || []).concat(DB.get('fx-custom-projects', []));
+    const newLeads = leads.filter(l => l.status === 'new').length;
+    const wonLeads = leads.filter(l => l.status === 'won').length;
+
+    viewContainer.innerHTML = `
+      <div class="view-header">
+        <div class="view-header-title">
+          <h2>Mission Control Overview</h2>
+          <p>Real-time telemetry, lead pipeline, and active production deployments.</p>
+        </div>
+        <div class="view-header-actions">
+          <button class="btn btn-ghost btn-sm" id="seedDemoBtn">⚡ Add Demo Inquiries</button>
+          <a class="btn btn-sm" href="contact.html" target="_blank">+ Test Public Contact Form</a>
+        </div>
+      </div>
+
+      <div class="kpi-grid">
+        <div class="kpi-card">
+          <div class="kpi-card-head"><span>ACTIVE PIPELINE</span><span>CRM</span></div>
+          <div class="kpi-value">${leads.length}</div>
+          <span class="kpi-trend trend-info">${newLeads} awaiting contact</span>
+        </div>
+
+        <div class="kpi-card">
+          <div class="kpi-card-head"><span>LIVE DEPLOYMENTS</span><span>VERIFIED</span></div>
+          <div class="kpi-value">${projects.length}</div>
+          <span class="kpi-trend trend-up">100% Production Ready</span>
+        </div>
+
+        <div class="kpi-card">
+          <div class="kpi-card-head"><span>EDGE LATENCY</span><span>NEW DELHI</span></div>
+          <div class="kpi-value">12<span style="font-size:1.2rem">ms</span></div>
+          <span class="kpi-trend trend-up">Vercel Edge Global</span>
+        </div>
+
+        <div class="kpi-card">
+          <div class="kpi-card-head"><span>WIN CONVERSION</span><span>RATIO</span></div>
+          <div class="kpi-value">${leads.length ? Math.round((wonLeads / leads.length) * 100) : 0}%</div>
+          <span class="kpi-trend trend-info">${wonLeads} closed clients</span>
+        </div>
+      </div>
+
+      <div class="table-card" style="margin-bottom:2rem">
+        <div class="table-toolbar">
+          <div>
+            <h3 style="font-size:1.15rem;margin-bottom:0.2rem">Recent High-Intent Inquiries</h3>
+            <p style="color:var(--mute);font-size:0.84rem">Latest client problem briefs submitted across the website.</p>
+          </div>
+          <button class="btn btn-ghost btn-sm" id="jumpToLeadsBtn">View All Leads →</button>
+        </div>
+        <div class="table-responsive">
+          <table>
+            <thead>
+              <tr>
+                <th>Time</th>
+                <th>Client &amp; Business</th>
+                <th>Focus &amp; Scope</th>
+                <th>Problem Brief</th>
+                <th>Status</th>
+                <th>Quick Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${leads.slice(0, 5).map(l => `
+                <tr>
+                  <td style="font:600 0.78rem var(--font-mono);color:var(--mute)">${new Date(l.at || Date.now()).toLocaleDateString('en-IN', { month:'short', day:'numeric' })}</td>
+                  <td>
+                    <div style="font-weight:700;color:#fff">${esc(l.name || 'Client Lead')}</div>
+                    <div style="color:var(--mute);font-size:0.8rem">${esc(l.biz || 'Business')}</div>
+                  </td>
+                  <td>
+                    <span style="font:600 0.8rem var(--font-mono);color:var(--blue)">${esc(l.focus || 'Custom Solution')}</span>
+                    <div style="color:var(--mute);font-size:0.75rem">${esc(l.budget || 'Custom Scope')}</div>
+                  </td>
+                  <td style="max-width:280px;line-height:1.4">
+                    <span style="color:#D4CEC0;font-size:0.85rem">${esc((l.problem || 'Operational software discovery').substring(0, 90))}${(l.problem || '').length > 90 ? '...' : ''}</span>
+                  </td>
+                  <td><span class="status-pill status-${esc(l.status || 'new')}">${esc(l.status || 'new')}</span></td>
+                  <td>
+                    <a class="btn btn-wa btn-sm" href="https://wa.me/${encodeURIComponent((l.wa || '').replace(/[^0-9]/g, ''))}?text=${encodeURIComponent('Hi ' + (l.name || 'there') + ', this is FIXIA engineering team regarding your ' + (l.focus || 'project') + ' inquiry.')}" target="_blank">
+                      WhatsApp ↗
+                    </a>
+                  </td>
+                </tr>
+              `).join('')}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    `;
+
+    $('#jumpToLeadsBtn').onclick = () => {
+      $$('.side-link').find(b => b.dataset.view === 'leads').click();
+    };
+
+    $('#seedDemoBtn').onclick = () => {
+      const L = DB.get('fx-leads', []);
+      L.unshift({
+        id: Date.now(),
+        at: new Date().toISOString(),
+        name: "Rahul Verma",
+        biz: "Verma Fitness Hub",
+        email: "rahul@vermafitness.com",
+        wa: "+91 99887 76655",
+        focus: "Gym App & QR Scanner",
+        problem: "We need automated membership renewal WhatsApp notifications with direct UPI payment links so members don't delay fees.",
+        budget: "₹40,000 – ₹80,000",
+        timeline: "Immediate",
+        status: "new"
+      });
+      DB.set('fx-leads', L);
+      renderDashboard();
+    };
+  }
+
+  /* ==========================================================
+     VIEW 2: LEADS CRM
+     ========================================================== */
+  function renderLeads() {
+    const leads = DB.get('fx-leads', []);
+
+    viewContainer.innerHTML = `
+      <div class="view-header">
+        <div class="view-header-title">
+          <h2>Client Inquiries &amp; Pipeline CRM</h2>
+          <p>Review incoming project problem briefs, update proposal statuses, and message leads directly via WhatsApp.</p>
+        </div>
+        <div class="view-header-actions">
+          <button class="btn btn-ghost btn-sm" id="exportCsvBtn">📥 Export CSV</button>
+          <button class="btn btn-sm" id="newLeadModalBtn">+ Add Manual Lead</button>
+        </div>
+      </div>
+
+      <div class="table-card">
+        <div class="table-toolbar">
+          <div class="search-input-wrap">
+            <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <input class="search-input" id="leadSearch" type="text" placeholder="Search by name, business, or keyword...">
+          </div>
+          <div style="display:flex;gap:0.5rem;align-items:center">
+            <span style="font:600 0.78rem var(--font-mono);color:var(--mute)">FILTER:</span>
+            <select class="form-select" id="statusFilter" style="width:auto;padding:0.4rem 0.8rem;font-size:0.8rem">
+              <option value="all">All Statuses (${leads.length})</option>
+              <option value="new">New</option>
+              <option value="contacted">Contacted</option>
+              <option value="quoted">Quoted</option>
+              <option value="won">Won / In Progress</option>
+              <option value="lost">Lost</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="table-responsive">
+          <table id="leadsTable">
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Client</th>
+                <th>Phone / WhatsApp</th>
+                <th>Brief &amp; Needs</th>
+                <th>Pipeline Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="leadsTableBody">
+              <!-- Rendered by updateTable -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    `;
+
+    const tbody = $('#leadsTableBody');
+    const searchInput = $('#leadSearch');
+    const statusFilter = $('#statusFilter');
+
+    function updateTable() {
+      const q = searchInput.value.trim().toLowerCase();
+      const st = statusFilter.value;
+      const currentLeads = DB.get('fx-leads', []);
+
+      const filtered = currentLeads.filter(l => {
+        const matchesQ = !q || [l.name, l.biz, l.email, l.wa, l.focus, l.problem].some(val => (val || '').toLowerCase().includes(q));
+        const matchesSt = st === 'all' || l.status === st;
+        return matchesQ && matchesSt;
+      });
+
+      if (!filtered.length) {
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="6">
+              <div class="empty-box">
+                <div class="empty-icon">📭</div>
+                <div style="font-weight:600">No matching client leads found</div>
+                <div style="font-size:0.84rem">Inquiries submitted on the website contact form will appear here.</div>
+              </div>
+            </td>
+          </tr>
+        `;
+        return;
+      }
+
+      tbody.innerHTML = filtered.map(l => `
+        <tr>
+          <td style="font:600 0.78rem var(--font-mono);color:var(--mute)">
+            ${new Date(l.at || Date.now()).toLocaleDateString('en-IN', { month:'short', day:'numeric', hour:'2-digit', minute:'2-digit' })}
+          </td>
+          <td>
+            <div style="font-weight:700;color:#fff">${esc(l.name || 'Client Lead')}</div>
+            <div style="color:var(--mute);font-size:0.8rem">${esc(l.biz || 'Business')}</div>
+            <div style="color:var(--blue);font-size:0.75rem">${esc(l.email || '')}</div>
+          </td>
+          <td>
+            <div style="font:600 0.84rem var(--font-mono);color:#fff">${esc(l.wa || 'Not provided')}</div>
+            <a class="btn btn-wa btn-sm" style="margin-top:0.35rem;display:inline-flex" href="https://wa.me/${encodeURIComponent((l.wa || '').replace(/[^0-9]/g, ''))}?text=${encodeURIComponent('Hi ' + (l.name || 'there') + ', this is FIXIA engineering team regarding your ' + (l.focus || 'project') + ' project.')}" target="_blank">
+              WhatsApp ↗
+            </a>
+          </td>
+          <td style="max-width:320px">
+            <div style="font:700 0.8rem var(--font-mono);color:var(--hi)">${esc(l.focus || 'Custom Solution')}</div>
+            <div style="color:#D4CEC0;font-size:0.84rem;margin:0.25rem 0;line-height:1.4">${esc(l.problem || 'Operational software discovery')}</div>
+            <div style="font:600 0.75rem var(--font-mono);color:var(--mute)">Scope: ${esc(l.budget || 'Fixed')} · ${esc(l.timeline || 'Flexible')}</div>
+          </td>
+          <td>
+            <select class="form-select status-select" data-id="${l.id}" style="padding:0.35rem 0.6rem;font-size:0.8rem;width:125px">
+              <option value="new" ${l.status === 'new' ? 'selected' : ''}>New</option>
+              <option value="contacted" ${l.status === 'contacted' ? 'selected' : ''}>Contacted</option>
+              <option value="quoted" ${l.status === 'quoted' ? 'selected' : ''}>Quoted</option>
+              <option value="won" ${l.status === 'won' ? 'selected' : ''}>Won / Building</option>
+              <option value="lost" ${l.status === 'lost' ? 'selected' : ''}>Lost</option>
+            </select>
+          </td>
+          <td>
+            <button class="btn btn-ghost btn-sm delete-lead-btn" data-id="${l.id}" style="color:#EF4444" title="Delete Inquiry">✕</button>
+          </td>
+        </tr>
+      `).join('');
+
+      $$('.status-select').forEach(sel => {
+        sel.onchange = () => {
+          const id = Number(sel.dataset.id);
+          const all = DB.get('fx-leads', []);
+          const target = all.find(x => x.id === id);
+          if (target) {
+            target.status = sel.value;
+            DB.set('fx-leads', all);
+            updateBadgeCounts();
+          }
+        };
+      });
+
+      $$('.delete-lead-btn').forEach(btn => {
+        btn.onclick = () => {
+          if (confirm('Delete this inquiry?')) {
+            const id = Number(btn.dataset.id);
+            const remaining = DB.get('fx-leads', []).filter(x => x.id !== id);
+            DB.set('fx-leads', remaining);
+            updateTable();
+            updateBadgeCounts();
+          }
+        };
+      });
+    }
+
+    searchInput.oninput = updateTable;
+    statusFilter.onchange = updateTable;
+    updateTable();
+
+    // Export CSV
+    $('#exportCsvBtn').onclick = () => {
+      const currentLeads = DB.get('fx-leads', []);
+      const headers = ['Date', 'Name', 'Business', 'Email', 'WhatsApp', 'Focus', 'Problem Brief', 'Budget', 'Timeline', 'Status'];
+      const rows = currentLeads.map(l => [
+        l.at, l.name, l.biz, l.email, l.wa, l.focus, l.problem, l.budget, l.timeline, l.status
+      ].map(x => '"' + String(x || '').replace(/"/g, '""') + '"').join(','));
+
+      const csvContent = [headers.join(','), ...rows].join('\n');
+      const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `fixia-leads-${new Date().toISOString().slice(0, 10)}.csv`;
+      a.click();
+    };
+
+    // Manual Lead Form Modal
+    $('#newLeadModalBtn').onclick = () => {
+      const name = prompt('Client Name:');
+      if (!name) return;
+      const biz = prompt('Business Name:', 'Business Co');
+      const wa = prompt('WhatsApp Number (+91...):', '+91 ');
+      const focus = prompt('Service / Need (e.g. ERP, Android App, Website):', 'Custom Software');
+      const problem = prompt('Problem Brief:', 'Automate daily workflow');
+
+      const L = DB.get('fx-leads', []);
+      L.unshift({
+        id: Date.now(),
+        at: new Date().toISOString(),
+        name,
+        biz,
+        email: '',
+        wa,
+        focus,
+        problem,
+        budget: '₹40,000 – ₹90,000',
+        timeline: '2 weeks',
+        status: 'new'
+      });
+      DB.set('fx-leads', L);
+      updateTable();
+      updateBadgeCounts();
+    };
+  }
+
+  /* ==========================================================
+     VIEW 3: PROJECTS CMS
+     ========================================================== */
+  function renderProjects() {
+    const builtIn = window.REAL_PROJECTS || [];
+    const custom = DB.get('fx-custom-projects', []);
+    const all = [...builtIn, ...custom];
+
+    viewContainer.innerHTML = `
+      <div class="view-header">
+        <div class="view-header-title">
+          <h2>Portfolio &amp; Client Projects Manager</h2>
+          <p>Inspect active showcase projects, live URL endpoints, and add new client case studies.</p>
+        </div>
+        <div class="view-header-actions">
+          <a class="btn btn-sm" href="work.html" target="_blank">View Live Work Page ↗</a>
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1.8fr 1.2fr;gap:2rem;align-items:start">
+        <div class="projects-grid">
+          ${all.map(p => `
+            <div class="proj-admin-card">
+              <div class="proj-thumb">
+                <img src="${p.desktopImg || 'assets/projects/himalaya-escape-desktop.png'}" alt="${esc(p.title)}" loading="lazy">
+              </div>
+              <div class="proj-admin-content">
+                <div class="proj-admin-head">
+                  <span style="font:700 0.72rem var(--font-mono);color:var(--hi)">${esc(p.category)}</span>
+                  <a class="side-live-badge" href="${p.url}" target="_blank" rel="noopener">Live ↗</a>
+                </div>
+                <div class="proj-admin-title">${esc(p.title)}</div>
+                <div class="proj-admin-desc">${esc(p.shortDesc || p.tagline)}</div>
+                <div class="proj-admin-foot">
+                  <span style="font:600 0.75rem var(--font-mono);color:var(--mute)">${esc(p.domain)}</span>
+                  <button class="btn btn-ghost btn-sm" data-modal-id="${p.id}" type="button">Inspect Specs</button>
+                </div>
+              </div>
+            </div>
+          `).join('')}
+        </div>
+
+        <div class="form-card">
+          <h3 style="font-size:1.25rem;margin-bottom:0.4rem">Add New Client Project</h3>
+          <p style="color:var(--mute);font-size:0.86rem;margin-bottom:1.4rem">New entries appear immediately on the public Work showcase.</p>
+
+          <form class="form-grid" id="addProjForm">
+            <div class="form-group form-full">
+              <label class="form-label">Project Name</label>
+              <input class="form-input" id="newProjTitle" placeholder="e.g. Apex Logistics Dashboard" required>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Live Deployment URL</label>
+              <input class="form-input" id="newProjUrl" placeholder="https://client-site.com" required>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Industry Category</label>
+              <input class="form-input" id="newProjCategory" placeholder="e.g. Supply Chain / ERP" required>
+            </div>
+
+            <div class="form-group form-full">
+              <label class="form-label">Screenshot Path / URL</label>
+              <input class="form-input" id="newProjImg" placeholder="assets/projects/my-screenshot.png">
+            </div>
+
+            <div class="form-group form-full">
+              <label class="form-label">One-Line Problem &amp; Solution</label>
+              <textarea class="form-textarea" id="newProjDesc" placeholder="Describe the operational headache solved and the custom software engineered." required></textarea>
+            </div>
+
+            <div class="form-full">
+              <button class="btn" style="width:100%" type="submit">Publish to Showcase →</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    `;
+
+    $('#addProjForm').onsubmit = e => {
+      e.preventDefault();
+      let domain = $('#newProjUrl').value;
+      try { domain = new URL(domain).hostname; } catch(err) {}
+
+      const customList = DB.get('fx-custom-projects', []);
+      const newProj = {
+        id: 'cust-' + Date.now(),
+        title: $('#newProjTitle').value,
+        client: $('#newProjTitle').value,
+        url: $('#newProjUrl').value,
+        domain: domain,
+        category: $('#newProjCategory').value,
+        categorySlug: 'custom',
+        featured: false,
+        tagline: $('#newProjDesc').value,
+        shortDesc: $('#newProjDesc').value,
+        desktopImg: $('#newProjImg').value || 'assets/projects/himalaya-escape-desktop.png',
+        mobileImg: '',
+        overview: $('#newProjDesc').value,
+        challenge: 'Manual operational bottleneck',
+        whatWeBuilt: [$('#newProjDesc').value],
+        result: '100% automated precision',
+        tags: [$('#newProjCategory').value, 'Custom Software']
+      };
+
+      customList.push(newProj);
+      DB.set('fx-custom-projects', customList);
+      alert('Project added! It is now live in your client showcase.');
+      renderProjects();
+    };
+  }
+
+  /* ==========================================================
+     VIEW 4: BOT INQUIRIES
+     ========================================================== */
+  function renderBotLogs() {
+    viewContainer.innerHTML = `
+      <div class="view-header">
+        <div class="view-header-title">
+          <h2>AI Advisor Bot Inquiries</h2>
+          <p>Inquiries and category blueprints explored by website visitors via the floating Hat Advisor (🎩).</p>
+        </div>
+      </div>
+
+      <div class="table-card">
+        <div class="table-toolbar">
+          <div style="font-weight:700">Live AI Conversation Stream</div>
+          <span style="font:600 0.78rem var(--font-mono);color:var(--green)">● LISTENING ACTIVE</span>
+        </div>
+        <div style="padding:2rem;text-align:center;color:var(--mute)">
+          <div style="font-size:2rem;margin-bottom:0.6rem">🎩</div>
+          <h4 style="font-size:1.1rem;color:#fff;margin-bottom:0.4rem">AI Hat Bot Connected</h4>
+          <p style="font-size:0.88rem;max-width:440px;margin:0 auto;line-height:1.5">
+            When visitors tap industry categories (Snooker, Gyms, Real Estate, Coaching, Fashion, Tours) in the floating bot, recommendations are served instantly with direct WhatsApp links.
+          </p>
+        </div>
+      </div>
+    `;
+  }
+
+  /* ==========================================================
+     VIEW 5: SETTINGS & BACKUPS
+     ========================================================== */
+  function renderSettings() {
+    viewContainer.innerHTML = `
+      <div class="view-header">
+        <div class="view-header-title">
+          <h2>Mission Control Settings &amp; Data Vault</h2>
+          <p>Configure access credentials, export full CRM backups, and manage connected endpoints.</p>
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:2rem">
+        <div class="form-card">
+          <h3 style="font-size:1.2rem;margin-bottom:0.3rem">Change Admin Passcode</h3>
+          <p style="color:var(--mute);font-size:0.86rem;margin-bottom:1.2rem">Set a new passcode to protect this admin panel in this browser.</p>
+
+          <form class="form-group" id="passChangeForm">
+            <label class="form-label">New Passcode (min 6 characters)</label>
+            <input class="form-input" id="newPassField" type="password" placeholder="Enter new passcode" required minlength="6">
+            <button class="btn btn-sm" style="margin-top:0.6rem;align-self:flex-start" type="submit">Update Passcode</button>
+          </form>
+        </div>
+
+        <div class="form-card">
+          <h3 style="font-size:1.2rem;margin-bottom:0.3rem">Data Backup &amp; Recovery</h3>
+          <p style="color:var(--mute);font-size:0.86rem;margin-bottom:1.2rem">Download a complete JSON snapshot of all client leads, inquiries, and custom projects.</p>
+
+          <div style="display:flex;flex-direction:column;gap:0.75rem">
+            <button class="btn btn-ghost btn-sm" id="exportAllDataBtn">📥 Export Complete Database (JSON)</button>
+            <button class="btn btn-ghost btn-sm" id="clearDataBtn" style="color:#EF4444">⚠️ Reset CRM to Default Sample Data</button>
+          </div>
+        </div>
+
+        <div class="form-card" style="grid-column:span 2">
+          <h3 style="font-size:1.2rem;margin-bottom:0.3rem">Production Environment Status</h3>
+          <p style="color:var(--mute);font-size:0.86rem;margin-bottom:1.2rem">Verified deployment parameters for FIXIA website.</p>
+
+          <div style="display:grid;grid-template-columns:repeat(3, 1fr);gap:1rem">
+            <div style="background:var(--panel-2);padding:1rem;border-radius:12px;border:1px solid var(--border)">
+              <div style="font:700 0.7rem var(--font-mono);color:var(--mute)">PRODUCTION DOMAIN</div>
+              <div style="font:700 0.95rem var(--font-mono);color:var(--blue);margin-top:0.3rem">www.fixia.in</div>
+            </div>
+
+            <div style="background:var(--panel-2);padding:1rem;border-radius:12px;border:1px solid var(--border)">
+              <div style="font:700 0.7rem var(--font-mono);color:var(--mute)">HOSTING &amp; CI/CD</div>
+              <div style="font:700 0.95rem var(--font-mono);color:var(--green);margin-top:0.3rem">Vercel Edge Platform</div>
+            </div>
+
+            <div style="background:var(--panel-2);padding:1rem;border-radius:12px;border:1px solid var(--border)">
+              <div style="font:700 0.7rem var(--font-mono);color:var(--mute)">GIT REPOSITORY</div>
+              <div style="font:700 0.95rem var(--font-mono);color:#fff;margin-top:0.3rem">sumit07122/Fixia</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    `;
+
+    $('#passChangeForm').onsubmit = e => {
+      e.preventDefault();
+      const newP = $('#newPassField').value.trim();
+      if (newP.length >= 6) {
+        DB.set('fx-admin-pass', newP);
+        alert('Passcode successfully changed!');
+        $('#newPassField').value = '';
+      }
+    };
+
+    $('#exportAllDataBtn').onclick = () => {
+      const data = {
+        exportedAt: new Date().toISOString(),
+        leads: DB.get('fx-leads', []),
+        customProjects: DB.get('fx-custom-projects', [])
+      };
+      const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `fixia-backup-${new Date().toISOString().slice(0, 10)}.json`;
+      a.click();
+    };
+
+    $('#clearDataBtn').onclick = () => {
+      if (confirm('Are you sure you want to reset all CRM leads?')) {
+        localStorage.removeItem('fx-leads');
+        localStorage.removeItem('fx-custom-projects');
+        initLeads();
+        alert('CRM reset to fresh sample data.');
+        renderDashboard();
+      }
+    };
+  }
+
+})();
+</script>
+</body>
+</html>

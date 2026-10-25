@@ -7,6 +7,5 @@ node_modules/
 Thumbs.db
 *.log
 
-# Scratch test images
-scratch/*.png
-scratch/test_*.png
+# Scratch test images and scripts
+scratch/

@@ -3,24 +3,62 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>One Shot / CueDesk ERP Case Study – FIXIA</title>
-<meta name="description" content="How FIXIA engineered a real-time operational ERP, live WebSocket table timer matrix, and POS billing system for One Shot Snooker & Gaming Arena.">
+<title>Case Study Details &amp; Systems Architecture – FIXIA</title>
+<meta name="description" content="Detailed engineering deep-dives, operational bottlenecks, architectural solutions, and before/after metrics for verified FIXIA client projects.">
 <link rel="icon" type="image/svg+xml" href="logo/fixia-favicon.svg">
+<link rel="manifest" href="manifest.webmanifest">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css?v=20261025d">
 <link rel="stylesheet" href="polish.css?v=20261025d">
 <style>
 .case-hero {
-  padding: clamp(3.5rem, 8vw, 6rem) 0 2rem;
+  padding: clamp(3rem, 7vw, 5.5rem) 0 2rem;
 }
 .case-hero h1 {
-  font-size: clamp(2.6rem, 6.2vw, 5.2rem);
+  font-size: clamp(2.4rem, 5.5vw, 4.8rem);
   letter-spacing: -0.045em;
-  line-height: 0.96;
-  max-width: 15ch;
+  line-height: 1.02;
+  max-width: 18ch;
   margin: 0.8rem 0 1.2rem;
+}
+
+/* Project Switcher Bar */
+.case-nav-pills {
+  display: flex;
+  gap: 0.6rem;
+  overflow-x: auto;
+  padding: 0.5rem 0 1.2rem;
+  margin: 1.2rem 0 1.8rem;
+  scrollbar-width: none;
+}
+.case-nav-pills::-webkit-scrollbar { display: none; }
+.case-nav-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.5rem 1.1rem;
+  border-radius: 999px;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  color: var(--ink);
+  font: 600 0.84rem var(--mono);
+  text-decoration: none;
+  white-space: nowrap;
+  transition: all 0.2s;
+  cursor: pointer;
+}
+.case-nav-pill:hover {
+  border-color: var(--cobalt);
+  color: var(--cobalt);
+  transform: translateY(-1px);
+}
+.case-nav-pill.active {
+  background: var(--ink);
+  color: #fff;
+  border-color: var(--ink);
+  box-shadow: 0 4px 14px rgba(0,0,0,0.15);
 }
 
 /* Metric Ribbon */
@@ -28,8 +66,8 @@
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 1.5rem;
-  margin: 2.5rem 0 3.5rem;
-  padding: 2.2rem 0;
+  margin: 2rem 0 3rem;
+  padding: 2rem 0;
   border-top: 1px solid var(--line);
   border-bottom: 1px solid var(--line);
 }
@@ -41,24 +79,25 @@
   margin-bottom: 0.35rem;
 }
 .metric-tile b {
-  font: 800 clamp(2.2rem, 3.8vw, 3.2rem)/1 var(--display);
+  font: 800 clamp(2rem, 3.6vw, 3rem)/1 var(--display);
   letter-spacing: -0.04em;
   color: var(--ink);
 }
 .metric-tile span {
   display: block;
-  font-size: 0.9rem;
+  font-size: 0.88rem;
   color: var(--mute);
   margin-top: 0.4rem;
+  line-height: 1.35;
 }
 
 /* Interactive Device Stage */
 .device-stage {
-  margin: 3rem 0 5rem;
+  margin: 2.5rem 0 4.5rem;
   background: var(--ink);
   color: #fff;
   border-radius: 30px;
-  padding: clamp(2rem, 4vw, 3.5rem);
+  padding: clamp(1.8rem, 4vw, 3.5rem);
   box-shadow: 0 40px 80px -30px rgba(16, 16, 16, 0.5);
   border: 1px solid rgba(255, 255, 255, 0.12);
   display: flex;
@@ -85,7 +124,7 @@
 }
 .dev-pill.active {
   background: var(--hi);
-  color: var(--ink);
+  color: #fff;
   font-weight: 700;
 }
 .mockup-container {
@@ -98,35 +137,46 @@
 }
 .mockup-frame {
   background: #1B1B19;
-  border-radius: 18px;
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 20px;
   overflow: hidden;
-  box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.6);
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 .mockup-bar {
-  background: #252522;
-  padding: 0.65rem 1.1rem;
+  height: 44px;
+  background: #141413;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  padding: 0 1.2rem;
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 .mockup-dots {
   display: flex;
-  gap: 0.35rem;
+  gap: 6px;
 }
 .mockup-dots span {
-  width: 10px;
-  height: 10px;
+  width: 11px;
+  height: 11px;
   border-radius: 50%;
   background: rgba(255, 255, 255, 0.2);
 }
+.mockup-dots span:nth-child(1) { background: #FF5F56; }
+.mockup-dots span:nth-child(2) { background: #FFBD2E; }
+.mockup-dots span:nth-child(3) { background: #27C93F; }
 .mockup-url {
-  font: 600 0.78rem var(--mono);
-  color: #A39D90;
+  font: 500 0.78rem var(--mono);
+  color: #A39E93;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 0.3rem 1.2rem;
+  border-radius: 999px;
   display: flex;
   align-items: center;
-  gap: 0.4rem;
+  gap: 0.5rem;
+}
+.mockup-screen {
+  background: #000;
+  line-height: 0;
 }
 .mockup-screen img {
   width: 100%;
@@ -134,19 +184,20 @@
   display: block;
 }
 
-/* Deep-dive Content Layout */
+/* Case Body Layout */
 .case-body {
   display: grid;
-  grid-template-columns: 1.25fr 0.9fr;
-  gap: clamp(2.5rem, 5vw, 5rem);
+  grid-template-columns: 1.8fr 1.2fr;
+  gap: clamp(2.5rem, 5vw, 4.5rem);
   margin-bottom: 5rem;
 }
 .case-section {
   margin-bottom: 3.5rem;
 }
 .case-section h3 {
-  font-size: clamp(1.6rem, 2.8vw, 2.2rem);
-  line-height: 1.1;
+  font-size: clamp(1.6rem, 3.2vw, 2.3rem);
+  letter-spacing: -0.035em;
+  line-height: 1.15;
   margin-bottom: 1rem;
 }
 .case-section p {
@@ -315,35 +366,22 @@
 
 <section class="case-hero">
   <div class="wrap">
-    <div style="display:flex;align-items:center;gap:1rem;flex-wrap:wrap">
-      <a href="work.html" style="font:600 .85rem var(--mono);color:var(--cobalt);text-decoration:none">← Back to all 7 projects</a>
+    <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem">
+      <a href="work.html" style="font:600 .85rem var(--mono);color:var(--cobalt);text-decoration:none">← Back to All Portfolio Projects</a>
       <span class="proj-cat" id="projCat">Custom Software &amp; Venue ERP</span>
     </div>
+
+    <!-- Interactive Project Navigation Switcher -->
+    <div class="case-nav-pills" id="caseNavPills">
+      <!-- Injected by JS -->
+    </div>
+
     <h1 id="projTitle" data-split>One Shot Snooker Arena &amp; CueDesk ERP</h1>
     <p class="lede" id="projTagline" data-reveal>Engineering a real-time operational ERP, live WebSocket table timer matrix, and integrated POS billing system that stopped 100% of revenue leakage.</p>
 
     <!-- Metrics Ribbon -->
-    <div class="metrics-strip" data-stagger>
-      <div class="metric-tile">
-        <small>Dispute Rate</small>
-        <b>₹0</b>
-        <span>Zero customer time disputes</span>
-      </div>
-      <div class="metric-tile">
-        <small>Time Saved</small>
-        <b>4.5h</b>
-        <span>Saved daily on shift close &amp; cash counts</span>
-      </div>
-      <div class="metric-tile">
-        <small>Table Tracking</small>
-        <b>100%</b>
-        <span>Real-time per-minute timer precision</span>
-      </div>
-      <div class="metric-tile">
-        <small>Revenue Visibility</small>
-        <b>Instant</b>
-        <span>Consolidated table + kitchen receipts</span>
-      </div>
+    <div class="metrics-strip" id="metricsStrip" data-stagger>
+      <!-- Injected by JS -->
     </div>
   </div>
 </section>
@@ -353,8 +391,8 @@
   <div class="wrap">
     <div class="device-stage tilt-card" data-reveal>
       <div class="device-switcher-bar">
-        <button type="button" class="dev-pill active" id="btnDesktop">💻 Desktop ERP (1440px)</button>
-        <button type="button" class="dev-pill" id="btnMobile">📱 Staff Mobile App (390px)</button>
+        <button type="button" class="dev-pill active" id="btnDesktop">💻 Desktop Viewport (1440px)</button>
+        <button type="button" class="dev-pill" id="btnMobile">📱 Mobile Viewport (390px)</button>
       </div>
 
       <div class="mockup-container" id="mockupBox">
@@ -368,7 +406,7 @@
             <a class="bf-live-pill" id="mockupLiveLink" href="https://oneshot-livid.vercel.app/" target="_blank" rel="noopener">Visit Live Site ↗</a>
           </div>
           <div class="mockup-screen">
-            <img id="mockupImg" src="assets/projects/oneshot-desktop.png" alt="One Shot CueDesk preview" width="1440" height="900">
+            <img id="mockupImg" src="assets/projects/oneshot-desktop.png" alt="Project preview" width="1440" height="900">
           </div>
         </div>
       </div>
@@ -382,90 +420,13 @@
     <div class="case-body">
 
       <!-- Left Column: Story & System -->
-      <div>
-        <div class="case-section" data-reveal>
-          <span class="eyebrow">01 — The Operational Bottleneck</span>
-          <h3>Paper ledgers, forgotten kitchen chits, and midnight cash arguments.</h3>
-          <p>One Shot Snooker &amp; Gaming Arena operates 8 full-size tournament snooker and pool tables alongside an in-house cafe. During peak evening hours, up to 35 customers compete simultaneously.</p>
-          <p>Before FIXIA, the club relied on manual paper logs. Waitstaff noted start times on notepads, kitchen orders were scribbled on paper chits, and table rates were calculated with handheld desk calculators.</p>
-          <p>The result was financial chaos: customers contested table minutes when billed, cafe orders were served without being logged onto the final bill, and end-of-shift cash balancing took 2.5 hours of disputes every night.</p>
-        </div>
-
-        <div class="case-section" data-reveal>
-          <span class="eyebrow">02 — The Architectural Solution</span>
-          <h3>A real-time session matrix with sub-10ms synchronization.</h3>
-          <p>FIXIA designed and built <strong>CueDesk</strong>, a custom operational platform tailored strictly to venue workflow. Every table is represented as an interactive card displaying live elapsed minutes, current tariff, active players, and linked kitchen tickets.</p>
-          
-          <div class="case-highlights-box">
-            <h5>Core Engineered Modules</h5>
-            <ul>
-              <li><svg class="ico"><use href="#chk"/></svg><span><strong>8-Table Session Matrix:</strong> One-tap start, pause, transfer, and end with automated per-minute rate rounding.</span></li>
-              <li><svg class="ico"><use href="#chk"/></svg><span><strong>Integrated POS Kitchen Ticketing:</strong> Beverages and snacks automatically attach to the active table session.</span></li>
-              <li><svg class="ico"><use href="#chk"/></svg><span><strong>Staff Expense &amp; Cash Drawer:</strong> Live ledger tracking petty cash in/out and net cash in drawer.</span></li>
-              <li><svg class="ico"><use href="#chk"/></svg><span><strong>Automated Shift Close:</strong> 1-click end-of-day reconciliation generating a complete P&amp;L summary.</span></li>
-            </ul>
-          </div>
-        </div>
-
-        <div class="case-section" data-reveal>
-          <span class="eyebrow">03 — Operational Impact</span>
-          <h3>The Before &amp; After Transformation</h3>
-
-          <div class="before-after-box">
-            <div class="ba-header">
-              <div>Manual Paper Way (Before)</div>
-              <div>FIXIA CueDesk ERP (After)</div>
-            </div>
-            <div class="ba-row">
-              <div>Handwritten start/end times prone to human disputes</div>
-              <div>Digital WebSocket timers running to the exact second</div>
-            </div>
-            <div class="ba-row">
-              <div>Unbilled cafe orders lost during peak rush hour</div>
-              <div>Single consolidated invoice combines table time + snacks</div>
-            </div>
-            <div class="ba-row">
-              <div>2 hours spent nightly recounting drawer cash</div>
-              <div>Instant 1-click shift close with zero cash discrepancy</div>
-            </div>
-            <div class="ba-row">
-              <div>Owner blind to actual hourly revenue patterns</div>
-              <div>Real-time analytics showing peak utilization and daily P&amp;L</div>
-            </div>
-          </div>
-        </div>
+      <div id="caseStoryLeft">
+        <!-- Injected dynamically -->
       </div>
 
       <!-- Right Column: Sidebar Meta & Quote -->
-      <aside class="case-sidebar">
-        <div class="info-card tilt-card">
-          <h4>Project Summary</h4>
-          <div class="info-list">
-            <div><small>Client</small><b>One Shot Snooker Arena</b></div>
-            <div><small>Category</small><b>Custom Software &amp; ERP</b></div>
-            <div><small>Sprint Duration</small><b>3 Weeks to Deployment</b></div>
-            <div><small>Code Stack</small><b>Next.js, TypeScript, WebSockets</b></div>
-            <div><small>Deployment</small><b>Vercel Edge Global CDN</b></div>
-            <div><small>IP Ownership</small><b>100% Client Owned</b></div>
-          </div>
-          <div style="margin-top:1.5rem">
-            <a class="btn sm hi" style="width:100%" href="https://oneshot-livid.vercel.app/" target="_blank" rel="noopener">Visit Live System ↗</a>
-          </div>
-        </div>
-
-        <div class="quote-card tilt-card">
-          <p>"Fixia paid for itself in the first 45 days. We completely eliminated billing arguments with customers, and for the first time, our daily cash drawer matches our sales to the exact rupee."</p>
-          <div class="quote-author">
-            <b>Management Partner</b>
-            <small>One Shot Arena</small>
-          </div>
-        </div>
-
-        <div class="info-card" style="background:var(--paper)">
-          <h4>Want a tailored system like this?</h4>
-          <p style="color:var(--mute);font-size:.92rem;margin-bottom:1.2rem">Tell us what is slowing your operations down. We'll engineer an automated platform around how you actually work.</p>
-          <a class="btn sm" style="width:100%" href="contact.html?p=I%20want%20a%20custom%20ERP%20like%20One%20Shot.">Build my custom solution →</a>
-        </div>
+      <aside class="case-sidebar" id="caseSidebarRight">
+        <!-- Injected dynamically -->
       </aside>
 
     </div>
@@ -474,42 +435,412 @@
 
 </main>
 
-<script src="app.js?v=20261025d"></script>
-<script src="polish.js?v=20261025d"></script>
+<script src="app.js?v=20261025e"></script>
+<script src="polish.js?v=20261025e"></script>
 <script>
-// Dynamic Project Loader via ?id=
-const urlParams = new URLSearchParams(window.location.search);
-const projId = urlParams.get('id') || 'oneshot';
-const currentProj = REAL_PROJECTS.find(p => p.id === projId) || REAL_PROJECTS[1];
+(() => {
+  // Rich Case Study Details Lookup for all 7 verified projects
+  const CASE_STUDIES = {
+    "himalaya-escape": {
+      metrics: [
+        { label: "Bookings Direct", val: "94%", note: "Zero OTA commissions" },
+        { label: "WhatsApp Time", val: "-85%", note: "Saved in manual seat chatting" },
+        { label: "Cabin Occupancy", val: "100%", note: "Full 46-passenger capacity" },
+        { label: "Checkout Pace", val: "45s", note: "From cabin pick to boarding pass" }
+      ],
+      bottleneckTitle: "Spreadsheets, double-booked berths, and manual UPI matching.",
+      bottleneckP1: "Himalayan Escape curates 6-day expeditions from the Delhi NCR plains to Manali and Kasol for college students and young professionals.",
+      bottleneckP2: "Before FIXIA, the expedition coordinator managed passenger allocations across multiple WhatsApp groups. Seat reservations were scribbled in spreadsheets, leading to double-booked bus berths and lost advance payment screenshots.",
+      bottleneckP3: "Passengers were constantly asking for weather updates, packing lists, and bus stop details, overwhelming staff during departure week.",
+      solutionTitle: "An interactive cabin seat selector with live mountain telemetry.",
+      solutionP1: "FIXIA designed a high-conversion expedition platform centered around passenger empowerment. Travelers can explore the detailed day-by-day itinerary, view mountain temperature feeds, and select their exact seat on the 46-passenger coach.",
+      modules: [
+        { name: "Interactive Bus Cabin Selector", desc: "Real-time seat matrix showing available, reserved, and female-only priority seats." },
+        { name: "Live Weather Webhooks", desc: "Live temperature and trail conditions API for Manali (17°C) and Kasol (20°C)." },
+        { name: "Group-Chat Discount Engine", desc: "Automated tier pricing discounting ₹300 per head for groups of 5+ travelers." },
+        { name: "Automated Digital Boarding Pass", desc: "Instant mobile boarding pass generated upon advance verification with QR code." }
+      ],
+      beforeAfter: [
+        { b: "Manual paper seating chart with frequent double bookings", a: "Interactive real-time cabin map with 0 seat collisions" },
+        { b: "15 minutes per passenger spent matching UPI screenshots", a: "Instant advance deposit workflow with digital ticket generation" },
+        { b: "Passengers anxious about mountain weather conditions", a: "Live feeds displaying real-time temperatures for Manali & Kasol" },
+        { b: "Scattered WhatsApp PDFs for itinerary and stop locations", a: "Centralized self-serve passenger portal with boarding details" }
+      ],
+      clientName: "Himalayan Student Expeditions",
+      categoryName: "Hospitality & Travel Portal",
+      duration: "2.5 Weeks to Launch",
+      stack: "Next.js, TypeScript, Weather API",
+      quote: "Our 2026 expedition sold out 46 seats in under 72 hours with zero manual back-and-forth on WhatsApp.",
+      quoteAuthor: "Expedition Operations Lead",
+      quoteRole: "Himalayan Escape"
+    },
+    "oneshot": {
+      metrics: [
+        { label: "Dispute Rate", val: "₹0", note: "Zero customer time disputes" },
+        { label: "Time Saved", val: "4.5h", note: "Saved daily on shift close & cash counts" },
+        { label: "Table Tracking", val: "100%", note: "Real-time per-minute timer precision" },
+        { label: "Revenue Visibility", val: "Instant", note: "Consolidated table + kitchen receipts" }
+      ],
+      bottleneckTitle: "Paper ledgers, forgotten kitchen chits, and midnight cash arguments.",
+      bottleneckP1: "One Shot Snooker & Gaming Arena operates 8 full-size tournament snooker and pool tables alongside an in-house cafe. During peak evening hours, up to 35 customers compete simultaneously.",
+      bottleneckP2: "Before FIXIA, the club relied on manual paper logs. Waitstaff noted start times on notepads, kitchen orders were scribbled on paper chits, and table rates were calculated with handheld desk calculators.",
+      bottleneckP3: "The result was financial chaos: customers contested table minutes when billed, cafe orders were served without being logged onto the final bill, and end-of-shift cash balancing took 2.5 hours of disputes every night.",
+      solutionTitle: "A real-time session matrix with sub-10ms synchronization.",
+      solutionP1: "FIXIA designed and built CueDesk, a custom operational platform tailored strictly to venue workflow. Every table is represented as an interactive card displaying live elapsed minutes, current tariff, active players, and linked kitchen tickets.",
+      modules: [
+        { name: "8-Table Session Matrix", desc: "One-tap start, pause, transfer, and end with automated per-minute rate rounding." },
+        { name: "Integrated POS Kitchen Ticketing", desc: "Beverages and snacks automatically attach to the active table session." },
+        { name: "Staff Expense & Cash Drawer", desc: "Live ledger tracking petty cash in/out and net cash in drawer." },
+        { name: "Automated Shift Close", desc: "1-click end-of-day reconciliation generating a complete P&L summary." }
+      ],
+      beforeAfter: [
+        { b: "Handwritten start/end times prone to human disputes", a: "Digital WebSocket timers running to the exact second" },
+        { b: "Unbilled cafe orders lost during peak rush hour", a: "Single consolidated invoice combines table time + snacks" },
+        { b: "2 hours spent nightly recounting drawer cash", a: "Instant 1-click shift close with zero cash discrepancy" },
+        { b: "Owner blind to actual hourly revenue patterns", a: "Real-time analytics showing peak utilization and daily P&L" }
+      ],
+      clientName: "One Shot Snooker Arena",
+      categoryName: "Custom Software & ERP",
+      duration: "3 Weeks to Deployment",
+      stack: "Next.js, TypeScript, WebSockets",
+      quote: "Fixia paid for itself in the first 45 days. We completely eliminated billing arguments with customers, and for the first time, our daily cash drawer matches our sales to the exact rupee.",
+      quoteAuthor: "Management Partner",
+      quoteRole: "One Shot Arena"
+    },
+    "flexora": {
+      metrics: [
+        { label: "Cart Speed", val: "< 1.2s", note: "Instant checkout rendering" },
+        { label: "Perceived Value", val: "+65%", note: "Elevation in average order value" },
+        { label: "Return Rate", val: "< 2%", note: "Due to accurate size & drape guides" },
+        { label: "Mobile Share", val: "88%", note: "Traffic converted on mobile web" }
+      ],
+      bottleneckTitle: "Generic templates that made luxury heavyweight streetwear look cheap.",
+      bottleneckP1: "Flexora designs premium 400+ GSM heavyweight organic cotton hoodies, oversized drop-shoulder tees, and sweat-wicking athletic compression wear.",
+      bottleneckP2: "Standard Shopify and WooCommerce templates flattened the visual texture of the garments, making high-end apparel look like generic mass-market t-shirts. Drop launches suffered from slow mobile rendering.",
+      bottleneckP3: "Shoppers abandoned carts because they couldn't gauge fabric drape, thickness, and sizing fit accurately.",
+      solutionTitle: "An editorial lookbook storefront with macro fabric precision.",
+      solutionP1: "FIXIA architected an editorial apparel platform structured around curated drops. High-contrast typography, high-DPI texture zoom, and athlete community testimonials establish luxury authority immediately.",
+      modules: [
+        { name: "Curated Drop Architecture", desc: "Drop N°01 Luxury Casual & Drop N°02 Gymwear Elite with countdown indicators." },
+        { name: "Macro Fabric Callouts", desc: "Interactive spec cards highlighting 400+ GSM organic cotton and 4-way compression." },
+        { name: "Athlete Zone Community", desc: "Verified athlete and customer styling gallery building social proof." },
+        { name: "Fast Headless Mobile Checkout", desc: "Streamlined single-page cart with direct WhatsApp & UPI instant pay." }
+      ],
+      beforeAfter: [
+        { b: "Flat catalog grids that obscured garment weight and drape", a: "Editorial lookbook aesthetics elevating perceived luxury status" },
+        { b: "4.5 second mobile load times losing fashion shoppers", a: "Sub-1.2s headless load speeds on 4G cellular connections" },
+        { b: "Customer doubts regarding sizing and heavyweight fit", a: "Athlete fit breakdown and high-DPI texture inspections" },
+        { b: "High drop-off rates on multi-step checkout forms", a: "Frictionless 1-click mobile order flow with instant confirmation" }
+      ],
+      clientName: "Flexora Clothing Design Lab",
+      categoryName: "Luxury E-Commerce & Lookbook",
+      duration: "3 Weeks to Launch",
+      stack: "Next.js, Tailwind, Headless Store",
+      quote: "Fixia captured our luxury streetwear aesthetic and high-performance gymwear line with the visual precision of an international fashion house.",
+      quoteAuthor: "Creative Director",
+      quoteRole: "Flexora Apparel"
+    },
+    "matrix-gym": {
+      metrics: [
+        { label: "Inquiries", val: "+120%", note: "Increase in digital trial signups" },
+        { label: "Retention", val: "92%", note: "Consistent training adherence" },
+        { label: "Performance", val: "99/100", note: "Lighthouse mobile score" },
+        { label: "Rank", val: "#1", note: "Top regional gym on Google local" }
+      ],
+      bottleneckTitle: "Relying on foot traffic while competitor gyms ran digital ads.",
+      bottleneckP1: "The Matrix Gym is an elite training facility featuring competition barbells, calibrated plates, and specialized powerlifting and conditioning coaches.",
+      bottleneckP2: "Despite having the premier facility in the city, the gym lacked a modern digital flagship. Potential fitness enthusiasts visited competitor gyms with worse equipment simply because their websites looked professional.",
+      bottleneckP3: "When the front desk was training clients, phone inquiries went unanswered, causing prospective annual members to look elsewhere.",
+      solutionTitle: "A commanding dark-mode brand hub that asserts dominance.",
+      solutionP1: "FIXIA built a visceral, high-energy digital platform featuring high-contrast typography, facility highlights, structured training programs, and a direct WhatsApp onboarding funnel.",
+      modules: [
+        { name: "Training Program Matrix", desc: "Specialized tracks for Strength, Power, Discipline, and Athletic Endurance." },
+        { name: "Elite Coaching Showcase", desc: "Certified trainer credentials, personal records, and coaching philosophies." },
+        { name: "Virtual Facility Walkthrough", desc: "Visual tour of competition rigs, dumbbells up to 50kg, and recovery zones." },
+        { name: "Direct WhatsApp Lead Funnel", desc: "One-tap trial session booking routed instantly to manager WhatsApp." }
+      ],
+      beforeAfter: [
+        { b: "Invisible online beyond an outdated social page", a: "Dominant regional fitness brand platform ranking #1 locally" },
+        { b: "Inquiries lost whenever the front desk was unattended", a: "24/7 automated WhatsApp inquiry funnel capturing leads" },
+        { b: "Prospects unclear on training programs and coaches", a: "Detailed track breakdowns for beginners and seasoned lifters" },
+        { b: "Perceived as just another neighborhood iron gym", a: "Positioned as the definitive elite strength authority" }
+      ],
+      clientName: "The Matrix Gym",
+      categoryName: "Fitness & Brand Platform",
+      duration: "2 Weeks to Launch",
+      stack: "Next.js, CSS Architecture, Vercel Edge",
+      quote: "We added over 60 new annual members in the first two months after our new platform went live. The dark high-energy look immediately sets us apart.",
+      quoteAuthor: "Head Coach & Founder",
+      quoteRole: "The Matrix Gym"
+    },
+    "balaji-properties": {
+      metrics: [
+        { label: "Verified Land", val: "450+", note: "Acres cataloged with approvals" },
+        { label: "Transaction Value", val: "₹1.4B+", note: "In facilitated acquisitions" },
+        { label: "Consultations", val: "+85%", note: "Growth in private investor meets" },
+        { label: "NRI Leads", val: "62%", note: "Out-of-state buyers engaged" }
+      ],
+      bottleneckTitle: "Unverified land photos and rampant investor skepticism.",
+      bottleneckP1: "Balaji Properties represents premium gated plots, society apartments, and commercial land developments across Mathura and Vrindavan.",
+      bottleneckP2: "Local property markets suffer from widespread skepticism regarding zoning approvals and unauthorized brokers sharing blurry WhatsApp map photos.",
+      bottleneckP3: "High-net-worth investors and NRI buyers had no central, authoritative portal to inspect verified acreage, layout maps, and clear legal documentation.",
+      solutionTitle: "An institutional-grade property portfolio and acquisition pathway.",
+      solutionP1: "FIXIA designed an architectural portal showcasing verified properties by category (Gated Plots, Villas, Sky Penthouses, Land) with structured legal clearance badges and capital reserve filters.",
+      modules: [
+        { name: "Categorized Acquisition Niches", desc: "Organized inventory for Land, Villas, Mansions, and Gated Societies." },
+        { name: "Approval Verification Badges", desc: "Clear legal documentation status and municipal zoning clearances." },
+        { name: "Capital Reserve Search Filters", desc: "Budget-specific property exploration for private and institutional investors." },
+        { name: "Private Advisory Scheduler", desc: "High-touch consultation booking with senior property consultants." }
+      ],
+      beforeAfter: [
+        { b: "Blurry map photos circulated on informal WhatsApp chats", a: "Architectural property showcases with clear zoning demarcation" },
+        { b: "High investor hesitation regarding approvals and title clarity", a: "Transparent partner clearances and approval transparency" },
+        { b: "Unqualified inquiries wasting senior consultant hours", a: "Filtered lead capture matching investors by capital reserve" },
+        { b: "Zero reach to out-of-state and international Vrindavan devotees", a: "Global institutional portal serving diaspora investors worldwide" }
+      ],
+      clientName: "Balaji Properties",
+      categoryName: "Real Estate & Land Advisory",
+      duration: "3 Weeks to Launch",
+      stack: "Next.js, TypeScript, Cloudflare CDN",
+      quote: "Investors now review our verified layouts and zoning credentials before they even speak to an agent. It saves us weeks of negotiation.",
+      quoteAuthor: "Managing Director",
+      quoteRole: "Balaji Properties"
+    },
+    "pradeep-classes": {
+      metrics: [
+        { label: "Admissions", val: "3.4x", note: "Increase in digital applicants" },
+        { label: "Bilingual Reach", val: "100%", note: "Hindi & English accessibility" },
+        { label: "Speed", val: "0.8s", note: "First contentful paint on mobile" },
+        { label: "Cadets Prepared", val: "1500+", note: "Trained for defense exams" }
+      ],
+      bottleneckTitle: "Parents traveling hours just to inspect previous year results.",
+      bottleneckP1: "Pradeep Classes is a dedicated coaching academy in Mathura preparing young students (Class 4th–8th) for Sainik School, Military School, and Navodaya entrance examinations.",
+      bottleneckP2: "Parents in rural districts and nearby towns had no way to review batch results, faculty profiles, and admission guidelines without traveling in person to the coaching center.",
+      bottleneckP3: "Brochures printed on paper were quickly lost, and English-only websites failed to connect with Hindi-speaking parents.",
+      solutionTitle: "A bilingual admissions portal with verified alumni cadet credentials.",
+      solutionP1: "FIXIA engineered an educational portal with an instant English / Hindi language toggle, verified student result archives, faculty credentials, and a digital admission inquiry pipeline.",
+      modules: [
+        { name: "Bilingual Language Switcher", desc: "Seamless Hindi and English toggle for complete parent accessibility." },
+        { name: "Defense Entrance Prep Tracks", desc: "Dedicated curriculum syllabi for Sainik School and Navodaya batches." },
+        { name: "Alumni Hall of Fame", desc: "Verified result gallery showcasing student ranks and cadet uniforms." },
+        { name: "Digital Admission Inquiries", desc: "Online registration form routing prospective families to counselors." }
+      ],
+      beforeAfter: [
+        { b: "Parents forced to visit in person to review syllabus and fees", a: "Full curriculum, batch times, and fee schedules accessible online" },
+        { b: "English-only material alienating local Hindi-speaking families", a: "Instant 1-tap Hindi language switch for parent comfort" },
+        { b: "Paper marksheets and results lost after each exam cycle", a: "Permanent digital hall of fame proving 15+ years of excellence" },
+        { b: "Manual phone calls during lectures disrupting mentors", a: "Structured online inquiry form with automated WhatsApp reply" }
+      ],
+      clientName: "Pradeep Classes Academy",
+      categoryName: "Education & Coaching Portal",
+      duration: "2 Weeks to Launch",
+      stack: "Next.js, Bilingual Engine, Vercel Edge",
+      quote: "Our admissions inquiries for the Navodaya and Sainik school batches tripled once rural and out-of-town parents could access our results online in Hindi.",
+      quoteAuthor: "Director & Lead Mentor",
+      quoteRole: "Pradeep Classes"
+    },
+    "rocket-147": {
+      metrics: [
+        { label: "Table Occupancy", val: "+42%", note: "Higher off-peak utilization" },
+        { label: "Wait Times", val: "0 min", note: "For pre-booked players" },
+        { label: "Advance Bookings", val: "68%", note: "Shifted to digital reservations" },
+        { label: "Cafe Orders", val: "+35%", note: "Integrated food & drink pairing" }
+      ],
+      bottleneckTitle: "Weekend table walkouts and empty VIP private cabins.",
+      bottleneckP1: "Rocket 147 is a premier snooker and pool club in Krishna Nagar, Mathura featuring tournament tables, private air-conditioned VIP rooms, and an in-house beverage cafe.",
+      bottleneckP2: "On weekends, players arrived to find all tables occupied and walked out, while private VIP cabins sat idle because customers didn't know they existed or how to book them.",
+      bottleneckP3: "Tournament registrations were handled via chaotic WhatsApp group chats where player entry fees were miscalculated.",
+      solutionTitle: "A sleek venue showcase with live table availability and reservations.",
+      solutionP1: "FIXIA crafted a sophisticated lounge platform displaying live venue conditions, tiered hourly table tariffs, VIP cabin reservations, and tournament entry brackets.",
+      modules: [
+        { name: "Tiered Table Booking Engine", desc: "Reserve Table S1 (₹200/hr), S2 (₹180/hr), or Private Cabin S3 (₹350/hr)." },
+        { name: "Live Lounge Atmosphere Widget", desc: "Live ambient status ('Cloth rolling smoothly, tables ready')." },
+        { name: "In-House Cafe Menu Showcase", desc: "Beverages, cold brews, and snacks displayed for court-side ordering." },
+        { name: "Tournament Bracket Registration", desc: "Online player registration with seed rankings and bracket updates." }
+      ],
+      beforeAfter: [
+        { b: "Players walking out due to unexpected wait times", a: "Advance table booking guaranteeing zero waiting time" },
+        { b: "Private VIP room underutilized and unadvertised", a: "VIP cabin highlighted with transparent hourly rates" },
+        { b: "Phone calls during matches disrupting players and staff", a: "Self-serve booking with instant WhatsApp reservation pass" },
+        { b: "Tournament entry fees tracked on scrap paper", a: "Digital tournament bracket registration with automated confirmation" }
+      ],
+      clientName: "Rocket 147 Snooker Lounge",
+      categoryName: "Sports Venue & Booking",
+      duration: "2 Weeks to Launch",
+      stack: "Next.js, CSS Architecture, Vercel Edge",
+      quote: "Private cabin bookings doubled in our first month. Players love knowing their table is ready and warmed up the moment they walk through the door.",
+      quoteAuthor: "Club Founder",
+      quoteRole: "Rocket 147"
+    }
+  };
 
-if (currentProj) {
-  document.getElementById('projTitle').textContent = `${currentProj.title}: ${currentProj.tagline}`;
-  document.getElementById('projTagline').textContent = currentProj.shortDesc;
-  document.getElementById('projCat').textContent = currentProj.category;
-  document.getElementById('mockupDomain').textContent = `https://${currentProj.domain}`;
-  document.getElementById('mockupLiveLink').href = currentProj.url;
-  document.getElementById('mockupImg').src = currentProj.desktopImg;
-}
+  const urlParams = new URLSearchParams(window.location.search);
+  let activeId = urlParams.get('id') || 'oneshot';
+  const allProjects = window.REAL_PROJECTS || [];
 
-// Device Viewport Toggle (Desktop vs Mobile)
-const btnDesktop = document.getElementById('btnDesktop');
-const btnMobile = document.getElementById('btnMobile');
-const mockupBox = document.getElementById('mockupBox');
-const mockupImg = document.getElementById('mockupImg');
+  // Render navigation pills
+  const navContainer = document.getElementById('caseNavPills');
+  if (navContainer && allProjects.length) {
+    navContainer.innerHTML = allProjects.map(p => `
+      <button class="case-nav-pill ${p.id === activeId ? 'active' : ''}" data-id="${p.id}">
+        <span>${p.title}</span>
+      </button>
+    `).join('');
 
-btnDesktop.addEventListener('click', () => {
-  btnDesktop.classList.add('active');
-  btnMobile.classList.remove('active');
-  mockupBox.classList.remove('mobile-mode');
-  mockupImg.src = currentProj.desktopImg;
-});
+    navContainer.querySelectorAll('.case-nav-pill').forEach(btn => {
+      btn.onclick = () => {
+        loadProject(btn.dataset.id);
+      };
+    });
+  }
 
-btnMobile.addEventListener('click', () => {
-  btnMobile.classList.add('active');
-  btnDesktop.classList.remove('active');
-  mockupBox.classList.add('mobile-mode');
-  mockupImg.src = currentProj.mobileImg || currentProj.desktopImg;
-});
+  function loadProject(id) {
+    activeId = id;
+    history.replaceState(null, '', `case-study-detail.html?id=${id}`);
+
+    // Update active pill
+    if (navContainer) {
+      navContainer.querySelectorAll('.case-nav-pill').forEach(b => {
+        b.classList.toggle('active', b.dataset.id === id);
+      });
+    }
+
+    const proj = allProjects.find(p => p.id === id) || allProjects[1];
+    const details = CASE_STUDIES[id] || CASE_STUDIES['oneshot'];
+
+    // Header & Meta
+    document.title = `${proj.title} Case Study – FIXIA Systems`;
+    document.getElementById('projCat').textContent = proj.category;
+    document.getElementById('projTitle').textContent = `${proj.title}: ${proj.tagline}`;
+    document.getElementById('projTagline').textContent = proj.shortDesc;
+
+    // Metrics Ribbon
+    const metricsContainer = document.getElementById('metricsStrip');
+    metricsContainer.innerHTML = details.metrics.map(m => `
+      <div class="metric-tile">
+        <small>${m.label}</small>
+        <b>${m.val}</b>
+        <span>${m.note}</span>
+      </div>
+    `).join('');
+
+    // Mockup stage
+    document.getElementById('mockupDomain').textContent = `https://${proj.domain}`;
+    document.getElementById('mockupLiveLink').href = proj.url;
+    const isMobileMode = document.getElementById('mockupBox').classList.contains('mobile-mode');
+    document.getElementById('mockupImg').src = isMobileMode ? (proj.mobileImg || proj.desktopImg) : proj.desktopImg;
+    document.getElementById('mockupImg').alt = `${proj.title} preview`;
+
+    // Left Column Narrative
+    document.getElementById('caseStoryLeft').innerHTML = `
+      <div class="case-section" data-reveal>
+        <span class="eyebrow">01 — The Operational Bottleneck</span>
+        <h3>${details.bottleneckTitle}</h3>
+        <p>${details.bottleneckP1}</p>
+        <p>${details.bottleneckP2}</p>
+        <p>${details.bottleneckP3}</p>
+      </div>
+
+      <div class="case-section" data-reveal>
+        <span class="eyebrow">02 — The Architectural Solution</span>
+        <h3>${details.solutionTitle}</h3>
+        <p>${details.solutionP1}</p>
+        
+        <div class="case-highlights-box">
+          <h5>Core Engineered Modules</h5>
+          <ul>
+            ${details.modules.map(mod => `
+              <li>
+                <svg class="ico"><use href="#chk"/></svg>
+                <span><strong>${mod.name}:</strong> ${mod.desc}</span>
+              </li>
+            `).join('')}
+          </ul>
+        </div>
+      </div>
+
+      <div class="case-section" data-reveal>
+        <span class="eyebrow">03 — Operational Impact</span>
+        <h3>The Before &amp; After Transformation</h3>
+
+        <div class="before-after-box">
+          <div class="ba-header">
+            <div>Manual / Previous Way</div>
+            <div>FIXIA Engineered System</div>
+          </div>
+          ${details.beforeAfter.map(row => `
+            <div class="ba-row">
+              <div>${row.b}</div>
+              <div>${row.a}</div>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+    `;
+
+    // Right Column Sidebar
+    document.getElementById('caseSidebarRight').innerHTML = `
+      <div class="info-card tilt-card">
+        <h4>Project Summary</h4>
+        <div class="info-list">
+          <div><small>Client</small><b>${details.clientName}</b></div>
+          <div><small>Category</small><b>${details.categoryName}</b></div>
+          <div><small>Sprint Duration</small><b>${details.duration}</b></div>
+          <div><small>Code Stack</small><b>${details.stack}</b></div>
+          <div><small>Deployment</small><b>Vercel Edge Global CDN</b></div>
+          <div><small>IP Ownership</small><b>100% Client Owned</b></div>
+        </div>
+        <div style="margin-top:1.5rem">
+          <a class="btn sm hi" style="width:100%" href="${proj.url}" target="_blank" rel="noopener">Visit Live System ↗</a>
+        </div>
+      </div>
+
+      <div class="quote-card tilt-card">
+        <p>"${details.quote}"</p>
+        <div class="quote-author">
+          <b>${details.quoteAuthor}</b>
+          <small>${details.quoteRole}</small>
+        </div>
+      </div>
+
+      <div class="info-card" style="background:var(--paper)">
+        <h4>Want a tailored system like this?</h4>
+        <p style="color:var(--mute);font-size:.92rem;margin-bottom:1.2rem">Tell us what is slowing your operations down. We'll engineer an automated platform around how you actually work.</p>
+        <a class="btn sm" style="width:100%" href="contact.html?p=${encodeURIComponent('I want a custom solution like ' + proj.title)}">Build my custom solution →</a>
+      </div>
+    `;
+
+    // Re-init split and reveal if present
+    if (window.initPolish) {
+      window.initPolish();
+    }
+  }
+
+  // Initial load
+  loadProject(activeId);
+
+  // Device Toggle
+  const btnDesktop = document.getElementById('btnDesktop');
+  const btnMobile = document.getElementById('btnMobile');
+  const mockupBox = document.getElementById('mockupBox');
+  const mockupImg = document.getElementById('mockupImg');
+
+  btnDesktop.onclick = () => {
+    btnDesktop.classList.add('active');
+    btnMobile.classList.remove('active');
+    mockupBox.classList.remove('mobile-mode');
+    const proj = allProjects.find(p => p.id === activeId) || allProjects[1];
+    mockupImg.src = proj.desktopImg;
+  };
+
+  btnMobile.onclick = () => {
+    btnMobile.classList.add('active');
+    btnDesktop.classList.remove('active');
+    mockupBox.classList.add('mobile-mode');
+    const proj = allProjects.find(p => p.id === activeId) || allProjects[1];
+    mockupImg.src = proj.mobileImg || proj.desktopImg;
+  };
+})();
 </script>
 </body>
 </html>
