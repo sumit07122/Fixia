@@ -233,6 +233,22 @@ function renderBrowserFrame(p, isHero = false) {
   `;
 }
 
+/* Vercel Web Analytics & Speed Insights */
+if (typeof window !== 'undefined' && !window.va) {
+  window.va = function () { (window.vaq = window.vaq || []).push(arguments); };
+  if (location.hostname !== 'localhost' && !location.hostname.includes('127.0.0.1')) {
+    const s1 = document.createElement('script');
+    s1.defer = true;
+    s1.src = '/_vercel/insights/script.js';
+    document.head.appendChild(s1);
+
+    const s2 = document.createElement('script');
+    s2.defer = true;
+    s2.src = '/_vercel/speed-insights/script.js';
+    document.head.appendChild(s2);
+  }
+}
+
 /* Base Shell Setup */
 B.insertAdjacentHTML('afterbegin', `
   <svg width="0" height="0" style="position:absolute" aria-hidden="true">
