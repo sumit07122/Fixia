@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Work &amp; Real Client Projects – FIXIA</title>
+<meta name="description" content="Real digital products, custom software, and high-converting websites built for real businesses by FIXIA. Explore verified live projects.">
+<link rel="icon" type="image/svg+xml" href="logo/fixia-favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css?v=20261025d">
+<style>
+.top{padding:clamp(3.5rem,8vw,6rem) 0 1.5rem}
+.top h1{font-size:clamp(2.8rem,7.5vw,6rem);letter-spacing:-.045em;line-height:.96;max-width:14ch}
+.cnt-bar{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;margin-top:1.5rem;padding-top:1rem;border-top:1px solid var(--line)}
+.cnt{color:var(--mute);font-size:.95rem;font-weight:500}
+.proof-pill{display:inline-flex;align-items:center;gap:.45rem;font-size:.85rem;color:var(--cobalt);font-weight:600;background:#EFE5D6;padding:.3rem .8rem;border-radius:999px}
+.work-grid{display:flex;flex-direction:column;gap:clamp(3.5rem,7vw,6.5rem);padding:2rem 0 5rem}
+.work-item{display:grid;grid-template-columns:1.2fr 1fr;gap:clamp(2rem,5vw,4.5rem);align-items:center;padding-top:2.5rem;border-top:1px solid var(--line)}
+.work-item.reverse{grid-template-columns:1fr 1.2fr}
+.work-item.reverse .work-visual{order:2}
+.work-item.gone{display:none}
+.work-visual{position:relative}
+.work-copy{display:flex;flex-direction:column;align-items:flex-start}
+.work-copy h2{font-size:clamp(2rem,3.8vw,2.8rem);line-height:1.05;margin-bottom:.7rem}
+.work-tagline{font-size:1.15rem;font-weight:600;color:var(--ink2);margin-bottom:1rem;line-height:1.4}
+.work-desc{color:var(--mute);font-size:1.02rem;line-height:1.6;margin-bottom:1.4rem}
+.work-features{list-style:none;padding:0;margin:0 0 1.8rem 0;display:flex;flex-direction:column;gap:.65rem;width:100%}
+.work-features li{display:flex;align-items:flex-start;gap:.65rem;font-size:.95rem;color:var(--ink)}
+.work-features svg{color:var(--mint);width:1.2rem;height:1.2rem;flex-shrink:0;margin-top:.15rem}
+.work-tags{display:flex;flex-wrap:wrap;gap:.45rem;margin-bottom:1.8rem}
+.work-tags span{background:#E9E2D3;color:var(--ink);padding:.25rem .7rem;border-radius:6px;font-size:.8rem;font-weight:600}
+.work-actions{display:flex;flex-wrap:wrap;gap:.85rem;align-items:center}
+.work-next{background:var(--ink);color:#fff;border-radius:28px;padding:clamp(2.5rem,5vw,4.5rem);display:grid;grid-template-columns:1.2fr auto;gap:2rem;align-items:center;position:relative;overflow:hidden}
+.work-next::after{content:'';position:absolute;bottom:-30%;right:-10%;width:400px;height:400px;background:radial-gradient(circle,rgba(194,51,12,.35) 0,transparent 70%);pointer-events:none}
+.work-next h3{font-size:clamp(2.2rem,4.5vw,3.5rem);line-height:1.02}
+.work-next p{color:#B5AFA2;max-width:38rem;margin-top:.9rem;font-size:1.1rem;line-height:1.55}
+
+@media (max-width:960px){
+  .work-item, .work-item.reverse{grid-template-columns:1fr}
+  .work-item.reverse .work-visual{order:0}
+  .work-next{grid-template-columns:1fr}
+}
+</style>
+<link rel="stylesheet" href="polish.css?v=20261025d">
+<script>try{if(!sessionStorage.fx){document.documentElement.classList.add("intro-on");sessionStorage.fx=1}}catch(e){}</script></head>
+<body data-page="work">
+<main>
+<section class="top">
+  <div class="wrap">
+    <span class="proj-cat"><span class="dot"></span> Verified Client Builds</span>
+    <h1 data-split>Real work. Real businesses. Real products.</h1>
+    <p class="lede" data-r>We build digital experiences around real operational needs—from high-converting booking portals to custom club ERP systems and luxury storefronts. Every project below is a real, live product built for an active business.</p>
+    
+    <div class="work-filters" id="chips" role="group" aria-label="Filter by industry" data-r></div>
+    <div class="cnt-bar">
+      <div class="cnt" id="cnt" aria-live="polite">Showing all 7 verified live projects</div>
+      <div class="proof-pill">100% Live Deployments · No Fictional Metrics</div>
+    </div>
+  </div>
+</section>
+
+<section style="padding-bottom:4rem">
+  <div class="wrap">
+    <div class="work-grid" id="workList"></div>
+    
+    <div class="work-next" data-r>
+      <div>
+        <span class="hfc-built-title">Next Production Slot</span>
+        <h3>Have a problem worth building around?</h3>
+        <p>Tell us what is slowing your business down, what you wish existed, or what you want to build. We'll engineer a tailored software solution designed around the way you actually work.</p>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:.75rem">
+        <a class="btn hi" href="contact.html">Tell us your problem</a>
+        <a class="btn ghost" style="color:#fff;border-color:rgba(255,255,255,.3)" href="services.html">Explore capabilities</a>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<script src="app.js?v=20261025d"></script>
+<script>
+const listEl = $('#workList'), chipsEl = $('#chips'), cntEl = $('#cnt');
+const categories = ['All', ...new Set(REAL_PROJECTS.map(p => p.category))];
+let activeCat = 'All';
+
+function renderWorkList() {
+  listEl.innerHTML = REAL_PROJECTS.map((p, i) => `
+    <article class="work-item ${i % 2 === 1 ? 'reverse' : ''}" data-cat="${p.category}" data-r>
+      <div class="work-visual">
+        ${renderBrowserFrame(p, i === 0)}
+      </div>
+      <div class="work-copy">
+        <span class="proj-cat">${p.category}</span>
+        <h2>${p.title}</h2>
+        <div class="work-tagline">${p.tagline}</div>
+        <p class="work-desc">${p.shortDesc}</p>
+        <ul class="work-features">
+          ${p.whatWeBuilt.slice(0, 3).map(f => `<li>${ic('chk')}<span>${f}</span></li>`).join('')}
+        </ul>
+        <div class="work-tags">
+          ${p.tags.map(t => `<span>${t}</span>`).join('')}
+        </div>
+        <div class="work-actions">
+          <a class="btn" href="${p.url}" target="_blank" rel="noopener noreferrer">Visit Live Site ${ic('arr')}</a>
+          <button class="btn ghost sm" data-modal-id="${p.id}" type="button">View Case Details</button>
+        </div>
+      </div>
+    </article>
+  `).join('');
+  rv(listEl);
+}
+
+function renderChips() {
+  chipsEl.innerHTML = categories.map(c => `
+    <button class="filter-btn ${c === activeCat ? 'active' : ''}" data-cat="${c}" type="button">
+      ${c} ${c === 'All' ? `(${REAL_PROJECTS.length})` : ''}
+    </button>
+  `).join('');
+}
+
+chipsEl.addEventListener('click', e => {
+  const btn = e.target.closest('button');
+  if (!btn) return;
+  activeCat = btn.dataset.cat;
+  renderChips();
+  
+  let visibleCount = 0;
+  $$('.work-item', listEl).forEach(item => {
+    const isVisible = activeCat === 'All' || item.dataset.cat === activeCat;
+    item.classList.toggle('gone', !isVisible);
+    if (isVisible) visibleCount++;
+  });
+  
+  cntEl.textContent = activeCat === 'All' 
+    ? `Showing all ${REAL_PROJECTS.length} verified live projects`
+    : `Showing ${visibleCount} project${visibleCount === 1 ? '' : 's'} in ${activeCat}`;
+});
+
+renderChips();
+renderWorkList();
+</script>
+<script src="polish.js?v=20261025d"></script>
+</body>
+</html>
+

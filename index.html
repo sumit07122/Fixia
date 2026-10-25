@@ -1,0 +1,1536 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FIXIA – You bring the problem. We build the solution.</title>
+<meta name="description" content="FIXIA is a digital and creative agency: websites, ads, social and custom software built around how your business actually works.">
+<link rel="icon" type="image/svg+xml" href="logo/fixia-favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css?v=20261025d">
+<style>
+/* 01. Hero & Problem-to-Solution Morph System */
+.hero {
+  padding: clamp(1.8rem, 3.8vw, 2.8rem) 0 0;
+  position: relative;
+}
+.hero-top {
+  display: grid;
+  grid-template-columns: 1.15fr 0.95fr;
+  gap: clamp(2rem, 4vw, 3.5rem);
+  align-items: center;
+}
+h1 {
+  font-size: clamp(2.6rem, 5.2vw, 4.6rem);
+  letter-spacing: -0.04em;
+  line-height: 0.96;
+}
+h1 span.l { display: block; }
+h1 .l:nth-child(2) { color: var(--cobalt); }
+.type {
+  margin-top: 0.95rem;
+  font: 600 clamp(0.95rem, 1.35vw, 1.15rem) var(--display);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  align-items: center;
+  min-height: 1.8rem;
+}
+.type b {
+  background: var(--hi);
+  color: var(--ink);
+  padding: 0.15rem 0.65rem;
+  border-radius: 8px;
+}
+.type i {
+  width: 2px;
+  height: 1.25em;
+  background: var(--ink);
+  animation: blink 1s steps(2) infinite;
+}
+@keyframes blink { 50% { opacity: 0; } }
+.hero-sub {
+  font-size: clamp(1.02rem, 1.35vw, 1.15rem);
+  line-height: 1.5;
+  color: var(--mute);
+  margin-top: 0.95rem;
+  max-width: 36rem;
+}
+.cta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.85rem;
+  margin-top: 1.35rem;
+}
+.facts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.4rem;
+  margin-top: 1.25rem;
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: var(--mute);
+}
+.facts span { display: inline-flex; align-items: center; gap: 0.45rem; }
+.facts .ico { color: var(--mint); }
+
+/* Hero Morph Visual Card */
+.morph-box {
+  background: var(--ink);
+  color: #fff;
+  border-radius: 26px;
+  padding: 1.4rem;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 35px 75px -25px rgba(16, 16, 16, 0.5);
+  position: relative;
+}
+.morph-steps {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.4rem;
+  background: rgba(255, 255, 255, 0.06);
+  padding: 0.35rem;
+  border-radius: 14px;
+  margin-bottom: 1.2rem;
+}
+.morph-steps button {
+  background: transparent;
+  border: 0;
+  color: #A39D90;
+  font: 600 0.78rem var(--mono);
+  padding: 0.5rem 0.4rem;
+  border-radius: 10px;
+  transition: all 0.25s;
+}
+.morph-steps button.on {
+  background: var(--cobalt);
+  color: #fff;
+}
+.m-pane {
+  display: none;
+  animation: pin 0.4s var(--ease) both;
+}
+.m-pane.on { display: block; }
+.prob-bubble {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 18px;
+  padding: 1.25rem;
+}
+.prob-bubble small {
+  font: 600 0.75rem var(--mono);
+  color: var(--hi);
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 0.4rem;
+}
+.prob-bubble p {
+  font: 600 1.2rem/1.3 var(--display);
+}
+.chaos-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  margin-top: 1rem;
+}
+.chaos-tags span {
+  font-size: 0.8rem;
+  background: rgba(248, 113, 113, 0.16);
+  color: #FCA5A5;
+  border: 1px solid rgba(248, 113, 113, 0.3);
+  padding: 0.28rem 0.65rem;
+  border-radius: 999px;
+}
+.arch-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.6rem;
+  margin-top: 0.85rem;
+}
+.arch-chip {
+  background: rgba(194, 51, 12, 0.18);
+  border: 1px solid rgba(194, 51, 12, 0.4);
+  padding: 0.7rem 0.85rem;
+  border-radius: 12px;
+  font-size: 0.86rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.arch-chip .ico { color: var(--hi); }
+
+/* Interactive Scenario Stage */
+.stage {
+  margin-top: 3.5rem;
+  background: var(--ink);
+  color: #fff;
+  border-radius: 28px;
+  padding: clamp(1.3rem, 3.2vw, 2.5rem);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+.stage-head {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+.tabs {
+  display: flex;
+  gap: 0.4rem;
+  overflow-x: auto;
+  scrollbar-width: none;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.14);
+}
+.tabs button {
+  background: none;
+  border: 0;
+  padding: 0.8rem 1.1rem;
+  white-space: nowrap;
+  color: rgba(255, 255, 255, 0.58);
+  font-weight: 600;
+  font-size: 0.95rem;
+  border-bottom: 3px solid transparent;
+  margin-bottom: -1px;
+  transition: color 0.2s, border-color 0.2s;
+}
+.tabs button:hover { color: #fff; }
+.tabs button[aria-selected="true"] {
+  color: #fff;
+  border-color: var(--hi);
+}
+.sgrid {
+  display: grid;
+  grid-template-columns: 1fr 1.12fr;
+  gap: clamp(1.5rem, 4vw, 3.5rem);
+  margin-top: 2rem;
+  align-items: center;
+}
+.sgrid.swap > * { animation: pin 0.45s var(--ease) both; }
+.say {
+  font: 600 clamp(1.35rem, 2.4vw, 1.9rem)/1.22 var(--display);
+  letter-spacing: -0.02em;
+}
+.pain {
+  display: inline-block;
+  margin-top: 1rem;
+  background: var(--hi);
+  color: var(--ink);
+  font-weight: 600;
+  font-size: 0.88rem;
+  padding: 0.32rem 0.8rem;
+  border-radius: 999px;
+}
+.small {
+  font: 600 0.8rem var(--mono);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #B5AFA2;
+  margin: 1.75rem 0 0.4rem;
+}
+.mods { list-style: none; padding: 0; }
+.mods li {
+  display: flex;
+  gap: 0.8rem;
+  padding: 0.75rem 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+}
+.mods .ico { margin-top: 0.25rem; color: var(--hi); }
+.mods b { display: block; font-weight: 600; font-size: 0.98rem; }
+.mods span { color: #B5AFA2; font-size: 0.9rem; }
+.sfoot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 1.3rem;
+  padding-top: 1.2rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+}
+.sfoot span { color: #B5AFA2; font-size: 0.92rem; }
+.sfoot b { color: #fff; }
+.own {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 1.4rem;
+}
+.own input {
+  flex: 1;
+  min-width: 0;
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #fff;
+  border-radius: 999px;
+  padding: 0.7rem 1.15rem;
+  font-size: 0.94rem;
+}
+.own input::placeholder { color: #8F897C; }
+
+/* 03. Problems We Solve Grid */
+.prob-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.25rem;
+  margin-top: 3rem;
+}
+.pcard {
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  padding: 1.75rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  text-decoration: none;
+  transition: transform 0.25s var(--ease), border-color 0.25s, box-shadow 0.25s;
+}
+.pcard:hover {
+  transform: translateY(-4px);
+  border-color: var(--cobalt);
+  box-shadow: 0 24px 48px -24px rgba(194, 51, 12, 0.22);
+}
+.pcard-q {
+  font: 700 1.35rem/1.2 var(--display);
+  color: var(--ink);
+  margin-bottom: 0.75rem;
+}
+.pcard-p {
+  color: var(--mute);
+  font-size: 0.95rem;
+  margin-bottom: 1.5rem;
+}
+.pcard-sol {
+  margin-top: auto;
+  padding-top: 1rem;
+  border-top: 1px solid var(--line);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-weight: 700;
+  font-size: 0.94rem;
+  color: var(--cobalt);
+}
+
+/* 04. 7-Solutions Interactive Bento */
+.sol-bento {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 1.25rem;
+  margin-top: 3rem;
+}
+.scard {
+  grid-column: span 4;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 26px;
+  padding: 1.85rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: transform 0.25s var(--ease), border-color 0.25s;
+}
+.scard:hover {
+  transform: translateY(-3px);
+  border-color: var(--ink);
+}
+.scard.wide { grid-column: span 6; }
+.scard.full {
+  grid-column: span 12;
+  background: var(--ink);
+  color: #fff;
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 2rem;
+  align-items: center;
+}
+.scard .num {
+  font: 600 0.78rem var(--mono);
+  color: var(--cobalt);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 0.75rem;
+  display: block;
+}
+.scard.full .num { color: var(--hi); }
+.scard h3 {
+  font-size: 1.65rem;
+  margin-bottom: 0.55rem;
+}
+.scard p {
+  color: var(--mute);
+  font-size: 0.96rem;
+}
+.scard.full p { color: #B5AFA2; }
+.mini-ui {
+  margin-top: 1.4rem;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 0.85rem 1rem;
+  font: 500 0.8rem var(--mono);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.scard.full .mini-ui {
+  margin-top: 0;
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.14);
+  color: #fff;
+  padding: 1.25rem;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0.65rem;
+}
+
+/* 05. AI Architecture Section */
+.ai-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.15fr 1fr;
+  gap: 1.25rem;
+  margin-top: 3rem;
+}
+.ai-col {
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 24px;
+  padding: 1.65rem;
+}
+.ai-col h3 {
+  font: 600 0.85rem var(--mono);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #B5AFA2;
+  margin-bottom: 1rem;
+}
+.ai-item {
+  padding: 0.8rem 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+.ai-item b { display: block; font-size: 0.98rem; }
+.ai-item span { color: #A39D90; font-size: 0.88rem; }
+.ai-item strong { float: right; color: var(--hi); font-family: var(--mono); }
+.ai-col.core {
+  background: var(--cobalt);
+  border-color: var(--cobalt);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.ai-col.core h3 { color: #E6DFD0; }
+.ai-col.core .core-t {
+  font: 800 clamp(2rem, 3.4vw, 3rem)/1.02 var(--display);
+  letter-spacing: -0.04em;
+  margin-bottom: 0.85rem;
+}
+.chips-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  margin-top: 1.25rem;
+}
+.chips-row i {
+  font-style: normal;
+  font: 600 0.8rem var(--mono);
+  background: rgba(255, 255, 255, 0.18);
+  padding: 0.32rem 0.75rem;
+  border-radius: 999px;
+}
+
+/* 06. Why Custom Software Comparison */
+.cmp {
+  display: grid;
+  grid-template-columns: 1fr 1.1fr;
+  gap: clamp(1.5rem, 5vw, 4.5rem);
+  margin-top: 3rem;
+  align-items: center;
+}
+.perks div {
+  padding: 1.2rem 0;
+  border-top: 1px solid var(--line);
+}
+.perks div:first-child { border-top: 1.5px solid var(--ink); }
+.perks h3 { font-size: 1.4rem; margin-bottom: 0.3rem; }
+.perks p { color: var(--mute); font-size: 0.96rem; }
+.ledger {
+  background: #fff;
+  border: 1.5px solid var(--ink);
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 24px 48px -28px rgba(16, 16, 16, 0.25);
+}
+.ledger .h, .ledger .r {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+.ledger .h b {
+  padding: 1.15rem 1.35rem;
+  font: 700 1.05rem var(--display);
+}
+.ledger .h b:last-child {
+  background: var(--cobalt);
+  color: #fff;
+}
+.ledger .r span {
+  padding: 0.9rem 1.35rem;
+  border-top: 1px solid var(--line);
+  font-size: 0.94rem;
+}
+.ledger .r span:first-child {
+  color: var(--mute);
+  text-decoration: line-through;
+  text-decoration-color: #D4CEC0;
+}
+.ledger .r span:last-child {
+  font-weight: 600;
+  background: #F4ECDF;
+}
+
+/* 07. Leak Calculator */
+.calc {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(2rem, 6vw, 5.5rem);
+  align-items: center;
+}
+.sl {
+  display: block;
+  margin-top: 1.8rem;
+  font-weight: 600;
+}
+.sl output {
+  float: right;
+  font: 700 1.25rem var(--display);
+  color: var(--hi);
+}
+input[type="range"] {
+  width: 100%;
+  margin-top: 0.7rem;
+  accent-color: var(--hi);
+  height: 6px;
+}
+.res {
+  background: var(--cobalt);
+  border-radius: 28px;
+  padding: clamp(1.6rem, 3.8vw, 2.8rem);
+}
+.res small { color: #E6DFD0; font-size: 0.95rem; }
+.res .loss {
+  display: block;
+  font: 800 clamp(2.8rem, 6.5vw, 5.2rem)/1 var(--display);
+  letter-spacing: -0.05em;
+  margin: 0.35rem 0;
+  font-variant-numeric: tabular-nums;
+}
+.meter {
+  height: 10px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 99px;
+  overflow: hidden;
+  margin: 1.3rem 0 0.6rem;
+}
+.meter i {
+  display: block;
+  height: 100%;
+  width: 70%;
+  background: var(--hi);
+  border-radius: 99px;
+  transform-origin: 0;
+  transition: transform 1s var(--ease);
+}
+.res p { color: #E6DFD0; margin-bottom: 1.4rem; font-size: 0.96rem; }
+
+/* 08. Pinned Process */
+.hs { height: 420vh; background: var(--paper); }
+.pin {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  overflow: hidden;
+  gap: 2.2rem;
+}
+.track {
+  display: flex;
+  gap: 1.4rem;
+  padding: 0 clamp(1.1rem, 4vw, 2.5rem) 0 max(clamp(1.1rem, 4vw, 2.5rem), calc((100vw - 1240px) / 2 + 2.5rem));
+  will-change: transform;
+}
+.slide {
+  flex: none;
+  width: min(500px, 82vw);
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 28px;
+  padding: 2.1rem;
+  min-height: 330px;
+  display: flex;
+  flex-direction: column;
+}
+.slide:nth-child(even) {
+  background: var(--ink);
+  color: #fff;
+  border-color: var(--ink);
+}
+.slide .n {
+  font: 800 5rem/0.9 var(--display);
+  letter-spacing: -0.06em;
+  color: transparent;
+  -webkit-text-stroke: 2px var(--cobalt);
+}
+.slide:nth-child(even) .n { -webkit-text-stroke-color: var(--hi); }
+.slide h3 { font-size: 1.85rem; margin: 1.1rem 0 0.5rem; }
+.slide p { color: var(--mute); }
+.slide:nth-child(even) p { color: #B5AFA2; }
+.slide small {
+  margin-top: auto;
+  padding-top: 1.3rem;
+  font: 600 0.82rem var(--mono);
+  color: var(--cobalt);
+}
+.slide:nth-child(even) small { color: var(--hi); }
+.hsh {
+  padding: 0 clamp(1.1rem, 4vw, 2.5rem);
+  max-width: 1240px;
+  margin: 0 auto;
+  width: 100%;
+}
+.hsb {
+  height: 4px;
+  background: var(--line);
+  margin: 0 clamp(1.1rem, 4vw, 2.5rem);
+  border-radius: 9px;
+  overflow: hidden;
+}
+.hsp {
+  display: block;
+  height: 100%;
+  background: var(--cobalt);
+  transform: scaleX(0);
+  transform-origin: 0;
+}
+
+/* 09. Ongoing Technology Care */
+.care-box {
+  margin-top: 4rem;
+  background: var(--ink);
+  color: #fff;
+  border-radius: 28px;
+  padding: clamp(1.8rem, 4vw, 3.2rem);
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 2.5rem;
+  align-items: center;
+}
+.care-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+}
+.care-tags span {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  padding: 0.5rem 0.9rem;
+  border-radius: 999px;
+  font-size: 0.88rem;
+  font-weight: 500;
+}
+
+@media (max-width: 960px) {
+  .hero-top, .sgrid, .calc, .cmp, .ai-grid, .care-box, .scard.full {
+    grid-template-columns: 1fr;
+  }
+  .prob-grid {
+    grid-template-columns: 1fr;
+  }
+  .scard, .scard.wide {
+    grid-column: span 12;
+  }
+  .hs { height: auto; padding: 4.5rem 0; }
+  .pin { position: static; height: auto; }
+  .track {
+    flex-direction: column;
+    transform: none !important;
+    padding: 0 1.15rem;
+  }
+  .slide { width: 100%; min-height: 0; }
+  .hsb { display: none; }
+}
+</style>
+<link rel="stylesheet" href="polish.css?v=20261025d">
+<script>try{if(!sessionStorage.fx){document.documentElement.classList.add("intro-on");sessionStorage.fx=1}}catch(e){}</script></head>
+<body data-page="index">
+<main>
+<!-- 01. HERO SECTION -->
+<section class="hero">
+  <i class="pin" data-speed=".14"></i>
+  
+  <div class="wrap">
+    <div class="hero-top">
+      <div>
+        <span class="eyebrow">Websites, apps &amp; software</span>
+        <h1>
+          <span class="l" data-split>You bring the problem.</span>
+          <span class="l" data-split>We build the solution.</span>
+        </h1>
+        <div class="type" aria-live="off">We build <b id="ty"></b><i></i></div>
+        <p class="hero-sub" data-r>We make websites, Android apps, custom software and ERP systems for growing businesses. Simple to use. Ready in weeks.</p>
+        <div class="cta" data-r style="--d:1">
+          <a class="btn" href="contact.html">Tell us your problem <svg class="ico"><use href="#arr"/></svg></a>
+          <a class="btn ghost" href="#real-work">See our work</a>
+        </div>
+        <div class="facts" data-r style="--d:2">
+          <span><svg class="ico"><use href="#chk"/></svg>Fixed price, no surprises</span>
+          <span><svg class="ico"><use href="#chk"/></svg>First version in 1–3 weeks</span>
+          <span><svg class="ico"><use href="#chk"/></svg>You own everything we build</span>
+        </div>
+      </div>
+
+      <!-- 3D Floating App Architecture Mockup (Multi-Platform / Desktop + Mobile + Badges) -->
+      <div class="hero-mockup-3d" data-r style="--d:1" aria-label="3D Floating Multi-Platform App Architecture">
+        <div class="mockup-ambient-glow"></div>
+
+        <div class="mockup-3d-scene" id="mockupScene">
+
+          <!-- Floating Platform Pill 1: Web + ERP Dashboard -->
+          <div class="floating-pill pill-top-left">
+            <span class="pill-dot green"></span>
+            <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+            <span>Web &amp; Cloud ERP · <b>Live</b></span>
+          </div>
+
+          <!-- Floating Platform Pill 2: Android APK Sync -->
+          <div class="floating-pill pill-bottom-right">
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="#3DDC84"><path d="M17.523 15.3414c-.5511 0-.9993-.4486-.9993-.9997s.4482-.9993.9993-.9993c.551 0 .9993.4482.9993.9993.0001.5511-.4483.9997-.9993.9997m-11.046 0c-.5511 0-.9993-.4486-.9993-.9997s.4482-.9993.9993-.9993c.5511 0 .9993.4482.9993.9993 0 .5511-.4482.9997-.9993.9997m11.4045-6.02l1.9973-3.4592a.416.416 0 00-.1521-.5676.416.416 0 00-.5676.1521l-2.0223 3.503C15.5902 8.4116 13.8533 8.0827 12 8.0827s-3.5902.3289-5.1368.867l-2.0223-3.503a.416.416 0 00-.5676-.1521.416.416 0 00-.1521.5676l1.9973 3.4592C2.6889 11.1867.3432 14.6589 0 18.761h24c-.3432-4.1021-2.6889-7.5743-6.1185-9.4396"/></svg>
+            <span>Android Native · <b>Offline-Sync</b></span>
+          </div>
+
+          <!-- MAIN LAYER: 3D Desktop Web Dashboard (Isometric Base) -->
+          <div class="card-desktop">
+            <!-- Browser / App Header -->
+            <div class="d-header">
+              <div class="d-dots">
+                <span class="dot-r"></span>
+                <span class="dot-y"></span>
+                <span class="dot-g"></span>
+              </div>
+              <div class="d-search">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+                <span>fixia.internal/revenue-os</span>
+              </div>
+              <div class="d-badge"><span class="pulse-dot"></span> <b>0ms Sync</b></div>
+            </div>
+
+            <!-- Dashboard KPI Row -->
+            <div class="d-kpis">
+              <div class="d-kpi">
+                <span class="kpi-label">MONTHLY REVENUE</span>
+                <div class="kpi-val-row">
+                  <span class="kpi-val">₹4,82,650</span>
+                  <span class="kpi-trend">+28.4%</span>
+                </div>
+              </div>
+              <div class="d-kpi">
+                <span class="kpi-label">ACTIVE CLIENTS</span>
+                <div class="kpi-val-row">
+                  <span class="kpi-val">1,420</span>
+                  <span class="kpi-sub">Live</span>
+                </div>
+              </div>
+              <div class="d-kpi">
+                <span class="kpi-label">SYSTEM UPTIME</span>
+                <div class="kpi-val-row">
+                  <span class="kpi-val" style="color:#22C55E">99.98%</span>
+                  <span class="kpi-sub">0ms</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Dynamic Revenue & User Metrics Chart (SVG) -->
+            <div class="d-chart-wrap">
+              <div class="d-chart-header">
+                <span>Revenue &amp; Active User Trajectory</span>
+                <span class="chart-tag">● Live Inflow</span>
+              </div>
+              <svg class="d-chart-svg" viewBox="0 0 400 110" preserveAspectRatio="none">
+                <defs>
+                  <linearGradient id="chartGrad" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="#FF4A1C" stop-opacity="0.35"/>
+                    <stop offset="100%" stop-color="#FF4A1C" stop-opacity="0.0"/>
+                  </linearGradient>
+                </defs>
+                <line x1="0" y1="25" x2="400" y2="25" stroke="rgba(255,255,255,0.06)" stroke-dasharray="3,3"/>
+                <line x1="0" y1="65" x2="400" y2="65" stroke="rgba(255,255,255,0.06)" stroke-dasharray="3,3"/>
+                <path d="M0,85 Q50,75 100,55 T200,60 T300,25 T400,15 L400,110 L0,110 Z" fill="url(#chartGrad)"/>
+                <path d="M0,85 Q50,75 100,55 T200,60 T300,25 T400,15" fill="none" stroke="#FF4A1C" stroke-width="3" stroke-linecap="round"/>
+                <circle cx="100" cy="55" r="4" fill="#FF4A1C"/>
+                <circle cx="200" cy="60" r="4" fill="#FF4A1C"/>
+                <circle cx="300" cy="25" r="4" fill="#FF4A1C"/>
+                <circle cx="400" cy="15" r="5" fill="#fff" stroke="#FF4A1C" stroke-width="2.5"/>
+              </svg>
+              <div class="d-chart-days">
+                <span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span><span>Today</span>
+              </div>
+            </div>
+
+            <!-- Live Operations Table Mini Strip -->
+            <div class="d-table-strip">
+              <div class="d-row">
+                <span class="r-dot green"></span>
+                <span class="r-name">Himalaya Expedition</span>
+                <span class="r-stat">46/46 Seats Reserved</span>
+                <span class="r-val">₹92,000</span>
+              </div>
+              <div class="d-row">
+                <span class="r-dot green"></span>
+                <span class="r-name">One Shot Arena POS</span>
+                <span class="r-stat">8 Tables Running</span>
+                <span class="r-val">₹14,850</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- FOREGROUND FLOATING LAYER: Mobile App UI (Real-Time Booking & Status) -->
+          <div class="card-mobile">
+            <div class="m-notch"></div>
+            
+            <div class="m-app-bar">
+              <div class="m-time">12:45</div>
+              <div class="m-app-title">FIXIA Live App</div>
+              <div class="m-sig">5G · 100%</div>
+            </div>
+
+            <div class="m-booking-card">
+              <div class="m-b-header">
+                <span class="m-live-badge"><span class="pulse-dot"></span> LIVE BOOKING</span>
+                <span class="m-b-id">#FX-842</span>
+              </div>
+              <div class="m-b-title">Himalayan Expedition</div>
+              <div class="m-b-meta">
+                <span>Bus Cabin #03</span>
+                <span class="m-seat-tag">Seat A12, A13</span>
+              </div>
+              <div class="m-b-prog">
+                <div class="m-prog-bar"><div class="m-prog-fill"></div></div>
+                <small>Booking Confirmed · Boarding Pass Ready</small>
+              </div>
+            </div>
+
+            <div class="m-pay-card">
+              <div class="m-pay-ico">
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#22C55E" stroke-width="2.5"><path d="M20 6 9 17l-5-5"/></svg>
+              </div>
+              <div class="m-pay-info">
+                <b>₹1,450 Received via UPI</b>
+                <small>CueDesk Snooker Table 04 VIP</small>
+              </div>
+            </div>
+
+            <div class="m-cta-btn">
+              <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+              <span>Send WhatsApp Pass ↗</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- 02. MARQUEE CAPABILITY STRIP -->
+<div class="mq" aria-hidden="true" style="margin-top:4rem"><div id="mq"></div></div>
+
+<!-- 03. WHAT WE BUILD (SERVICES SUMMARY & INTERACTIVE SHOWROOM) -->
+<section class="sec" id="services">
+  <div class="wrap">
+    <div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:1.5rem">
+      <div style="max-width:38rem">
+        <span class="eyebrow">What We Actually Build</span>
+        <h2 data-split>Software tailored to your <em>exact</em> workflow.</h2>
+        <p class="lede" data-r>No vague marketing talk. We build custom software that solves your operational headaches, automates your daily routine, and helps you capture more revenue.</p>
+      </div>
+      <div style="align-self:flex-end">
+        <a class="btn ghost sm" href="services.html">See all services &amp; blueprints →</a>
+      </div>
+    </div>
+
+    <!-- Homepage Services Summary (Icons Specified + Service Names) -->
+    <div class="home-svc-summary" data-stagger>
+      
+      <!-- Summary 1: Websites & Portals -->
+      <a class="home-svc-chip" href="web.html">
+        <div class="home-svc-chip-top">
+          <div class="home-svc-icon" style="background:rgba(37,71,245,0.08);border-color:rgba(37,71,245,0.2)">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#2547F5" stroke-width="2">
+              <circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+            </svg>
+          </div>
+          <span class="home-svc-arrow">→</span>
+        </div>
+        <div class="home-svc-title">Websites &amp; Portals</div>
+        <p class="home-svc-desc">High-speed, SEO-optimized business sites engineered to load in under 1 second.</p>
+      </a>
+
+      <!-- Summary 2: Android & iOS Apps -->
+      <a class="home-svc-chip" href="android.html">
+        <div class="home-svc-chip-top">
+          <div class="home-svc-icon" style="background:rgba(61,220,132,0.12);border-color:rgba(61,220,132,0.3)">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="#3DDC84">
+              <path d="M17.523 15.3414c-.5511 0-.9993-.4486-.9993-.9997s.4482-.9993.9993-.9993c.551 0 .9993.4482.9993.9993.0001.5511-.4483.9997-.9993.9997m-11.046 0c-.5511 0-.9993-.4486-.9993-.9997s.4482-.9993.9993-.9993c.5511 0 .9993.4482.9993.9993 0 .5511-.4482.9997-.9993.9997m11.4045-6.02l1.9973-3.4592a.416.416 0 00-.1521-.5676.416.416 0 00-.5676.1521l-2.0223 3.503C15.5902 8.4116 13.8533 8.0827 12 8.0827s-3.5902.3289-5.1368.867l-2.0223-3.503a.416.416 0 00-.5676-.1521.416.416 0 00-.1521.5676l1.9973 3.4592C2.6889 11.1867.3432 14.6589 0 18.761h24c-.3432-4.1021-2.6889-7.5743-6.1185-9.4396"/>
+            </svg>
+          </div>
+          <span class="home-svc-arrow">→</span>
+        </div>
+        <div class="home-svc-title">Android &amp; iOS Apps</div>
+        <p class="home-svc-desc">Direct smartphone apps with push alerts, offline sync, and zero app store fees.</p>
+      </a>
+
+      <!-- Summary 3: Custom Software & POS -->
+      <a class="home-svc-chip" href="software.html">
+        <div class="home-svc-chip-top">
+          <div class="home-svc-icon" style="background:rgba(255,74,28,0.08);border-color:rgba(255,74,28,0.25)">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#FF4A1C" stroke-width="2">
+              <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/>
+            </svg>
+          </div>
+          <span class="home-svc-arrow">→</span>
+        </div>
+        <div class="home-svc-title">Custom Software &amp; POS</div>
+        <p class="home-svc-desc">Replaces paper registers and chaotic spreadsheets with fast operational tools.</p>
+      </a>
+
+      <!-- Summary 4: Full ERP Systems -->
+      <a class="home-svc-chip" href="erp.html">
+        <div class="home-svc-chip-top">
+          <div class="home-svc-icon" style="background:rgba(16,16,16,0.08);border-color:rgba(16,16,16,0.2)">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#101010" stroke-width="2">
+              <ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/>
+            </svg>
+          </div>
+          <span class="home-svc-arrow">→</span>
+        </div>
+        <div class="home-svc-title">ERP Systems</div>
+        <p class="home-svc-desc">One unified system for sales, stock, multi-branch inventory, accounts and staff.</p>
+      </a>
+
+      <!-- Summary 5: Bots & WhatsApp -->
+      <a class="home-svc-chip" href="ai.html">
+        <div class="home-svc-chip-top">
+          <div class="home-svc-icon" style="background:rgba(255,74,28,0.12);border-color:rgba(255,74,28,0.28)">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#FF4A1C" stroke-width="2">
+              <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/>
+            </svg>
+          </div>
+          <span class="home-svc-arrow">→</span>
+        </div>
+        <div class="home-svc-title">Bots &amp; WhatsApp</div>
+        <p class="home-svc-desc">Automated helpers that answer inquiries, dispatch PDF bills and send reminders.</p>
+      </a>
+
+    </div>
+
+    <!-- Restored Interactive Showroom (Scrolling Cards Animation) -->
+    <div class="show" data-r>
+      <div class="show-list">
+        <button class="show-item on" type="button">
+          <i>01</i><b>Websites</b><span>A fast, clean site for your business or store.</span>
+        </button>
+        <button class="show-item" type="button">
+          <i>02</i><b>Android apps</b><span>Your own app for customers or staff.</span>
+        </button>
+        <button class="show-item" type="button">
+          <i>03</i><b>Custom software</b><span>Billing, stock and records made for you.</span>
+        </button>
+        <button class="show-item" type="button">
+          <i>04</i><b>ERP systems</b><span>One system for sales, stock, accounts and staff.</span>
+        </button>
+        <button class="show-item" type="button">
+          <i>05</i><b>Bots &amp; automation</b><span>Helpers that answer and fill in for you.</span>
+        </button>
+      </div>
+
+      <div class="show-stage" aria-live="polite">
+        <!-- Pane 01: Websites -->
+        <div class="show-pane on">
+          <div class="stage-mock">
+            <div class="m-web">
+              <div class="m-bar"><u></u><u></u><u></u></div>
+              <b>Your business, <i>online.</i></b>
+              <span class="m-btn">Contact us</span>
+              <div class="m-blocks"><u></u><u></u><u></u></div>
+            </div>
+          </div>
+          <div class="stage-copy">
+            <h3>Websites</h3>
+            <p>A fast, clean site for your business or store.</p>
+            <a class="btn hi sm" href="web.html">Learn more ↗</a>
+          </div>
+        </div>
+
+        <!-- Pane 02: Android Apps -->
+        <div class="show-pane">
+          <div class="stage-mock">
+            <div class="m-phone">
+              <small>My Shop</small>
+              <p><span>Order 102</span><b>Packed</b></p>
+              <p><span>Order 103</span><b>On the way</b></p>
+              <p><span>Order 104</span><b>New</b></p>
+              <i class="m-btn">+ New order</i>
+            </div>
+          </div>
+          <div class="stage-copy">
+            <h3>Android apps</h3>
+            <p>Your own app for customers or staff.</p>
+            <a class="btn hi sm" href="android.html">Learn more ↗</a>
+          </div>
+        </div>
+
+        <!-- Pane 03: Custom Software -->
+        <div class="show-pane">
+          <div class="stage-mock">
+            <div class="m-ad">
+              <small>Today at a glance</small>
+              <div style="display:flex;gap:.4rem">
+                <span class="m-btn" style="background:var(--ink);color:var(--paper)">Sales</span>
+                <span class="m-btn" style="background:var(--ink);color:var(--paper)">Stock</span>
+                <span class="m-btn" style="background:var(--ink);color:var(--paper)">Dues</span>
+              </div>
+              <div class="m-bars">
+                <u style="--h:25%"></u><u style="--h:40%"></u><u style="--h:35%"></u><u style="--h:60%"></u><u style="--h:55%"></u><u style="--h:85%"></u><u style="--h:100%"></u>
+              </div>
+            </div>
+          </div>
+          <div class="stage-copy">
+            <h3>Custom software</h3>
+            <p>Billing, stock and records made for you.</p>
+            <a class="btn hi sm" href="software.html">Learn more ↗</a>
+          </div>
+        </div>
+
+        <!-- Pane 04: ERP Systems -->
+        <div class="show-pane">
+          <div class="stage-mock">
+            <div class="m-erp">
+              <u style="--i:0">Sales</u><u style="--i:1">Stock</u><u style="--i:2">Accounts</u><u style="--i:3">Staff</u><u style="--i:4">Buying</u><u style="--i:5">Reports</u>
+            </div>
+          </div>
+          <div class="stage-copy">
+            <h3>ERP systems</h3>
+            <p>One system for sales, stock, accounts and staff.</p>
+            <a class="btn hi sm" href="erp.html">Learn more ↗</a>
+          </div>
+        </div>
+
+        <!-- Pane 05: Bots & Automation -->
+        <div class="show-pane">
+          <div class="stage-mock">
+            <div class="m-chat">
+              <p class="in">Can I move my 4 PM slot to Friday?</p>
+              <p class="out">Done. Friday, 4 PM. ✓</p>
+              <p class="in">Thanks!</p>
+            </div>
+          </div>
+          <div class="stage-copy">
+            <h3>Bots &amp; automation</h3>
+            <p>Helpers that answer and fill in for you.</p>
+            <a class="btn hi sm" href="ai.html">Learn more ↗</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW OUR SERVICES EASE YOUR BUSINESS (BEFORE vs. AFTER FIXIA) -->
+<section class="sec" style="background:#FAF8F5;border-top:1px solid var(--line);border-bottom:1px solid var(--line)">
+  <div class="wrap">
+    <div style="max-width:38rem">
+      <span class="eyebrow">Real Business Ease</span>
+      <h2 data-split>Less daily chaos. More time to grow.</h2>
+      <p class="lede" data-r>Most businesses run on WhatsApp messages, paper slips, and memory. Here is how FIXIA replaces that headache with clean, automated software.</p>
+    </div>
+
+    <div class="ease-grid" data-r>
+      <!-- The Manual Friction (Before FIXIA) -->
+      <div class="ease-card chaos">
+        <span class="ease-badge">Without FIXIA · The Daily Headache</span>
+        <h3>Manual tracking &amp; constant follow-ups.</h3>
+        <ul class="ease-items">
+          <li>
+            <svg class="ico" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="m15 9-6 6M9 9l6 6"/></svg>
+            <div><b>Lost Bookings &amp; Double-Entries:</b> Booking slots written on paper or scattered across 12 different WhatsApp chats.</div>
+          </li>
+          <li>
+            <svg class="ico" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="m15 9-6 6M9 9l6 6"/></svg>
+            <div><b>Manual Fee &amp; Payment Reminders:</b> Spending 2 hours every evening calling clients for overdue bills and expired memberships.</div>
+          </li>
+          <li>
+            <svg class="ico" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="m15 9-6 6M9 9l6 6"/></svg>
+            <div><b>Shift Disputes &amp; Revenue Leaks:</b> Unbilled table minutes, forgotten cafe orders, and cash registers that don't match receipts.</div>
+          </li>
+          <li>
+            <svg class="ico" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="m15 9-6 6M9 9l6 6"/></svg>
+            <div><b>Trapped to the Counter:</b> The business stops if you aren't physically present to answer questions and supervise staff.</div>
+          </li>
+        </ul>
+        <div class="ease-outcome">
+          <span>Result: Stress, lost revenue &amp; wasted evening hours.</span>
+        </div>
+      </div>
+
+      <!-- The Automated Ease (With FIXIA) -->
+      <div class="ease-card fixia">
+        <span class="ease-badge">With FIXIA · Automated &amp; Effortless</span>
+        <h3>One clean system. <em>Zero friction.</em></h3>
+        <ul class="ease-items">
+          <li>
+            <svg class="ico" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
+            <div><b>Real-Time Live Availability:</b> Customers reserve seats, tables, or appointments self-serve on their phones 24/7.</div>
+          </li>
+          <li>
+            <svg class="ico" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
+            <div><b>Automated WhatsApp Bots:</b> Instant digital receipts, booking confirmations, and UPI payment reminders sent on autopilot.</div>
+          </li>
+          <li>
+            <svg class="ico" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
+            <div><b>One-Click Close &amp; Profit Audit:</b> Table timers and POS bills auto-sync with staff expense records in one daily tally.</div>
+          </li>
+          <li>
+            <svg class="ico" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
+            <div><b>Run Your Business from Anywhere:</b> Check live sales, attendance, and branch records directly from your phone.</div>
+          </li>
+        </ul>
+        <div class="ease-outcome">
+          <span>Average Time Saved: 15+ Hours Every Week</span>
+          <a class="btn hi sm" href="contact.html">Automate Your Business →</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Dynamic Before vs After Interactive Split Slider -->
+    <div style="margin-top:4rem" data-r>
+      <div style="text-align:center;max-width:36rem;margin:0 auto 1.5rem">
+        <span class="eyebrow" style="margin:0 auto">Interactive Comparison</span>
+        <h3 style="font-size:clamp(1.6rem,3.2vw,2.3rem);letter-spacing:-0.03em;margin-top:0.6rem">Slide to compare: The old headache vs. FIXIA engineered clarity.</h3>
+        <p style="color:var(--mute);font-size:0.95rem">Drag the divider left or right to see how our custom software transforms daily business operations.</p>
+      </div>
+
+      <div class="bfa-container">
+        <!-- Before Pane (Left / Underneath) -->
+        <div class="bfa-pane bfa-before">
+          <div class="bfa-content-wrap">
+            <div class="bfa-card">
+              <span class="bfa-badge-bad">✕ WITHOUT FIXIA · MANUAL SPREADSHEETS</span>
+              <h4 style="font-size:1.3rem;margin:0 0 0.5rem">Scattered records &amp; revenue disputes.</h4>
+              <p style="color:#B5AFA2;font-size:0.9rem;line-height:1.5;margin:0">Paper tokens, manual minutes, unbilled snacks, customer queues, and 2 hours of stressful evening book reconciliation.</p>
+              <ul class="bfa-list" style="color:#FCA5A5">
+                <li>✕ Paper booking tokens lost or misplaced</li>
+                <li>✕ 15% - 20% table revenue leakage</li>
+                <li>✕ Constant customer WhatsApp disputes</li>
+              </ul>
+            </div>
+            <div style="background:rgba(255,255,255,0.03);border:1px dashed rgba(255,255,255,0.15);border-radius:18px;padding:1.8rem;display:flex;flex-direction:column;gap:0.75rem">
+              <span style="font:700 0.75rem var(--mono);color:#EF4444">MANUAL WORKLOAD</span>
+              <div style="font:800 2.2rem var(--mono);color:#fff">18.5 hrs <span style="font-size:0.9rem;font-weight:500;color:#94A3B8">/ week</span></div>
+              <p style="color:#94A3B8;font-size:0.85rem;margin:0">Spent on manual ledger entries and phone calls.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- After Pane (Right / Over top with width) -->
+        <div class="bfa-pane bfa-after">
+          <div class="bfa-content-wrap">
+            <div class="bfa-card">
+              <span class="bfa-badge-good">✓ WITH FIXIA · AUTOMATED CLOUD SOFTWARE</span>
+              <h4 style="font-size:1.3rem;margin:0 0 0.5rem;color:var(--ink)">Real-time sync &amp; total owner visibility.</h4>
+              <p style="color:var(--mute);font-size:0.9rem;line-height:1.5;margin:0">Automated session matrix timers, 1-click POS combo billing, instant WhatsApp receipts, and zero-leakage daily close.</p>
+              <ul class="bfa-list" style="color:#059669">
+                <li>✓ 0ms real-time table state sync</li>
+                <li>✓ 100% accurate billing &amp; zero disputes</li>
+                <li>✓ Automated WhatsApp payment pushes</li>
+              </ul>
+            </div>
+            <div style="background:#fff;border:1px solid rgba(16,16,16,0.1);border-radius:18px;padding:1.8rem;box-shadow:0 12px 28px rgba(16,16,16,0.06);display:flex;flex-direction:column;gap:0.75rem">
+              <span style="font:700 0.75rem var(--mono);color:#10B981">AUTOMATION GAIN</span>
+              <div style="font:800 2.2rem var(--mono);color:var(--ink)">~3.2 hrs <span style="font-size:0.9rem;font-weight:500;color:var(--mute)">/ week</span></div>
+              <p style="color:var(--mute);font-size:0.85rem;margin:0">82% routine administrative time recovered.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Draggable Handle -->
+        <div class="bfa-handle" aria-label="Drag to compare before and after">
+          <div class="bfa-handle-btn">↔</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Real-Time ROI / Performance Calculator -->
+    <div style="margin-top:5rem;padding-top:4rem;border-top:1px solid var(--line)" data-r>
+      <div style="max-width:38rem">
+        <span class="eyebrow">Real-Time Performance Calculator</span>
+        <h3 style="font-size:clamp(1.8rem,3.6vw,2.5rem);letter-spacing:-0.035em;margin-top:0.5rem">Calculate the return of custom software for your business.</h3>
+        <p style="color:var(--mute);font-size:1rem">Adjust your business parameters below to estimate manual hours recovered and revenue leakage prevented.</p>
+      </div>
+
+      <div class="roi-grid">
+        <div class="roi-controls">
+          <div class="roi-control-group">
+            <div class="roi-label-row">
+              <span>Weekly hours spent on manual paperwork:</span>
+              <span class="roi-val-badge" id="roiDispHours">12 hrs/wk</span>
+            </div>
+            <input class="roi-range" id="roiHours" type="range" min="4" max="40" value="12" step="1" aria-label="Weekly hours spent on manual paperwork">
+          </div>
+
+          <div class="roi-control-group">
+            <div class="roi-label-row">
+              <span>Staff members handling daily records:</span>
+              <span class="roi-val-badge" id="roiDispStaff">3 people</span>
+            </div>
+            <input class="roi-range" id="roiStaff" type="range" min="1" max="15" value="3" step="1" aria-label="Staff members handling daily records">
+          </div>
+
+          <div class="roi-control-group">
+            <div class="roi-label-row">
+              <span>Estimated monthly business revenue:</span>
+              <span class="roi-val-badge" id="roiDispRev">₹3.0 Lakh</span>
+            </div>
+            <input class="roi-range" id="roiRev" type="range" min="50000" max="2500000" value="300000" step="25000" aria-label="Estimated monthly business revenue">
+          </div>
+        </div>
+
+        <div class="roi-display-card">
+          <span style="font:700 0.75rem var(--mono);color:#FF4A1C;text-transform:uppercase;letter-spacing:0.06em">ESTIMATED RECOVERY METRICS</span>
+          <div class="roi-stat-main" id="roiOutHours">~117 <span>hrs / mo</span></div>
+          <p style="color:#B5AFA2;font-size:0.92rem;margin:0">Administrative and booking hours saved every month with automated workflows.</p>
+
+          <div class="roi-sub-stats">
+            <div class="roi-sub-item">
+              <h4 id="roiOutMoney">₹4,91,400</h4>
+              <p>Annual revenue leakage &amp; administrative cost prevented</p>
+            </div>
+            <div class="roi-sub-item">
+              <h4 id="roiOutPayback">26 Days</h4>
+              <p>Estimated Fixia software build payback timeframe</p>
+            </div>
+          </div>
+
+          <a class="btn hi sm" style="margin-top:1.6rem;display:inline-flex" href="contact.html">Build Your Solution →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 09. REAL CLIENT PROJECTS SHOWCASE (OUR PROOF OF CRAFT) -->
+<section class="sec" id="real-work">
+  <div class="wrap">
+    <div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:1.5rem">
+      <div>
+        <span class="eyebrow">Real work, moving</span>
+        <h2 data-split>Things we have already built.</h2>
+        <p class="lede" data-r>Real businesses, real websites and apps. Watch each one move, or open the live site.</p>
+      </div>
+      <div style="align-self:flex-end">
+        <a class="btn ghost sm" href="work.html">View all 7 verified projects →</a>
+      </div>
+    </div>
+    
+    <!-- Featured Hero Project (Himalaya Escape) -->
+    <div class="hero-feature-card" data-r>
+      <div class="hfc-grid">
+        <div class="hfc-info">
+          <span class="hfc-tag"><span class="dot"></span> Featured Expedition Portal</span>
+          <h3 class="hfc-title">Himalaya Escape</h3>
+          <p class="hfc-tagline">High-Altitude Student Expedition &amp; Live Booking Experience</p>
+          <p style="color:#B5AFA2;font-size:1.02rem;line-height:1.5;margin-bottom:1.5rem">Official student expedition portal featuring live mountain weather feeds, bus cabin &amp; seat reservations, group-discount tiers, and automated digital boarding pass generation.</p>
+          <div class="hfc-built">
+            <div class="hfc-built-title">What We Built</div>
+            <div class="hfc-tags">
+              <span>46-Seat Cabin Matrix</span>
+              <span>Live Weather API</span>
+              <span>Tiered Group Discounts</span>
+              <span>Digital Boarding Passes</span>
+            </div>
+          </div>
+          <div class="hfc-actions">
+            <a class="btn hi" href="https://himalaya-escape.vercel.app/" target="_blank" rel="noopener noreferrer">Visit Live Site ↗</a>
+            <button class="btn ghost" style="color:#fff;border-color:rgba(255,255,255,.3)" data-modal-id="himalaya-escape" type="button">View Case Details</button>
+          </div>
+        </div>
+        <div class="hfc-visual">
+          <div class="browser-frame">
+            <div class="bf-bar">
+              <div class="bf-dots"><span></span><span></span><span></span></div>
+              <div class="bf-address"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg><span>https://himalaya-escape.vercel.app</span></div>
+              <a class="bf-live-pill" href="https://himalaya-escape.vercel.app/" target="_blank" rel="noopener noreferrer">Live Site ↗</a>
+            </div>
+            <div class="bf-screen">
+              <img onerror="window.fxMotion&&fxMotion(this)" src="assets/projects/himalaya-escape-desktop.png" alt="Himalaya Escape desktop preview" width="1440" height="900" loading="eager">
+              <div class="bf-phone"><img onerror="window.fxMotion&&fxMotion(this)" src="assets/projects/himalaya-escape-mobile.png" alt="Himalaya Escape mobile preview" width="390" height="844" loading="lazy"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Editorial Layouts for Real Projects -->
+    <div class="editorial-portfolio">
+      <!-- Project 02: One Shot / CueDesk -->
+      <div class="proj-row" data-r>
+        <div class="proj-visual">
+          <div class="browser-frame">
+            <div class="bf-bar">
+              <div class="bf-dots"><span></span><span></span><span></span></div>
+              <div class="bf-address"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg><span>https://oneshot-livid.vercel.app</span></div>
+              <a class="bf-live-pill" href="https://oneshot-livid.vercel.app/" target="_blank" rel="noopener noreferrer">Live Site ↗</a>
+            </div>
+            <div class="bf-screen">
+              <img onerror="window.fxMotion&&fxMotion(this)" src="assets/projects/oneshot-desktop.png" alt="One Shot CueDesk operational dashboard" width="1440" height="900" loading="lazy">
+              <div class="bf-phone"><img onerror="window.fxMotion&&fxMotion(this)" src="assets/projects/oneshot-mobile.png" alt="One Shot CueDesk mobile view" width="390" height="844" loading="lazy"></div>
+            </div>
+          </div>
+        </div>
+        <div class="proj-copy">
+          <span class="proj-cat">Custom Software &amp; SaaS</span>
+          <h3>One Shot / CueDesk</h3>
+          <p class="proj-desc">Real-time club management system tracking live table session timers, point-of-sale snack billing, staff expense management, and automated daily cash reconciliation.</p>
+          <ul class="proj-highlights">
+            <li><svg class="ico"><use href="#chk"/></svg><span>Real-time 8-table session matrix with live minute counters</span></li>
+            <li><svg class="ico"><use href="#chk"/></svg><span>Integrated POS billing combining hourly game duration &amp; kitchen orders</span></li>
+            <li><svg class="ico"><use href="#chk"/></svg><span>Cloud-synchronized offline-ready operational dashboard</span></li>
+          </ul>
+          <div class="proj-btns">
+            <a class="btn" href="https://oneshot-livid.vercel.app/" target="_blank" rel="noopener noreferrer">Visit Live Site ↗</a>
+            <button class="btn ghost sm" data-modal-id="oneshot" type="button">View Case Details</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Project 03: Flexora -->
+      <div class="proj-row reverse" data-r>
+        <div class="proj-visual">
+          <div class="browser-frame">
+            <div class="bf-bar">
+              <div class="bf-dots"><span></span><span></span><span></span></div>
+              <div class="bf-address"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg><span>https://flexora-ivory.vercel.app</span></div>
+              <a class="bf-live-pill" href="https://flexora-ivory.vercel.app/" target="_blank" rel="noopener noreferrer">Live Site ↗</a>
+            </div>
+            <div class="bf-screen">
+              <img onerror="window.fxMotion&&fxMotion(this)" src="assets/projects/flexora-desktop.png" alt="Flexora luxury streetwear lookbook" width="1440" height="900" loading="lazy">
+              <div class="bf-phone"><img onerror="window.fxMotion&&fxMotion(this)" src="assets/projects/flexora-mobile.png" alt="Flexora mobile catalog" width="390" height="844" loading="lazy"></div>
+            </div>
+          </div>
+        </div>
+        <div class="proj-copy">
+          <span class="proj-cat">E-Commerce &amp; Fashion</span>
+          <h3>Flexora</h3>
+          <p class="proj-desc">High-aesthetic digital storefront and lookbook crafted for premium heavy organic hoodies, oversized drop-shoulder tees, and sweat-wicking activewear.</p>
+          <ul class="proj-highlights">
+            <li><svg class="ico"><use href="#chk"/></svg><span>Editorial drop-release architecture (Luxury Casual &amp; Gymwear Elite)</span></li>
+            <li><svg class="ico"><use href="#chk"/></svg><span>Technical fabric callouts (400+ GSM organic cotton &amp; 4-way stretch)</span></li>
+            <li><svg class="ico"><use href="#chk"/></svg><span>Athlete Zone community showcase and photo review integration</span></li>
+          </ul>
+          <div class="proj-btns">
+            <a class="btn" href="https://flexora-ivory.vercel.app/" target="_blank" rel="noopener noreferrer">Visit Live Site ↗</a>
+            <button class="btn ghost sm" data-modal-id="flexora" type="button">View Case Details</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Project 04: Matrix Gym -->
+      <div class="proj-row" data-r>
+        <div class="proj-visual">
+          <div class="browser-frame">
+            <div class="bf-bar">
+              <div class="bf-dots"><span></span><span></span><span></span></div>
+              <div class="bf-address"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg><span>https://matrixgym.in</span></div>
+              <a class="bf-live-pill" href="https://www.matrixgym.in/" target="_blank" rel="noopener noreferrer">Live Site ↗</a>
+            </div>
+            <div class="bf-screen">
+              <img onerror="window.fxMotion&&fxMotion(this)" src="assets/projects/matrix-gym-desktop.png?v=2" alt="Matrix Gym high energy brand platform" width="1440" height="900" loading="lazy">
+              <div class="bf-phone"><img onerror="window.fxMotion&&fxMotion(this)" src="assets/projects/matrix-gym-mobile.png?v=2" alt="Matrix Gym mobile interface" width="390" height="844" loading="lazy"></div>
+            </div>
+          </div>
+        </div>
+        <div class="proj-copy">
+          <span class="proj-cat">Fitness &amp; Wellness</span>
+          <h3>Matrix Gym</h3>
+          <p class="proj-desc">Commanding dark-mode digital presence showcasing state-of-the-art facility equipment, elite trainer credentials, structured training programs, and membership enrollment.</p>
+          <ul class="proj-highlights">
+            <li><svg class="ico"><use href="#chk"/></svg><span>High-octane typographic visual identity capturing gym grit &amp; intensity</span></li>
+            <li><svg class="ico"><use href="#chk"/></svg><span>Interactive program catalog for Strength, Crossfit, Cardio &amp; HIIT tracks</span></li>
+            <li><svg class="ico"><use href="#chk"/></svg><span>Frictionless direct WhatsApp &amp; membership lead capture funnel</span></li>
+          </ul>
+          <div class="proj-btns">
+            <a class="btn" href="https://www.matrixgym.in/" target="_blank" rel="noopener noreferrer">Visit Live Site ↗</a>
+            <button class="btn ghost sm" data-modal-id="matrix-gym" type="button">View Case Details</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Project 05: Balaji Properties -->
+      <div class="proj-row reverse" data-r>
+        <div class="proj-visual">
+          <div class="browser-frame">
+            <div class="bf-bar">
+              <div class="bf-dots"><span></span><span></span><span></span></div>
+              <div class="bf-address"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg><span>https://balajipropertiess.vercel.app</span></div>
+              <a class="bf-live-pill" href="https://balajipropertiess.vercel.app/" target="_blank" rel="noopener noreferrer">Live Site ↗</a>
+            </div>
+            <div class="bf-screen">
+              <img onerror="window.fxMotion&&fxMotion(this)" src="assets/projects/balaji-properties-desktop.png?v=2" alt="Balaji Properties prestige real estate portal" width="1440" height="900" loading="lazy">
+              <div class="bf-phone"><img onerror="window.fxMotion&&fxMotion(this)" src="assets/projects/balaji-properties-mobile.png?v=2" alt="Balaji Properties mobile listings" width="390" height="844" loading="lazy"></div>
+            </div>
+          </div>
+        </div>
+        <div class="proj-copy">
+          <span class="proj-cat">Real Estate &amp; Properties</span>
+          <h3>Balaji Properties</h3>
+          <p class="proj-desc">Architectural real estate portal presenting verified gated plots, society apartments, and commercial land investment opportunities across Mathura &amp; Vrindavan.</p>
+          <ul class="proj-highlights">
+            <li><svg class="ico"><use href="#chk"/></svg><span>Architectural property portfolio with categorized acquisition niches</span></li>
+            <li><svg class="ico"><use href="#chk"/></svg><span>Verified land credentials, approval badges &amp; purchase pathway guide</span></li>
+            <li><svg class="ico"><use href="#chk"/></svg><span>Interactive property search filters by location and capital capacity</span></li>
+          </ul>
+          <div class="proj-btns">
+            <a class="btn" href="https://balajipropertiess.vercel.app/" target="_blank" rel="noopener noreferrer">Visit Live Site ↗</a>
+            <button class="btn ghost sm" data-modal-id="balaji-properties" type="button">View Case Details</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Project 06: Rocket 147 -->
+      <div class="proj-row" data-r>
+        <div class="proj-visual">
+          <div class="browser-frame">
+            <div class="bf-bar">
+              <div class="bf-dots"><span></span><span></span><span></span></div>
+              <div class="bf-address"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg><span>https://rocket-147.vercel.app</span></div>
+              <a class="bf-live-pill" href="https://rocket-147.vercel.app/" target="_blank" rel="noopener noreferrer">Live Site ↗</a>
+            </div>
+            <div class="bf-screen">
+              <img onerror="window.fxMotion&&fxMotion(this)" src="assets/projects/rocket-147-desktop.png?v=2" alt="Rocket 147 snooker lounge booking portal" width="1440" height="900" loading="lazy">
+              <div class="bf-phone"><img onerror="window.fxMotion&&fxMotion(this)" src="assets/projects/rocket-147-mobile.png?v=2" alt="Rocket 147 mobile reservation" width="390" height="844" loading="lazy"></div>
+            </div>
+          </div>
+        </div>
+        <div class="proj-copy">
+          <span class="proj-cat">Sports &amp; Entertainment</span>
+          <h3>Rocket 147</h3>
+          <p class="proj-desc">Modern snooker and pool club booking portal designed for quality practice, private cabin reservations, daily tournament registration, and in-house cafe menu showcase.</p>
+          <ul class="proj-highlights">
+            <li><svg class="ico"><use href="#chk"/></svg><span>Interactive table selector with clear hourly rates (Standard vs VIP Cabin)</span></li>
+            <li><svg class="ico"><use href="#chk"/></svg><span>Live club atmosphere widget showing current local time and practice weather</span></li>
+            <li><svg class="ico"><use href="#chk"/></svg><span>In-house cafe menu showcase &amp; cue-sport tournament registration</span></li>
+          </ul>
+          <div class="proj-btns">
+            <a class="btn" href="https://rocket-147.vercel.app/" target="_blank" rel="noopener noreferrer">Visit Live Site ↗</a>
+            <button class="btn ghost sm" data-modal-id="rocket-147" type="button">View Case Details</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Project 07: Pradeep Classes -->
+      <div class="proj-row reverse" data-r>
+        <div class="proj-visual">
+          <div class="browser-frame">
+            <div class="bf-bar">
+              <div class="bf-dots"><span></span><span></span><span></span></div>
+              <div class="bf-address"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg><span>https://pradeepclasses.in</span></div>
+              <a class="bf-live-pill" href="https://pradeepclasses.in/" target="_blank" rel="noopener noreferrer">Live Site ↗</a>
+            </div>
+            <div class="bf-screen">
+              <img onerror="window.fxMotion&&fxMotion(this)" src="assets/projects/pradeep-classes-desktop.png?v=2" alt="Pradeep Classes admissions and coaching portal" width="1440" height="900" loading="lazy">
+              <div class="bf-phone"><img onerror="window.fxMotion&&fxMotion(this)" src="assets/projects/pradeep-classes-mobile.png?v=2" alt="Pradeep Classes mobile portal" width="390" height="844" loading="lazy"></div>
+            </div>
+          </div>
+        </div>
+        <div class="proj-copy">
+          <span class="proj-cat">Education &amp; Coaching</span>
+          <h3>Pradeep Classes</h3>
+          <p class="proj-desc">Educational platform featuring specialized coaching tracks for Navodaya Prep, Sainik School, and 1st–12th academic foundation with bilingual parent accessibility.</p>
+          <ul class="proj-highlights">
+            <li><svg class="ico"><use href="#chk"/></svg><span>Bilingual (English / Hindi) language switch for accessible parent communication</span></li>
+            <li><svg class="ico"><use href="#chk"/></svg><span>Structured course breakdowns for Navodaya Prep, Military School &amp; IIT Foundation</span></li>
+            <li><svg class="ico"><use href="#chk"/></svg><span>Verified student results, faculty team &amp; admissions inquiry funnel</span></li>
+          </ul>
+          <div class="proj-btns">
+            <a class="btn" href="https://pradeepclasses.in/" target="_blank" rel="noopener noreferrer">Visit Live Site ↗</a>
+            <button class="btn ghost sm" data-modal-id="pradeep-classes" type="button">View Case Details</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Explore All Work Gateway -->
+      <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1.5rem;padding:2rem;background:#fff;border:1px solid var(--line);border-radius:20px;margin-top:2rem" data-r>
+        <div>
+          <div style="font-weight:700;font-size:1.15rem">Looking for more verified live deployments?</div>
+          <div style="color:var(--mute);font-size:0.92rem;margin-top:0.2rem">Explore all 7 active products across hospitality, ERP, fashion, gyms, real estate, and education.</div>
+        </div>
+        <a class="btn hi sm" href="work.html">View All 7 Client Case Studies →</a>
+      </div>
+
+    </div>
+
+    
+  </div>
+</section>
+<section class="sec"><div class="wrap"><span class="eyebrow">And more</span><h2 data-split>Almost anything that runs on a screen.</h2><div class="chips2" data-r><span>Online store</span><span>Booking system</span><span>Billing app</span><span>Stock app</span><span>School and coaching app</span><span>Gym membership app</span><span>Clinic appointments</span><span>Restaurant ordering</span><span>QR menu</span><span>Delivery tracker</span><span>Quotation maker</span><span>Attendance app</span><span>Customer records (CRM)</span><span>Admin panel</span><span>Dashboards</span><span>Online courses</span><span>Event tickets</span><span>Portfolio site</span><span>Chrome extension</span><span>Calculators and mini tools</span><span>WhatsApp bot</span><span>Data entry helper</span></div><a class="btn ghost sm" style="margin-top:1.6rem" href="services.html">See everything we build →</a></div></section><section class="sec dark"><div class="wrap"><span class="eyebrow">How it works</span><h2 data-split>Four easy steps.</h2><div class="steps"><div data-r><h3>01 · Tell us</h3><p>Explain your business and what you need, in your own words.</p></div><div data-r><h3>02 · See the plan</h3><p>Within 48 hours you get screens and a fixed price.</p></div><div data-r><h3>03 · We build</h3><p>Every week you get a link to try what we made.</p></div><div data-r><h3>04 · You launch</h3><p>We put it live and give you everything we built.</p></div></div></div></section>
+<!-- 07. PRICING TEASER GATEWAY -->
+<section class="sec" style="background:#ffffff;border-top:1px solid var(--line);border-bottom:1px solid var(--line)">
+  <div class="wrap" style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:2rem">
+    <div>
+      <span class="eyebrow">Need-Based Pricing</span>
+      <h2 style="font-size:clamp(1.8rem,3.4vw,2.6rem);letter-spacing:-0.03em" data-split>We charge strictly according to your need and work.</h2>
+      <p style="color:var(--mute);font-size:1.05rem;max-width:32rem;margin-top:.4rem" data-r>No bloated packages. Transparent milestones starting from ₹14,999. You own 100% of the code with zero per-user subscription fees.</p>
+    </div>
+    <div style="display:flex;gap:.85rem;flex-wrap:wrap" data-r>
+      <a class="btn hi" href="pricing.html">Explore Need-Based Pricing →</a>
+      <a class="btn ghost" href="contact.html">Get an Upfront Quote</a>
+    </div>
+  </div>
+</section>
+
+
+</main>
+
+<script src="app.js?v=20261025d"></script>
+<script>
+/* Typing Headline Prompt */
+const pr = ['websites that work on every phone.','Android apps your customers will use.','software that replaces your Excel sheets.','ERP systems that run your whole business.','the thing you have been missing.'];
+let pi = 0, ci = 0, del = 0;
+const typedEl = $('#ty');
+(function t() {
+  const s = pr[pi];
+  ci += del ? -1 : 1;
+  typedEl.textContent = s.slice(0, ci);
+  let w = del ? 18 : 38;
+  if (!del && ci === s.length) { w = 1800; del = 1; }
+  else if (del && ci === 0) { del = 0; pi = (pi + 1) % pr.length; w = 280; }
+  setTimeout(t, w);
+})();
+
+/* Marquee Strip */
+const mqItems = ['WEBSITES', 'ANDROID APPS', 'CUSTOM SOFTWARE', 'ERP SYSTEMS', 'ONLINE STORES', 'BOOKING APPS', 'DASHBOARDS', 'BOTS'];
+$('#mq').innerHTML = [...Array(2)].map(() => mqItems.map(x => `<span>${x}</span>`).join('')).join('');
+
+
+/* Showroom */
+(function(){const L=[...document.querySelectorAll('.show-item')],P=[...document.querySelectorAll('.show-pane')];let i=0,t,hold=0;
+const go=n=>{i=n;L.forEach((b,k)=>b.classList.toggle('on',k==n));P.forEach((p,k)=>p.classList.toggle('on',k==n));clearTimeout(t);if(!hold&&!matchMedia('(prefers-reduced-motion:reduce)').matches)t=setTimeout(()=>go((i+1)%L.length),5000)};
+L.forEach((b,k)=>{b.addEventListener('mouseenter',()=>{hold=1;go(k)});b.addEventListener('click',()=>{hold=1;go(k)})});go(0)})();
+</script>
+<script src="polish.js?v=20261025d"></script>
+</body>
+</html>

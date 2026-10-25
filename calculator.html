@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Interactive Project Scope &amp; Cost Estimator – FIXIA</title>
+<meta name="description" content="Calculate your project cost, milestone breakdown, and delivery timeline in 30 seconds with FIXIA's interactive scope estimator. Transparent fixed pricing.">
+<link rel="icon" type="image/svg+xml" href="logo/fixia-favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css?v=20261025d">
+<link rel="stylesheet" href="polish.css?v=20261025d">
+<style>
+.calc-top {
+  padding: clamp(3.5rem, 8vw, 6rem) 0 2rem;
+}
+.calc-top h1 {
+  font-size: clamp(2.8rem, 6.8vw, 5.8rem);
+  letter-spacing: -0.045em;
+  line-height: 0.94;
+  max-width: 14ch;
+}
+
+/* Calculator Grid */
+.calc-layout {
+  display: grid;
+  grid-template-columns: 1.25fr 0.95fr;
+  gap: clamp(2rem, 4vw, 4rem);
+  align-items: start;
+  padding-bottom: 5rem;
+}
+.calc-card {
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 28px;
+  padding: clamp(1.8rem, 3.5vw, 2.6rem);
+  box-shadow: 0 15px 35px -15px rgba(16, 16, 16, 0.08);
+}
+.calc-step {
+  margin-bottom: 2.5rem;
+  padding-bottom: 2.2rem;
+  border-bottom: 1px solid var(--line);
+}
+.calc-step:last-child {
+  margin-bottom: 0;
+  padding-bottom: 0;
+  border-bottom: 0;
+}
+.calc-step-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.2rem;
+}
+.calc-step-header h3 {
+  font-size: 1.35rem;
+}
+.step-tag {
+  font: 700 0.75rem var(--mono);
+  color: var(--hi);
+  background: rgba(255, 74, 28, 0.1);
+  padding: 0.25rem 0.65rem;
+  border-radius: 999px;
+  text-transform: uppercase;
+}
+
+/* Solution Option Grid */
+.option-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: 0.85rem;
+}
+.opt-card {
+  border: 1.5px solid var(--line);
+  border-radius: 18px;
+  padding: 1.15rem;
+  cursor: pointer;
+  transition: all 0.2s var(--ease);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background: var(--paper);
+}
+.opt-card:hover {
+  border-color: var(--ink);
+  background: #fff;
+}
+.opt-card.active {
+  border-color: var(--hi);
+  background: #fff;
+  box-shadow: 0 8px 20px -8px rgba(255, 74, 28, 0.35);
+}
+.opt-card b {
+  font-size: 1.05rem;
+  display: block;
+  margin-bottom: 0.3rem;
+}
+.opt-card p {
+  color: var(--mute);
+  font-size: 0.86rem;
+  line-height: 1.45;
+}
+.opt-card .opt-price {
+  font: 700 0.88rem var(--mono);
+  color: var(--cobalt);
+  margin-top: 0.85rem;
+  display: block;
+}
+
+/* Feature Checkboxes */
+.feature-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 0.75rem;
+}
+.feat-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.95rem 1.1rem;
+  border-radius: 14px;
+  border: 1px solid var(--line);
+  background: var(--paper);
+  cursor: pointer;
+  transition: all 0.2s;
+  user-select: none;
+}
+.feat-checkbox:hover {
+  background: #fff;
+  border-color: var(--ink);
+}
+.feat-checkbox.checked {
+  background: #fff;
+  border-color: var(--hi);
+  box-shadow: 0 4px 14px -6px rgba(255, 74, 28, 0.3);
+}
+.feat-checkbox input {
+  display: none;
+}
+.feat-indicator {
+  width: 20px;
+  height: 20px;
+  border-radius: 6px;
+  border: 1.5px solid var(--mute);
+  display: grid;
+  place-items: center;
+  flex: none;
+  transition: all 0.2s;
+}
+.feat-checkbox.checked .feat-indicator {
+  background: var(--hi);
+  border-color: var(--hi);
+  color: #fff;
+}
+.feat-info {
+  display: flex;
+  flex-direction: column;
+}
+.feat-info b {
+  font-size: 0.92rem;
+}
+.feat-info span {
+  font: 600 0.75rem var(--mono);
+  color: var(--mute);
+}
+
+/* Speed Track Radio */
+.speed-group {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+.speed-card {
+  border: 1.5px solid var(--line);
+  border-radius: 16px;
+  padding: 1.1rem;
+  cursor: pointer;
+  background: var(--paper);
+  transition: all 0.2s;
+}
+.speed-card.active {
+  border-color: var(--hi);
+  background: #fff;
+}
+.speed-card b {
+  font-size: 1rem;
+  display: block;
+}
+.speed-card span {
+  font-size: 0.84rem;
+  color: var(--mute);
+}
+
+/* Sticky Summary Card */
+.summary-box {
+  position: sticky;
+  top: 5.5rem;
+  background: var(--ink);
+  color: #fff;
+  border-radius: 28px;
+  padding: clamp(1.8rem, 3vw, 2.5rem);
+  box-shadow: 0 30px 60px -20px rgba(16, 16, 16, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+.summary-box h4 {
+  font: 600 0.8rem var(--mono);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #B5AFA2;
+  margin-bottom: 0.5rem;
+}
+.grand-price {
+  font: 800 clamp(2.6rem, 4.4vw, 3.8rem)/1 var(--display);
+  letter-spacing: -0.04em;
+  color: #fff;
+  margin-bottom: 0.4rem;
+}
+.price-note {
+  color: #A39D90;
+  font-size: 0.88rem;
+  margin-bottom: 1.5rem;
+}
+.milestones-breakdown {
+  border-top: 1px solid rgba(255, 255, 255, 0.14);
+  padding: 1.2rem 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+.m-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.92rem;
+}
+.m-row span {
+  color: #D4CEC0;
+}
+.m-row b {
+  font: 700 0.86rem var(--mono);
+  color: var(--hi);
+}
+.summary-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+}
+.copy-feedback {
+  font: 600 0.75rem var(--mono);
+  color: var(--mint);
+  text-align: center;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+.copy-feedback.show {
+  opacity: 1;
+}
+
+@media (max-width: 960px) {
+  .calc-layout { grid-template-columns: 1fr; }
+  .summary-box { position: static; }
+}
+</style>
+</head>
+<body data-page="calculator">
+<main>
+
+<section class="calc-top">
+  <div class="wrap">
+    <span class="eyebrow">Interactive Scope &amp; Budget Engine</span>
+    <h1 data-split>Estimate your project and timeline <em>in 30 seconds.</em></h1>
+    <p class="lede" data-reveal>Configure your required product type, architectural capabilities, and delivery sprint speed below. Your fixed-milestone pricing and delivery schedule recalculate instantly in real-time.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="calc-layout">
+
+      <!-- Left: Interactive Form -->
+      <div class="calc-card">
+
+        <!-- Step 1: Solution Type -->
+        <div class="calc-step">
+          <div class="calc-step-header">
+            <h3>01. Choose Solution Architecture</h3>
+            <span class="step-tag">Required</span>
+          </div>
+          <div class="option-grid" id="typeGroup">
+            <div class="opt-card active" data-base="45000" data-days="14" data-name="Brand Web Flagship">
+              <b>Brand Web Flagship</b>
+              <p>High-conversion modern website with bespoke typography, 60fps animations, and mobile perfection.</p>
+              <span class="opt-price">From ₹45,000 · 14 Days</span>
+            </div>
+            <div class="opt-card" data-base="95000" data-days="24" data-name="Custom Web App / SaaS">
+              <b>Custom Web App / SaaS</b>
+              <p>Full-stack product with auth, database, cloud APIs, and responsive operational UI.</p>
+              <span class="opt-price">From ₹95,000 · 24 Days</span>
+            </div>
+            <div class="opt-card" data-base="125000" data-days="28" data-name="Venue ERP &amp; Billing">
+              <b>Venue ERP &amp; Billing</b>
+              <p>Club management, real-time WebSocket session timers, POS billing, and staff tracking.</p>
+              <span class="opt-price">From ₹1,25,000 · 28 Days</span>
+            </div>
+            <div class="opt-card" data-base="75000" data-days="18" data-name="Editorial E-Commerce">
+              <b>Editorial E-Commerce</b>
+              <p>Luxury lookbook, drop-release catalog architecture, and frictionless WhatsApp / Stripe checkout.</p>
+              <span class="opt-price">From ₹75,000 · 18 Days</span>
+            </div>
+            <div class="opt-card" data-base="55000" data-days="14" data-name="Booking &amp; Reservation">
+              <b>Booking &amp; Reservation</b>
+              <p>Interactive seating maps, cabin bookings, live weather widgets, and digital passes.</p>
+              <span class="opt-price">From ₹55,000 · 14 Days</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 2: Capabilities & Add-ons -->
+        <div class="calc-step">
+          <div class="calc-step-header">
+            <h3>02. Select Modules &amp; Capabilities</h3>
+            <span class="step-tag">Customizable</span>
+          </div>
+          <div class="feature-list" id="featList">
+            <label class="feat-checkbox">
+              <input type="checkbox" data-cost="15000" data-name="User Authentication &amp; Roles">
+              <div class="feat-indicator">✓</div>
+              <div class="feat-info">
+                <b>User Authentication &amp; Roles</b>
+                <span>+₹15,000 · Secure Supabase/OAuth Auth</span>
+              </div>
+            </label>
+            <label class="feat-checkbox">
+              <input type="checkbox" data-cost="14000" data-name="Payment Gateway Integration">
+              <div class="feat-indicator">✓</div>
+              <div class="feat-info">
+                <b>Payment Gateway Integration</b>
+                <span>+₹14,000 · Razorpay UPI / Stripe Checkout</span>
+              </div>
+            </label>
+            <label class="feat-checkbox">
+              <input type="checkbox" data-cost="22000" data-name="Real-Time WebSocket Timers">
+              <div class="feat-indicator">✓</div>
+              <div class="feat-info">
+                <b>Real-Time Live Status Timers</b>
+                <span>+₹22,000 · Sub-10ms session synchronization</span>
+              </div>
+            </label>
+            <label class="feat-checkbox">
+              <input type="checkbox" data-cost="18000" data-name="Admin Analytics &amp; P&amp;L Dashboard">
+              <div class="feat-indicator">✓</div>
+              <div class="feat-info">
+                <b>Admin Analytics &amp; Reports</b>
+                <span>+₹18,000 · Real-time revenue &amp; staff tracking</span>
+              </div>
+            </label>
+            <label class="feat-checkbox">
+              <input type="checkbox" data-cost="12000" data-name="WhatsApp / SMS Auto Bot">
+              <div class="feat-indicator">✓</div>
+              <div class="feat-info">
+                <b>WhatsApp / SMS Notification Bot</b>
+                <span>+₹12,000 · Automated customer ticket alerts</span>
+              </div>
+            </label>
+            <label class="feat-checkbox">
+              <input type="checkbox" data-cost="25000" data-name="Multi-Tenant Architecture">
+              <div class="feat-indicator">✓</div>
+              <div class="feat-info">
+                <b>Multi-Tenant Architecture</b>
+                <span>+₹25,000 · Custom subdomains for each client</span>
+              </div>
+            </label>
+            <label class="feat-checkbox">
+              <input type="checkbox" data-cost="10000" data-name="Sub-Second Speed &amp; SEO Engine">
+              <div class="feat-indicator">✓</div>
+              <div class="feat-info">
+                <b>Sub-Second SEO &amp; Speed Core</b>
+                <span>+₹10,000 · 100/100 Core Web Vitals audit</span>
+              </div>
+            </label>
+            <label class="feat-checkbox">
+              <input type="checkbox" data-cost="15000" data-name="Digital Boarding Pass / PDF Generator">
+              <div class="feat-indicator">✓</div>
+              <div class="feat-info">
+                <b>Automated PDF / Ticket Generator</b>
+                <span>+₹15,000 · Digital boarding passes with QR codes</span>
+              </div>
+            </label>
+          </div>
+        </div>
+
+        <!-- Step 3: Sprint Delivery Speed -->
+        <div class="calc-step">
+          <div class="calc-step-header">
+            <h3>03. Sprint Velocity</h3>
+            <span class="step-tag">Timeline</span>
+          </div>
+          <div class="speed-group" id="speedGroup">
+            <div class="speed-card active" data-mult="1.0" data-desc="Standard Production Cadence">
+              <b>Standard Sprint</b>
+              <span>Weekly Friday staging builds. High quality, zero rush.</span>
+            </div>
+            <div class="speed-card" data-mult="1.2" data-desc="Fast-Track Accelerated Sprint (-35% Time)">
+              <b>Fast-Track Sprint (+20%)</b>
+              <span>Dual-engineer priority sprint. Ready in ~12 to 16 days.</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Right: Sticky Live Quote Summary -->
+      <aside class="summary-box tilt-card">
+        <h4>Estimated Fixed Total</h4>
+        <div class="grand-price" id="calcPrice">₹45,000</div>
+        <p class="price-note">Guaranteed fixed contract. Includes 100% IP code handoff, testing, and 30-day bug warranty.</p>
+
+        <div style="background:rgba(255,255,255,.07);padding:1rem;border-radius:14px;margin-bottom:1.2rem">
+          <div style="display:flex;justify-content:space-between;font-size:.88rem;color:#B5AFA2;margin-bottom:.35rem">
+            <span>Estimated Sprint Duration:</span>
+            <b style="color:#fff" id="calcTimeline">14 Business Days</b>
+          </div>
+          <div style="display:flex;justify-content:space-between;font-size:.88rem;color:#B5AFA2">
+            <span>Staging Deliveries:</span>
+            <b style="color:var(--mint)">Weekly Every Friday</b>
+          </div>
+        </div>
+
+        <div class="milestones-breakdown">
+          <h5 style="font:600 .75rem var(--mono);text-transform:uppercase;color:#A39D90;letter-spacing:.06em;margin-bottom:.4rem">Milestone Payment Schedule</h5>
+          <div class="m-row">
+            <span>30% Blueprint &amp; Architecture Kickoff:</span>
+            <b id="m1">₹13,500</b>
+          </div>
+          <div class="m-row">
+            <span>40% Working Staging Deployment:</span>
+            <b id="m2">₹18,000</b>
+          </div>
+          <div class="m-row">
+            <span>30% Production DNS Launch &amp; Repo Transfer:</span>
+            <b id="m3">₹13,500</b>
+          </div>
+        </div>
+
+        <div class="summary-actions">
+          <a class="btn hi" id="lockInBtn" href="contact.html">Lock In This Estimate &amp; Start →</a>
+          <button type="button" class="btn ghost" id="copyBtn" style="color:#fff;border-color:rgba(255,255,255,.3)">Copy Scope Blueprint 📋</button>
+          <div class="copy-feedback" id="copyMsg">✓ Summary copied to clipboard!</div>
+        </div>
+      </aside>
+
+    </div>
+  </div>
+</section>
+
+</main>
+
+<script src="app.js?v=20261025d"></script>
+<script src="polish.js?v=20261025d"></script>
+<script>
+// Estimator Core Engine
+let selectedType = { name: "Brand Web Flagship", base: 45000, days: 14 };
+let selectedFeatures = [];
+let speedMultiplier = 1.0;
+let speedDaysReduction = 1.0;
+
+const priceEl = document.getElementById('calcPrice');
+const timelineEl = document.getElementById('calcTimeline');
+const m1El = document.getElementById('m1');
+const m2El = document.getElementById('m2');
+const m3El = document.getElementById('m3');
+const lockInBtn = document.getElementById('lockInBtn');
+const copyBtn = document.getElementById('copyBtn');
+const copyMsg = document.getElementById('copyMsg');
+
+function updateEstimate() {
+  const featTotal = selectedFeatures.reduce((acc, f) => acc + f.cost, 0);
+  const rawTotal = (selectedType.base + featTotal) * speedMultiplier;
+  const grandTotal = Math.round(rawTotal / 500) * 500; // Round to clean intervals
+
+  const baseDays = selectedType.days + Math.min(10, selectedFeatures.length * 2);
+  const sprintDays = Math.max(10, Math.round(baseDays * (speedMultiplier > 1 ? 0.65 : 1.0)));
+
+  // Animate counter
+  priceEl.textContent = '₹' + grandTotal.toLocaleString('en-IN');
+  timelineEl.textContent = `${sprintDays} Business Days`;
+
+  m1El.textContent = '₹' + Math.round(grandTotal * 0.3).toLocaleString('en-IN');
+  m2El.textContent = '₹' + Math.round(grandTotal * 0.4).toLocaleString('en-IN');
+  m3El.textContent = '₹' + Math.round(grandTotal * 0.3).toLocaleString('en-IN');
+
+  // Update Lock In URL with parameters
+  const featNames = selectedFeatures.map(f => f.name).join(', ') || 'Core Stack';
+  const queryStr = `I want to build a ${selectedType.name} with ${featNames}. Estimated scope: ₹${grandTotal.toLocaleString('en-IN')} in ${sprintDays} days.`;
+  lockInBtn.href = `contact.html?p=${encodeURIComponent(queryStr)}`;
+}
+
+// Type selection
+document.querySelectorAll('#typeGroup .opt-card').forEach(card => {
+  card.addEventListener('click', () => {
+    document.querySelectorAll('#typeGroup .opt-card').forEach(c => c.classList.remove('active'));
+    card.classList.add('active');
+    selectedType = {
+      name: card.dataset.name,
+      base: parseInt(card.dataset.base, 10),
+      days: parseInt(card.dataset.days, 10)
+    };
+    updateEstimate();
+  });
+});
+
+// Feature Checkboxes
+document.querySelectorAll('#featList .feat-checkbox').forEach(label => {
+  const chk = label.querySelector('input');
+  label.addEventListener('click', (e) => {
+    e.preventDefault();
+    chk.checked = !chk.checked;
+    label.classList.toggle('checked', chk.checked);
+
+    const cost = parseInt(chk.dataset.cost, 10);
+    const name = chk.dataset.name;
+
+    if (chk.checked) {
+      selectedFeatures.push({ name, cost });
+    } else {
+      selectedFeatures = selectedFeatures.filter(f => f.name !== name);
+    }
+    updateEstimate();
+  });
+});
+
+// Speed selection
+document.querySelectorAll('#speedGroup .speed-card').forEach(card => {
+  card.addEventListener('click', () => {
+    document.querySelectorAll('#speedGroup .speed-card').forEach(c => c.classList.remove('active'));
+    card.classList.add('active');
+    speedMultiplier = parseFloat(card.dataset.mult);
+    updateEstimate();
+  });
+});
+
+// Copy Blueprint summary
+copyBtn.addEventListener('click', () => {
+  const featNames = selectedFeatures.map(f => ' - ' + f.name).join('\n') || ' - Standard core bundle';
+  const text = `FIXIA ESTIMATE SUMMARY\n====================\nArchitecture: ${selectedType.name}\nModules:\n${featNames}\nTotal: ${priceEl.textContent}\nTimeline: ${timelineEl.textContent}\nMilestones: 30% Kickoff / 40% Staging / 30% Launch\nLink: https://fixia.in/contact.html`;
+
+  navigator.clipboard.writeText(text).then(() => {
+    copyMsg.classList.add('show');
+    if (window.FixiaSFX) window.FixiaSFX.success();
+    setTimeout(() => copyMsg.classList.remove('show'), 3000);
+  });
+});
+
+updateEstimate();
+</script>
+</body>
+</html>

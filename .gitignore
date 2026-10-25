@@ -1,0 +1,12 @@
+# Dependencies
+node_modules/
+.npm/
+
+# OS and temporary files
+.DS_Store
+Thumbs.db
+*.log
+
+# Scratch test images
+scratch/*.png
+scratch/test_*.png

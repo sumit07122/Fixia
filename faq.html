@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Frequently Asked Questions – FIXIA</title>
+<meta name="description" content="Clear, honest answers about how FIXIA works: pricing according to need, 100% source code ownership, delivery speed, milestones, and ongoing support.">
+<link rel="icon" type="image/svg+xml" href="logo/fixia-favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css?v=20261025d">
+<link rel="stylesheet" href="polish.css?v=20261025d">
+<style>
+.faq-hero {
+  padding: clamp(3.5rem, 8vw, 6.5rem) 0 2.5rem;
+}
+.faq-hero h1 {
+  font-size: clamp(2.8rem, 6.8vw, 5.8rem);
+  letter-spacing: -0.045em;
+  line-height: 0.94;
+  max-width: 14ch;
+}
+
+/* Search and Filter Ribbon */
+.faq-filter-wrap {
+  margin: 2.5rem 0 3.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+.faq-search-box {
+  position: relative;
+  max-width: 42rem;
+}
+.faq-search-input {
+  width: 100%;
+  padding: 1rem 1.4rem 1rem 3.2rem;
+  font: 500 1.05rem var(--body);
+  border: 1.5px solid var(--line);
+  border-radius: 999px;
+  background: #fff;
+  color: var(--ink);
+  transition: all 0.2s var(--ease);
+  box-shadow: 0 4px 18px rgba(16, 16, 16, 0.04);
+}
+.faq-search-input:focus {
+  outline: none;
+  border-color: var(--hi);
+  box-shadow: 0 0 0 4px rgba(255, 74, 28, 0.14);
+}
+.faq-search-icon {
+  position: absolute;
+  left: 1.2rem;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 1.25rem;
+  height: 1.25rem;
+  color: var(--mute);
+  pointer-events: none;
+}
+.faq-category-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+.faq-pill {
+  border: 1.5px solid var(--line);
+  background: #fff;
+  border-radius: 999px;
+  padding: 0.45rem 1.1rem;
+  font: 600 0.85rem var(--body);
+  color: var(--ink);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.faq-pill:hover {
+  border-color: var(--ink);
+}
+.faq-pill.active {
+  background: var(--ink);
+  color: #fff;
+  border-color: var(--ink);
+}
+
+/* FAQ Layout */
+.faq-content-layout {
+  display: grid;
+  grid-template-columns: 1fr 340px;
+  gap: clamp(2rem, 5vw, 4.5rem);
+  align-items: start;
+  padding-bottom: 5rem;
+}
+.faq-accordion-group {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.faq-item {
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  padding: 1.4rem 1.8rem;
+  transition: all 0.2s;
+}
+.faq-item:hover {
+  border-color: var(--ink2);
+}
+.faq-item details summary {
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  font: 700 1.25rem var(--display);
+  letter-spacing: -0.02em;
+  cursor: pointer;
+  color: var(--ink);
+}
+.faq-item details summary::-webkit-details-marker { display: none; }
+.faq-toggle-icon {
+  width: 1.8rem;
+  height: 1.8rem;
+  border-radius: 50%;
+  background: var(--paper);
+  display: grid;
+  place-items: center;
+  font-size: 1.4rem;
+  line-height: 1;
+  color: var(--hi);
+  flex-shrink: 0;
+  transition: transform 0.3s var(--ease), background 0.2s;
+}
+.faq-item details[open] .faq-toggle-icon {
+  transform: rotate(45deg);
+  background: var(--ink);
+  color: #fff;
+}
+.faq-answer {
+  color: var(--mute);
+  font-size: 1.02rem;
+  line-height: 1.65;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--line);
+}
+.faq-item.gone {
+  display: none !important;
+}
+
+/* Sidebar Callout */
+.faq-sidebar-card {
+  background: var(--ink);
+  color: #fff;
+  border-radius: 24px;
+  padding: 2rem;
+  position: sticky;
+  top: 6rem;
+}
+.faq-sidebar-card h3 {
+  font-size: 1.5rem;
+  line-height: 1.15;
+  margin-bottom: 0.8rem;
+}
+.faq-sidebar-card p {
+  color: #B5AFA2;
+  font-size: 0.95rem;
+  line-height: 1.55;
+  margin-bottom: 1.5rem;
+}
+.faq-contact-points {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  margin-bottom: 1.6rem;
+}
+.faq-point {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.88rem;
+  color: #E6DFD0;
+}
+.faq-point svg {
+  color: var(--hi);
+  width: 1.1rem;
+  height: 1.1rem;
+  flex-shrink: 0;
+}
+
+@media (max-width: 960px) {
+  .faq-content-layout {
+    grid-template-columns: 1fr;
+  }
+  .faq-sidebar-card {
+    position: static;
+  }
+}
+</style>
+</head>
+<body data-page="faq">
+<main>
+<section class="faq-hero">
+  <div class="wrap">
+    <span class="eyebrow"><span class="dot"></span> Clarity &amp; Transparency First</span>
+    <h1 data-split>Questions clients ask before we build.</h1>
+    <p class="lede" data-r>Everything you need to know about our scope-based pricing, engineering timelines, intellectual property ownership, and how we turn your business bottlenecks into high-performing digital systems.</p>
+
+    <!-- Filter & Search Controls -->
+    <div class="faq-filter-wrap" data-r>
+      <div class="faq-search-box">
+        <svg class="faq-search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+        <input type="text" class="faq-search-input" id="faqSearch" placeholder="Type a keyword (e.g. pricing, source code, WhatsApp, timeline, milestones)..." aria-label="Search frequently asked questions">
+      </div>
+      <div class="faq-category-pills" id="faqChips">
+        <button class="faq-pill active" data-cat="all">All Questions (12)</button>
+        <button class="faq-pill" data-cat="pricing">Pricing &amp; Scope</button>
+        <button class="faq-pill" data-cat="process">Process &amp; Milestones</button>
+        <button class="faq-pill" data-cat="ownership">Code &amp; IP Ownership</button>
+        <button class="faq-pill" data-cat="tech">Tech Stack &amp; Integrations</button>
+        <button class="faq-pill" data-cat="support">Launch &amp; Support</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap faq-content-layout">
+    <!-- Questions Accordion List -->
+    <div class="faq-accordion-group" id="faqList">
+
+      <!-- Item 1: Pricing -->
+      <div class="faq-item" data-cat="pricing" data-r>
+        <details open>
+          <summary>
+            <span>Why doesn't FIXIA offer rigid fixed packages?</span>
+            <span class="faq-toggle-icon">+</span>
+          </summary>
+          <div class="faq-answer">
+            <p>Because rigid fixed pricing packages are inherently unfair to businesses. They force you to pay for features you never touch or cut corners on essential operational workflows. Instead, FIXIA prices each build <strong>strictly according to your need, functional scope, and technical complexity</strong>. Whether you need a streamlined conversion site or an enterprise multi-branch ERP like One Shot / CueDesk, you receive a transparent, itemized milestone quote with zero mystery margins.</p>
+          </div>
+        </details>
+      </div>
+
+      <!-- Item 2: Ownership -->
+      <div class="faq-item" data-cat="ownership" data-r>
+        <details>
+          <summary>
+            <span>Do we really own 100% of our code and intellectual property?</span>
+            <span class="faq-toggle-icon">+</span>
+          </summary>
+          <div class="faq-answer">
+            <p><strong>Yes, 100% unconditionally.</strong> Unlike monthly subscription platforms or proprietary agencies that lock you in, FIXIA hands over complete GitHub repository access, database schemas, deployment pipelines, and design assets upon milestone completion. You can host anywhere (AWS, Vercel, Supabase, self-hosted), modify the code freely, or hand it over to in-house developers at any time. Zero recurring license fees, forever.</p>
+          </div>
+        </details>
+      </div>
+
+      <!-- Item 3: Pricing & Milestones -->
+      <div class="faq-item" data-cat="pricing" data-r>
+        <details>
+          <summary>
+            <span>How does milestone payment work?</span>
+            <span class="faq-toggle-icon">+</span>
+          </summary>
+          <div class="faq-answer">
+            <p>We break every engagement into 3 to 4 clear, deliverable-driven milestones:
+            <br>• <strong>Milestone 1 (Discovery &amp; Interactive Prototype):</strong> 30% upfront.
+            <br>• <strong>Milestone 2 (Core Engineering &amp; Integrations):</strong> 40% upon staging review.
+            <br>• <strong>Milestone 3 (Final Polish, QA &amp; Production Launch):</strong> 30% upon verified deployment.
+            <br>You inspect real, interactive software on staging before releasing milestone payments.</p>
+          </div>
+        </details>
+      </div>
+
+      <!-- Item 4: Process -->
+      <div class="faq-item" data-cat="process" data-r>
+        <details>
+          <summary>
+            <span>How fast can you build and ship our software?</span>
+            <span class="faq-toggle-icon">+</span>
+          </summary>
+          <div class="faq-answer">
+            <p>Most conversion websites and focused operational tools ship in <strong>1 to 2 weeks</strong>. Complex custom web applications, multi-role club ERPs, and custom SaaS MVPs typically ship in <strong>2 to 4 weeks</strong>. Because we work in focused single-client engineering sprints rather than juggling dozens of low-priority projects, we deliver production-ready software up to 4x faster than traditional agencies.</p>
+          </div>
+        </details>
+      </div>
+
+      <!-- Item 5: Process -->
+      <div class="faq-item" data-cat="process" data-r>
+        <details>
+          <summary>
+            <span>What if we don't have technical specifications or wireframes?</span>
+            <span class="faq-toggle-icon">+</span>
+          </summary>
+          <div class="faq-answer">
+            <p>You don't need any technical documents. Tell us in plain everyday language how your business operates, what currently wastes your team's time, or what you want your customers to be able to do. Within 48 hours of our initial discovery discussion, we deliver a visual architecture blueprint, user flows, and a scoped milestone proposal.</p>
+          </div>
+        </details>
+      </div>
+
+      <!-- Item 6: Tech & Integrations -->
+      <div class="faq-item" data-cat="tech" data-r>
+        <details>
+          <summary>
+            <span>Can you integrate with WhatsApp, Razorpay, and tools we already use?</span>
+            <span class="faq-toggle-icon">+</span>
+          </summary>
+          <div class="faq-answer">
+            <p>Yes. We specialize in seamless API and webhook integrations. We regularly connect custom systems to <strong>WhatsApp Cloud API</strong> (for instant lead notifications, PDF receipts, and status alerts), <strong>Razorpay &amp; Stripe</strong>, <strong>Google Sheets / AppSheet</strong>, <strong>Tally ERP</strong>, <strong>Shiprocket</strong>, and custom legacy databases.</p>
+          </div>
+        </details>
+      </div>
+
+      <!-- Item 7: Tech & Integrations -->
+      <div class="faq-item" data-cat="tech" data-r>
+        <details>
+          <summary>
+            <span>What technology stack do you build with?</span>
+            <span class="faq-toggle-icon">+</span>
+          </summary>
+          <div class="faq-answer">
+            <p>We build with modern, high-performance, battle-tested technologies chosen for speed, security, and low hosting costs:
+            <br>• <strong>Frontend:</strong> React, Next.js, modern vanilla JavaScript, Tailwind/clean CSS tokens.
+            <br>• <strong>Backend &amp; DB:</strong> Node.js, Python, PostgreSQL, Supabase, Redis, WebSockets.
+            <br>• <strong>Infrastructure:</strong> Vercel, AWS, Cloudflare CDN, Docker.
+            <br>We avoid heavy, bloated templates and write clean, modular, maintainable code.</p>
+          </div>
+        </details>
+      </div>
+
+      <!-- Item 8: Pricing -->
+      <div class="faq-item" data-cat="pricing" data-r>
+        <details>
+          <summary>
+            <span>What if our project scope evolves during development?</span>
+            <span class="faq-toggle-icon">+</span>
+          </summary>
+          <div class="faq-answer">
+            <p>As you test working software on our live staging link, ideas naturally emerge. We handle this transparently through modular sprint add-ons. If you wish to add a feature outside the original milestone specification, we quote the exact additional hours or fixed cost before proceeding. No surprise invoices or unapproved billing.</p>
+          </div>
+        </details>
+      </div>
+
+      <!-- Item 9: Support -->
+      <div class="faq-item" data-cat="support" data-r>
+        <details>
+          <summary>
+            <span>What happens after the product goes live?</span>
+            <span class="faq-toggle-icon">+</span>
+          </summary>
+          <div class="faq-answer">
+            <p>Every FIXIA deployment includes a <strong>30-day post-launch warranty</strong> covering bug fixes, performance monitoring, and team onboarding. For ongoing technology partnership, we provide dedicated retainer tiers covering 24/7 uptime monitoring, server backups, security patches, and weekly sprint improvements.</p>
+          </div>
+        </details>
+      </div>
+
+      <!-- Item 10: Process -->
+      <div class="faq-item" data-cat="process" data-r>
+        <details>
+          <summary>
+            <span>How will we communicate during the project?</span>
+            <span class="faq-toggle-icon">+</span>
+          </summary>
+          <div class="faq-answer">
+            <p>You get a dedicated private WhatsApp / Slack channel directly with the engineers building your product. We post video walkthroughs, send live staging preview links at each milestone, and hold concise weekly demo calls. You always know what is being built right now and what is shipping next.</p>
+          </div>
+        </details>
+      </div>
+
+      <!-- Item 11: Support -->
+      <div class="faq-item" data-cat="support" data-r>
+        <details>
+          <summary>
+            <span>Who will host our application, and how much will hosting cost?</span>
+            <span class="faq-toggle-icon">+</span>
+          </summary>
+          <div class="faq-answer">
+            <p>We deploy directly to your own cloud accounts (such as Vercel, AWS, or Supabase). For 90% of early-stage products and businesses, these cloud providers offer generous free or low-cost tiers (often under ₹1,500/month). We set up all automated deployment pipelines, SSL certificates, and custom domains for you.</p>
+          </div>
+        </details>
+      </div>
+
+      <!-- Item 12: Ownership -->
+      <div class="faq-item" data-cat="ownership" data-r>
+        <details>
+          <summary>
+            <span>How do we take the first step with FIXIA?</span>
+            <span class="faq-toggle-icon">+</span>
+          </summary>
+          <div class="faq-answer">
+            <p>Fill out our simple 90-second discovery form or message us directly on WhatsApp. Within 6 business hours, our engineering leads will reach out with initial architectural insights and arrange a brief 20-minute discovery call.</p>
+          </div>
+        </details>
+      </div>
+
+    </div>
+
+    <!-- Right Sidebar CTA -->
+    <aside class="faq-sidebar-card" data-r>
+      <span class="step-tag" style="background:rgba(255,255,255,.1);color:var(--hi)">Direct Engineering Access</span>
+      <h3 style="margin-top:0.8rem">Have a unique requirement?</h3>
+      <p>Speak directly with our engineering team. We'll analyze your operational bottleneck and propose a scoped technical solution.</p>
+      
+      <div class="faq-contact-points">
+        <div class="faq-point">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          <span>Response within 6 business hours</span>
+        </div>
+        <div class="faq-point">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          <span>Fixed milestone quotes</span>
+        </div>
+        <div class="faq-point">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          <span>100% Code ownership</span>
+        </div>
+      </div>
+
+      <a class="btn hi" href="contact.html" style="width:100%;text-align:center;justify-content:center">Start Discovery Sprint →</a>
+      <a class="btn ghost" href="pricing.html" style="width:100%;text-align:center;justify-content:center;margin-top:0.6rem;color:#fff;border-color:rgba(255,255,255,.2)">Pricing According to Need</a>
+    </aside>
+  </div>
+</section>
+</main>
+
+<script src="app.js?v=20261025d"></script>
+<script>
+// FAQ Filtering and Live Search
+const searchInput = $('#faqSearch');
+const chipsContainer = $('#faqChips');
+const faqItems = $$('.faq-item');
+let activeCategory = 'all';
+
+function filterFaq() {
+  const query = (searchInput.value || '').trim().toLowerCase();
+  
+  faqItems.forEach(item => {
+    const itemCat = item.dataset.cat;
+    const text = item.textContent.toLowerCase();
+    
+    const matchesCat = (activeCategory === 'all' || itemCat === activeCategory);
+    const matchesQuery = !query || text.includes(query);
+    
+    if (matchesCat && matchesQuery) {
+      item.classList.remove('gone');
+    } else {
+      item.classList.add('gone');
+    }
+  });
+}
+
+chipsContainer.addEventListener('click', e => {
+  const btn = e.target.closest('button');
+  if (!btn) return;
+  $$('.faq-pill', chipsContainer).forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  activeCategory = btn.dataset.cat;
+  filterFaq();
+});
+
+searchInput.addEventListener('input', filterFaq);
+</script>
+<script src="polish.js?v=20261025d"></script>
+</body>
+</html>

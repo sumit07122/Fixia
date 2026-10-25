@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fixed-Milestone Pricing – FIXIA</title>
+<meta name="description" content="Fixed-milestone pricing for websites, web apps, SaaS MVPs, automation, and applied AI systems. Build your own estimate in 30 seconds.">
+<link rel="icon" type="image/svg+xml" href="logo/fixia-favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css?v=20261025d">
+<style>
+.top {
+  padding: clamp(3.5rem, 8vw, 6rem) 0 2rem;
+}
+.top h1 {
+  font-size: clamp(3rem, 8vw, 6.8rem);
+  letter-spacing: -0.045em;
+  line-height: 0.93;
+  max-width: 12ch;
+}
+
+/* 3 Milestone Tiers */
+.tiers {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  margin-top: 2.5rem;
+  border: 1.5px solid var(--ink);
+  border-radius: 28px;
+  overflow: hidden;
+  background: #fff;
+}
+.tier {
+  padding: clamp(1.6rem, 3vw, 2.4rem);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.tier + .tier { border-left: 1.5px solid var(--ink); }
+.tier.main { background: var(--ink); color: #fff; }
+.tier h3 { font-size: 1.9rem; }
+.tier .tg {
+  font-weight: 700;
+  font-size: 0.8rem;
+  background: var(--hi);
+  color: var(--ink);
+  padding: 0.22rem 0.75rem;
+  border-radius: 999px;
+  align-self: flex-start;
+}
+.tier .wk2 { color: var(--mute); font-size: 0.94rem; }
+.main .wk2 { color: #B5AFA2; }
+.price {
+  font: 800 clamp(2.2rem, 3.8vw, 3.1rem)/1 var(--display);
+  letter-spacing: -0.05em;
+}
+.price small {
+  display: block;
+  font: 600 0.78rem var(--mono);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--mute);
+  margin-bottom: 0.35rem;
+}
+.main .price small { color: #B5AFA2; }
+.tier ul { list-style: none; padding: 0; flex: 1; }
+.tier li { display: flex; gap: 0.65rem; padding: 0.55rem 0; font-size: 0.95rem; }
+.tier li .ico { margin-top: 0.3rem; color: var(--cobalt); }
+.main li .ico { color: var(--hi); }
+.main .btn { background: var(--hi); border-color: var(--hi); color: var(--ink); }
+
+/* Interactive Cost Estimator */
+.est {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: clamp(1.5rem, 4vw, 3.5rem);
+  margin-top: 4.5rem;
+  align-items: start;
+}
+.q { margin-bottom: 2.2rem; }
+.q h3 { font-size: 1.4rem; margin-bottom: 1rem; letter-spacing: -0.02em; }
+.opts { display: flex; flex-wrap: wrap; gap: 0.6rem; }
+.opts label { position: relative; }
+.opts input { position: absolute; opacity: 0; inset: 0; cursor: pointer; }
+.opts span {
+  display: block;
+  border: 1.5px solid var(--line);
+  background: #fff;
+  border-radius: 16px;
+  padding: 0.8rem 1.15rem;
+  font-weight: 600;
+  transition: all 0.2s;
+}
+.opts small { display: block; font-weight: 500; color: var(--mute); font-size: 0.82rem; }
+.opts input:hover + span { border-color: var(--ink); }
+.opts input:checked + span {
+  background: var(--ink);
+  color: #fff;
+  border-color: var(--ink);
+  transform: translateY(-2px);
+}
+.opts input:checked + span small { color: #B5AFA2; }
+.opts input:focus-visible + span { outline: 3px solid var(--cobalt); outline-offset: 3px; }
+
+.out {
+  position: sticky;
+  top: 6rem;
+  background: var(--cobalt);
+  color: #fff;
+  border-radius: 28px;
+  padding: clamp(1.6rem, 3vw, 2.6rem);
+}
+.out small { color: #E6DFD0; font-size: 0.9rem; }
+.out .v {
+  display: block;
+  font: 800 clamp(2.2rem, 4.2vw, 3.4rem)/1.05 var(--display);
+  letter-spacing: -0.05em;
+  margin: 0.3rem 0 1.2rem;
+  font-variant-numeric: tabular-nums;
+}
+.out .wk { font: 700 1.5rem var(--display); margin: 0.2rem 0 1.4rem; display: block; }
+.out ul { list-style: none; padding: 0; margin-bottom: 1.4rem; font-size: 0.95rem; color: #E6DFD0; }
+.out li { padding: 0.45rem 0; border-top: 1px solid rgba(255, 255, 255, 0.22); display: flex; justify-content: space-between; }
+.out .note { font-size: 0.82rem; color: #E6DFD0; margin-top: 1rem; line-height: 1.4; }
+
+/* FAQ Accordion */
+.faq { max-width: 52rem; margin-top: 3rem; }
+.faq details { border-top: 1px solid var(--line); padding: 1.4rem 0; }
+.faq details:last-child { border-bottom: 1px solid var(--line); }
+.faq summary {
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  font: 700 1.35rem var(--display);
+  letter-spacing: -0.02em;
+  cursor: pointer;
+}
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after {
+  content: "+";
+  font-size: 1.8rem;
+  line-height: 1;
+  transition: transform 0.3s var(--ease);
+  color: var(--cobalt);
+}
+.faq details[open] summary::after { transform: rotate(45deg); }
+.faq details p { color: var(--mute); margin-top: 0.8rem; max-width: 42rem; animation: pin 0.4s both; line-height: 1.6; }
+
+@media (max-width: 960px) {
+  .est, .tiers { grid-template-columns: 1fr; }
+  .out { position: static; }
+  .tier + .tier { border-left: 0; border-top: 1.5px solid var(--ink); }
+}
+</style>
+<link rel="stylesheet" href="polish.css?v=20261025d">
+<script>try{if(!sessionStorage.fx){document.documentElement.classList.add("intro-on");sessionStorage.fx=1}}catch(e){}</script></head>
+<body data-page="pricing">
+<main>
+<section class="top">
+  <div class="wrap">
+    <span class="eyebrow">Pay Strictly For What You Need · Zero Bloat</span>
+    <h1 data-split>We charge according to your exact need and work required.</h1>
+    <p class="lede" data-r>No forced enterprise packages, no unnecessary add-ons, and no runaway hourly rates. Whether you need a simple conversion website, an Android app, a WhatsApp automation bot, or a full operations dashboard—ask for what you need, and we give you an honest, milestone-based quote. Never fear asking: we tailor the scope to your budget.</p>
+  </div>
+</section>
+
+<!-- 3 Need-Based Scope Paths -->
+<section style="padding-bottom:2rem">
+  <div class="wrap">
+    <div class="tiers" data-r>
+      <div class="tier">
+        <span class="demo-badge" style="align-self:flex-start">Scope 01 · Fast Launch</span>
+        <h3>Websites &amp; Web Software</h3>
+        <span class="wk2">1–2 weeks · Speed, conversions &amp; lead capture</span>
+        <div class="price"><small>Tailored to your need · Starting from</small>₹14,999</div>
+        <ul>
+          <li><svg class="ico"><use href="#chk"/></svg>Bespoke modern UI/UX design (mobile-first)</li>
+          <li><svg class="ico"><use href="#chk"/></svg>Lighthouse 99+ speed &amp; Google SEO optimization</li>
+          <li><svg class="ico"><use href="#chk"/></svg>Direct WhatsApp &amp; lead capture integration</li>
+          <li><svg class="ico"><use href="#chk"/></svg>High-speed cloud hosting setup &amp; domain connection</li>
+          <li><svg class="ico"><use href="#chk"/></svg>100% code ownership · Zero per-user fees</li>
+        </ul>
+        <a class="btn ghost" href="contact.html?p=I'm interested in Websites & Web Software (starting from ₹14,999).">Ask for This Service →</a>
+      </div>
+
+      <div class="tier main">
+        <span class="tg">Most Popular for Growing Businesses</span>
+        <h3>Apps &amp; Operations OS</h3>
+        <span class="wk2">2–3 weeks · Android apps, operations &amp; WhatsApp bots</span>
+        <div class="price"><small>Priced strictly by module · Starting from</small>₹34,999</div>
+        <ul>
+          <li><svg class="ico"><use href="#chk"/></svg>Android &amp; mobile web app for staff or customers</li>
+          <li><svg class="ico"><use href="#chk"/></svg>Real-time booking or session matrix (like One Shot)</li>
+          <li><svg class="ico"><use href="#chk"/></svg>Automated WhatsApp receipts, notifications &amp; UPI links</li>
+          <li><svg class="ico"><use href="#chk"/></svg>Role-based access (Owner, Staff, Reception)</li>
+          <li><svg class="ico"><use href="#chk"/></svg>Cloud-synced database with daily close reports</li>
+        </ul>
+        <a class="btn" href="contact.html?p=I'm interested in Apps & Operations OS (starting from ₹34,999).">Ask for This Service →</a>
+      </div>
+
+      <div class="tier">
+        <span class="demo-badge" style="align-self:flex-start">Scope 03 · Custom Systems</span>
+        <h3>Custom Software &amp; ERP</h3>
+        <span class="wk2">3–4 weeks · Full operations platform &amp; multi-branch</span>
+        <div class="price"><small>Custom milestone quote based on work</small>Ask for Your Scope</div>
+        <ul>
+          <li><svg class="ico"><use href="#chk"/></svg>Multi-branch inventory, billing &amp; customer records</li>
+          <li><svg class="ico"><use href="#chk"/></svg>Custom workflows tailored 100% to your daily routine</li>
+          <li><svg class="ico"><use href="#chk"/></svg>Tally, payment gateway &amp; hardware integrations</li>
+          <li><svg class="ico"><use href="#chk"/></svg>Fixed milestone delivery: only pay as value is built</li>
+          <li><svg class="ico"><use href="#chk"/></svg>Dedicated staff training &amp; 30-day post-launch warranty</li>
+        </ul>
+        <a class="btn ghost" href="contact.html?p=I'm interested in Custom Software & ERP. Let's discuss scope.">Request Custom Scope →</a>
+      </div>
+    </div>
+
+    <!-- Need-Based Direct CTA -->
+    <div style="margin-top:3.5rem;background:var(--ink);color:#fff;border-radius:28px;padding:clamp(2rem,4vw,3.5rem);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:2rem" data-r>
+      <div>
+        <span class="eyebrow" style="background:rgba(255,255,255,.08);color:#E6DFD0;border-color:rgba(255,255,255,.16)">Transparent Delivery</span>
+        <h3 style="font-size:clamp(1.8rem,3.2vw,2.5rem);letter-spacing:-.03em;margin:.6rem 0 .4rem">Need something tailored to your exact business?</h3>
+        <p style="color:#B5AFA2;font-size:1.05rem;max-width:34rem">Tell us what you want to build or what bottleneck slows you down. We send back an architectural plan and an exact fixed milestone price in 48 hours.</p>
+      </div>
+      <div style="display:flex;gap:1rem;flex-wrap:wrap">
+        <a class="btn hi" href="contact.html">Tell us your problem →</a>
+        <a class="btn ghost" style="color:#fff;border-color:rgba(255,255,255,.3)" href="https://wa.me/918448858700?text=Hi%20FIXIA,%20I'd%20like%20to%20discuss%20a%20need-based%20quote." target="_blank" rel="noopener">Chat on WhatsApp ↗</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ Accordion -->
+<section class="sec" style="padding-top:2rem">
+  <div class="wrap">
+    <span class="eyebrow">Clear Answers Upfront</span>
+    <h2 data-split>Questions people ask before starting.</h2>
+    <div class="faq" data-r>
+      <details>
+        <summary>Do I really own 100% of the code and intellectual property?</summary>
+        <p>Yes, completely. Unlike subscription SaaS where you rent your software and lose everything if you cancel, FIXIA hands over full source code, database schemas, and intellectual property rights to your company upon milestone completion. You can host it anywhere, modify it, or bring developers in-house at any time.</p>
+      </details>
+      <details>
+        <summary>What if I don't know the exact technical requirements yet?</summary>
+        <p>That is our job. You do not need technical specifications, wireframes, or architecture documents. Tell us how your business works, what slows you down, or what product you want to launch. Within 48 hours, we translate your bottleneck into a visual blueprint, user journey, and fixed-milestone scope.</p>
+      </details>
+      <details>
+        <summary>How does fixed-milestone billing work?</summary>
+        <p>We divide every project into 2–3 transparent milestones (e.g. Discovery &amp; Interactive Prototype, Core Features &amp; Integration, Final Polish &amp; Launch). You only pay each milestone upon reviewing and approving the working progress on your staging link.</p>
+      </details>
+      <details>
+        <summary>Can you integrate with tools we already use?</summary>
+        <p>Yes. We regularly connect custom systems to WhatsApp Cloud API, Razorpay, UPI QR, Google Sheets, and custom third-party APIs so your team doesn't have to change their existing operations.</p>
+      </details>
+      <details>
+        <summary>What happens after the product launches?</summary>
+        <p>We train your team, monitor real user sessions, and provide 30 days of complimentary bug-fix warranty. If you want ongoing technology partnership, we offer monthly retainers covering managed cloud hosting, 24/7 uptime monitoring, and weekly feature sprints.</p>
+      </details>
+    </div>
+  </div>
+</section>
+</main>
+
+<script src="app.js?v=20261025d"></script>
+
+<script src="polish.js?v=20261025d"></script>
+</body>
+</html>

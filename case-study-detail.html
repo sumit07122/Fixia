@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>One Shot / CueDesk ERP Case Study – FIXIA</title>
+<meta name="description" content="How FIXIA engineered a real-time operational ERP, live WebSocket table timer matrix, and POS billing system for One Shot Snooker & Gaming Arena.">
+<link rel="icon" type="image/svg+xml" href="logo/fixia-favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css?v=20261025d">
+<link rel="stylesheet" href="polish.css?v=20261025d">
+<style>
+.case-hero {
+  padding: clamp(3.5rem, 8vw, 6rem) 0 2rem;
+}
+.case-hero h1 {
+  font-size: clamp(2.6rem, 6.2vw, 5.2rem);
+  letter-spacing: -0.045em;
+  line-height: 0.96;
+  max-width: 15ch;
+  margin: 0.8rem 0 1.2rem;
+}
+
+/* Metric Ribbon */
+.metrics-strip {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+  margin: 2.5rem 0 3.5rem;
+  padding: 2.2rem 0;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+.metric-tile small {
+  font: 600 0.78rem var(--mono);
+  color: var(--mute);
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 0.35rem;
+}
+.metric-tile b {
+  font: 800 clamp(2.2rem, 3.8vw, 3.2rem)/1 var(--display);
+  letter-spacing: -0.04em;
+  color: var(--ink);
+}
+.metric-tile span {
+  display: block;
+  font-size: 0.9rem;
+  color: var(--mute);
+  margin-top: 0.4rem;
+}
+
+/* Interactive Device Stage */
+.device-stage {
+  margin: 3rem 0 5rem;
+  background: var(--ink);
+  color: #fff;
+  border-radius: 30px;
+  padding: clamp(2rem, 4vw, 3.5rem);
+  box-shadow: 0 40px 80px -30px rgba(16, 16, 16, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.device-switcher-bar {
+  display: flex;
+  background: rgba(255, 255, 255, 0.08);
+  padding: 0.35rem;
+  border-radius: 999px;
+  gap: 0.35rem;
+  margin-bottom: 2rem;
+}
+.dev-pill {
+  background: none;
+  border: 0;
+  color: #B5AFA2;
+  font: 600 0.82rem var(--mono);
+  padding: 0.5rem 1.1rem;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.dev-pill.active {
+  background: var(--hi);
+  color: var(--ink);
+  font-weight: 700;
+}
+.mockup-container {
+  width: 100%;
+  max-width: 1100px;
+  transition: all 0.35s var(--ease);
+}
+.mockup-container.mobile-mode {
+  max-width: 380px;
+}
+.mockup-frame {
+  background: #1B1B19;
+  border-radius: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  overflow: hidden;
+  box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.6);
+}
+.mockup-bar {
+  background: #252522;
+  padding: 0.65rem 1.1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+.mockup-dots {
+  display: flex;
+  gap: 0.35rem;
+}
+.mockup-dots span {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+}
+.mockup-url {
+  font: 600 0.78rem var(--mono);
+  color: #A39D90;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+.mockup-screen img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Deep-dive Content Layout */
+.case-body {
+  display: grid;
+  grid-template-columns: 1.25fr 0.9fr;
+  gap: clamp(2.5rem, 5vw, 5rem);
+  margin-bottom: 5rem;
+}
+.case-section {
+  margin-bottom: 3.5rem;
+}
+.case-section h3 {
+  font-size: clamp(1.6rem, 2.8vw, 2.2rem);
+  line-height: 1.1;
+  margin-bottom: 1rem;
+}
+.case-section p {
+  color: var(--mute);
+  font-size: 1.05rem;
+  line-height: 1.65;
+  margin-bottom: 1.2rem;
+}
+.case-highlights-box {
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  padding: 1.8rem;
+  margin: 1.8rem 0;
+}
+.case-highlights-box h5 {
+  font: 700 0.78rem var(--mono);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--cobalt);
+  margin-bottom: 0.8rem;
+}
+.case-highlights-box ul {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+.case-highlights-box li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.65rem;
+  font-size: 0.95rem;
+  color: var(--ink);
+}
+.case-highlights-box .ico {
+  color: var(--mint);
+  margin-top: 0.2rem;
+}
+
+/* Before / After Table */
+.before-after-box {
+  background: #fff;
+  border: 1.5px solid var(--ink);
+  border-radius: 24px;
+  overflow: hidden;
+  margin: 2rem 0;
+}
+.ba-header {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  text-align: center;
+  font: 700 0.85rem var(--mono);
+  text-transform: uppercase;
+  border-bottom: 1px solid var(--line);
+}
+.ba-header div:first-child {
+  background: #FEE2E2;
+  color: #991B1B;
+  padding: 0.8rem;
+}
+.ba-header div:last-child {
+  background: #D1FAE5;
+  color: #065F46;
+  padding: 0.8rem;
+}
+.ba-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border-bottom: 1px solid var(--line);
+  font-size: 0.92rem;
+}
+.ba-row:last-child {
+  border-bottom: 0;
+}
+.ba-row div {
+  padding: 1rem 1.2rem;
+}
+.ba-row div:first-child {
+  background: #FFFDFD;
+  color: var(--mute);
+  border-right: 1px solid var(--line);
+}
+.ba-row div:last-child {
+  background: #F0FDF4;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+/* Sidebar Info Card */
+.case-sidebar {
+  position: sticky;
+  top: 5.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+.info-card {
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  padding: 1.8rem;
+}
+.info-card h4 {
+  font-size: 1.15rem;
+  margin-bottom: 1rem;
+}
+.info-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  font-size: 0.92rem;
+}
+.info-list div {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 0.6rem;
+}
+.info-list div:last-child {
+  border-bottom: 0;
+  padding-bottom: 0;
+}
+.info-list small {
+  color: var(--mute);
+  font: 600 0.8rem var(--mono);
+}
+.info-list b {
+  color: var(--ink);
+}
+
+/* Quote Card */
+.quote-card {
+  background: var(--ink);
+  color: #fff;
+  border-radius: 24px;
+  padding: 1.8rem;
+  position: relative;
+}
+.quote-card p {
+  font-size: 1.05rem;
+  line-height: 1.55;
+  color: #E7E0D2;
+  font-style: italic;
+  margin-bottom: 1.2rem;
+}
+.quote-author b {
+  display: block;
+  font-size: 0.96rem;
+}
+.quote-author small {
+  color: var(--hi);
+  font: 600 0.78rem var(--mono);
+}
+
+@media (max-width: 900px) {
+  .metrics-strip { grid-template-columns: repeat(2, 1fr); }
+  .case-body { grid-template-columns: 1fr; }
+  .case-sidebar { position: static; }
+}
+</style>
+</head>
+<body data-page="work">
+<main>
+
+<section class="case-hero">
+  <div class="wrap">
+    <div style="display:flex;align-items:center;gap:1rem;flex-wrap:wrap">
+      <a href="work.html" style="font:600 .85rem var(--mono);color:var(--cobalt);text-decoration:none">← Back to all 7 projects</a>
+      <span class="proj-cat" id="projCat">Custom Software &amp; Venue ERP</span>
+    </div>
+    <h1 id="projTitle" data-split>One Shot Snooker Arena &amp; CueDesk ERP</h1>
+    <p class="lede" id="projTagline" data-reveal>Engineering a real-time operational ERP, live WebSocket table timer matrix, and integrated POS billing system that stopped 100% of revenue leakage.</p>
+
+    <!-- Metrics Ribbon -->
+    <div class="metrics-strip" data-stagger>
+      <div class="metric-tile">
+        <small>Dispute Rate</small>
+        <b>₹0</b>
+        <span>Zero customer time disputes</span>
+      </div>
+      <div class="metric-tile">
+        <small>Time Saved</small>
+        <b>4.5h</b>
+        <span>Saved daily on shift close &amp; cash counts</span>
+      </div>
+      <div class="metric-tile">
+        <small>Table Tracking</small>
+        <b>100%</b>
+        <span>Real-time per-minute timer precision</span>
+      </div>
+      <div class="metric-tile">
+        <small>Revenue Visibility</small>
+        <b>Instant</b>
+        <span>Consolidated table + kitchen receipts</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Device Viewport Preview Stage -->
+<section>
+  <div class="wrap">
+    <div class="device-stage tilt-card" data-reveal>
+      <div class="device-switcher-bar">
+        <button type="button" class="dev-pill active" id="btnDesktop">💻 Desktop ERP (1440px)</button>
+        <button type="button" class="dev-pill" id="btnMobile">📱 Staff Mobile App (390px)</button>
+      </div>
+
+      <div class="mockup-container" id="mockupBox">
+        <div class="mockup-frame">
+          <div class="mockup-bar">
+            <div class="mockup-dots"><span></span><span></span><span></span></div>
+            <div class="mockup-url">
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+              <span id="mockupDomain">https://oneshot-livid.vercel.app/</span>
+            </div>
+            <a class="bf-live-pill" id="mockupLiveLink" href="https://oneshot-livid.vercel.app/" target="_blank" rel="noopener">Visit Live Site ↗</a>
+          </div>
+          <div class="mockup-screen">
+            <img id="mockupImg" src="assets/projects/oneshot-desktop.png" alt="One Shot CueDesk preview" width="1440" height="900">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Case Study Narrative -->
+<section>
+  <div class="wrap">
+    <div class="case-body">
+
+      <!-- Left Column: Story & System -->
+      <div>
+        <div class="case-section" data-reveal>
+          <span class="eyebrow">01 — The Operational Bottleneck</span>
+          <h3>Paper ledgers, forgotten kitchen chits, and midnight cash arguments.</h3>
+          <p>One Shot Snooker &amp; Gaming Arena operates 8 full-size tournament snooker and pool tables alongside an in-house cafe. During peak evening hours, up to 35 customers compete simultaneously.</p>
+          <p>Before FIXIA, the club relied on manual paper logs. Waitstaff noted start times on notepads, kitchen orders were scribbled on paper chits, and table rates were calculated with handheld desk calculators.</p>
+          <p>The result was financial chaos: customers contested table minutes when billed, cafe orders were served without being logged onto the final bill, and end-of-shift cash balancing took 2.5 hours of disputes every night.</p>
+        </div>
+
+        <div class="case-section" data-reveal>
+          <span class="eyebrow">02 — The Architectural Solution</span>
+          <h3>A real-time session matrix with sub-10ms synchronization.</h3>
+          <p>FIXIA designed and built <strong>CueDesk</strong>, a custom operational platform tailored strictly to venue workflow. Every table is represented as an interactive card displaying live elapsed minutes, current tariff, active players, and linked kitchen tickets.</p>
+          
+          <div class="case-highlights-box">
+            <h5>Core Engineered Modules</h5>
+            <ul>
+              <li><svg class="ico"><use href="#chk"/></svg><span><strong>8-Table Session Matrix:</strong> One-tap start, pause, transfer, and end with automated per-minute rate rounding.</span></li>
+              <li><svg class="ico"><use href="#chk"/></svg><span><strong>Integrated POS Kitchen Ticketing:</strong> Beverages and snacks automatically attach to the active table session.</span></li>
+              <li><svg class="ico"><use href="#chk"/></svg><span><strong>Staff Expense &amp; Cash Drawer:</strong> Live ledger tracking petty cash in/out and net cash in drawer.</span></li>
+              <li><svg class="ico"><use href="#chk"/></svg><span><strong>Automated Shift Close:</strong> 1-click end-of-day reconciliation generating a complete P&amp;L summary.</span></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="case-section" data-reveal>
+          <span class="eyebrow">03 — Operational Impact</span>
+          <h3>The Before &amp; After Transformation</h3>
+
+          <div class="before-after-box">
+            <div class="ba-header">
+              <div>Manual Paper Way (Before)</div>
+              <div>FIXIA CueDesk ERP (After)</div>
+            </div>
+            <div class="ba-row">
+              <div>Handwritten start/end times prone to human disputes</div>
+              <div>Digital WebSocket timers running to the exact second</div>
+            </div>
+            <div class="ba-row">
+              <div>Unbilled cafe orders lost during peak rush hour</div>
+              <div>Single consolidated invoice combines table time + snacks</div>
+            </div>
+            <div class="ba-row">
+              <div>2 hours spent nightly recounting drawer cash</div>
+              <div>Instant 1-click shift close with zero cash discrepancy</div>
+            </div>
+            <div class="ba-row">
+              <div>Owner blind to actual hourly revenue patterns</div>
+              <div>Real-time analytics showing peak utilization and daily P&amp;L</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Column: Sidebar Meta & Quote -->
+      <aside class="case-sidebar">
+        <div class="info-card tilt-card">
+          <h4>Project Summary</h4>
+          <div class="info-list">
+            <div><small>Client</small><b>One Shot Snooker Arena</b></div>
+            <div><small>Category</small><b>Custom Software &amp; ERP</b></div>
+            <div><small>Sprint Duration</small><b>3 Weeks to Deployment</b></div>
+            <div><small>Code Stack</small><b>Next.js, TypeScript, WebSockets</b></div>
+            <div><small>Deployment</small><b>Vercel Edge Global CDN</b></div>
+            <div><small>IP Ownership</small><b>100% Client Owned</b></div>
+          </div>
+          <div style="margin-top:1.5rem">
+            <a class="btn sm hi" style="width:100%" href="https://oneshot-livid.vercel.app/" target="_blank" rel="noopener">Visit Live System ↗</a>
+          </div>
+        </div>
+
+        <div class="quote-card tilt-card">
+          <p>"Fixia paid for itself in the first 45 days. We completely eliminated billing arguments with customers, and for the first time, our daily cash drawer matches our sales to the exact rupee."</p>
+          <div class="quote-author">
+            <b>Management Partner</b>
+            <small>One Shot Arena</small>
+          </div>
+        </div>
+
+        <div class="info-card" style="background:var(--paper)">
+          <h4>Want a tailored system like this?</h4>
+          <p style="color:var(--mute);font-size:.92rem;margin-bottom:1.2rem">Tell us what is slowing your operations down. We'll engineer an automated platform around how you actually work.</p>
+          <a class="btn sm" style="width:100%" href="contact.html?p=I%20want%20a%20custom%20ERP%20like%20One%20Shot.">Build my custom solution →</a>
+        </div>
+      </aside>
+
+    </div>
+  </div>
+</section>
+
+</main>
+
+<script src="app.js?v=20261025d"></script>
+<script src="polish.js?v=20261025d"></script>
+<script>
+// Dynamic Project Loader via ?id=
+const urlParams = new URLSearchParams(window.location.search);
+const projId = urlParams.get('id') || 'oneshot';
+const currentProj = REAL_PROJECTS.find(p => p.id === projId) || REAL_PROJECTS[1];
+
+if (currentProj) {
+  document.getElementById('projTitle').textContent = `${currentProj.title}: ${currentProj.tagline}`;
+  document.getElementById('projTagline').textContent = currentProj.shortDesc;
+  document.getElementById('projCat').textContent = currentProj.category;
+  document.getElementById('mockupDomain').textContent = `https://${currentProj.domain}`;
+  document.getElementById('mockupLiveLink').href = currentProj.url;
+  document.getElementById('mockupImg').src = currentProj.desktopImg;
+}
+
+// Device Viewport Toggle (Desktop vs Mobile)
+const btnDesktop = document.getElementById('btnDesktop');
+const btnMobile = document.getElementById('btnMobile');
+const mockupBox = document.getElementById('mockupBox');
+const mockupImg = document.getElementById('mockupImg');
+
+btnDesktop.addEventListener('click', () => {
+  btnDesktop.classList.add('active');
+  btnMobile.classList.remove('active');
+  mockupBox.classList.remove('mobile-mode');
+  mockupImg.src = currentProj.desktopImg;
+});
+
+btnMobile.addEventListener('click', () => {
+  btnMobile.classList.add('active');
+  btnDesktop.classList.remove('active');
+  mockupBox.classList.add('mobile-mode');
+  mockupImg.src = currentProj.mobileImg || currentProj.desktopImg;
+});
+</script>
+</body>
+</html>

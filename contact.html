@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Start a Project – FIXIA</title>
+<meta name="description" content="Tell FIXIA what you want to solve or build. Receive a custom architecture solution plan within 6 business hours.">
+<link rel="icon" type="image/svg+xml" href="logo/fixia-favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css?v=20261025d">
+<style>
+.ct {
+  display: grid;
+  grid-template-columns: 0.95fr 1.2fr;
+  gap: clamp(2rem, 5vw, 5rem);
+  padding: clamp(3rem, 7vw, 5.5rem) 0 clamp(4rem, 8vw, 7rem);
+  align-items: start;
+}
+.ct h1 {
+  font-size: clamp(2.7rem, 6vw, 5.2rem);
+  letter-spacing: -0.045em;
+  line-height: 0.95;
+}
+.side ul {
+  list-style: none;
+  padding: 0;
+  margin-top: 2rem;
+}
+.side li {
+  display: flex;
+  gap: 0.8rem;
+  padding: 0.85rem 0;
+  border-top: 1px solid var(--line);
+  font-weight: 500;
+}
+.side li .ico { color: var(--mint); margin-top: 0.3rem; }
+.blueprint-card {
+  margin-top: 1.8rem;
+  background: var(--ink);
+  color: #fff;
+  border-radius: 20px;
+  padding: 1.35rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+.blueprint-card small {
+  font: 600 0.74rem var(--mono);
+  text-transform: uppercase;
+  color: var(--hi);
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-bottom: 0.4rem;
+}
+.blueprint-card p {
+  font-size: 0.92rem;
+  color: #D4CEC0;
+  line-height: 1.5;
+}
+
+.box {
+  background: #fff;
+  border: 1.5px solid var(--ink);
+  border-radius: 28px;
+  padding: clamp(1.4rem, 3.2vw, 2.5rem);
+  box-shadow: 0 36px 70px -45px rgba(16, 16, 16, 0.45);
+}
+.box-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  font: 600 0.8rem var(--mono);
+  color: var(--mute);
+}
+.pg {
+  display: flex;
+  gap: 0.4rem;
+  margin-bottom: 1.8rem;
+}
+.pg i {
+  flex: 1;
+  height: 5px;
+  border-radius: 9px;
+  background: var(--line);
+  overflow: hidden;
+  position: relative;
+}
+.pg i::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--cobalt);
+  transform: scaleX(0);
+  transform-origin: 0;
+  transition: transform 0.55s var(--ease);
+}
+.pg i.on::after { transform: none; }
+
+.step { display: none; }
+.step.on { display: block; animation: slide 0.45s var(--ease) both; }
+@keyframes slide {
+  from { opacity: 0; transform: translateX(18px); }
+  to { opacity: 1; transform: none; }
+}
+.step h2 {
+  font-size: 1.75rem;
+  max-width: none;
+  margin-bottom: 0.4rem;
+}
+.step-sub {
+  color: var(--mute);
+  font-size: 0.94rem;
+  margin-bottom: 1.35rem;
+}
+.opts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+  margin-bottom: 1.2rem;
+}
+.opts label { position: relative; }
+.opts input { position: absolute; opacity: 0; inset: 0; cursor: pointer; }
+.opts span {
+  display: block;
+  border: 1.5px solid var(--line);
+  border-radius: 999px;
+  padding: 0.58rem 1.05rem;
+  font-weight: 600;
+  font-size: 0.92rem;
+  transition: all 0.2s;
+}
+.opts input:hover + span { border-color: var(--ink); }
+.opts input:checked + span {
+  background: var(--ink);
+  color: #fff;
+  border-color: var(--ink);
+}
+.opts input:focus-visible + span { outline: 3px solid var(--cobalt); outline-offset: 3px; }
+
+.f {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+.f .full { grid-column: 1 / -1; }
+label.t {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+.f input, .f select, .f textarea {
+  font: 400 0.98rem var(--body);
+  padding: 0.78rem 1rem;
+  border: 1.5px solid var(--line);
+  border-radius: 12px;
+  background: #fff;
+  color: var(--ink);
+  width: 100%;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.f input:focus, .f select:focus, .f textarea:focus {
+  outline: 0;
+  border-color: var(--cobalt);
+  box-shadow: 0 0 0 4px rgba(194, 51, 12, 0.14);
+}
+.prompt-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-top: 0.45rem;
+}
+.prompt-chips button {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 0.28rem 0.7rem;
+  font-size: 0.78rem;
+  color: var(--mute);
+  transition: all 0.2s;
+}
+.prompt-chips button:hover {
+  border-color: var(--cobalt);
+  color: var(--cobalt);
+}
+
+.nv {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1.8rem;
+  padding-top: 1.2rem;
+  border-top: 1px solid var(--line);
+  gap: 0.6rem;
+}
+.ok {
+  text-align: center;
+  padding: 2rem 0;
+  display: none;
+}
+.ok.on { display: block; animation: slide 0.55s var(--ease) both; }
+.ok .tick {
+  width: 4rem;
+  height: 4rem;
+  border-radius: 50%;
+  background: var(--mint);
+  color: #fff;
+  display: grid;
+  place-items: center;
+  margin: 0 auto 1rem;
+  font-size: 1.9rem;
+}
+.ok h2 { font-size: 2.1rem; margin: 0 auto 0.6rem; }
+.ok p { color: var(--mute); margin-bottom: 1.4rem; }
+.brief-summary {
+  text-align: left;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 1.1rem;
+  margin-bottom: 1.5rem;
+  font-size: 0.9rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+@media (max-width: 900px) {
+  .ct, .f { grid-template-columns: 1fr; }
+}
+</style>
+<link rel="stylesheet" href="polish.css?v=20261025d">
+<script>try{if(!sessionStorage.fx){document.documentElement.classList.add("intro-on");sessionStorage.fx=1}}catch(e){}</script></head>
+<body data-page="contact" data-noend="1">
+<main>
+<div class="wrap ct">
+  <div class="side">
+    <span class="eyebrow">Direct Engineering Discovery</span>
+    <h1 data-split>Have a problem worth solving?</h1>
+    <p class="lede" data-r>Tell us what is slowing your business down. We'll figure out what to build and reply with a custom solution blueprint, timeline, and fixed milestone range.</p>
+    <ul data-r>
+      <li><svg class="ico"><use href="#chk"/></svg>First architecture ideas within 6 business hours via WhatsApp &amp; email</li>
+      <li><svg class="ico"><use href="#chk"/></svg>Speak directly with product engineers—zero sales fluff</li>
+      <li><svg class="ico"><use href="#chk"/></svg>Fixed-milestone pricing &amp; 100% source code ownership</li>
+    </ul>
+    <div class="blueprint-card" data-r>
+      <small><span class="dot"></span>Accepting New Client Projects</small>
+      <p>Even if you aren't sure whether you need a web app, automation, or AI agent—just describe the bottleneck in plain words.</p>
+    </div>
+  </div>
+
+  <div class="box" data-r>
+    <div class="box-head">
+      <span id="stepLabel">STEP 01 OF 03 · THE PROBLEM</span>
+      <span>~90 Seconds</span>
+    </div>
+    <div class="pg" id="pg"><i class="on"></i><i></i><i></i></div>
+
+    <form id="fm" novalidate>
+      <!-- STEP 1: Problem & Focus Area -->
+      <div class="step on">
+        <h2>What's slowing you down, or what would you like to build?</h2>
+        <p class="step-sub">Pick one or more areas (or select “Not sure yet—advise me”).</p>
+        <div class="opts" id="kind"></div>
+        <div class="f">
+          <div class="full">
+            <label class="t">What's the problem? (Describe it like you'd tell a friend) *
+              <textarea id="prob" name="problem" rows="4" placeholder="e.g. Our sales team tracks 200+ leads on WhatsApp and Excel, and follow-ups keep slipping..." required></textarea>
+            </label>
+            <div class="prompt-chips">
+              <button type="button" onclick="fillP('We manage everything in Excel and need a custom dashboard.')">+ Replacing Excel</button>
+              <button type="button" onclick="fillP('We are losing leads on WhatsApp and need a CRM + automated follow-ups.')">+ WhatsApp CRM</button>
+              <button type="button" onclick="fillP('I have a SaaS/app idea and need an MVP built from scratch.')">+ New SaaS / App Idea</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 2: Business Context, Budget & Timeline -->
+      <div class="step">
+        <h2>Tell us a bit about your business &amp; timeline.</h2>
+        <p class="step-sub">This helps us size the right architecture and milestone plan.</p>
+        <div class="f">
+          <label class="t full">What does your business do? *
+            <input id="bizDo" name="business_type" placeholder="e.g. Multi-branch sports arena, D2C brand, property advisory, travel operator..." required>
+          </label>
+          <label class="t">Indicative Budget Range
+            <select name="budget" id="bud">
+              <option>₹19,999 – ₹60,000 (Start Tier)</option>
+              <option selected>₹60,000 – ₹1,50,000 (Build Tier)</option>
+              <option>₹1,50,000+ (Scale / Full Product)</option>
+              <option>Not sure yet — suggest options</option>
+            </select>
+          </label>
+          <label class="t">Target Timeline
+            <select name="timeline" id="time">
+              <option>Urgent (2–4 weeks)</option>
+              <option selected>1–2 months</option>
+              <option>Flexible / Planning ahead</option>
+            </select>
+          </label>
+        </div>
+      </div>
+
+      <!-- STEP 3: Contact Details -->
+      <div class="step">
+        <h2>Where should we send your solution plan?</h2>
+        <p class="step-sub">We'll share a concise architecture breakdown via WhatsApp and email.</p>
+        <div class="f">
+          <label class="t">Your Name *
+            <input id="uName" name="name" required autocomplete="name" placeholder="Aarav Sharma">
+          </label>
+          <label class="t">Business / Company Name *
+            <input id="uBiz" name="business" required autocomplete="organization" placeholder="Apex Operations Pvt Ltd">
+          </label>
+          <label class="t">Email Address *
+            <input id="uMail" type="email" name="email" required autocomplete="email" placeholder="you@company.com">
+          </label>
+          <label class="t">WhatsApp Number *
+            <input id="uWa" type="tel" name="whatsapp" required autocomplete="tel" placeholder="+91 98765 43210">
+          </label>
+        </div>
+      </div>
+
+      <div class="nv">
+        <button type="button" class="btn ghost sm" id="bk" style="visibility:hidden">← Back</button>
+        <button type="button" class="btn sm" id="nx">Next Step →</button>
+      </div>
+    </form>
+
+    <div class="ok" id="ok">
+      <div class="tick"><svg class="ico"><use href="#chk"/></svg></div>
+      <h2>Problem received. FIXIA is on it.</h2>
+      <p>Our engineering leads will review your brief and message you on WhatsApp and email within 6 business hours.</p>
+      <div class="brief-summary" id="briefSum"></div>
+      <a class="btn" href="index.html">Back to homepage</a>
+    </div>
+  </div>
+</div>
+</main>
+<script src="app.js?v=20261025d"></script>
+<script>
+const K = ['Website','Android app','Custom software','ERP / business system','Online store','Bot or automation','Not sure yet — advise me'];
+const q = new URLSearchParams(location.search);
+$('#kind').innerHTML = K.map((k, i) => `<label><input type="checkbox" value="${k}" ${i === 6 && !q.get('p') ? 'checked' : ''}><span>${k}</span></label>`).join('');
+if (q.get('p')) $('#prob').value = q.get('p');
+
+function fillP(txt) {
+  const el = $('#prob');
+  el.value = el.value ? el.value + ' ' + txt : txt;
+  el.focus();
+}
+
+const steps = $$('.step'), pg = $$('#pg i');
+const stepTitles = [
+  'STEP 01 OF 03 · THE PROBLEM',
+  'STEP 02 OF 03 · BUSINESS & TIMELINE',
+  'STEP 03 OF 03 · YOUR DETAILS'
+];
+let n = 0;
+
+function go(i) {
+  n = i;
+  steps.forEach((s, j) => s.classList.toggle('on', j === i));
+  pg.forEach((p, j) => p.classList.toggle('on', j <= i));
+  $('#stepLabel').textContent = stepTitles[i];
+  $('#bk').style.visibility = i ? 'visible' : 'hidden';
+  $('#nx').innerHTML = i === 2 ? `Send Problem Brief ${ic('arr')}` : 'Next Step →';
+}
+
+$('#bk').onclick = () => go(n - 1);
+$('#nx').onclick = () => {
+  const f = $('#fm');
+  if (n === 0 && !$('#prob').value.trim()) {
+    $('#prob').focus();
+    $('#prob').style.borderColor = '#dc2626';
+    return;
+  }
+  if (n === 1 && !$('#bizDo').value.trim()) {
+    $('#bizDo').focus();
+    $('#bizDo').style.borderColor = '#dc2626';
+    return;
+  }
+  if (n < 2) return go(n + 1);
+  if (!f.reportValidity()) return;
+
+  const picked = $$('#kind input:checked').map(x => x.value).join(', ') || 'Custom Solution';
+  $('#briefSum').innerHTML = `
+    <div><b>Client:</b> ${$('#uName').value} (${$('#uBiz').value})</div>
+    <div><b>Business:</b> ${$('#bizDo').value}</div>
+    <div><b>Focus:</b> ${picked}</div>
+    <div><b>Problem:</b> “${$('#prob').value}”</div>
+    <div><b>Scope:</b> ${$('#bud').value} · ${$('#time').value}</div>`;
+  try { const L = JSON.parse(localStorage.getItem('fx-leads') || '[]'); L.unshift({ id: Date.now(), at: new Date().toISOString(), name: $('#uName').value, biz: $('#uBiz').value, email: $('#uMail').value, wa: $('#uWa').value, type: $('#bizDo').value, focus: picked, problem: $('#prob').value, budget: $('#bud').value, timeline: $('#time').value, status: 'new' }); localStorage.setItem('fx-leads', JSON.stringify(L)); } catch (e) {}
+  f.style.display = 'none';
+  $('#pg').style.display = 'none';
+  $('.box-head').style.display = 'none';
+  $('#ok').classList.add('on');
+};
+</script>
+<script src="polish.js?v=20261025d"></script>
+</body>
+</html>

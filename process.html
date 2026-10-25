@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Our 5-Step Process &amp; Engineering Sprints – FIXIA</title>
+<meta name="description" content="Explore FIXIA's battle-tested 5-step engineering framework: from 30-min operational audit and 48-hour blueprint to weekly live staging and 100% code handoff.">
+<link rel="icon" type="image/svg+xml" href="logo/fixia-favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css?v=20261025d">
+<link rel="stylesheet" href="polish.css?v=20261025d">
+<style>
+.process-hero {
+  padding: clamp(3.5rem, 8vw, 6.5rem) 0 3rem;
+}
+.process-hero h1 {
+  font-size: clamp(2.8rem, 6.8vw, 5.8rem);
+  letter-spacing: -0.045em;
+  line-height: 0.94;
+  max-width: 15ch;
+}
+
+/* Timeline & Stepper Layout */
+.stepper {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(2.5rem, 5vw, 4.5rem);
+  margin: 4rem 0;
+  position: relative;
+}
+.step-row {
+  display: grid;
+  grid-template-columns: 1fr 1.25fr;
+  gap: clamp(2rem, 5vw, 4.5rem);
+  align-items: start;
+  padding: clamp(2rem, 4vw, 3rem);
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 28px;
+  position: relative;
+  transition: all 0.25s var(--ease);
+}
+.step-row:hover {
+  border-color: var(--hi);
+  box-shadow: 0 20px 45px -15px rgba(16, 16, 16, 0.12);
+}
+.step-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+.step-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font: 700 0.85rem var(--mono);
+  color: var(--hi);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+.step-badge .dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--hi);
+}
+.step-row h3 {
+  font-size: clamp(1.8rem, 3.4vw, 2.5rem);
+  line-height: 1.05;
+}
+.step-time {
+  font: 600 0.88rem var(--mono);
+  background: var(--paper);
+  color: var(--ink);
+  padding: 0.35rem 0.85rem;
+  border-radius: 999px;
+  align-self: flex-start;
+  border: 1px solid var(--line);
+}
+.step-content p {
+  color: var(--mute);
+  font-size: 1.05rem;
+  line-height: 1.6;
+  margin-bottom: 1.4rem;
+}
+.step-deliverables {
+  background: var(--paper);
+  border-radius: 18px;
+  padding: 1.4rem;
+  border: 1px solid var(--line);
+}
+.step-deliverables h5 {
+  font: 700 0.78rem var(--mono);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--cobalt);
+  margin-bottom: 0.8rem;
+}
+.step-deliverables ul {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+.step-deliverables li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  font-size: 0.94rem;
+  font-weight: 500;
+  color: var(--ink);
+}
+.step-deliverables .ico {
+  color: var(--mint);
+  margin-top: 0.2rem;
+}
+
+/* Comparison Table */
+.comp-table-wrap {
+  margin: 4rem 0;
+  border: 1.5px solid var(--ink);
+  border-radius: 28px;
+  overflow: hidden;
+  background: #fff;
+}
+.comp-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+.comp-table th, .comp-table td {
+  padding: 1.3rem 1.6rem;
+  border-bottom: 1px solid var(--line);
+}
+.comp-table th {
+  background: var(--ink);
+  color: #fff;
+  font-size: 1.1rem;
+}
+.comp-table th.fixia-col {
+  background: var(--hi);
+  color: var(--ink);
+  font-weight: 800;
+}
+.comp-table td:nth-child(2) {
+  color: var(--mute);
+  background: #FAF7F2;
+}
+.comp-table td:nth-child(3) {
+  font-weight: 600;
+  color: var(--ink);
+  background: #FFFDF9;
+  border-left: 2px solid var(--hi);
+}
+
+/* Infinite Marquee Ticker */
+.marquee-wrap {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  padding: 1.15rem 0;
+  display: flex;
+  user-select: none;
+  background: var(--ink);
+  mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
+}
+.marquee-track {
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+  gap: 2.5rem;
+  will-change: transform;
+  animation: marqueeLoop 28s linear infinite;
+}
+.marquee-track:hover {
+  animation-play-state: paused;
+}
+.marquee-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  font: 700 0.88rem var(--mono);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #E7E0D2;
+}
+.marquee-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--hi);
+  box-shadow: 0 0 10px var(--hi);
+  flex-shrink: 0;
+}
+@keyframes marqueeLoop {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@media (max-width: 900px) {
+  .step-row { grid-template-columns: 1fr; }
+  .comp-table-wrap { overflow-x: auto; }
+}
+</style>
+</head>
+<body data-page="process">
+<main>
+
+<section class="process-hero">
+  <div class="wrap">
+    <span class="eyebrow">The FIXIA Architecture Framework</span>
+    <h1 data-split>From operational chaos to <em>deployed code</em> in weeks.</h1>
+    <p class="lede" data-reveal>We discarded the endless discovery workshops and bloated hourly billing that paralyze traditional agencies. Here is the exact, battle-tested 5-step sprint framework we use to engineer custom software and high-conversion web products that ship on time.</p>
+  </div>
+</section>
+
+<!-- Infinite Marquee Ticker -->
+<section style="background:var(--ink);color:#fff;border-top:1px solid rgba(255,255,255,.1);border-bottom:1px solid rgba(255,255,255,.1)">
+  <div class="marquee-wrap">
+    <div class="marquee-track">
+      <span class="marquee-item"><span class="marquee-dot"></span> Phase 01: 30-Min Operational Audit</span>
+      <span class="marquee-item"><span class="marquee-dot"></span> Phase 02: 48h Technical Blueprint</span>
+      <span class="marquee-item"><span class="marquee-dot"></span> Phase 03: High-Fidelity Interactive UI</span>
+      <span class="marquee-item"><span class="marquee-dot"></span> Phase 04: Weekly Live Staging Builds</span>
+      <span class="marquee-item"><span class="marquee-dot"></span> Phase 05: 100% Code Ownership Handoff</span>
+      <span class="marquee-item"><span class="marquee-dot"></span> Phase 01: 30-Min Operational Audit</span>
+      <span class="marquee-item"><span class="marquee-dot"></span> Phase 02: 48h Technical Blueprint</span>
+      <span class="marquee-item"><span class="marquee-dot"></span> Phase 03: High-Fidelity Interactive UI</span>
+      <span class="marquee-item"><span class="marquee-dot"></span> Phase 04: Weekly Live Staging Builds</span>
+      <span class="marquee-item"><span class="marquee-dot"></span> Phase 05: 100% Code Ownership Handoff</span>
+    </div>
+  </div>
+</section>
+
+<!-- 5-Phase Timeline Section -->
+<section class="sec">
+  <div class="wrap">
+    <div class="stepper" data-stagger>
+
+      <!-- Step 01 -->
+      <article class="step-row tilt-card" data-cursor="PHASE 01">
+        <div class="step-meta">
+          <div class="step-badge"><span class="dot"></span> Phase 01 / Discovery</div>
+          <h3>The 30-Minute Operational Audit</h3>
+          <span class="step-time">Turnaround: Day 1</span>
+        </div>
+        <div class="step-content">
+          <p>We don't send you 40-page questionnaire templates. We jump on a direct 30-minute working call with the business founder or decision maker to understand your real mechanics: how revenue is captured, where manual spreadsheets leak time, and exactly what software would give you a competitive edge.</p>
+          <div class="step-deliverables">
+            <h5>Concrete Deliverables</h5>
+            <ul>
+              <li><svg class="ico"><use href="#chk"/></svg><span>Operational workflow map &amp; user journey breakdown</span></li>
+              <li><svg class="ico"><use href="#chk"/></svg><span>Critical bottleneck identification (e.g., WhatsApp chaos, double-bookings)</span></li>
+              <li><svg class="ico"><use href="#chk"/></svg><span>Core feature priority matrix (Must-haves vs Phase 2 additions)</span></li>
+            </ul>
+          </div>
+        </div>
+      </article>
+
+      <!-- Step 02 -->
+      <article class="step-row tilt-card" data-cursor="PHASE 02">
+        <div class="step-meta">
+          <div class="step-badge"><span class="dot"></span> Phase 02 / Architecture</div>
+          <h3>48-Hour Technical Blueprint &amp; Fixed Quote</h3>
+          <span class="step-time">Turnaround: Within 48 Hours</span>
+        </div>
+        <div class="step-content">
+          <p>Within 48 hours of our first call, we deliver a full technical blueprint. You receive an architectural breakdown of the database schema, third-party integrations (payment gateways, WhatsApp bots, SMS APIs), tech stack selection, and an unyielding guaranteed fixed price.</p>
+          <div class="step-deliverables">
+            <h5>Concrete Deliverables</h5>
+            <ul>
+              <li><svg class="ico"><use href="#chk"/></svg><span>Architecture specification document with schema structure</span></li>
+              <li><svg class="ico"><use href="#chk"/></svg><span>Fixed-milestone cost breakdown (30% Kickoff / 40% Staging / 30% Launch)</span></li>
+              <li><svg class="ico"><use href="#chk"/></svg><span>Exact sprint calendar with hard completion date</span></li>
+            </ul>
+          </div>
+        </div>
+      </article>
+
+      <!-- Step 03 -->
+      <article class="step-row tilt-card" data-cursor="PHASE 03">
+        <div class="step-meta">
+          <div class="step-badge"><span class="dot"></span> Phase 03 / Creative</div>
+          <h3>High-Fidelity UI/UX &amp; Interactive Prototype</h3>
+          <span class="step-time">Turnaround: Week 1</span>
+        </div>
+        <div class="step-content">
+          <p>Before coding, we establish a bespoke visual direction. No off-the-shelf templates. We craft responsive typographic systems, custom dark/light color palettes, micro-interactions, and high-fidelity screen layouts. You test a clickable prototype before backend logic is connected.</p>
+          <div class="step-deliverables">
+            <h5>Concrete Deliverables</h5>
+            <ul>
+              <li><svg class="ico"><use href="#chk"/></svg><span>Responsive mobile and desktop UI screens</span></li>
+              <li><svg class="ico"><use href="#chk"/></svg><span>Interactive prototype for flow validation</span></li>
+              <li><svg class="ico"><use href="#chk"/></svg><span>Design system tokens: typography, buttons, feedback states</span></li>
+            </ul>
+          </div>
+        </div>
+      </article>
+
+      <!-- Step 04 -->
+      <article class="step-row tilt-card" data-cursor="PHASE 04">
+        <div class="step-meta">
+          <div class="step-badge"><span class="dot"></span> Phase 04 / Engineering</div>
+          <h3>Sprint Development &amp; Weekly Live Staging</h3>
+          <span class="step-time">Turnaround: Weeks 2–4</span>
+        </div>
+        <div class="step-content">
+          <p>We build in high-velocity, clean, typed code (TypeScript, Next.js, Node, Supabase). You don't have to wait until launch day to see progress. Every Friday, we deploy working code to a private, password-protected staging URL. You click, submit real forms, and verify features live.</p>
+          <div class="step-deliverables">
+            <h5>Concrete Deliverables</h5>
+            <ul>
+              <li><svg class="ico"><use href="#chk"/></svg><span>Live weekly staging deployments on Vercel Edge</span></li>
+              <li><svg class="ico"><use href="#chk"/></svg><span>Real-time WebSocket &amp; database integrations</span></li>
+              <li><svg class="ico"><use href="#chk"/></svg><span>Direct WhatsApp / Slack collaboration with the engineers</span></li>
+            </ul>
+          </div>
+        </div>
+      </article>
+
+      <!-- Step 05 -->
+      <article class="step-row tilt-card" data-cursor="PHASE 05">
+        <div class="step-meta">
+          <div class="step-badge"><span class="dot"></span> Phase 05 / Deployment</div>
+          <h3>Production Launch, Training &amp; 100% IP Handoff</h3>
+          <span class="step-time">Turnaround: Launch Day</span>
+        </div>
+        <div class="step-content">
+          <p>We manage DNS routing, SSL certificates, database backups, and zero-downtime deployment. We train your internal team on operating the admin dashboard. Most importantly: you receive 100% perpetual ownership of the GitHub repository and all credentials. Zero vendor lock-in.</p>
+          <div class="step-deliverables">
+            <h5>Concrete Deliverables</h5>
+            <ul>
+              <li><svg class="ico"><use href="#chk"/></svg><span>Live production deployment with sub-second performance</span></li>
+              <li><svg class="ico"><use href="#chk"/></svg><span>Complete GitHub repository transfer &amp; environment keys</span></li>
+              <li><svg class="ico"><use href="#chk"/></svg><span>30-day post-launch warranty with instant bug remediation</span></li>
+            </ul>
+          </div>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- Comparison Table Section -->
+<section class="sec" style="background:#fff;border-top:1px solid var(--line);border-bottom:1px solid var(--line)">
+  <div class="wrap">
+    <div style="max-width:38rem">
+      <span class="eyebrow">The Fixia Contrast</span>
+      <h2 data-reveal>How we compare to traditional agencies.</h2>
+      <p class="lede" data-reveal>See the fundamental differences between how legacy design shops operate versus our engineering-first studio model.</p>
+    </div>
+
+    <div class="comp-table-wrap" data-reveal>
+      <table class="comp-table">
+        <thead>
+          <tr>
+            <th>Metric</th>
+            <th>Traditional Agency</th>
+            <th class="fixia-col">FIXIA Studio Model</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Discovery Phase</strong></td>
+            <td>4–6 weeks of vague workshops and theoretical slide decks</td>
+            <td><strong>30-minute operational audit + 48h technical blueprint</strong></td>
+          </tr>
+          <tr>
+            <td><strong>Pricing Structure</strong></td>
+            <td>Uncapped hourly billing, retainer creep, surprise change orders</td>
+            <td><strong>100% Guaranteed fixed-milestone pricing (down to the rupee)</strong></td>
+          </tr>
+          <tr>
+            <td><strong>Visibility &amp; Demos</strong></td>
+            <td>Monthly screenshots and black-box developer silence</td>
+            <td><strong>Weekly live staging links pushed every Friday to test</strong></td>
+          </tr>
+          <tr>
+            <td><strong>Code Quality</strong></td>
+            <td>Bloated WordPress builders with 35 third-party plugins</td>
+            <td><strong>Bespoke Next.js / TypeScript code built for speed and uptime</strong></td>
+          </tr>
+          <tr>
+            <td><strong>Code Ownership</strong></td>
+            <td>Proprietary agency lock-in; extra fees to export your data</td>
+            <td><strong>100% Perpetual IP ownership. You hold the GitHub repo from day one.</strong></td>
+          </tr>
+          <tr>
+            <td><strong>Timeline</strong></td>
+            <td>4 to 8 months of repeated delays</td>
+            <td><strong>2 to 4 weeks average sprint to production deployment</strong></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- Bottom CTA Section -->
+<section class="sec" style="padding-bottom:5rem">
+  <div class="wrap">
+    <div style="background:var(--ink);color:#fff;border-radius:28px;padding:clamp(2.5rem,5vw,4.5rem);display:grid;grid-template-columns:1.2fr auto;gap:2rem;align-items:center" data-reveal>
+      <div>
+        <span class="eyebrow" style="color:var(--hi);background:rgba(255,74,28,.15);border-color:rgba(255,74,28,.3)">Start Your Sprint</span>
+        <h3 style="font-size:clamp(2.2rem,4.5vw,3.6rem);line-height:1.02;margin-bottom:.8rem">Ready to move from idea to production?</h3>
+        <p style="color:#B5AFA2;font-size:1.1rem;line-height:1.55;max-width:38rem">Tell us what your business needs. You'll have an architectural blueprint and an unshakeable fixed price in 48 hours.</p>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:.85rem">
+        <a class="btn hi" href="contact.html">Schedule your 30-min call →</a>
+        <a class="btn ghost" style="color:#fff;border-color:rgba(255,255,255,.3)" href="pricing.html">Pricing according to need</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<script src="app.js?v=20261025d"></script>
+<script src="polish.js?v=20261025d"></script>
+</body>
+</html>
