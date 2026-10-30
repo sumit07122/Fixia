@@ -270,7 +270,6 @@ B.insertAdjacentHTML('afterbegin', `
   </svg>
   <div class="bar" id="bar"></div>
   <div class="intro" aria-hidden="true"><svg viewBox="0 0 40 40"><path d="M8 5h24v7H15v23H8z"/><circle cx="26" cy="25" r="6.5"/></svg></div>
-  <div class="cur" id="cur"></div>
   <header>
     <div class="wrap nav">
       <a class="logo" href="index.html" aria-label="FIXIA home"><svg class="mk" aria-hidden="true"><use href="#lg"/></svg><span class="wm">FIXIA</span></a>
@@ -488,38 +487,9 @@ addEventListener('scroll', () => {
 addEventListener('resize', onScroll);
 onScroll();
 
-/* Cursor follower - Smooth, hardware-accelerated, zero-lag, no click interception */
+/* Native OS Cursor restored - decorative dot follower removed for clean, instant usability */
 const cu = $('#cur');
-let cx = 0, cy = 0, tx = 0, tyC = 0, isMoving = false;
-if (matchMedia('(hover:hover) and (pointer:fine)').matches && cu) {
-  addEventListener('pointermove', e => {
-    tx = e.clientX;
-    tyC = e.clientY;
-    if (!isMoving) {
-      cx = tx;
-      cy = tyC;
-      isMoving = true;
-    }
-    const isInput = !!e.target.closest('input, textarea, [contenteditable="true"]');
-    const isClickable = !!e.target.closest('a, button, [role="button"], summary, .btn, .disc-chip, .tab-pill, .filter-chip, select');
-    cu.classList.toggle('hidden', isInput);
-    cu.classList.toggle('big', !isInput && isClickable);
-  }, { passive: true });
-
-  document.documentElement.addEventListener('mouseleave', () => {
-    if (cu) cu.classList.add('hidden');
-  });
-  document.documentElement.addEventListener('mouseenter', () => {
-    if (cu) cu.classList.remove('hidden');
-  });
-
-  (function f() {
-    cx += (tx - cx) * 0.35;
-    cy += (tyC - cy) * 0.35;
-    cu.style.transform = `translate3d(${cx}px, ${cy}px, 0)`;
-    requestAnimationFrame(f);
-  })();
-}
+if (cu) cu.remove();
 
 /* Crisp page transitions */
 document.addEventListener('click', e => {
