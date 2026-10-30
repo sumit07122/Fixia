@@ -3,8 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>FIXIA – You bring the problem. We build the solution.</title>
-<meta name="description" content="FIXIA is a digital and creative agency: websites, ads, social and custom software built around how your business actually works.">
+<title>FIXIA – Your Business. Smarter with Software.</title>
+<meta name="description" content="FIXIA turns everyday business problems into custom software, mobile apps, and automated workflows. 100% source code ownership. Transparent milestone pricing.">
+<meta property="og:title" content="FIXIA – Your Business. Smarter with Software.">
+<meta property="og:description" content="Discover practical custom software ideas for your business. Web applications, Android staff tools, billing systems, and WhatsApp automation.">
+<meta property="og:type" content="website">
 <link rel="icon" type="image/svg+xml" href="logo/fixia-favicon.svg">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -12,7 +15,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css?v=20261025d">
 <style>
-/* 01. Hero & Problem-to-Solution Morph System */
+/* 01. Hero & Business Discovery System */
 .hero {
   padding: clamp(1.8rem, 3.8vw, 2.8rem) 0 0;
   position: relative;
@@ -22,6 +25,186 @@
   grid-template-columns: 1.15fr 0.95fr;
   gap: clamp(2rem, 4vw, 3.5rem);
   align-items: center;
+}
+.hero-discovery-card {
+  margin-top: 1.5rem;
+  background: #fff;
+  border: 1.5px solid var(--ink);
+  border-radius: 24px;
+  padding: clamp(1.2rem, 2.5vw, 1.8rem);
+  box-shadow: 0 24px 50px -20px rgba(16, 16, 16, 0.22);
+}
+.disc-input-group {
+  margin-bottom: 0.85rem;
+}
+.disc-label {
+  display: block;
+  font: 700 0.76rem var(--mono);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--mute);
+  margin-bottom: 0.35rem;
+}
+.disc-label .opt-tag {
+  font-weight: 500;
+  text-transform: none;
+  color: #A39D90;
+}
+.disc-field-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+.disc-field-ico {
+  position: absolute;
+  left: 1rem;
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: var(--mute);
+  stroke-width: 2.2;
+  pointer-events: none;
+}
+.hero-discovery-card input {
+  width: 100%;
+  padding: 0.82rem 1.15rem;
+  border: 1.5px solid var(--line);
+  border-radius: 14px;
+  background: var(--paper);
+  color: var(--ink);
+  font: 500 0.98rem var(--body);
+  transition: all 0.2s;
+}
+.disc-field-wrap input {
+  padding-left: 2.75rem;
+}
+.hero-discovery-card input:focus {
+  outline: 0;
+  background: #fff;
+  border-color: var(--cobalt);
+  box-shadow: 0 0 0 4px rgba(194, 51, 12, 0.12);
+}
+.disc-actions-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.85rem;
+  margin-top: 1.15rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--line);
+}
+.disc-agency-tag {
+  font-size: 0.84rem;
+  font-weight: 500;
+  color: var(--mute);
+  line-height: 1.35;
+  max-width: 18rem;
+}
+.disc-chips-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.45rem;
+  margin-top: 1rem;
+}
+.chips-label {
+  font: 700 0.74rem var(--mono);
+  color: var(--mute);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-right: 0.2rem;
+}
+.disc-chip {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 0.35rem 0.85rem;
+  font: 600 0.82rem var(--display);
+  color: var(--ink);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.disc-chip:hover {
+  background: var(--ink);
+  color: #fff;
+  border-color: var(--ink);
+  transform: translateY(-1px);
+}
+
+/* Popular Industries Strip */
+.pop-ind-sec {
+  padding: 3.5rem 0 2rem;
+  background: #FAF8F5;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+.pop-ind-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  gap: 1.2rem;
+  margin-bottom: 1.8rem;
+}
+.pop-ind-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1.1rem;
+}
+.pop-ind-card {
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  padding: 1.25rem 1.4rem;
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: all 0.2s;
+}
+.pop-ind-card:hover {
+  transform: translateY(-3px);
+  border-color: var(--ink);
+  box-shadow: 0 14px 28px -14px rgba(16, 16, 16, 0.15);
+}
+.pop-ind-info {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+}
+.pop-ind-ico {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  background: var(--paper);
+  display: grid;
+  place-items: center;
+  color: var(--ink);
+  flex: none;
+}
+.pop-ind-card:hover .pop-ind-ico {
+  background: var(--ink);
+  color: #fff;
+}
+.pop-ind-title {
+  font-weight: 700;
+  font-size: 1.05rem;
+}
+.pop-ind-count {
+  font: 600 0.74rem var(--mono);
+  color: var(--mute);
+  display: block;
+}
+.pop-ind-arrow {
+  color: var(--cobalt);
+  font-weight: 700;
+  transition: transform 0.2s;
+}
+.pop-ind-card:hover .pop-ind-arrow {
+  transform: translateX(4px);
+  color: var(--hi);
 }
 h1 {
   font-size: clamp(2.6rem, 5.2vw, 4.6rem);
@@ -675,21 +858,50 @@ input[type="range"] {
   <div class="wrap">
     <div class="hero-top">
       <div>
-        <span class="eyebrow">Websites, apps &amp; software</span>
+        <span class="eyebrow">CUSTOM SOFTWARE &amp; DIGITAL SYSTEMS</span>
         <h1>
-          <span class="l" data-split>You bring the problem.</span>
-          <span class="l" data-split>We build the solution.</span>
+          <span class="l" data-split>Your Business.</span>
+          <span class="l" data-split>Smarter with <em>Software.</em></span>
         </h1>
-        <div class="type" aria-live="off">We build <b id="ty"></b><i></i></div>
-        <p class="hero-sub" data-r>We make websites, Android apps, custom software and ERP systems for growing businesses. Simple to use. Ready in weeks.</p>
-        <div class="cta" data-r style="--d:1">
-          <a class="btn" href="contact.html">Tell us your problem <svg class="ico"><use href="#arr"/></svg></a>
-          <a class="btn ghost" href="#real-work">See our work</a>
+        <div class="hero-identity-statement" style="margin-top:0.95rem;font:700 clamp(1.12rem,1.9vw,1.38rem) var(--display);letter-spacing:-0.025em;color:var(--ink);line-height:1.3;max-width:38rem">
+          FIXIA is a digital engineering agency that turns business problems into purpose-built software.
         </div>
-        <div class="facts" data-r style="--d:2">
-          <span><svg class="ico"><use href="#chk"/></svg>Fixed price, no surprises</span>
-          <span><svg class="ico"><use href="#chk"/></svg>First version in 1–3 weeks</span>
-          <span><svg class="ico"><use href="#chk"/></svg>You own everything we build</span>
+        <p class="hero-sub" data-r style="margin-top:0.55rem">From customer-facing platforms to internal management systems, we design, build and maintain technology around the way your business actually works.</p>
+        
+        <!-- Interactive Business Discovery Box -->
+        <form class="hero-discovery-card" id="homeDiscoveryForm" action="results.html" method="GET" data-r style="--d:1">
+          <div class="disc-input-group">
+            <label class="disc-label" for="homeBizInput">What business do you run?</label>
+            <div class="disc-field-wrap">
+              <svg class="disc-field-ico" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+              <input type="text" id="homeBizInput" name="biz" placeholder="e.g. Restaurant, Gym, Coaching Centre, Property Dealer, Clinic, Retail Shop..." required autocomplete="off">
+            </div>
+          </div>
+
+          <div class="disc-actions-row">
+            <button class="btn hi" type="submit" id="homeDiscoverBtn">
+              Discover Ideas →
+            </button>
+            <span class="disc-agency-tag">Explore practical software blueprints tailored to your business.</span>
+          </div>
+
+          <!-- Clickable Suggestions Row -->
+          <div class="disc-chips-row">
+            <span class="chips-label">Popular:</span>
+            <button type="button" class="disc-chip" data-val="Restaurant">Restaurant</button>
+            <button type="button" class="disc-chip" data-val="Gym">Gym</button>
+            <button type="button" class="disc-chip" data-val="Coaching Centre">Coaching Centre</button>
+            <button type="button" class="disc-chip" data-val="Real Estate">Real Estate</button>
+            <button type="button" class="disc-chip" data-val="Clinic">Clinic</button>
+            <button type="button" class="disc-chip" data-val="Retail Shop">Retail Shop</button>
+          </div>
+        </form>
+
+        <div class="facts" data-r style="--d:2;margin-top:1.4rem">
+          <span><svg class="ico"><use href="#chk"/></svg>Custom-built, not off-the-shelf</span>
+          <span><svg class="ico"><use href="#chk"/></svg>Full source code ownership</span>
+          <span><svg class="ico"><use href="#chk"/></svg>Transparent milestone pricing</span>
+          <span><svg class="ico"><use href="#chk"/></svg>Direct engineering support</span>
         </div>
       </div>
 
@@ -849,7 +1061,73 @@ input[type="range"] {
 <!-- 02. MARQUEE CAPABILITY STRIP -->
 <div class="mq" aria-hidden="true" style="margin-top:4rem"><div id="mq"></div></div>
 
-<!-- 03. WHAT WE BUILD (SERVICES SUMMARY & INTERACTIVE SHOWROOM) -->
+<!-- 03. POPULAR INDUSTRIES DISCOVERY -->
+<section class="pop-ind-sec">
+  <div class="wrap">
+    <div class="pop-ind-head">
+      <div>
+        <span class="eyebrow">Explore Ready Blueprints</span>
+        <h2 style="font-size:clamp(1.8rem,3.4vw,2.5rem);margin-bottom:.3rem">Popular business categories.</h2>
+        <p style="color:var(--mute);font-size:.96rem;margin:0">Over 112 practical software solutions organized across 14 commercial industries.</p>
+      </div>
+      <div>
+        <a class="btn ghost sm" href="ideas.html">View all 14 industries (112 ideas) →</a>
+      </div>
+    </div>
+
+    <div class="pop-ind-grid" data-r>
+      <a class="pop-ind-card" href="ideas.html#restaurants">
+        <div class="pop-ind-info">
+          <div class="pop-ind-ico"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8h1a4 4 0 0 1 0 8h-1M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg></div>
+          <div><div class="pop-ind-title">Restaurants &amp; Cafes</div><span class="pop-ind-count">8 Blueprints</span></div>
+        </div>
+        <span class="pop-ind-arrow">→</span>
+      </a>
+
+      <a class="pop-ind-card" href="ideas.html#gyms">
+        <div class="pop-ind-info">
+          <div class="pop-ind-ico"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 5v14M18 5v14M2 9v6M22 9v6M6 12h12M2 12h4M18 12h4"/></svg></div>
+          <div><div class="pop-ind-title">Gyms &amp; Fitness</div><span class="pop-ind-count">8 Blueprints</span></div>
+        </div>
+        <span class="pop-ind-arrow">→</span>
+      </a>
+
+      <a class="pop-ind-card" href="ideas.html#coaching">
+        <div class="pop-ind-info">
+          <div class="pop-ind-ico"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20M4 4.5A2.5 2.5 0 0 1 6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15zM8 7h8M8 11h6"/></svg></div>
+          <div><div class="pop-ind-title">Coaching &amp; Education</div><span class="pop-ind-count">8 Blueprints</span></div>
+        </div>
+        <span class="pop-ind-arrow">→</span>
+      </a>
+
+      <a class="pop-ind-card" href="ideas.html#real-estate">
+        <div class="pop-ind-info">
+          <div class="pop-ind-ico"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18M5 21V7l8-4v18M13 21V3l6 4v14M9 9h1M9 13h1M9 17h1M17 11h1M17 15h1"/></svg></div>
+          <div><div class="pop-ind-title">Real Estate &amp; Plots</div><span class="pop-ind-count">8 Blueprints</span></div>
+        </div>
+        <span class="pop-ind-arrow">→</span>
+      </a>
+
+      <a class="pop-ind-card" href="ideas.html#clinics">
+        <div class="pop-ind-info">
+          <div class="pop-ind-ico"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div>
+          <div><div class="pop-ind-title">Clinics &amp; Healthcare</div><span class="pop-ind-count">8 Blueprints</span></div>
+        </div>
+        <span class="pop-ind-arrow">→</span>
+      </a>
+
+      <a class="pop-ind-card" href="ideas.html#retail">
+        <div class="pop-ind-info">
+          <div class="pop-ind-ico"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4zM3 6h18M16 10a4 4 0 0 1-8 0"/></svg></div>
+          <div><div class="pop-ind-title">Retail &amp; Shops</div><span class="pop-ind-count">8 Blueprints</span></div>
+        </div>
+        <span class="pop-ind-arrow">→</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- 04. WHAT WE BUILD (SERVICES SUMMARY & INTERACTIVE SHOWROOM) -->
 <section class="sec" id="services">
   <div class="wrap">
     <div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:1.5rem">
@@ -863,10 +1141,10 @@ input[type="range"] {
       </div>
     </div>
 
-    <!-- Homepage Services Summary (Icons Specified + Service Names) -->
+    <!-- Homepage Services Summary (4 Core Engineering Pillars) -->
     <div class="home-svc-summary" data-stagger>
       
-      <!-- Summary 1: Websites & Portals -->
+      <!-- Pillar 1: Custom Web Applications -->
       <a class="home-svc-chip" href="web.html">
         <div class="home-svc-chip-top">
           <div class="home-svc-icon" style="background:rgba(37,71,245,0.08);border-color:rgba(37,71,245,0.2)">
@@ -876,11 +1154,12 @@ input[type="range"] {
           </div>
           <span class="home-svc-arrow">→</span>
         </div>
-        <div class="home-svc-title">Websites &amp; Portals</div>
-        <p class="home-svc-desc">High-speed, SEO-optimized business sites engineered to load in under 1 second.</p>
+        <div class="home-svc-title">Custom Web Applications</div>
+        <p class="home-svc-desc">High-speed customer platforms, online booking engines, self-ordering web apps, and member portals.</p>
+        <div style="font:600 0.74rem var(--mono);color:var(--cobalt);margin-top:auto">e.g. Table QR ordering, booking portals, client dashboards</div>
       </a>
 
-      <!-- Summary 2: Android & iOS Apps -->
+      <!-- Pillar 2: Staff & Mobile Applications -->
       <a class="home-svc-chip" href="android.html">
         <div class="home-svc-chip-top">
           <div class="home-svc-icon" style="background:rgba(61,220,132,0.12);border-color:rgba(61,220,132,0.3)">
@@ -890,25 +1169,12 @@ input[type="range"] {
           </div>
           <span class="home-svc-arrow">→</span>
         </div>
-        <div class="home-svc-title">Android &amp; iOS Apps</div>
-        <p class="home-svc-desc">Direct smartphone apps with push alerts, offline sync, and zero app store fees.</p>
+        <div class="home-svc-title">Staff &amp; Mobile Applications</div>
+        <p class="home-svc-desc">Direct smartphone apps with push alerts, offline sync, and zero app-store platform fees.</p>
+        <div style="font:600 0.74rem var(--mono);color:#059669;margin-top:auto">e.g. Driver route dispatch, technician job cards, offline POS</div>
       </a>
 
-      <!-- Summary 3: Custom Software & POS -->
-      <a class="home-svc-chip" href="software.html">
-        <div class="home-svc-chip-top">
-          <div class="home-svc-icon" style="background:rgba(255,74,28,0.08);border-color:rgba(255,74,28,0.25)">
-            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#FF4A1C" stroke-width="2">
-              <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/>
-            </svg>
-          </div>
-          <span class="home-svc-arrow">→</span>
-        </div>
-        <div class="home-svc-title">Custom Software &amp; POS</div>
-        <p class="home-svc-desc">Replaces paper registers and chaotic spreadsheets with fast operational tools.</p>
-      </a>
-
-      <!-- Summary 4: Full ERP Systems -->
+      <!-- Pillar 3: Business Management & ERP Systems -->
       <a class="home-svc-chip" href="erp.html">
         <div class="home-svc-chip-top">
           <div class="home-svc-icon" style="background:rgba(16,16,16,0.08);border-color:rgba(16,16,16,0.2)">
@@ -918,11 +1184,12 @@ input[type="range"] {
           </div>
           <span class="home-svc-arrow">→</span>
         </div>
-        <div class="home-svc-title">ERP Systems</div>
-        <p class="home-svc-desc">One unified system for sales, stock, multi-branch inventory, accounts and staff.</p>
+        <div class="home-svc-title">Business Management &amp; ERP</div>
+        <p class="home-svc-desc">One synchronized system linking billing, multi-station inventory, supplier purchasing, and payroll.</p>
+        <div style="font:600 0.74rem var(--mono);color:var(--ink);margin-top:auto">e.g. Recipe-linked stock tracking, multi-branch records, parts catalogue</div>
       </a>
 
-      <!-- Summary 5: Bots & WhatsApp -->
+      <!-- Pillar 4: WhatsApp & Workflow Automation -->
       <a class="home-svc-chip" href="ai.html">
         <div class="home-svc-chip-top">
           <div class="home-svc-icon" style="background:rgba(255,74,28,0.12);border-color:rgba(255,74,28,0.28)">
@@ -932,8 +1199,9 @@ input[type="range"] {
           </div>
           <span class="home-svc-arrow">→</span>
         </div>
-        <div class="home-svc-title">Bots &amp; WhatsApp</div>
-        <p class="home-svc-desc">Automated helpers that answer inquiries, dispatch PDF bills and send reminders.</p>
+        <div class="home-svc-title">WhatsApp &amp; Workflow Automation</div>
+        <p class="home-svc-desc">Event-driven helpers that answer inquiries, dispatch itemized PDF bills, and trigger review funnels.</p>
+        <div style="font:600 0.74rem var(--mono);color:var(--hi);margin-top:auto">e.g. Official WhatsApp PDF bills, automated recall alerts, review boost</div>
       </a>
 
     </div>
@@ -942,81 +1210,56 @@ input[type="range"] {
     <div class="show" data-r>
       <div class="show-list">
         <button class="show-item on" type="button">
-          <i>01</i><b>Websites</b><span>A fast, clean site for your business or store.</span>
+          <i>01</i><b>Custom Web Apps</b><span>High-speed portals, QR ordering &amp; booking engines.</span>
         </button>
         <button class="show-item" type="button">
-          <i>02</i><b>Android apps</b><span>Your own app for customers or staff.</span>
+          <i>02</i><b>Staff &amp; Mobile Apps</b><span>Dedicated Android apps for counter &amp; field crew.</span>
         </button>
         <button class="show-item" type="button">
-          <i>03</i><b>Custom software</b><span>Billing, stock and records made for you.</span>
+          <i>03</i><b>Business ERP</b><span>One unified system for sales, stock, accounts &amp; staff.</span>
         </button>
         <button class="show-item" type="button">
-          <i>04</i><b>ERP systems</b><span>One system for sales, stock, accounts and staff.</span>
-        </button>
-        <button class="show-item" type="button">
-          <i>05</i><b>Bots &amp; automation</b><span>Helpers that answer and fill in for you.</span>
+          <i>04</i><b>WhatsApp &amp; Automation</b><span>Official WhatsApp PDF bills &amp; automated task queues.</span>
         </button>
       </div>
 
       <div class="show-stage" aria-live="polite">
-        <!-- Pane 01: Websites -->
+        <!-- Pane 01: Websites & Web Apps -->
         <div class="show-pane on">
           <div class="stage-mock">
             <div class="m-web">
               <div class="m-bar"><u></u><u></u><u></u></div>
               <b>Your business, <i>online.</i></b>
-              <span class="m-btn">Contact us</span>
+              <span class="m-btn">Explore Live Portal</span>
               <div class="m-blocks"><u></u><u></u><u></u></div>
             </div>
           </div>
           <div class="stage-copy">
-            <h3>Websites</h3>
-            <p>A fast, clean site for your business or store.</p>
+            <h3>Custom Web Applications</h3>
+            <p>Customer-facing platforms, booking engines, and table QR self-ordering engineered to load under 1 second.</p>
             <a class="btn hi sm" href="web.html">Learn more ↗</a>
           </div>
         </div>
 
-        <!-- Pane 02: Android Apps -->
+        <!-- Pane 02: Staff & Mobile Apps -->
         <div class="show-pane">
           <div class="stage-mock">
             <div class="m-phone">
-              <small>My Shop</small>
-              <p><span>Order 102</span><b>Packed</b></p>
-              <p><span>Order 103</span><b>On the way</b></p>
-              <p><span>Order 104</span><b>New</b></p>
-              <i class="m-btn">+ New order</i>
+              <small>Operations Terminal</small>
+              <p><span>Job #102</span><b>Dispatched</b></p>
+              <p><span>Job #103</span><b>In Progress</b></p>
+              <p><span>Job #104</span><b>Completed</b></p>
+              <i class="m-btn">+ Assign New Job</i>
             </div>
           </div>
           <div class="stage-copy">
-            <h3>Android apps</h3>
-            <p>Your own app for customers or staff.</p>
+            <h3>Staff &amp; Mobile Applications</h3>
+            <p>Native Android and offline-sync mobile tools designed directly for floor staff, drivers, and field technicians.</p>
             <a class="btn hi sm" href="android.html">Learn more ↗</a>
           </div>
         </div>
 
-        <!-- Pane 03: Custom Software -->
-        <div class="show-pane">
-          <div class="stage-mock">
-            <div class="m-ad">
-              <small>Today at a glance</small>
-              <div style="display:flex;gap:.4rem">
-                <span class="m-btn" style="background:var(--ink);color:var(--paper)">Sales</span>
-                <span class="m-btn" style="background:var(--ink);color:var(--paper)">Stock</span>
-                <span class="m-btn" style="background:var(--ink);color:var(--paper)">Dues</span>
-              </div>
-              <div class="m-bars">
-                <u style="--h:25%"></u><u style="--h:40%"></u><u style="--h:35%"></u><u style="--h:60%"></u><u style="--h:55%"></u><u style="--h:85%"></u><u style="--h:100%"></u>
-              </div>
-            </div>
-          </div>
-          <div class="stage-copy">
-            <h3>Custom software</h3>
-            <p>Billing, stock and records made for you.</p>
-            <a class="btn hi sm" href="software.html">Learn more ↗</a>
-          </div>
-        </div>
-
-        <!-- Pane 04: ERP Systems -->
+        <!-- Pane 03: Business ERP -->
         <div class="show-pane">
           <div class="stage-mock">
             <div class="m-erp">
@@ -1024,28 +1267,73 @@ input[type="range"] {
             </div>
           </div>
           <div class="stage-copy">
-            <h3>ERP systems</h3>
-            <p>One system for sales, stock, accounts and staff.</p>
+            <h3>Business Management &amp; ERP</h3>
+            <p>One unified operational platform connecting billing, multi-warehouse stock, supplier orders, and staff attendance.</p>
             <a class="btn hi sm" href="erp.html">Learn more ↗</a>
           </div>
         </div>
 
-        <!-- Pane 05: Bots & Automation -->
+        <!-- Pane 04: WhatsApp & Automation -->
         <div class="show-pane">
           <div class="stage-mock">
             <div class="m-chat">
-              <p class="in">Can I move my 4 PM slot to Friday?</p>
-              <p class="out">Done. Friday, 4 PM. ✓</p>
-              <p class="in">Thanks!</p>
+              <p class="in">Can I get my itemized bill &amp; warranty pass?</p>
+              <p class="out">Here is your verified PDF invoice &amp; pass. ✓</p>
+              <p class="in">Rated 5 stars on Google!</p>
             </div>
           </div>
           <div class="stage-copy">
-            <h3>Bots &amp; automation</h3>
-            <p>Helpers that answer and fill in for you.</p>
+            <h3>WhatsApp &amp; Workflow Automation</h3>
+            <p>Official WhatsApp Cloud API integrations dispatching instant PDF bills, automated recall alerts, and Google review triggers.</p>
             <a class="btn hi sm" href="ai.html">Learn more ↗</a>
           </div>
         </div>
 
+      </div>
+    </div>
+
+    <!-- Explore Ideas by Industry Bridge -->
+    <div style="margin-top:2.5rem;background:#fff;border:1.5px solid var(--ink);border-radius:22px;padding:1.4rem 1.8rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1.2rem;box-shadow:0 12px 28px -15px rgba(16,16,16,0.15)" data-r>
+      <div>
+        <span style="font:700 .75rem var(--mono);color:var(--cobalt);text-transform:uppercase;letter-spacing:.06em">INDUSTRY DISCOVERY ENGINE</span>
+        <h3 style="font-size:1.28rem;margin:0.25rem 0 0.15rem">Not sure what software fits your business?</h3>
+        <p style="color:var(--mute);font-size:.94rem;margin:0">Explore 112 practical software blueprints across 14 industries (Restaurants, Gyms, Clinics, Coaching, Real Estate &amp; more).</p>
+      </div>
+      <a class="btn hi sm" href="ideas.html">Explore 112 Industry Ideas →</a>
+    </div>
+  </div>
+</section>
+
+<!-- 05. HOW WE WORK (4 STAGES FROM PROBLEM TO PRODUCTION) -->
+<section class="sec dark" id="process">
+  <div class="wrap">
+    <div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:1.5rem">
+      <div style="max-width:38rem">
+        <span class="eyebrow">How We Work</span>
+        <h2 data-split>Four stages from problem to production.</h2>
+        <p class="lede" data-r style="color:#B5AFA2">No confusing technical jargon. We partner with you directly to turn daily bottlenecks into dependable, custom-built software.</p>
+      </div>
+      <div style="align-self:flex-end">
+        <a class="btn ghost sm" style="color:#fff;border-color:rgba(255,255,255,.25)" href="process.html">Explore our detailed framework →</a>
+      </div>
+    </div>
+
+    <div class="steps">
+      <div data-r>
+        <h3>01 · Discover</h3>
+        <p>Understand workflows and bottlenecks through direct operational discovery. No technical jargon needed.</p>
+      </div>
+      <div data-r>
+        <h3>02 · Design</h3>
+        <p>Prepare solution blueprint and specifications with visual screen flows and clear milestone deliverables.</p>
+      </div>
+      <div data-r>
+        <h3>03 · Build</h3>
+        <p>Develop and test through milestones with weekly staging links you can test directly on your phone.</p>
+      </div>
+      <div data-r>
+        <h3>04 · Handover</h3>
+        <p>Deliver source code, database access, documentation and training with 100% intellectual property ownership.</p>
       </div>
     </div>
   </div>
@@ -1247,6 +1535,19 @@ input[type="range"] {
       </div>
     </div>
     
+    <!-- Authentic Founder / Engineering Philosophy Card -->
+    <div class="founder-note-card" data-r style="background:#fff;border:1.5px solid var(--line);border-radius:24px;padding:clamp(1.4rem,3vw,2rem);margin:2rem 0 3rem;display:grid;grid-template-columns:auto 1fr;gap:1.5rem;align-items:center;box-shadow:0 12px 30px -15px rgba(16,16,16,0.06)">
+      <div style="width:56px;height:56px;border-radius:18px;background:var(--paper);border:1.5px solid var(--line);display:grid;place-items:center;color:var(--cobalt);flex-shrink:0">
+        <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+      </div>
+      <div>
+        <div style="font:700 0.76rem var(--mono);color:var(--cobalt);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:0.25rem">Our Engineering Philosophy</div>
+        <p style="margin:0;font-size:0.96rem;line-height:1.6;color:var(--ink)">
+          We started FIXIA with one clear premise: <b>business software should fit the way you actually work, not force you to change your habits.</b> Instead of selling bloated SaaS subscriptions where you pay every month for features you never use, we design and build purpose-built software with <b>100% full source code ownership</b> and zero recurring per-user software rent.
+        </p>
+      </div>
+    </div>
+
     <!-- Featured Hero Project (Himalaya Escape) -->
     <div class="hero-feature-card" data-r>
       <div class="hfc-grid">
@@ -1487,18 +1788,21 @@ input[type="range"] {
     
   </div>
 </section>
-<section class="sec"><div class="wrap"><span class="eyebrow">And more</span><h2 data-split>Almost anything that runs on a screen.</h2><div class="chips2" data-r><span>Online store</span><span>Booking system</span><span>Billing app</span><span>Stock app</span><span>School and coaching app</span><span>Gym membership app</span><span>Clinic appointments</span><span>Restaurant ordering</span><span>QR menu</span><span>Delivery tracker</span><span>Quotation maker</span><span>Attendance app</span><span>Customer records (CRM)</span><span>Admin panel</span><span>Dashboards</span><span>Online courses</span><span>Event tickets</span><span>Portfolio site</span><span>Chrome extension</span><span>Calculators and mini tools</span><span>WhatsApp bot</span><span>Data entry helper</span></div><a class="btn ghost sm" style="margin-top:1.6rem" href="services.html">See everything we build →</a></div></section><section class="sec dark"><div class="wrap"><span class="eyebrow">How it works</span><h2 data-split>Four easy steps.</h2><div class="steps"><div data-r><h3>01 · Tell us</h3><p>Explain your business and what you need, in your own words.</p></div><div data-r><h3>02 · See the plan</h3><p>Within 48 hours you get screens and a fixed price.</p></div><div data-r><h3>03 · We build</h3><p>Every week you get a link to try what we made.</p></div><div data-r><h3>04 · You launch</h3><p>We put it live and give you everything we built.</p></div></div></div></section>
-<!-- 07. PRICING TEASER GATEWAY -->
-<section class="sec" style="background:#ffffff;border-top:1px solid var(--line);border-bottom:1px solid var(--line)">
+<section class="sec"><div class="wrap"><span class="eyebrow">And more</span><h2 data-split>Almost anything that runs on a screen.</h2><div class="chips2" data-r><span>Online store</span><span>Booking system</span><span>Billing app</span><span>Stock app</span><span>School and coaching app</span><span>Gym membership app</span><span>Clinic appointments</span><span>Restaurant ordering</span><span>QR menu</span><span>Delivery tracker</span><span>Quotation maker</span><span>Attendance app</span><span>Customer records (CRM)</span><span>Admin panel</span><span>Dashboards</span><span>Online courses</span><span>Event tickets</span><span>Portfolio site</span><span>Chrome extension</span><span>Calculators and mini tools</span><span>WhatsApp bot</span><span>Data entry helper</span></div><a class="btn ghost sm" style="margin-top:1.6rem" href="services.html">See everything we build →</a></div></section>
+
+
+
+<!-- 07. TRANSPARENT MILESTONE PRICING -->
+<section class="sec" style="background:#FAF8F5;border-top:1px solid var(--line);border-bottom:1px solid var(--line)">
   <div class="wrap" style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:2rem">
     <div>
-      <span class="eyebrow">Need-Based Pricing</span>
-      <h2 style="font-size:clamp(1.8rem,3.4vw,2.6rem);letter-spacing:-0.03em" data-split>We charge strictly according to your need and work.</h2>
-      <p style="color:var(--mute);font-size:1.05rem;max-width:32rem;margin-top:.4rem" data-r>No bloated packages. Transparent milestones starting from ₹14,999. You own 100% of the code with zero per-user subscription fees.</p>
+      <span class="eyebrow">Milestone Pricing</span>
+      <h2 style="font-size:clamp(1.8rem,3.4vw,2.5rem);letter-spacing:-0.03em" data-split>Software that fits your business. Pricing that makes sense.</h2>
+      <p style="color:var(--mute);font-size:1rem;max-width:36rem;margin-top:.4rem" data-r>Foundational solutions starting at ₹14,999. Every project receives a clear scope, milestone breakdown and transparent estimate.</p>
     </div>
     <div style="display:flex;gap:.85rem;flex-wrap:wrap" data-r>
-      <a class="btn hi" href="pricing.html">Explore Need-Based Pricing →</a>
-      <a class="btn ghost" href="contact.html">Get an Upfront Quote</a>
+      <a class="btn hi" href="contact.html">Request a Project Estimate →</a>
+      <a class="btn ghost" href="pricing.html">How our pricing works</a>
     </div>
   </div>
 </section>
@@ -1522,15 +1826,47 @@ const typedEl = $('#ty');
   setTimeout(t, w);
 })();
 
-/* Marquee Strip */
-const mqItems = ['WEBSITES', 'ANDROID APPS', 'CUSTOM SOFTWARE', 'ERP SYSTEMS', 'ONLINE STORES', 'BOOKING APPS', 'DASHBOARDS', 'BOTS'];
-$('#mq').innerHTML = [...Array(2)].map(() => mqItems.map(x => `<span>${x}</span>`).join('')).join('');
+/* Marquee Strip — Focused Deliverables of What FIXIA Builds */
+const mqItems = [
+  'CUSTOM WEB APPLICATIONS',
+  'ANDROID & STAFF MOBILE APPS',
+  'BILLING, POS & INVENTORY SYSTEMS',
+  'WHATSAPP & WORKFLOW AUTOMATION',
+  'ONLINE BOOKING & APPOINTMENT ENGINES',
+  'CUSTOM BUSINESS MANAGEMENT SOFTWARE',
+  '100% SOURCE CODE OWNERSHIP',
+  'ZERO MONTHLY SUBSCRIPTION FEES'
+];
+$('#mq').innerHTML = [...Array(3)].map(() => mqItems.map(x => `<span>${x}</span>`).join('')).join('');
 
 
 /* Showroom */
 (function(){const L=[...document.querySelectorAll('.show-item')],P=[...document.querySelectorAll('.show-pane')];let i=0,t,hold=0;
 const go=n=>{i=n;L.forEach((b,k)=>b.classList.toggle('on',k==n));P.forEach((p,k)=>p.classList.toggle('on',k==n));clearTimeout(t);if(!hold&&!matchMedia('(prefers-reduced-motion:reduce)').matches)t=setTimeout(()=>go((i+1)%L.length),5000)};
 L.forEach((b,k)=>{b.addEventListener('mouseenter',()=>{hold=1;go(k)});b.addEventListener('click',()=>{hold=1;go(k)})});go(0)})();
+
+/* Homepage Business Discovery Interaction */
+(function() {
+  const bizInput = document.getElementById('homeBizInput');
+  const form = document.getElementById('homeDiscoveryForm');
+  const btn = document.getElementById('homeDiscoverBtn');
+
+  document.querySelectorAll('.disc-chip').forEach(chip => {
+    chip.addEventListener('click', () => {
+      if (bizInput) {
+        bizInput.value = chip.getAttribute('data-val') || chip.textContent.trim();
+        bizInput.focus();
+      }
+    });
+  });
+
+  if (form && btn) {
+    form.addEventListener('submit', () => {
+      btn.textContent = 'Discovering Ideas...';
+      btn.style.opacity = '0.85';
+    });
+  }
+})();
 </script>
 <script src="polish.js?v=20261025d"></script>
 </body>

@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Start a Project – FIXIA</title>
-<meta name="description" content="Tell FIXIA what you want to solve or build. Receive a custom architecture solution plan within 6 business hours.">
+<title>Start a Project – FIXIA · Your Business. Smarter with Software.</title>
+<meta name="description" content="Tell FIXIA what business problem you want to solve. Transparent milestone estimates starting from ₹14,999 with 100% source code ownership.">
 <link rel="icon" type="image/svg+xml" href="logo/fixia-favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -249,6 +249,18 @@ label.t {
       <small><span class="dot"></span>Accepting New Client Projects</small>
       <p>Even if you aren't sure whether you need a web app, automation, or AI agent—just describe the bottleneck in plain words.</p>
     </div>
+
+    <!-- Direct WhatsApp Contact Pill -->
+    <div style="margin-top:1.5rem;padding:1.15rem 1.3rem;background:#F0FDF4;border:1.5px solid #BBF7D0;border-radius:18px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:0.75rem" data-r>
+      <div>
+        <b style="color:#166534;font-size:0.92rem;display:block">Prefer instant chat?</b>
+        <span style="color:#15803D;font-size:0.84rem">Message our engineering team directly on WhatsApp</span>
+      </div>
+      <a class="btn sm" style="background:#22C55E;color:#fff;border-color:#16A34A;display:inline-flex;align-items:center;gap:0.4rem" href="https://wa.me/918448858700?text=Hi%20FIXIA,%20I'd%20like%20to%20discuss%20a%20software%20project%20for%20my%20business." target="_blank" rel="noopener noreferrer">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91S17.5 2 12.04 2zm5.79 14c-.24.67-1.39 1.28-1.92 1.34-.51.06-1.17.09-3.79-.98-2.24-.92-3.69-3.21-3.8-3.36-.11-.15-.92-1.22-.92-2.33s.58-1.65.79-1.87c.21-.22.46-.28.61-.28.15 0 .31 0 .44.01.14.01.32-.05.5.38.18.43.62 1.51.67 1.62.05.11.08.24.01.38-.07.14-.11.23-.22.36-.11.13-.23.29-.33.39-.11.11-.23.23-.1.45.13.22.58.96 1.24 1.55.85.76 1.57 1 1.79 1.11.22.11.35.09.48-.06.13-.15.56-.65.71-.87.15-.22.3-.18.5-.11.2.07 1.29.61 1.51.72.22.11.37.17.42.26.05.09.05.53-.19 1.2z"/></svg>
+        WhatsApp Us
+      </a>
+    </div>
   </div>
 
   <div class="box" data-r>
@@ -261,6 +273,9 @@ label.t {
     <form id="fm" novalidate>
       <!-- STEP 1: Problem & Focus Area -->
       <div class="step on">
+        <div id="ideaBanner" style="display:none;align-items:center;gap:.5rem;background:rgba(194,51,12,.08);border:1.5px solid rgba(194,51,12,.25);border-radius:999px;padding:.4rem 1rem;font:600 .82rem var(--mono);color:var(--cobalt);margin-bottom:1.2rem">
+          <span>💡 Inquiring about blueprint:</span> <b id="ideaBannerText" style="color:var(--ink)"></b>
+        </div>
         <h2>What's slowing you down, or what would you like to build?</h2>
         <p class="step-sub">Pick one or more areas (or select “Not sure yet—advise me”).</p>
         <div class="opts" id="kind"></div>
@@ -288,9 +303,9 @@ label.t {
           </label>
           <label class="t">Indicative Budget Range
             <select name="budget" id="bud">
-              <option>₹19,999 – ₹60,000 (Start Tier)</option>
-              <option selected>₹60,000 – ₹1,50,000 (Build Tier)</option>
-              <option>₹1,50,000+ (Scale / Full Product)</option>
+              <option selected>₹14,999 – ₹50,000 (Foundational Tier)</option>
+              <option>₹50,000 – ₹1,50,000 (Growth Tier)</option>
+              <option>₹1,50,000+ (Scale / Full System)</option>
               <option>Not sure yet — suggest options</option>
             </select>
           </label>
@@ -321,7 +336,15 @@ label.t {
           <label class="t">WhatsApp Number *
             <input id="uWa" type="tel" name="whatsapp" required autocomplete="tel" placeholder="+91 98765 43210">
           </label>
+
+          <!-- Honeypot spam trap -->
+          <div style="display:none" aria-hidden="true">
+            <input type="text" name="website_hp" id="websiteHp" tabindex="-1" autocomplete="off">
+          </div>
         </div>
+
+        <!-- Submission Error Box -->
+        <div id="inquiryError" style="display:none;background:#FEF2F2;border:1.5px solid #FCA5A5;border-radius:12px;padding:0.9rem 1.1rem;color:#991B1B;font-size:0.9rem;margin-top:1rem;line-height:1.4"></div>
       </div>
 
       <div class="nv">
@@ -344,8 +367,40 @@ label.t {
 <script>
 const K = ['Website','Android app','Custom software','ERP / business system','Online store','Bot or automation','Not sure yet — advise me'];
 const q = new URLSearchParams(location.search);
-$('#kind').innerHTML = K.map((k, i) => `<label><input type="checkbox" value="${k}" ${i === 6 && !q.get('p') ? 'checked' : ''}><span>${k}</span></label>`).join('');
+
+// Map incoming software types from ideas.html
+const incomingType = (q.get('type') || '').toLowerCase();
+const shouldCheck = (k) => {
+  if (!q.get('p') && !q.get('idea')) return k === 'Not sure yet — advise me';
+  if (incomingType.includes('web') && k === 'Website') return true;
+  if (incomingType.includes('mobile') || incomingType.includes('app')) {
+    if (k === 'Android app') return true;
+  }
+  if ((incomingType.includes('custom') || incomingType.includes('dash') || incomingType.includes('pos')) && k === 'Custom software') return true;
+  if (incomingType.includes('erp') && k === 'ERP / business system') return true;
+  if ((incomingType.includes('bot') || incomingType.includes('auto')) && k === 'Bot or automation') return true;
+  return false;
+};
+
+$('#kind').innerHTML = K.map((k, i) => `<label><input type="checkbox" value="${k}" ${shouldCheck(k) ? 'checked' : ''}><span>${k}</span></label>`).join('');
 if (q.get('p')) $('#prob').value = q.get('p');
+if (q.get('biz')) {
+  if ($('#bizDo')) $('#bizDo').value = q.get('biz');
+  if ($('#uBiz')) $('#uBiz').value = q.get('biz');
+}
+if (q.get('solutionName')) {
+  const b = $('#ideaBanner'), bt = $('#ideaBannerText');
+  if (b && bt) {
+    bt.textContent = 'Unified Architecture: ' + q.get('solutionName');
+    b.style.display = 'inline-flex';
+  }
+} else if (q.get('idea')) {
+  const b = $('#ideaBanner'), bt = $('#ideaBannerText');
+  if (b && bt) {
+    bt.textContent = q.get('idea');
+    b.style.display = 'inline-flex';
+  }
+}
 
 function fillP(txt) {
   const el = $('#prob');
@@ -371,7 +426,7 @@ function go(i) {
 }
 
 $('#bk').onclick = () => go(n - 1);
-$('#nx').onclick = () => {
+$('#nx').onclick = async () => {
   const f = $('#fm');
   if (n === 0 && !$('#prob').value.trim()) {
     $('#prob').focus();
@@ -386,18 +441,81 @@ $('#nx').onclick = () => {
   if (n < 2) return go(n + 1);
   if (!f.reportValidity()) return;
 
+  const emailVal = $('#uMail').value.trim();
+  const waVal = $('#uWa').value.trim();
+  const errBox = $('#inquiryError');
+  errBox.style.display = 'none';
+
+  if (!emailVal && !waVal) {
+    $('#uWa').focus();
+    $('#uWa').style.borderColor = '#dc2626';
+    errBox.textContent = 'Please provide an email or WhatsApp number so we can send your solution blueprint.';
+    errBox.style.display = 'block';
+    return;
+  }
+
+  // Prevent duplicate submissions and show loading state
+  const nxBtn = $('#nx');
+  nxBtn.disabled = true;
+  nxBtn.innerHTML = `Securing Brief... <span class="dot"></span>`;
+
   const picked = $$('#kind input:checked').map(x => x.value).join(', ') || 'Custom Solution';
-  $('#briefSum').innerHTML = `
-    <div><b>Client:</b> ${$('#uName').value} (${$('#uBiz').value})</div>
-    <div><b>Business:</b> ${$('#bizDo').value}</div>
-    <div><b>Focus:</b> ${picked}</div>
-    <div><b>Problem:</b> “${$('#prob').value}”</div>
-    <div><b>Scope:</b> ${$('#bud').value} · ${$('#time').value}</div>`;
-  try { const L = JSON.parse(localStorage.getItem('fx-leads') || '[]'); L.unshift({ id: Date.now(), at: new Date().toISOString(), name: $('#uName').value, biz: $('#uBiz').value, email: $('#uMail').value, wa: $('#uWa').value, type: $('#bizDo').value, focus: picked, problem: $('#prob').value, budget: $('#bud').value, timeline: $('#time').value, status: 'new' }); localStorage.setItem('fx-leads', JSON.stringify(L)); } catch (e) {}
-  f.style.display = 'none';
-  $('#pg').style.display = 'none';
-  $('.box-head').style.display = 'none';
-  $('#ok').classList.add('on');
+  const payload = {
+    name: $('#uName').value.trim(),
+    business: $('#uBiz').value.trim(),
+    email: emailVal,
+    whatsapp: waVal,
+    businessType: $('#bizDo').value.trim(),
+    focus: picked,
+    problem: $('#prob').value.trim(),
+    budget: $('#bud').value,
+    timeline: $('#time').value,
+    website_hp: $('#websiteHp') ? $('#websiteHp').value : '',
+    source: q.get('solutionName') ? 'solution_builder' : (q.get('idea') ? 'idea_blueprint' : 'web_contact')
+  };
+
+  try {
+    const res = await fetch('/api/inquiry', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+
+    const data = await res.json();
+    if (!res.ok || !data.ok) {
+      throw new Error(data.error || 'Server rejected submission');
+    }
+
+    if (window.fixiaAnalytics) {
+      window.fixiaAnalytics.track('inquiry_submitted', { inquiryId: data.id });
+    }
+
+    // Success confirmation
+    $('#briefSum').innerHTML = `
+      <div><b>Inquiry Reference:</b> <code style="font-family:var(--mono);color:var(--cobalt)">${data.id}</code></div>
+      <div><b>Client:</b> ${$('#uName').value} (${$('#uBiz').value})</div>
+      <div><b>Business:</b> ${$('#bizDo').value}</div>
+      <div><b>Focus:</b> ${picked}</div>
+      <div><b>Problem:</b> “${$('#prob').value}”</div>
+      <div><b>Scope:</b> ${$('#bud').value} · ${$('#time').value}</div>`;
+
+    // Local client backup
+    try {
+      const L = JSON.parse(localStorage.getItem('fx-leads') || '[]');
+      L.unshift({ ...payload, id: data.id, at: new Date().toISOString(), status: 'new' });
+      localStorage.setItem('fx-leads', JSON.stringify(L));
+    } catch (e) {}
+
+    f.style.display = 'none';
+    $('#pg').style.display = 'none';
+    $('.box-head').style.display = 'none';
+    $('#ok').classList.add('on');
+  } catch (err) {
+    nxBtn.disabled = false;
+    nxBtn.innerHTML = `Send Problem Brief ${ic('arr')}`;
+    errBox.textContent = `⚠️ ${err.message || 'Unable to store your problem brief. Please check your connection or message us on WhatsApp.'}`;
+    errBox.style.display = 'block';
+  }
 };
 </script>
 <script src="polish.js?v=20261025d"></script>

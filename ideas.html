@@ -1,0 +1,1433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Explore Software Ideas – FIXIA · Your Business. Smarter with Software.</title>
+<meta name="description" content="Discover practical custom software ideas designed around how your business works. Explore 112 blueprints across 14 commercial industries.">
+<link rel="icon" type="image/svg+xml" href="logo/fixia-favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css?v=20261025d">
+<link rel="stylesheet" href="polish.css?v=20261025d">
+<style>
+/* ==========================================================
+   EXPLORE IDEAS PAGE STYLES (100% Native to FIXIA Design Tokens)
+   ========================================================== */
+.ideas-hero {
+  padding: clamp(3rem, 6.5vw, 5.5rem) 0 2rem;
+  position: relative;
+}
+.ideas-hero-grid {
+  display: grid;
+  grid-template-columns: 1.15fr 0.95fr;
+  gap: clamp(2rem, 5vw, 4rem);
+  align-items: center;
+}
+.ideas-hero h1 {
+  font-size: clamp(2.8rem, 5.8vw, 5.2rem);
+  letter-spacing: -0.045em;
+  line-height: 0.96;
+}
+.ideas-hero h1 span.l { display: block; }
+.ideas-hero h1 em {
+  font: italic 400 1.08em 'Instrument Serif', serif;
+  color: var(--cobalt);
+}
+.ideas-hero-sub {
+  font-size: clamp(1.08rem, 1.45vw, 1.25rem);
+  line-height: 1.55;
+  color: var(--mute);
+  margin-top: 1.15rem;
+  max-width: 36rem;
+}
+.hero-stats-strip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.25rem 2rem;
+  margin-top: 1.8rem;
+  padding-top: 1.4rem;
+  border-top: 1px solid var(--line);
+  font: 600 0.88rem var(--mono);
+  color: var(--ink);
+}
+.hero-stats-strip span {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+.hero-stats-strip b {
+  color: var(--hi);
+  font-weight: 800;
+  font-size: 1.05rem;
+}
+
+/* Concept Preview Visual Box */
+.concept-preview-box {
+  background: var(--ink);
+  color: #fff;
+  border-radius: 28px;
+  padding: 1.6rem;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 35px 75px -25px rgba(16, 16, 16, 0.45);
+  position: relative;
+  overflow: hidden;
+}
+.concept-nav {
+  display: flex;
+  gap: 0.4rem;
+  background: rgba(255, 255, 255, 0.08);
+  padding: 0.35rem;
+  border-radius: 14px;
+  margin-bottom: 1.4rem;
+}
+.concept-btn {
+  flex: 1;
+  background: transparent;
+  border: 0;
+  color: #A39D90;
+  font: 600 0.8rem var(--mono);
+  padding: 0.55rem 0.6rem;
+  border-radius: 10px;
+  transition: all 0.25s;
+  text-align: center;
+  cursor: pointer;
+}
+.concept-btn.on {
+  background: var(--cobalt);
+  color: #fff;
+}
+.concept-card {
+  display: none;
+  animation: pin 0.4s var(--ease) both;
+}
+.concept-card.on { display: block; }
+.concept-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.85rem;
+  font: 600 0.78rem var(--mono);
+  text-transform: uppercase;
+  color: var(--hi);
+  letter-spacing: 0.06em;
+}
+.concept-screen {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 18px;
+  padding: 1.25rem;
+}
+.concept-screen h4 {
+  font-size: 1.35rem;
+  margin-bottom: 0.35rem;
+  color: #fff;
+}
+.concept-screen p {
+  color: #B5AFA2;
+  font-size: 0.92rem;
+  line-height: 1.45;
+  margin-bottom: 1rem;
+}
+.concept-kpis {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.5rem;
+  padding-top: 0.85rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+.concept-kpi small {
+  display: block;
+  font: 600 0.72rem var(--mono);
+  color: #8C867B;
+  text-transform: uppercase;
+}
+.concept-kpi b {
+  font-size: 0.98rem;
+  color: #fff;
+}
+
+/* Category Filter Bar */
+.filter-search-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1.2rem;
+  margin: 3rem 0 2rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--line);
+}
+.search-input-wrap {
+  position: relative;
+  min-width: 280px;
+  flex: 1;
+  max-width: 420px;
+}
+.search-input-wrap input {
+  width: 100%;
+  padding: 0.75rem 1rem 0.75rem 2.6rem;
+  border: 1.5px solid var(--line);
+  border-radius: 999px;
+  background: #fff;
+  font-size: 0.95rem;
+  transition: all 0.2s;
+}
+.search-input-wrap input:focus {
+  outline: 0;
+  border-color: var(--cobalt);
+  box-shadow: 0 0 0 4px rgba(194, 51, 12, 0.12);
+}
+.search-ico {
+  position: absolute;
+  left: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--mute);
+  pointer-events: none;
+}
+
+/* 14 Industry Category Cards Grid */
+.ind-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.35rem;
+}
+.ind-card {
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 22px;
+  padding: 1.6rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  cursor: pointer;
+  text-decoration: none;
+  color: inherit;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.25s var(--ease), border-color 0.25s, box-shadow 0.25s;
+}
+.ind-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--ink);
+  box-shadow: 0 20px 40px -20px rgba(16, 16, 16, 0.18);
+}
+.ind-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1.25rem;
+}
+.ind-icon-badge {
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  display: grid;
+  place-items: center;
+  color: var(--ink);
+  transition: background 0.25s, color 0.25s;
+}
+.ind-card:hover .ind-icon-badge {
+  background: var(--ink);
+  color: #fff;
+  border-color: var(--ink);
+}
+.ind-count-badge {
+  font: 700 0.76rem var(--mono);
+  background: rgba(194, 51, 12, 0.08);
+  color: var(--cobalt);
+  padding: 0.3rem 0.65rem;
+  border-radius: 999px;
+  border: 1px solid rgba(194, 51, 12, 0.2);
+}
+.ind-card h3 {
+  font-size: 1.38rem;
+  margin-bottom: 0.45rem;
+  line-height: 1.15;
+}
+.ind-card p {
+  color: var(--mute);
+  font-size: 0.92rem;
+  line-height: 1.5;
+  margin-bottom: 1.25rem;
+}
+.ind-card-action {
+  font: 700 0.88rem var(--mono);
+  color: var(--cobalt);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-top: auto;
+  transition: gap 0.2s;
+}
+.ind-card:hover .ind-card-action {
+  gap: 0.7rem;
+  color: var(--hi);
+}
+
+/* Dedicated Industry View (Section #industryView) */
+.ind-view-section {
+  display: none;
+  scroll-margin-top: 5rem;
+}
+.ind-view-section.active {
+  display: block;
+  animation: pin 0.45s var(--ease) both;
+}
+.ind-view-header {
+  background: var(--ink);
+  color: #fff;
+  border-radius: 28px;
+  padding: clamp(1.8rem, 4.5vw, 3.2rem);
+  margin-bottom: 2.5rem;
+  position: relative;
+  overflow: hidden;
+}
+.ind-view-top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+.back-btn {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #fff;
+  font: 600 0.82rem var(--mono);
+  padding: 0.5rem 1rem;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.back-btn:hover {
+  background: #fff;
+  color: var(--ink);
+}
+.ind-view-title-row {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+}
+.ind-view-icon-large {
+  width: 64px;
+  height: 64px;
+  background: var(--cobalt);
+  color: #fff;
+  border-radius: 18px;
+  display: grid;
+  place-items: center;
+  flex: none;
+}
+.ind-view-header h2 {
+  font-size: clamp(2rem, 4.5vw, 3.4rem);
+  max-width: none;
+  margin-bottom: 0.4rem;
+}
+.ind-view-header p {
+  color: #B5AFA2;
+  font-size: clamp(1rem, 1.3vw, 1.15rem);
+  max-width: 42rem;
+  line-height: 1.5;
+}
+
+/* Tier Filter Tabs inside Industry View */
+.tier-tabs {
+  display: flex;
+  gap: 0.5rem;
+  overflow-x: auto;
+  scrollbar-width: none;
+  padding-bottom: 0.5rem;
+  margin-bottom: 2rem;
+  border-bottom: 1px solid var(--line);
+}
+.tier-tab-btn {
+  background: transparent;
+  border: 1.5px solid var(--line);
+  border-radius: 999px;
+  padding: 0.55rem 1.15rem;
+  font: 600 0.9rem var(--display);
+  color: var(--mute);
+  white-space: nowrap;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.tier-tab-btn:hover {
+  border-color: var(--ink);
+  color: var(--ink);
+}
+.tier-tab-btn.active {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: #fff;
+}
+.tier-tab-btn .badge-pill {
+  font: 700 0.72rem var(--mono);
+  background: rgba(255, 255, 255, 0.2);
+  padding: 0.15rem 0.45rem;
+  border-radius: 999px;
+}
+.tier-tab-btn:not(.active) .badge-pill {
+  background: var(--paper);
+  color: var(--mute);
+}
+
+/* Idea Cards Grid */
+.ideas-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 1.5rem;
+}
+.idea-card {
+  background: #fff;
+  border: 1px solid rgba(16, 16, 16, 0.1);
+  border-radius: 22px;
+  padding: 1.75rem 1.65rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: transform 0.25s var(--ease), border-color 0.25s, box-shadow 0.25s;
+  position: relative;
+  box-shadow: 0 4px 18px -2px rgba(16, 16, 16, 0.05), 0 1px 3px rgba(16, 16, 16, 0.03);
+  overflow: hidden;
+}
+.idea-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #101010, #5E5A52);
+  transition: background 0.25s;
+}
+.idea-card.essential::before {
+  background: linear-gradient(90deg, #059669, #34D399);
+}
+.idea-card.growth::before {
+  background: linear-gradient(90deg, #C2330C, #F97316);
+}
+.idea-card.next-gen::before {
+  background: linear-gradient(90deg, #7C3AED, #A78BFA);
+}
+.idea-card:hover {
+  transform: translateY(-5px);
+  border-color: rgba(194, 51, 12, 0.4);
+  box-shadow: 0 20px 45px -12px rgba(16, 16, 16, 0.12), 0 0 0 1px rgba(194, 51, 12, 0.2);
+}
+.idea-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 1.15rem;
+  flex-wrap: wrap;
+}
+.tier-tag {
+  font: 700 0.74rem var(--mono);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 0.3rem 0.65rem;
+  border-radius: 999px;
+}
+.tier-tag.essential {
+  background: rgba(5, 150, 105, 0.1);
+  color: #059669;
+  border: 1px solid rgba(5, 150, 105, 0.25);
+}
+.tier-tag.growth {
+  background: rgba(194, 51, 12, 0.1);
+  color: var(--cobalt);
+  border: 1px solid rgba(194, 51, 12, 0.25);
+}
+.tier-tag.next-gen {
+  background: rgba(124, 58, 237, 0.1);
+  color: #7C3AED;
+  border: 1px solid rgba(124, 58, 237, 0.25);
+}
+.software-type-badge {
+  font: 600 0.74rem var(--mono);
+  color: var(--mute);
+  background: var(--paper);
+  padding: 0.28rem 0.65rem;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+}
+.idea-card h4 {
+  font-size: 1.35rem;
+  margin-bottom: 0.45rem;
+  line-height: 1.2;
+}
+.idea-one-liner {
+  color: var(--ink);
+  font-weight: 500;
+  font-size: 0.96rem;
+  line-height: 1.45;
+  margin-bottom: 1rem;
+}
+.problem-box {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 0.85rem 1rem;
+  margin-bottom: 1.4rem;
+  font-size: 0.88rem;
+  color: var(--mute);
+  line-height: 1.45;
+  display: flex;
+  gap: 0.55rem;
+}
+.problem-box .prob-ico {
+  color: #DC2626;
+  flex: none;
+  margin-top: 0.15rem;
+}
+.idea-card-footer {
+  margin-top: auto;
+  padding-top: 1.15rem;
+  border-top: 1px solid var(--line);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.view-detail-btn {
+  background: var(--ink);
+  color: #fff;
+  border: 0;
+  font: 600 0.88rem var(--mono);
+  padding: 0.6rem 1.15rem;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+.view-detail-btn:hover {
+  background: var(--cobalt);
+}
+
+/* Idea Detail Drawer / Modal */
+.detail-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(16, 16, 16, 0.65);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s, visibility 0.3s;
+  display: flex;
+  justify-content: flex-end;
+}
+.detail-modal-backdrop.open {
+  opacity: 1;
+  visibility: visible;
+}
+.detail-drawer {
+  background: #fff;
+  width: 100%;
+  max-width: 680px;
+  height: 100vh;
+  overflow-y: auto;
+  padding: clamp(1.8rem, 4vw, 3rem);
+  box-shadow: -20px 0 60px rgba(0, 0, 0, 0.25);
+  transform: translateX(100%);
+  transition: transform 0.38s var(--ease);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+.detail-modal-backdrop.open .detail-drawer {
+  transform: none;
+}
+.drawer-close-btn {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid var(--line);
+  background: var(--paper);
+  color: var(--ink);
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  font-size: 1.1rem;
+  transition: all 0.2s;
+}
+.drawer-close-btn:hover {
+  background: var(--ink);
+  color: #fff;
+}
+.drawer-tags-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+.drawer-title {
+  font-size: clamp(1.8rem, 3.2vw, 2.5rem);
+  line-height: 1.1;
+  margin-bottom: 0.6rem;
+}
+.drawer-one-liner {
+  font-size: 1.1rem;
+  color: var(--mute);
+  line-height: 1.5;
+  margin-bottom: 2rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--line);
+}
+.drawer-section {
+  margin-bottom: 1.8rem;
+}
+.drawer-section-title {
+  font: 700 0.8rem var(--mono);
+  color: var(--cobalt);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 0.55rem;
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+.drawer-problem-card {
+  background: #FFF1F0;
+  border: 1px solid #FECACA;
+  border-radius: 14px;
+  padding: 1.15rem;
+  color: #991B1B;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+.drawer-how-works {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 1.25rem;
+  font-size: 0.96rem;
+  line-height: 1.6;
+}
+.drawer-features-list {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+.drawer-features-list li {
+  display: flex;
+  gap: 0.65rem;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+.drawer-features-list .ico {
+  color: var(--mint);
+  margin-top: 0.2rem;
+}
+.who-uses-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+}
+.who-uses-chips span {
+  font: 600 0.82rem var(--mono);
+  background: var(--paper);
+  border: 1px solid var(--line);
+  padding: 0.35rem 0.75rem;
+  border-radius: 999px;
+  color: var(--ink);
+}
+.how-fixia-builds-box {
+  background: var(--ink);
+  color: #fff;
+  border-radius: 16px;
+  padding: 1.35rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  font-size: 0.94rem;
+  line-height: 1.55;
+}
+.how-fixia-builds-box p {
+  color: #D4CEC0;
+  margin: 0;
+}
+.drawer-cta-box {
+  margin-top: 2.5rem;
+  padding-top: 2rem;
+  border-top: 1.5px solid var(--ink);
+  background: var(--paper);
+  border-radius: 18px;
+  padding: 1.6rem;
+  text-align: center;
+}
+.drawer-cta-box h3 {
+  font-size: 1.5rem;
+  margin-bottom: 0.4rem;
+}
+.drawer-cta-box p {
+  color: var(--mute);
+  font-size: 0.92rem;
+  margin-bottom: 1.25rem;
+}
+
+/* Free-Form Business Discovery Input Section */
+.discovery-box {
+  background: var(--ink);
+  color: #fff;
+  border-radius: 28px;
+  padding: clamp(2rem, 5vw, 4rem);
+  margin-top: 5rem;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  position: relative;
+  overflow: hidden;
+}
+.discovery-content {
+  max-width: 48rem;
+  margin: 0 auto;
+  text-align: center;
+}
+.discovery-box h2 {
+  font-size: clamp(2.2rem, 4.2vw, 3.4rem);
+  max-width: none;
+  margin: 0 auto 0.8rem;
+}
+.discovery-box .lede {
+  color: #B5AFA2;
+  margin: 0 auto 2rem;
+}
+.discovery-form {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 22px;
+  padding: 1.8rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  text-align: left;
+}
+.discovery-form input, .discovery-form textarea {
+  width: 100%;
+  padding: 0.85rem 1.15rem;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(0, 0, 0, 0.4);
+  color: #fff;
+  font: inherit;
+}
+.discovery-form input:focus, .discovery-form textarea:focus {
+  outline: 0;
+  border-color: var(--hi);
+  box-shadow: 0 0 0 3px rgba(255, 74, 28, 0.2);
+}
+.discovery-result-box {
+  display: none;
+  margin-top: 2rem;
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 18px;
+  padding: 1.8rem;
+  text-align: left;
+  animation: pin 0.4s var(--ease) both;
+}
+.discovery-result-box.on { display: block; }
+.discovery-blueprint-card {
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 14px;
+  padding: 1.25rem;
+  margin-bottom: 0.85rem;
+}
+.discovery-badge-demo {
+  font: 700 0.72rem var(--mono);
+  background: rgba(255, 74, 28, 0.2);
+  color: var(--hi);
+  border: 1px solid rgba(255, 74, 28, 0.4);
+  padding: 0.25rem 0.6rem;
+  border-radius: 999px;
+  display: inline-block;
+  margin-bottom: 0.8rem;
+}
+
+@media (max-width: 960px) {
+  .ideas-hero-grid { grid-template-columns: 1fr; }
+  .detail-drawer { max-width: 100%; height: 90vh; border-radius: 24px 24px 0 0; }
+  .detail-modal-backdrop { align-items: flex-end; }
+}
+</style>
+<script>try{if(!sessionStorage.fx){document.documentElement.classList.add("intro-on");sessionStorage.fx=1}}catch(e){}</script>
+</head>
+<body data-page="ideas">
+<main>
+
+<!-- 01. HERO SECTION -->
+<section class="ideas-hero">
+  <div class="wrap">
+    <div class="ideas-hero-grid">
+      <div>
+        <span class="eyebrow"><span class="dot"></span> EXPLORE SOFTWARE IDEAS</span>
+        <h1>
+          <span class="l" data-split>Discover what your</span>
+          <span class="l" data-split>business <em>could become.</em></span>
+        </h1>
+        <p class="ideas-hero-sub" data-r>
+          Explore practical and next-generation software ideas designed around the way your business works.
+        </p>
+        <div class="cta" data-r style="--d:1">
+          <a class="btn" href="#industries">Explore your industry <svg class="ico"><use href="#arr"/></svg></a>
+          <a class="btn ghost" href="#discovery">Can't find your industry?</a>
+        </div>
+        <div class="hero-stats-strip" data-r style="--d:2">
+          <span><b>14</b> Industry Categories</span>
+          <span><b>112</b> Ready Blueprints</span>
+          <span><b>100%</b> Custom Engineered</span>
+        </div>
+      </div>
+
+      <!-- Interactive Software Concept Preview Deck -->
+      <div class="concept-preview-box" data-r>
+        <div class="concept-nav" role="tablist">
+          <button class="concept-btn on" type="button" data-concept="0">Table Matrix</button>
+          <button class="concept-btn" type="button" data-concept="1">WhatsApp Bot</button>
+          <button class="concept-btn" type="button" data-concept="2">Student Fee ERP</button>
+        </div>
+
+        <!-- Concept 0: Arena Table Timer Matrix -->
+        <div class="concept-card on" id="cp-0">
+          <div class="concept-meta">
+            <span>Concept 01 · Gaming &amp; Arena ERP</span>
+            <span>Real-Time Timers</span>
+          </div>
+          <div class="concept-screen">
+            <h4>Live Table Session Matrix</h4>
+            <p>Automated per-minute billing for snooker, pool, and VIP cabins. Stops manual paper slips and revenue leakage.</p>
+            <div class="concept-kpis">
+              <div class="concept-kpi">
+                <small>Active Tables</small>
+                <b>7 / 8 Live</b>
+              </div>
+              <div class="concept-kpi">
+                <small>Session Revenue</small>
+                <b>₹14,250</b>
+              </div>
+              <div class="concept-kpi">
+                <small>Disputes</small>
+                <b style="color:var(--mint)">0% Zero</b>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Concept 1: WhatsApp Automated Order Dispatcher -->
+        <div class="concept-card" id="cp-1">
+          <div class="concept-meta">
+            <span>Concept 02 · Hospitality &amp; Retail</span>
+            <span>Official Meta Cloud API</span>
+          </div>
+          <div class="concept-screen">
+            <h4>Instant WhatsApp Invoices &amp; Reviews</h4>
+            <p>Generates itemized PDF bills and delivers them to customer WhatsApp in 3 seconds flat with 1-tap review links.</p>
+            <div class="concept-kpis">
+              <div class="concept-kpi">
+                <small>Bill Delivery</small>
+                <b>Instant PDF</b>
+              </div>
+              <div class="concept-kpi">
+                <small>Google Reviews</small>
+                <b>+42% Surge</b>
+              </div>
+              <div class="concept-kpi">
+                <small>Paper Cost</small>
+                <b>₹0 / month</b>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Concept 2: Student Fee & Batch Roster -->
+        <div class="concept-card" id="cp-2">
+          <div class="concept-meta">
+            <span>Concept 03 · Coaching &amp; Academics</span>
+            <span>Parent Transparency</span>
+          </div>
+          <div class="concept-screen">
+            <h4>Batch Attendance &amp; Fee Ledger</h4>
+            <p>Automated WhatsApp absence alerts to parents and one-click installment receipts with zero calculation errors.</p>
+            <div class="concept-kpis">
+              <div class="concept-kpi">
+                <small>Roll Call</small>
+                <b>45 Seconds</b>
+              </div>
+              <div class="concept-kpi">
+                <small>Parent Alerts</small>
+                <b>100% Automated</b>
+              </div>
+              <div class="concept-kpi">
+                <small>Overdue Dues</small>
+                <b style="color:var(--mint)">-68% Dropped</b>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 02. INDUSTRY EXPLORATION DIRECTORY -->
+<section class="sec" id="industries">
+  <div class="wrap">
+    
+    <div style="display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:1.5rem">
+      <div style="max-width:38rem">
+        <span class="eyebrow">Industry Exploration</span>
+        <h2 data-split>Select your industry.</h2>
+        <p class="lede" data-r>
+          Every business model runs on different operational bottlenecks. Select your sector below to reveal tailored Essential, Growth, and Next-Generation software blueprints.
+        </p>
+      </div>
+
+      <!-- Quick Filter Search Input -->
+      <div class="search-input-wrap" data-r>
+        <svg class="ico search-ico" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        <input type="text" id="industrySearchInput" placeholder="Search industry or software idea..." aria-label="Search industry">
+      </div>
+    </div>
+
+    <!-- 14 Industry Category Cards Container -->
+    <div class="ind-grid" id="industriesGrid" style="margin-top:2.5rem" data-stagger>
+      <!-- Populated dynamically from ideas-data.js -->
+    </div>
+
+  </div>
+</section>
+
+<!-- 03. DEDICATED INDUSTRY VIEW (Revealed when an industry is picked) -->
+<section class="sec ind-view-section" id="industryView">
+  <div class="wrap">
+    
+    <!-- Industry Header Banner -->
+    <div class="ind-view-header">
+      <div class="ind-view-top-bar">
+        <button class="back-btn" id="backToIndustriesBtn" type="button">
+          ← Back to all 14 industries
+        </button>
+        <span class="ind-count-badge" id="indViewCounter">8 Blueprints Available</span>
+      </div>
+
+      <div class="ind-view-title-row">
+        <div class="ind-view-icon-large" id="indViewIcon">
+          <!-- Industry SVG Icon -->
+        </div>
+        <div>
+          <h2 id="indViewTitle">Industry Name</h2>
+          <p id="indViewTagline">Industry operational focus tagline.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tier Filter Tabs -->
+    <div class="tier-tabs" role="tablist">
+      <button class="tier-tab-btn active" type="button" data-tier="all">
+        All Blueprints <span class="badge-pill" id="badgeAll">8</span>
+      </button>
+      <button class="tier-tab-btn" type="button" data-tier="essential">
+        <span class="dot" style="background:var(--mint)"></span> Essential Operations <span class="badge-pill" id="badgeEssential">3</span>
+      </button>
+      <button class="tier-tab-btn" type="button" data-tier="growth">
+        <span class="dot" style="background:var(--cobalt)"></span> Customer Growth <span class="badge-pill" id="badgeGrowth">3</span>
+      </button>
+      <button class="tier-tab-btn" type="button" data-tier="next-gen">
+        <span class="dot" style="background:#8B5CF6"></span> Next-Generation <span class="badge-pill" id="badgeNextGen">2</span>
+      </button>
+    </div>
+
+    <!-- Ideas Grid for Selected Industry -->
+    <div class="ideas-grid" id="ideasContainer">
+      <!-- Populated dynamically -->
+    </div>
+
+  </div>
+</section>
+
+<!-- 04. FREE-FORM BUSINESS DISCOVERY INPUT (Can't find your industry?) -->
+<section class="sec" id="discovery">
+  <div class="wrap">
+    <div class="discovery-box">
+      <div class="discovery-content">
+        <span class="eyebrow" style="background:rgba(255,255,255,0.1);color:#fff;border-color:rgba(255,255,255,0.2)">CUSTOM WORKFLOW DISCOVERY</span>
+        <h2>Can't find your industry?</h2>
+        <p class="lede">
+          Tell us what kind of business you run. Discover ideas that could work for your business.
+        </p>
+
+        <form class="discovery-form" id="discoveryForm">
+          <div>
+            <label style="display:block;font:600 0.85rem var(--mono);margin-bottom:0.4rem;text-transform:uppercase;color:#D4CEC0">
+              Business or Industry Name *
+            </label>
+            <input type="text" id="discBizName" placeholder="e.g. Pet Grooming Mobile Van, Dental Implant Lab, Solar Panel EPC..." required>
+          </div>
+
+          <div>
+            <label style="display:block;font:600 0.85rem var(--mono);margin-bottom:0.4rem;text-transform:uppercase;color:#D4CEC0">
+              What is your biggest daily operational headache? (Optional)
+            </label>
+            <textarea id="discBizDesc" rows="2" placeholder="e.g. Coordinating field technicians, tracking warranty slips, or phone call bookings..."></textarea>
+          </div>
+
+          <div style="display:flex;justify-content:flex-end;margin-top:0.5rem">
+            <button class="btn hi" type="submit">
+              Explore My Business <svg class="ico"><use href="#arr"/></svg>
+            </button>
+          </div>
+        </form>
+
+        <!-- Curated Discovery Fallback State (Phase 1 Demo Engine) -->
+        <div class="discovery-result-box" id="discoveryResult">
+          <div class="discovery-badge-demo">CURATED ARCHITECTURE DISCOVERY ENGINE</div>
+          <h3 style="font-size:1.6rem;color:#fff;margin-bottom:0.5rem" id="discResTitle">Custom Solutions Blueprint</h3>
+          <p style="color:#B5AFA2;font-size:0.95rem;line-height:1.5;margin-bottom:1.5rem" id="discResPitch">
+            Based on your operational model, here is how FIXIA architects software to eliminate friction:
+          </p>
+
+          <div class="discovery-blueprint-card">
+            <span class="tier-tag essential" style="margin-bottom:0.4rem;display:inline-block">Essential Operational Foundation</span>
+            <h4 style="color:#fff;font-size:1.15rem;margin:0.2rem 0">Central Dispatch &amp; Job Tracking Web Terminal</h4>
+            <p style="color:#B5AFA2;font-size:0.9rem;margin:0.3rem 0 0">
+              Replaces scattered paper notebooks with an offline-capable digital ledger tracking job orders, technician statuses, and client details in real time.
+            </p>
+          </div>
+
+          <div class="discovery-blueprint-card">
+            <span class="tier-tag growth" style="margin-bottom:0.4rem;display:inline-block">Customer Growth Booster</span>
+            <h4 style="color:#fff;font-size:1.15rem;margin:0.2rem 0">Automated WhatsApp Status Updates &amp; Digital Invoicing</h4>
+            <p style="color:#B5AFA2;font-size:0.9rem;margin:0.3rem 0 0">
+              Automatically pings customers with estimated arrival times, digital job verification photos, and 1-tap UPI payment links with zero staff phone delays.
+            </p>
+          </div>
+
+          <div class="discovery-blueprint-card">
+            <span class="tier-tag next-gen" style="margin-bottom:0.4rem;display:inline-block">Next-Gen Differentiation</span>
+            <h4 style="color:#fff;font-size:1.15rem;margin:0.2rem 0">Self-Service Client Portal &amp; Automated Re-booking Engine</h4>
+            <p style="color:#B5AFA2;font-size:0.9rem;margin:0.3rem 0 0">
+              Enables regular customers to book recurring service packages on their phones with zero app downloads, locking in loyal monthly revenue.
+            </p>
+          </div>
+
+          <div style="text-align:center;margin-top:1.8rem;padding-top:1.2rem;border-top:1px solid rgba(255,255,255,0.12)">
+            <p style="color:#fff;font-weight:600;margin-bottom:0.8rem">Want to map out custom software for your exact business?</p>
+            <a class="btn hi" id="discDiscussBtn" href="contact.html">Discuss This Custom Blueprint →</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 05. IDEA DETAIL MODAL / DRAWER -->
+<div class="detail-modal-backdrop" id="ideaDetailModal" role="dialog" aria-modal="true" aria-hidden="true">
+  <div class="detail-drawer">
+    <button class="drawer-close-btn" id="drawerCloseBtn" type="button" aria-label="Close details">✕</button>
+    
+    <div class="drawer-tags-row">
+      <span class="tier-tag" id="modalTierTag">Essential</span>
+      <span class="software-type-badge" id="modalTypeBadge">Website</span>
+    </div>
+
+    <h2 class="drawer-title" id="modalTitle">Idea Title</h2>
+    <p class="drawer-one-liner" id="modalOneLiner">One line explanation of the idea.</p>
+
+    <!-- 01. The Problem It Solves -->
+    <div class="drawer-section">
+      <div class="drawer-section-title">
+        <svg class="ico" width="16" height="16" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        01 — The Business Problem
+      </div>
+      <div class="drawer-problem-card" id="modalProblem">
+        The operational bottleneck this software solves.
+      </div>
+    </div>
+
+    <!-- 02. How It Works in a Real Business -->
+    <div class="drawer-section">
+      <div class="drawer-section-title">
+        <svg class="ico" width="16" height="16" viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        02 — How It Works In Your Daily Workflow
+      </div>
+      <div class="drawer-how-works" id="modalHowItWorks">
+        Detailed breakdown of the daily business flow.
+      </div>
+    </div>
+
+    <!-- 03. Main Features -->
+    <div class="drawer-section">
+      <div class="drawer-section-title">
+        <svg class="ico" width="16" height="16" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+        03 — Core Features Included
+      </div>
+      <ul class="drawer-features-list" id="modalFeatures">
+        <!-- Injected dynamically -->
+      </ul>
+    </div>
+
+    <!-- 04. Who Would Use It -->
+    <div class="drawer-section">
+      <div class="drawer-section-title">
+        <svg class="ico" width="16" height="16" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        04 — Who Uses This Software
+      </div>
+      <div class="who-uses-chips" id="modalWhoUses">
+        <!-- Injected dynamically -->
+      </div>
+    </div>
+
+    <!-- 05. How FIXIA Builds It -->
+    <div class="drawer-section">
+      <div class="drawer-section-title">
+        <svg class="ico" width="16" height="16" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+        05 — How FIXIA Engineers It
+      </div>
+      <div class="how-fixia-builds-box">
+        <p id="modalHowFixiaBuilds">Custom architecture details.</p>
+      </div>
+    </div>
+
+    <!-- Bottom Discuss CTA -->
+    <div class="drawer-cta-box">
+      <h3>Want something like this for your business?</h3>
+      <p>Tell us how your business works. We'll tailor every screen, database, and workflow to your exact operations.</p>
+      <a class="btn hi" id="modalDiscussBtn" href="contact.html">
+        Discuss This Idea <svg class="ico"><use href="#arr"/></svg>
+      </a>
+    </div>
+
+  </div>
+</div>
+
+</main>
+
+<!-- Load Core Data & Engine Scripts -->
+<script src="ideas-data.js"></script>
+<script src="app.js?v=20261025d"></script>
+<script>
+/* ==========================================================
+   EXPLORE IDEAS CONTROLLER
+   ========================================================== */
+(function() {
+  const data = window.INDUSTRIES_DATA || [];
+  const indGrid = document.getElementById('industriesGrid');
+  const indView = document.getElementById('industryView');
+  const ideasContainer = document.getElementById('ideasContainer');
+  const searchInput = document.getElementById('industrySearchInput');
+  const modalBackdrop = document.getElementById('ideaDetailModal');
+  const drawerCloseBtn = document.getElementById('drawerCloseBtn');
+
+  let currentIndustry = null;
+  let activeTier = 'all';
+
+  // Concept switcher in hero
+  const conceptBtns = document.querySelectorAll('.concept-btn');
+  const conceptCards = document.querySelectorAll('.concept-card');
+  conceptBtns.forEach((btn, i) => {
+    btn.addEventListener('click', () => {
+      conceptBtns.forEach(b => b.classList.remove('on'));
+      conceptCards.forEach(c => c.classList.remove('on'));
+      btn.classList.add('on');
+      const targetCard = document.getElementById('cp-' + i);
+      if (targetCard) targetCard.classList.add('on');
+    });
+  });
+
+  // Render 14 Industry Cards
+  function renderIndustries(filterText = '') {
+    const q = filterText.toLowerCase().trim();
+    const filtered = data.filter(ind => {
+      if (!q) return true;
+      const matchInd = ind.name.toLowerCase().includes(q) || ind.shortDesc.toLowerCase().includes(q);
+      const matchIdea = ind.ideas.some(id => id.title.toLowerCase().includes(q) || id.oneLiner.toLowerCase().includes(q));
+      return matchInd || matchIdea;
+    });
+
+    if (!filtered.length) {
+      indGrid.innerHTML = `
+        <div style="grid-column:1/-1;text-align:center;padding:3rem 1rem;background:#fff;border-radius:20px;border:1px dashed var(--line)">
+          <p style="font-size:1.1rem;color:var(--mute);margin-bottom:1rem">No exact industry match found for “<b>${filterText}</b>”.</p>
+          <a class="btn sm" href="#discovery">Use Custom Business Discovery ↓</a>
+        </div>
+      `;
+      return;
+    }
+
+    indGrid.innerHTML = filtered.map(ind => `
+      <div class="ind-card" data-slug="${ind.slug}" tabindex="0" role="button" aria-label="Explore ${ind.name} ideas">
+        <div>
+          <div class="ind-card-top">
+            <div class="ind-icon-badge">${ind.icon}</div>
+            <span class="ind-count-badge">${ind.ideas.length} Blueprints</span>
+          </div>
+          <h3>${ind.name}</h3>
+          <p>${ind.shortDesc}</p>
+        </div>
+        <div class="ind-card-action">
+          <span>Explore Blueprints</span>
+          <span>→</span>
+        </div>
+      </div>
+    `).join('');
+
+    // Attach click listeners to cards
+    document.querySelectorAll('.ind-card').forEach(card => {
+      const openInd = () => {
+        const slug = card.getAttribute('data-slug');
+        selectIndustry(slug);
+      };
+      card.addEventListener('click', openInd);
+      card.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openInd(); } });
+    });
+  }
+
+  // Select and display Industry View
+  function selectIndustry(slug, scroll = true) {
+    const ind = data.find(x => x.slug === slug);
+    if (!ind) return;
+    currentIndustry = ind;
+
+    // Update Header
+    document.getElementById('indViewTitle').textContent = ind.name;
+    document.getElementById('indViewTagline').textContent = ind.tagline || ind.shortDesc;
+    document.getElementById('indViewIcon').innerHTML = ind.icon;
+    document.getElementById('indViewCounter').textContent = `${ind.ideas.length} Blueprints Available`;
+
+    // Counts
+    const essentialCount = ind.ideas.filter(x => x.tier === 'essential').length;
+    const growthCount = ind.ideas.filter(x => x.tier === 'growth').length;
+    const nextGenCount = ind.ideas.filter(x => x.tier === 'next-gen').length;
+
+    document.getElementById('badgeAll').textContent = ind.ideas.length;
+    document.getElementById('badgeEssential').textContent = essentialCount;
+    document.getElementById('badgeGrowth').textContent = growthCount;
+    document.getElementById('badgeNextGen').textContent = nextGenCount;
+
+    // Render Ideas
+    activeTier = 'all';
+    updateTierTabsUI();
+    renderIdeas();
+
+    // Show View
+    indView.classList.add('active');
+
+    // Update URL hash without reload
+    history.replaceState(null, '', `#${ind.slug}`);
+
+    if (scroll) {
+      indView.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }
+
+  // Render Idea Cards inside Active Industry
+  function renderIdeas() {
+    if (!currentIndustry) return;
+    const filteredIdeas = currentIndustry.ideas.filter(item => {
+      if (activeTier === 'all') return true;
+      return item.tier === activeTier;
+    });
+
+    ideasContainer.innerHTML = filteredIdeas.map(idea => {
+      const tierClass = idea.tier === 'next-gen' ? 'next-gen' : idea.tier;
+      const tierLabel = idea.tier === 'essential' ? 'Essential' : idea.tier === 'growth' ? 'Growth' : 'Next-Gen';
+      return `
+        <div class="idea-card">
+          <div>
+            <div class="idea-card-header">
+              <span class="tier-tag ${tierClass}">${tierLabel}</span>
+              <span class="software-type-badge">${idea.softwareType}</span>
+            </div>
+            <h4>${idea.title}</h4>
+            <div class="idea-one-liner">${idea.oneLiner}</div>
+            
+            <div class="problem-box">
+              <span class="prob-ico">⚠</span>
+              <div><b>Solves:</b> ${idea.problem}</div>
+            </div>
+          </div>
+
+          <div class="idea-card-footer">
+            <span style="font:600 0.8rem var(--mono);color:var(--mute)">Custom Built</span>
+            <button class="view-detail-btn" type="button" data-idea-id="${idea.id}">
+              View Blueprint ↗
+            </button>
+          </div>
+        </div>
+      `;
+    }).join('');
+
+    // Attach click listeners to idea detail buttons
+    ideasContainer.querySelectorAll('.view-detail-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const id = btn.getAttribute('data-idea-id');
+        openIdeaDetail(id);
+      });
+    });
+  }
+
+  function updateTierTabsUI() {
+    document.querySelectorAll('.tier-tab-btn').forEach(btn => {
+      btn.classList.toggle('active', btn.getAttribute('data-tier') === activeTier);
+    });
+  }
+
+  // Tier tab clicks
+  document.querySelectorAll('.tier-tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      activeTier = btn.getAttribute('data-tier');
+      updateTierTabsUI();
+      renderIdeas();
+    });
+  });
+
+  // Back button
+  document.getElementById('backToIndustriesBtn').addEventListener('click', () => {
+    indView.classList.remove('active');
+    history.replaceState(null, '', 'ideas.html');
+    document.getElementById('industries').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+
+  // Search input filter
+  searchInput.addEventListener('input', e => {
+    renderIndustries(e.target.value);
+  });
+
+  // Idea Detail Modal Drawer logic
+  function openIdeaDetail(ideaId) {
+    let selectedIdea = null;
+    let foundIndustry = currentIndustry;
+
+    if (foundIndustry) {
+      selectedIdea = foundIndustry.ideas.find(x => x.id === ideaId);
+    }
+    if (!selectedIdea) {
+      for (const ind of data) {
+        const match = ind.ideas.find(x => x.id === ideaId);
+        if (match) {
+          selectedIdea = match;
+          foundIndustry = ind;
+          break;
+        }
+      }
+    }
+    if (!selectedIdea) return;
+
+    // Populate Modal
+    const tierClass = selectedIdea.tier === 'next-gen' ? 'next-gen' : selectedIdea.tier;
+    const tierLabel = selectedIdea.tier === 'essential' ? 'Essential Operation' : selectedIdea.tier === 'growth' ? 'Customer Growth' : 'Next-Generation';
+
+    const modalTier = document.getElementById('modalTierTag');
+    modalTier.className = `tier-tag ${tierClass}`;
+    modalTier.textContent = tierLabel;
+
+    document.getElementById('modalTypeBadge').textContent = selectedIdea.softwareType;
+    document.getElementById('modalTitle').textContent = selectedIdea.title;
+    document.getElementById('modalOneLiner').textContent = selectedIdea.oneLiner;
+    document.getElementById('modalProblem').textContent = selectedIdea.problem;
+    document.getElementById('modalHowItWorks').textContent = selectedIdea.howItWorks;
+
+    // Features
+    const featContainer = document.getElementById('modalFeatures');
+    featContainer.innerHTML = selectedIdea.features.map(f => `
+      <li>
+        <svg class="ico"><use href="#chk"/></svg>
+        <span>${f}</span>
+      </li>
+    `).join('');
+
+    // Who uses
+    const whoContainer = document.getElementById('modalWhoUses');
+    whoContainer.innerHTML = selectedIdea.whoUses.map(w => `<span>${w}</span>`).join('');
+
+    // How Fixia builds
+    document.getElementById('modalHowFixiaBuilds').textContent = selectedIdea.howFixiaBuilds;
+
+    // Discuss CTA Link with prefilled parameters
+    const discussBtn = document.getElementById('modalDiscussBtn');
+    const problemParam = encodeURIComponent(`We run a ${foundIndustry ? foundIndustry.name : 'business'} and want to build the "${selectedIdea.title}" blueprint (${selectedIdea.softwareType}). Our main challenge: ${selectedIdea.problem}`);
+    discussBtn.href = `contact.html?idea=${encodeURIComponent(selectedIdea.title)}&type=${encodeURIComponent(selectedIdea.softwareType)}&p=${problemParam}`;
+
+    modalBackdrop.classList.add('open');
+    modalBackdrop.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeDetailModal() {
+    modalBackdrop.classList.remove('open');
+    modalBackdrop.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  }
+
+  drawerCloseBtn.addEventListener('click', closeDetailModal);
+  modalBackdrop.addEventListener('click', e => {
+    if (e.target === modalBackdrop) closeDetailModal();
+  });
+  window.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && modalBackdrop.classList.contains('open')) {
+      closeDetailModal();
+    }
+  });
+
+  // Free-Form Business Discovery Demo Engine
+  const discForm = document.getElementById('discoveryForm');
+  const discResult = document.getElementById('discoveryResult');
+  const discDiscussBtn = document.getElementById('discDiscussBtn');
+
+  discForm.addEventListener('submit', e => {
+    e.preventDefault();
+    const bizName = document.getElementById('discBizName').value.trim();
+    const bizDesc = document.getElementById('discBizDesc').value.trim();
+    if (!bizName) return;
+
+    document.getElementById('discResTitle').textContent = `Custom Blueprint for: ${bizName}`;
+    document.getElementById('discResPitch').textContent = bizDesc 
+      ? `Analyzing your bottleneck: “${bizDesc}”. Here is FIXIA's tailored three-phase engineering blueprint:`
+      : `Tailored three-phase software architecture designed specifically for the unique operational model of ${bizName}:`;
+
+    const contactProblem = encodeURIComponent(`We operate a "${bizName}". ${bizDesc ? 'Our bottleneck: ' + bizDesc : 'We would like to explore custom software tailored to our operations.'}`);
+    discDiscussBtn.href = `contact.html?idea=${encodeURIComponent(bizName + ' Custom Solution')}&p=${contactProblem}`;
+
+    discResult.classList.add('on');
+    discResult.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  });
+
+  // Initial render
+  renderIndustries();
+
+  // Check URL Hash for deep linking (e.g., #gyms or ?industry=gyms)
+  const hash = location.hash.replace('#', '').trim();
+  const params = new URLSearchParams(location.search);
+  const indParam = params.get('industry') || hash;
+  if (indParam) {
+    const match = data.find(x => x.slug === indParam || x.id === indParam);
+    if (match) {
+      selectIndustry(match.slug, true);
+    }
+  }
+
+})();
+</script>
+<script src="polish.js?v=20261025d"></script>
+</body>
+</html>
+

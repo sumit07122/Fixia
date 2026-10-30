@@ -35,6 +35,7 @@
 html {
   scroll-behavior: smooth;
   scroll-padding-top: 5.5rem;
+  overflow-x: hidden;
 }
 
 body {
@@ -206,21 +207,28 @@ h2 {
   position: fixed;
   left: 0;
   top: 0;
-  width: 12px;
-  height: 12px;
+  width: 10px;
+  height: 10px;
   border-radius: 50%;
   background: var(--cobalt);
-  pointer-events: none;
-  z-index: 90;
-  transition: width 0.25s var(--ease), height 0.25s var(--ease), opacity 0.25s, margin 0.25s var(--ease);
-  margin: -6px 0 0 -6px;
+  pointer-events: none !important;
+  z-index: 9999;
+  transition: width 0.2s var(--ease), height 0.2s var(--ease), opacity 0.2s, background 0.2s;
+  margin: -5px 0 0 -5px;
+  will-change: transform;
 }
 
 .cur.big {
-  width: 52px;
-  height: 52px;
-  margin: -26px 0 0 -26px;
-  opacity: 0.18;
+  width: 44px;
+  height: 44px;
+  margin: -22px 0 0 -22px;
+  background: var(--cobalt);
+  opacity: 0.16;
+}
+
+.cur.hidden {
+  opacity: 0 !important;
+  transform: scale(0);
 }
 
 @media (hover: hover) and (pointer: fine) {
@@ -299,6 +307,7 @@ h2 {
 
 .btn.sm {
   padding: 0.62rem 1.18rem;
+  min-height: 44px;
   font-size: 0.92rem;
 }
 
@@ -414,8 +423,10 @@ header.scrolled {
 /* Mobile Menu Button & Drawer */
 .mob-btn {
   display: none;
-  width: 2.6rem;
-  height: 2.6rem;
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  min-height: 44px;
   border-radius: 999px;
   border: 1px solid var(--line);
   background: #fff;

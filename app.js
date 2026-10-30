@@ -5,6 +5,7 @@ const inr = n => '₹' + Math.round(n).toLocaleString('en-IN');
 const pages = [
   ['index', 'Home'],
   ['services', 'Services'],
+  ['ideas', 'Explore Ideas'],
   ['work', 'Work'],
   ['process', 'Process'],
   ['pricing', 'Pricing'],
@@ -250,6 +251,14 @@ if (typeof window !== 'undefined' && !window.va) {
   }
 }
 
+/* Privacy-Friendly Lightweight Analytics */
+if (typeof window !== 'undefined' && !window.fixiaAnalytics) {
+  const anScript = document.createElement('script');
+  anScript.defer = true;
+  anScript.src = 'analytics.js';
+  document.head.appendChild(anScript);
+}
+
 /* Base Shell Setup */
 if (PG !== 'admin' && B.dataset.page !== 'admin' && PG !== '404' && B.dataset.page !== '404') {
 B.insertAdjacentHTML('afterbegin', `
@@ -317,10 +326,11 @@ B.insertAdjacentHTML('beforeend', `
       <div class="foot-grid">
         <div class="foot-brand">
           <a class="logo" href="index.html" style="color:#fff;font-size:1.35rem;display:inline-flex"><svg class="mk" aria-hidden="true"><use href="#lg"/></svg><span class="wm">FIXIA</span></a>
-          <p>We build websites, Android apps, custom software and ERP systems.</p>
+          <p style="margin-top:0.75rem;line-height:1.55"><b style="color:#fff">Your Business. Smarter with Software.</b><br>We build custom websites, mobile apps, and business software with 100% source code ownership and zero monthly rent.</p>
         </div>
         <div class="foot-col"><h4>Services</h4><ul><li><a href="web.html">Websites</a></li><li><a href="android.html">Android apps</a></li><li><a href="software.html">Custom software</a></li><li><a href="erp.html">ERP systems</a></li><li><a href="ai.html">Bots &amp; automation</a></li></ul></div>
         <div class="foot-col"><h4>Work</h4><ul>
+          <li><a href="ideas.html">Explore Ideas</a></li>
           <li><a href="work.html">All projects</a></li><li><a href="about.html">About</a></li><li><a href="pricing.html">Pricing</a></li>
           <li><a href="https://himalaya-escape.vercel.app/" target="_blank" rel="noopener">Himalaya Escape ↗</a></li>
           <li><a href="https://oneshot-livid.vercel.app/" target="_blank" rel="noopener">One Shot ↗</a></li>
@@ -478,30 +488,48 @@ addEventListener('scroll', () => {
 addEventListener('resize', onScroll);
 onScroll();
 
-/* Cursor follower */
+/* Cursor follower - Smooth, hardware-accelerated, zero-lag, no click interception */
 const cu = $('#cur');
-let cx = 0, cy = 0, tx = 0, tyC = 0;
+let cx = 0, cy = 0, tx = 0, tyC = 0, isMoving = false;
 if (matchMedia('(hover:hover) and (pointer:fine)').matches && cu) {
   addEventListener('pointermove', e => {
     tx = e.clientX;
     tyC = e.clientY;
-    cu.classList.toggle('big', !!e.target.closest('a,button,summary,label,input,select'));
+    if (!isMoving) {
+      cx = tx;
+      cy = tyC;
+      isMoving = true;
+    }
+    const isInput = !!e.target.closest('input, textarea, [contenteditable="true"]');
+    const isClickable = !!e.target.closest('a, button, [role="button"], summary, .btn, .disc-chip, .tab-pill, .filter-chip, select');
+    cu.classList.toggle('hidden', isInput);
+    cu.classList.toggle('big', !isInput && isClickable);
+  }, { passive: true });
+
+  document.documentElement.addEventListener('mouseleave', () => {
+    if (cu) cu.classList.add('hidden');
   });
+  document.documentElement.addEventListener('mouseenter', () => {
+    if (cu) cu.classList.remove('hidden');
+  });
+
   (function f() {
-    cx += (tx - cx) * 0.2;
-    cy += (tyC - cy) * 0.2;
-    cu.style.transform = `translate(${cx}px,${cy}px)`;
+    cx += (tx - cx) * 0.35;
+    cy += (tyC - cy) * 0.35;
+    cu.style.transform = `translate3d(${cx}px, ${cy}px, 0)`;
     requestAnimationFrame(f);
   })();
 }
 
-/* Page transitions */
+/* Crisp page transitions */
 document.addEventListener('click', e => {
-  const a = e.target.closest('a[href$=".html"],a[href*=".html?"]');
-  if (!a || a.target || e.metaKey || e.ctrlKey) return;
+  const a = e.target.closest('a[href$=".html"], a[href*=".html?"]');
+  if (!a || a.target || e.metaKey || e.ctrlKey || a.getAttribute('target') === '_blank') return;
+  const href = a.getAttribute('href');
+  if (!href || href.startsWith('#') || href.startsWith('mailto:') || href.startsWith('tel:') || href.startsWith('javascript:')) return;
   e.preventDefault();
   B.classList.add('out');
-  setTimeout(() => location.href = a.href, 520);
+  setTimeout(() => location.href = a.href, 220);
 });
 addEventListener('pageshow', e => {
   if (e.persisted) B.classList.remove('out');

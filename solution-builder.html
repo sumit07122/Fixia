@@ -1,0 +1,1099 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Build Your Solution – FIXIA · Your Business. Smarter with Software.</title>
+<meta name="description" content="Custom unified software architecture blueprint synthesized for your business operations.">
+<link rel="icon" type="image/svg+xml" href="logo/fixia-favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css?v=20261025d">
+<link rel="stylesheet" href="polish.css?v=20261025d">
+<style>
+:root {
+  --cobalt-glow: rgba(14, 165, 233, 0.22);
+}
+
+.builder-top {
+  padding: clamp(3rem, 6vw, 5rem) 0 3rem;
+  background: radial-gradient(circle at 50% 0%, rgba(14, 165, 233, 0.08) 0%, transparent 60%);
+  border-bottom: 1px solid var(--line);
+}
+
+.builder-meta-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.builder-source-pill {
+  font: 700 0.78rem var(--mono);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.35rem 0.85rem;
+  border-radius: 999px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+.builder-source-pill.ai {
+  background: rgba(14, 165, 233, 0.12);
+  color: var(--cobalt);
+  border: 1px solid rgba(14, 165, 233, 0.28);
+}
+.builder-source-pill.curated {
+  background: rgba(16, 185, 129, 0.12);
+  color: #059669;
+  border: 1px solid rgba(16, 185, 129, 0.28);
+}
+.builder-source-pill .dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.blueprint-title {
+  font-size: clamp(2.2rem, 4.8vw, 3.8rem);
+  line-height: 1.08;
+  letter-spacing: -0.035em;
+  margin-bottom: 0.75rem;
+  font-weight: 800;
+}
+.blueprint-title em {
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 400;
+  color: var(--cobalt);
+}
+
+.blueprint-tagline {
+  font-size: clamp(1.05rem, 1.8vw, 1.25rem);
+  color: var(--mute);
+  max-width: 48rem;
+  line-height: 1.55;
+  margin-bottom: 2rem;
+}
+
+/* Active Modules Strip */
+.active-modules-bar {
+  background: #fff;
+  border: 1.5px solid var(--line);
+  border-radius: 18px;
+  padding: 1.15rem 1.4rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 2.5rem;
+  box-shadow: 0 4px 20px -5px rgba(0,0,0,0.04);
+}
+.modules-tags-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: center;
+}
+.mod-chip {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  padding: 0.4rem 0.85rem;
+  border-radius: 999px;
+  font: 600 0.82rem var(--mono);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--ink);
+  transition: all 0.2s;
+}
+.mod-chip:hover { border-color: var(--ink); }
+.mod-chip-remove {
+  background: transparent;
+  border: 0;
+  color: var(--mute);
+  cursor: pointer;
+  padding: 0;
+  font-size: 0.95rem;
+  display: grid;
+  place-items: center;
+}
+.mod-chip-remove:hover { color: #DC2626; }
+
+/* Visual Architecture Canvas */
+.arch-canvas-card {
+  background: #fff;
+  border: 1.5px solid var(--line);
+  border-radius: 24px;
+  padding: clamp(1.5rem, 3vw, 2.5rem);
+  margin-bottom: 3.5rem;
+  box-shadow: 0 10px 30px -10px rgba(0,0,0,0.05);
+}
+.arch-sec-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+.arch-grid-diagram {
+  display: grid;
+  grid-template-columns: 240px 1fr 280px;
+  gap: 1.5rem;
+  align-items: stretch;
+}
+@media (max-width: 980px) {
+  .arch-grid-diagram {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+}
+
+.arch-col {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+.arch-col-title {
+  font: 700 0.8rem var(--mono);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--mute);
+  margin-bottom: 0.25rem;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.arch-node-card {
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 0.85rem 1rem;
+  font-size: 0.92rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+  position: relative;
+}
+.arch-node-card b {
+  display: block;
+  font-size: 0.94rem;
+  margin-bottom: 0.25rem;
+  color: var(--ink);
+}
+.arch-node-card span {
+  font-size: 0.82rem;
+  color: var(--mute);
+  line-height: 1.4;
+  display: block;
+}
+
+.arch-core-hub {
+  background: var(--ink);
+  color: #fff;
+  border-radius: 20px;
+  padding: 1.6rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.arch-core-hub::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 50%, rgba(14, 165, 233, 0.25), transparent 70%);
+  pointer-events: none;
+}
+
+/* Sections */
+.blueprint-section {
+  margin-bottom: 4rem;
+}
+.sec-badge-label {
+  font: 700 0.8rem var(--mono);
+  color: var(--cobalt);
+  text-transform: uppercase;
+  letter-spacing: 0.09em;
+  margin-bottom: 0.4rem;
+  display: block;
+}
+.sec-headline {
+  font-size: clamp(1.6rem, 2.8vw, 2.2rem);
+  letter-spacing: -0.025em;
+  font-weight: 800;
+  margin-bottom: 1rem;
+}
+
+/* Module Cards Grid */
+.modules-spec-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 1.5rem;
+}
+.module-spec-card {
+  background: #fff;
+  border: 1.5px solid var(--line);
+  border-radius: 20px;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 0 4px 16px -4px rgba(0,0,0,0.04);
+  transition: transform 0.25s, box-shadow 0.25s;
+}
+.module-spec-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 16px 36px -10px rgba(0,0,0,0.08);
+}
+
+.spec-pill-type {
+  font: 700 0.72rem var(--mono);
+  background: rgba(14, 165, 233, 0.1);
+  color: var(--cobalt);
+  padding: 0.25rem 0.65rem;
+  border-radius: 6px;
+  align-self: flex-start;
+  margin-bottom: 0.75rem;
+}
+
+.spec-data-sync-box {
+  background: var(--paper);
+  border: 1px dashed var(--line);
+  border-radius: 12px;
+  padding: 0.85rem 1rem;
+  margin-top: 1rem;
+  font-size: 0.84rem;
+  line-height: 1.5;
+  color: #374151;
+}
+
+/* User Roles Table/Grid */
+.roles-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1.25rem;
+}
+.role-card {
+  background: #fff;
+  border: 1.5px solid var(--line);
+  border-radius: 18px;
+  padding: 1.35rem;
+}
+.role-badge {
+  font: 700 0.8rem var(--mono);
+  background: var(--ink);
+  color: #fff;
+  padding: 0.3rem 0.75rem;
+  border-radius: 999px;
+  display: inline-block;
+  margin-bottom: 0.75rem;
+}
+
+/* Workflow Step Progression */
+.workflow-progression {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.wf-step-row {
+  background: #fff;
+  border: 1.5px solid var(--line);
+  border-radius: 16px;
+  padding: 1.2rem 1.5rem;
+  display: grid;
+  grid-template-columns: 60px 180px 1fr 1fr;
+  align-items: center;
+  gap: 1.25rem;
+  transition: all 0.2s;
+}
+.wf-step-row:hover {
+  border-color: var(--cobalt);
+  box-shadow: 0 4px 16px -4px var(--cobalt-glow);
+}
+@media (max-width: 820px) {
+  .wf-step-row {
+    grid-template-columns: 1fr;
+    gap: 0.65rem;
+  }
+}
+.wf-step-num {
+  font: 800 1.25rem var(--mono);
+  color: var(--cobalt);
+  background: rgba(14, 165, 233, 0.1);
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+}
+
+/* Dashboard Preview Grid */
+.dash-preview-box {
+  background: #0D1117;
+  color: #fff;
+  border-radius: 24px;
+  padding: clamp(1.5rem, 3.5vw, 2.5rem);
+  box-shadow: 0 20px 50px -15px rgba(0,0,0,0.5);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+.kpi-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.25rem;
+  margin-bottom: 2rem;
+}
+.kpi-card {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  padding: 1.25rem;
+}
+.kpi-val {
+  font: 800 1.8rem var(--mono);
+  color: var(--mint);
+  margin-bottom: 0.2rem;
+}
+
+/* Modal for Adding Modules */
+.add-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(16, 16, 16, 0.65);
+  backdrop-filter: blur(8px);
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s, visibility 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+}
+.add-modal-backdrop.open {
+  opacity: 1;
+  visibility: visible;
+}
+.add-modal-card {
+  background: #fff;
+  border-radius: 24px;
+  max-width: 640px;
+  width: 100%;
+  max-height: 85vh;
+  overflow-y: auto;
+  padding: 2rem;
+  box-shadow: 0 30px 60px rgba(0,0,0,0.3);
+  position: relative;
+}
+
+/* Loading State */
+.loading-stage {
+  padding: 6rem 1rem;
+  text-align: center;
+  max-width: 34rem;
+  margin: 0 auto;
+}
+.loading-spinner {
+  width: 52px;
+  height: 52px;
+  border: 3.5px solid var(--line);
+  border-top-color: var(--cobalt);
+  border-radius: 50%;
+  animation: spin 0.85s linear infinite;
+  margin: 0 auto 1.5rem;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+</style>
+<script>try{if(!sessionStorage.fx){document.documentElement.classList.add("intro-on");sessionStorage.fx=1}}catch(e){}</script>
+</head>
+<body data-page="ideas">
+<main>
+
+<section class="builder-top">
+  <div class="wrap">
+    
+    <!-- Loading State -->
+    <div class="loading-stage" id="loadingStage" style="display:none">
+      <div class="loading-spinner"></div>
+      <h2 style="font-size:1.6rem;margin-bottom:0.4rem">Synthesizing unified system architecture...</h2>
+      <p style="color:var(--mute);font-size:0.96rem" id="loadingSub">Interconnecting selected modules, role permissions, and live data pipelines.</p>
+    </div>
+
+    <!-- Empty State -->
+    <div class="loading-stage" id="emptyStage" style="display:none">
+      <div style="font-size:2.5rem;margin-bottom:0.5rem">🧩</div>
+      <h2 style="font-size:1.6rem;margin-bottom:0.4rem">No modules selected yet</h2>
+      <p style="color:var(--mute);font-size:0.96rem;margin-bottom:1.5rem">Please select at least one software blueprint from your personalized ideas to generate a complete solution system.</p>
+      <a class="btn hi" id="emptyBackBtn" href="ideas.html">← Explore & Select Ideas</a>
+    </div>
+
+    <!-- Main Blueprint Canvas Container -->
+    <div id="solutionContainer" style="display:none">
+      
+      <!-- Top Meta -->
+      <div class="builder-meta-bar">
+        <div style="display:flex;align-items:center;gap:0.75rem;flex-wrap:wrap">
+          <span class="builder-source-pill curated" id="sourcePill">
+            <span class="dot"></span> <span id="sourceLabel">Unified Solution Blueprint</span>
+          </span>
+          <span style="font:600 0.84rem var(--mono);color:var(--mute)" id="bizBadge">Business</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:0.6rem">
+          <button type="button" class="btn sm ghost" id="shareBtn">
+            🔗 Share Blueprint
+          </button>
+          <a class="btn sm" id="editInResultsBtn" href="results.html">
+            ← Modify In Discovery
+          </a>
+        </div>
+      </div>
+
+      <!-- Main Headline -->
+      <h1 class="blueprint-title" id="bpTitle">
+        Unified <em>Operations OS</em>
+      </h1>
+      <p class="blueprint-tagline" id="bpTagline">
+        An integrated software system connecting your selected business tools into one synchronized platform.
+      </p>
+
+      <!-- Active Selected Modules Strip -->
+      <div class="active-modules-bar">
+        <div>
+          <b style="font-size:0.92rem;display:block;margin-bottom:0.35rem">Active Connected Modules (<span id="modCount">0</span>)</b>
+          <div class="modules-tags-list" id="modChipsList"></div>
+        </div>
+        <button type="button" class="btn sm" id="openAddModuleBtn" style="white-space:nowrap">
+          + Add Module
+        </button>
+      </div>
+
+      <!-- 1. VISUAL ARCHITECTURE CANVAS -->
+      <div class="arch-canvas-card">
+        <div class="arch-sec-head">
+          <div>
+            <span class="sec-badge-label">System Topology</span>
+            <h3 style="font-size:1.35rem;margin:0">Visual Solution Architecture</h3>
+          </div>
+          <span style="font:600 0.8rem var(--mono);color:var(--cobalt)">Synced Real-Time Event Bus</span>
+        </div>
+
+        <div class="arch-grid-diagram">
+          
+          <!-- Column 1: User Roles -->
+          <div class="arch-col">
+            <div class="arch-col-title">
+              <svg class="ico" width="14" height="14" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+              1. User Roles & Access
+            </div>
+            <div id="archRolesList" style="display:flex;flex-direction:column;gap:0.65rem"></div>
+          </div>
+
+          <!-- Column 2: Central Modules Core -->
+          <div class="arch-core-hub">
+            <div style="font:700 0.76rem var(--mono);letter-spacing:0.1em;text-transform:uppercase;color:var(--cobalt);margin-bottom:0.4rem">Central Synchronized Engine</div>
+            <h3 style="font-size:1.6rem;color:#fff;margin-bottom:0.5rem" id="archHubTitle">Core Operations Hub</h3>
+            <p style="font-size:0.88rem;color:#D4CEC0;max-width:24rem;margin:0 auto 1.5rem;line-height:1.5">
+              Orchestrates live bi-directional data flow between all active operational modules with zero manual double-entry.
+            </p>
+            <div id="archModulesChips" style="display:flex;flex-wrap:wrap;gap:0.45rem;justify-content:center"></div>
+          </div>
+
+          <!-- Column 3: Management Output -->
+          <div class="arch-col">
+            <div class="arch-col-title">
+              <svg class="ico" width="14" height="14" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
+              2. Management Dashboard
+            </div>
+            <div class="arch-node-card">
+              <b>Owner Analytics View</b>
+              <span>Real-time revenue, order velocities, and shrinkage audit trail.</span>
+            </div>
+            <div class="arch-node-card">
+              <b>Live Activity Stream</b>
+              <span>Instant alerts for stock bottlenecks and customer actions.</span>
+            </div>
+            <div class="arch-node-card">
+              <b>Cloud Data Vault</b>
+              <span>Daily encrypted database backups with 100% data ownership.</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- 2. SOLUTION OVERVIEW -->
+      <div class="blueprint-section">
+        <span class="sec-badge-label">Architecture Rationale</span>
+        <h2 class="sec-headline">Solution Overview & Benefits</h2>
+        
+        <div style="display:grid;grid-template-columns:1.2fr 1fr;gap:2rem;margin-bottom:2rem" id="overviewGrid">
+          <div style="background:#fff;border:1.5px solid var(--line);border-radius:20px;padding:1.8rem">
+            <h3 style="font-size:1.2rem;margin-bottom:0.75rem">What The System Does</h3>
+            <p style="font-size:1rem;color:var(--mute);line-height:1.6;margin-bottom:1.5rem" id="bpWhatItDoes"></p>
+            <h4 style="font-size:1rem;margin-bottom:0.5rem">Why These Modules Synergize</h4>
+            <p style="font-size:0.95rem;color:var(--mute);line-height:1.6" id="bpWhyTogether"></p>
+          </div>
+
+          <div style="background:var(--paper);border:1.5px solid var(--line);border-radius:20px;padding:1.8rem">
+            <h3 style="font-size:1.2rem;margin-bottom:1rem">Core Business Advantages</h3>
+            <ul class="drawer-feat-list" id="bpMainBenefits"></ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3. SYSTEM MODULES DEEP DIVE -->
+      <div class="blueprint-section">
+        <span class="sec-badge-label">Module Specifications</span>
+        <h2 class="sec-headline">Connected System Modules</h2>
+        <div class="modules-spec-grid" id="modulesSpecGrid"></div>
+      </div>
+
+      <!-- 4. USER ROLES & PERMISSIONS -->
+      <div class="blueprint-section">
+        <span class="sec-badge-label">Role-Based Access Control</span>
+        <h2 class="sec-headline">Operational User Roles</h2>
+        <div class="roles-grid" id="rolesGrid"></div>
+      </div>
+
+      <!-- 5. END-TO-END WORKFLOW -->
+      <div class="blueprint-section">
+        <span class="sec-badge-label">Operational Lifecycle</span>
+        <h2 class="sec-headline">Complete End-to-End Workflow</h2>
+        <p style="color:var(--mute);font-size:0.96rem;margin-bottom:1.5rem">
+          How information and tasks travel seamlessly through your business from the moment an action occurs.
+        </p>
+        <div class="workflow-progression" id="workflowProgression"></div>
+      </div>
+
+      <!-- 6. SUGGESTED DASHBOARD -->
+      <div class="blueprint-section">
+        <span class="sec-badge-label">Executive View</span>
+        <h2 class="sec-headline">Management Command Center</h2>
+        
+        <div class="dash-preview-box">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1.5rem;flex-wrap:wrap;gap:1rem">
+            <div>
+              <span style="font:700 0.78rem var(--mono);color:var(--mint);text-transform:uppercase;letter-spacing:0.08em">Live Executive Feed</span>
+              <h3 style="font-size:1.45rem;color:#fff;margin:0.2rem 0 0">Operations Telemetry</h3>
+            </div>
+            <span style="font:600 0.8rem var(--mono);background:rgba(255,255,255,0.1);padding:0.35rem 0.75rem;border-radius:999px">Synced in real time</span>
+          </div>
+
+          <!-- KPI Cards -->
+          <div class="kpi-row" id="kpiRow"></div>
+
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem" id="dashColumns">
+            <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:18px;padding:1.4rem">
+              <b style="display:block;font-size:0.95rem;color:#fff;margin-bottom:0.75rem">⚡ Active Priority Tasks</b>
+              <ul style="padding-left:1.2rem;margin:0;font-size:0.9rem;color:#D4CEC0;line-height:1.6" id="dashTasks"></ul>
+            </div>
+            <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:18px;padding:1.4rem">
+              <b style="display:block;font-size:0.95rem;color:#fff;margin-bottom:0.75rem">🚨 System Health & Alerts</b>
+              <ul style="padding-left:1.2rem;margin:0;font-size:0.9rem;color:#D4CEC0;line-height:1.6" id="dashAlerts"></ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 7. FUTURE EXPANSIONS -->
+      <div class="blueprint-section" id="futureSec">
+        <span class="sec-badge-label">Growth Roadmap</span>
+        <h2 class="sec-headline">Recommended Phase 2 Upgrades</h2>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(280px, 1fr));gap:1.25rem" id="futureGrid"></div>
+      </div>
+
+      <!-- 8. CONVERSION CTA -->
+      <div style="background:var(--paper);border:2px solid var(--ink);border-radius:28px;padding:clamp(2rem, 5vw, 3.5rem);text-align:center;margin-top:4rem">
+        <span style="font:700 0.82rem var(--mono);color:var(--cobalt);text-transform:uppercase;letter-spacing:0.08em;display:block;margin-bottom:0.5rem">Engineered By FIXIA</span>
+        <h2 style="font-size:clamp(2rem, 3.8vw, 3rem);letter-spacing:-0.03em;margin-bottom:0.75rem">
+          Have a solution in mind? <em>Let's build it.</em>
+        </h2>
+        <p style="color:var(--mute);font-size:1.05rem;max-width:36rem;margin:0 auto 2rem;line-height:1.6">
+          We turn this architecture blueprint into production-ready software built specifically for your team. Zero per-user SaaS license fees, 100% intellectual property ownership.
+        </p>
+        <div style="display:flex;justify-content:center;gap:1rem;flex-wrap:wrap">
+          <a class="btn hi" id="discussSolutionBtn" href="contact.html">
+            Discuss This Solution →
+          </a>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<!-- ADD MODULE MODAL PICKER -->
+<div class="add-modal-backdrop" id="addModal" role="dialog" aria-modal="true" aria-hidden="true">
+  <div class="add-modal-card">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1.5rem">
+      <div>
+        <h3 style="font-size:1.35rem;margin:0 0 0.25rem">Add Another Module</h3>
+        <p style="font-size:0.86rem;color:var(--mute);margin:0">Expand your system blueprint with complementary software capabilities.</p>
+      </div>
+      <button type="button" class="btn sm ghost" id="closeAddModalBtn" style="padding:0.4rem 0.75rem">✕</button>
+    </div>
+
+    <input type="text" id="moduleSearchInput" placeholder="Search modules (e.g. loyalty, inventory, billing)..." style="width:100%;padding:0.75rem 1rem;border-radius:12px;border:1.5px solid var(--line);margin-bottom:1.25rem;font:inherit">
+
+    <div id="addModulesList" style="display:flex;flex-direction:column;gap:0.75rem;max-height:50vh;overflow-y:auto;padding-right:0.25rem"></div>
+  </div>
+</div>
+
+</main>
+
+<script src="ideas-data.js"></script>
+<script src="app.js?v=20261025d"></script>
+<script>
+/* ==========================================================
+   SOLUTION BUILDER ARCHITECTURE CONTROLLER
+   ========================================================== */
+(function() {
+  const loadingStage = document.getElementById('loadingStage');
+  const emptyStage = document.getElementById('emptyStage');
+  const solutionContainer = document.getElementById('solutionContainer');
+  const bpTitle = document.getElementById('bpTitle');
+  const bpTagline = document.getElementById('bpTagline');
+  const bizBadge = document.getElementById('bizBadge');
+  const sourcePill = document.getElementById('sourcePill');
+  const sourceLabel = document.getElementById('sourceLabel');
+  const modChipsList = document.getElementById('modChipsList');
+  const modCount = document.getElementById('modCount');
+  const editInResultsBtn = document.getElementById('editInResultsBtn');
+  const shareBtn = document.getElementById('shareBtn');
+  const discussSolutionBtn = document.getElementById('discussSolutionBtn');
+
+  // Add Module Modal
+  const addModal = document.getElementById('addModal');
+  const openAddModuleBtn = document.getElementById('openAddModuleBtn');
+  const closeAddModalBtn = document.getElementById('closeAddModalBtn');
+  const moduleSearchInput = document.getElementById('moduleSearchInput');
+  const addModulesList = document.getElementById('addModulesList');
+
+  let currentSolution = null;
+  let activeBiz = '';
+  let activeDesc = '';
+  let activeIdeaIds = [];
+
+  function parseQueryParams() {
+    const p = new URLSearchParams(location.search);
+    activeBiz = (p.get('biz') || p.get('business') || '').trim();
+    activeDesc = (p.get('desc') || p.get('description') || '').trim();
+    const rawIdeas = (p.get('ideas') || '').trim();
+    activeIdeaIds = rawIdeas ? rawIdeas.split(',').map(x => x.trim()).filter(Boolean) : [];
+  }
+
+  async function fetchSolution() {
+    if (activeIdeaIds.length === 0) {
+      loadingStage.style.display = 'none';
+      emptyStage.style.display = 'block';
+      solutionContainer.style.display = 'none';
+      if (activeBiz) {
+        document.getElementById('emptyBackBtn').href = `results.html?biz=${encodeURIComponent(activeBiz)}${activeDesc ? '&desc=' + encodeURIComponent(activeDesc) : ''}`;
+      }
+      return;
+    }
+
+    loadingStage.style.display = 'block';
+    emptyStage.style.display = 'none';
+    solutionContainer.style.display = 'none';
+
+    try {
+      const q = `biz=${encodeURIComponent(activeBiz)}&desc=${encodeURIComponent(activeDesc)}&ideas=${encodeURIComponent(activeIdeaIds.join(','))}`;
+      const res = await fetch(`/api/generate-solution?${q}`, {
+        headers: { 'Accept': 'application/json' }
+      });
+      if (!res.ok) throw new Error('API failed');
+      const data = await res.json();
+      currentSolution = data;
+      renderSolution(data);
+    } catch (err) {
+      console.warn('API error, rendering local fallback synthesis:', err);
+      renderLocalSynthesis();
+    }
+  }
+
+  function renderSolution(data) {
+    loadingStage.style.display = 'none';
+    emptyStage.style.display = 'none';
+    solutionContainer.style.display = 'block';
+
+    const solName = data.solutionName || `${activeBiz || 'Business'} Unified Operations OS`;
+    bpTitle.innerHTML = `${escapeHtml(solName)}`;
+    bpTagline.textContent = data.overview ? data.overview.tagline : 'An integrated operational software system connecting your selected business tools.';
+    bizBadge.textContent = activeBiz ? `Built for: ${activeBiz}` : 'Custom Architecture';
+
+    if (data.source === 'ai') {
+      sourcePill.className = 'builder-source-pill ai';
+      sourceLabel.textContent = '✨ Personalized AI Architecture';
+    } else {
+      sourcePill.className = 'builder-source-pill curated';
+      sourceLabel.textContent = '📚 Curated Engineering Blueprint';
+    }
+
+    // Edit link back to results
+    editInResultsBtn.href = `results.html?biz=${encodeURIComponent(activeBiz)}${activeDesc ? '&desc=' + encodeURIComponent(activeDesc) : ''}`;
+
+    // Active Modules Chips
+    renderActiveModuleChips(data.modules || []);
+
+    // 1. Visual Topology
+    renderVisualTopology(data);
+
+    // 2. Overview & Benefits
+    if (data.overview) {
+      document.getElementById('bpWhatItDoes').textContent = data.overview.whatItDoes || '';
+      document.getElementById('bpWhyTogether').textContent = data.overview.whyModulesWorkTogether || '';
+      const benefitsEl = document.getElementById('bpMainBenefits');
+      benefitsEl.innerHTML = (data.overview.mainBenefits || []).map(b => `
+        <li style="display:flex;gap:0.6rem;margin-bottom:0.75rem;font-size:0.95rem;line-height:1.5">
+          <span style="color:var(--mint);font-size:1.1rem;flex:none">✓</span>
+          <span>${escapeHtml(b)}</span>
+        </li>
+      `).join('');
+    }
+
+    // 3. Modules Spec Grid
+    renderModulesSpec(data.modules || []);
+
+    // 4. User Roles
+    renderUserRoles(data.userRoles || []);
+
+    // 5. Workflow Progression
+    renderWorkflow(data.workflowSteps || []);
+
+    // 6. Management Dashboard
+    renderDashboard(data.dashboard || {});
+
+    // 7. Future Upgrades
+    renderFutureExpansions(data.futureExpansions || []);
+
+    // 8. Conversion Button Link
+    const moduleTitles = (data.modules || []).map(m => m.title).join(', ');
+    const summaryText = `We want to build the "${solName}" system for our ${activeBiz || 'business'}. Modules selected: ${moduleTitles}.`;
+    discussSolutionBtn.href = `contact.html?biz=${encodeURIComponent(activeBiz)}&solutionName=${encodeURIComponent(solName)}&solutionSummary=${encodeURIComponent(summaryText)}&p=${encodeURIComponent(summaryText)}`;
+  }
+
+  function renderActiveModuleChips(modules) {
+    modCount.textContent = modules.length;
+    modChipsList.innerHTML = modules.map(m => `
+      <span class="mod-chip">
+        <span>${escapeHtml(m.title)}</span>
+        <button type="button" class="mod-chip-remove" data-remove-id="${escapeHtml(m.id)}" title="Remove module">✕</button>
+      </span>
+    `).join('');
+
+    modChipsList.querySelectorAll('.mod-chip-remove').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const rmId = btn.getAttribute('data-remove-id');
+        activeIdeaIds = activeIdeaIds.filter(id => id !== rmId);
+        updateUrlAndRefetch();
+      });
+    });
+  }
+
+  function renderVisualTopology(data) {
+    document.getElementById('archHubTitle').textContent = `${activeBiz || 'Business'} Event Bus`;
+
+    // Roles Column
+    const rolesList = document.getElementById('archRolesList');
+    const roles = data.userRoles || [
+      { role: 'Business Owner', access: 'Full Command Center' },
+      { role: 'Operational Staff', access: 'Floor Terminal & Queues' }
+    ];
+    rolesList.innerHTML = roles.map(r => `
+      <div class="arch-node-card">
+        <b>${escapeHtml(r.role)}</b>
+        <span>${escapeHtml(r.access || r.canDo || 'Active workflow access')}</span>
+      </div>
+    `).join('');
+
+    // Modules in Core Hub
+    const chipsHub = document.getElementById('archModulesChips');
+    const mods = data.modules || [];
+    chipsHub.innerHTML = mods.map(m => `
+      <span style="font:600 0.8rem var(--mono);background:rgba(255,255,255,0.14);border:1px solid rgba(255,255,255,0.25);padding:0.35rem 0.75rem;border-radius:999px;color:#fff">
+        ${escapeHtml(m.title)}
+      </span>
+    `).join('');
+  }
+
+  function renderModulesSpec(modules) {
+    const grid = document.getElementById('modulesSpecGrid');
+    grid.innerHTML = modules.map(m => `
+      <div class="module-spec-card">
+        <div>
+          <span class="spec-pill-type">${escapeHtml(m.softwareType || 'Custom Module')}</span>
+          <h3 style="font-size:1.25rem;line-height:1.2;margin-bottom:0.5rem">${escapeHtml(m.title)}</h3>
+          <p style="font-size:0.92rem;color:var(--mute);line-height:1.5;margin-bottom:1rem">${escapeHtml(m.purpose || '')}</p>
+
+          <b style="font:700 0.78rem var(--mono);color:var(--ink);text-transform:uppercase;letter-spacing:0.06em;display:block;margin-bottom:0.5rem">Key Capabilities</b>
+          <ul style="padding-left:1.15rem;margin:0 0 1rem;font-size:0.88rem;color:#4B5563;line-height:1.55">
+            ${(m.features || []).map(f => `<li>${escapeHtml(f)}</li>`).join('')}
+          </ul>
+        </div>
+
+        <div>
+          ${m.connectsTo ? `
+            <div class="spec-data-sync-box">
+              <b style="color:var(--cobalt);display:block;margin-bottom:0.25rem">🔗 Data Interconnection:</b>
+              ${escapeHtml(m.connectsTo)}
+            </div>
+          ` : ''}
+        </div>
+      </div>
+    `).join('');
+  }
+
+  function renderUserRoles(roles) {
+    const grid = document.getElementById('rolesGrid');
+    grid.innerHTML = roles.map(r => `
+      <div class="role-card">
+        <span class="role-badge">${escapeHtml(r.role)}</span>
+        <b style="display:block;font-size:0.88rem;color:var(--mute);margin-bottom:0.35rem">Access Permissions:</b>
+        <p style="font-size:0.92rem;line-height:1.5;margin-bottom:0.75rem">${escapeHtml(r.access || '')}</p>
+        <b style="display:block;font-size:0.88rem;color:var(--mute);margin-bottom:0.35rem">Daily Responsibilities:</b>
+        <p style="font-size:0.9rem;line-height:1.5;color:#4B5563;margin:0">${escapeHtml(r.canDo || '')}</p>
+      </div>
+    `).join('');
+  }
+
+  function renderWorkflow(steps) {
+    const container = document.getElementById('workflowProgression');
+    container.innerHTML = steps.map((s, idx) => `
+      <div class="wf-step-row">
+        <div class="wf-step-num">${s.step || (idx + 1)}</div>
+        <div>
+          <span style="font:700 0.76rem var(--mono);color:var(--mute);text-transform:uppercase;display:block">Trigger / Actor</span>
+          <b style="font-size:0.98rem;color:var(--ink)">${escapeHtml(s.actor || 'User')}</b>
+        </div>
+        <div>
+          <span style="font:700 0.76rem var(--mono);color:var(--mute);text-transform:uppercase;display:block">Action</span>
+          <span style="font-size:0.92rem;line-height:1.5;color:#374151">${escapeHtml(s.action || '')}</span>
+        </div>
+        <div style="background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:0.75rem 0.95rem">
+          <span style="font:700 0.76rem var(--mono);color:var(--mint);text-transform:uppercase;display:block">Automated System Response</span>
+          <span style="font-size:0.88rem;line-height:1.5;color:var(--ink)">${escapeHtml(s.systemResponse || '')}</span>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  function renderDashboard(dash) {
+    const kpiRow = document.getElementById('kpiRow');
+    const kpis = dash.overviewKpis || [
+      { label: 'Active Daily Volume', value: '100% Live', note: 'Real-time telemetry' },
+      { label: 'Sync Latency', value: '< 250ms', note: 'Edge distributed' },
+      { label: 'Operational Paperless', value: 'Zero Waste', note: 'Full digital audit' }
+    ];
+    kpiRow.innerHTML = kpis.map(k => `
+      <div class="kpi-card">
+        <span style="font:600 0.8rem var(--mono);color:#9CA3AF;display:block;margin-bottom:0.4rem">${escapeHtml(k.label)}</span>
+        <div class="kpi-val">${escapeHtml(k.value)}</div>
+        <span style="font-size:0.8rem;color:#9CA3AF">${escapeHtml(k.note || '')}</span>
+      </div>
+    `).join('');
+
+    const tasksEl = document.getElementById('dashTasks');
+    tasksEl.innerHTML = (dash.pendingTasks || [
+      'Verify incoming stock receipt from morning delivery',
+      'Review end-of-day cash and digital reconciliation register',
+      'Follow up on 2 flagged customer VIP tickets'
+    ]).map(t => `<li style="margin-bottom:0.6rem">${escapeHtml(t)}</li>`).join('');
+
+    const alertsEl = document.getElementById('dashAlerts');
+    alertsEl.innerHTML = (dash.liveAlerts || [
+      'Inventory threshold alert for high-velocity SKUs',
+      'WhatsApp delivery gateway health is 100% nominal',
+      'Daily encrypted offsite database snapshot verified'
+    ]).map(a => `<li style="margin-bottom:0.6rem">${escapeHtml(a)}</li>`).join('');
+  }
+
+  function renderFutureExpansions(upgrades) {
+    const grid = document.getElementById('futureGrid');
+    if (!upgrades || upgrades.length === 0) {
+      document.getElementById('futureSec').style.display = 'none';
+      return;
+    }
+    document.getElementById('futureSec').style.display = 'block';
+    grid.innerHTML = upgrades.map(u => `
+      <div style="background:#fff;border:1.5px solid var(--line);border-radius:18px;padding:1.4rem">
+        <span style="font:700 0.72rem var(--mono);background:var(--paper);border:1px solid var(--line);padding:0.25rem 0.65rem;border-radius:999px;display:inline-block;margin-bottom:0.75rem;color:var(--cobalt)">
+          Optional Phase 2 Upgrade
+        </span>
+        <h4 style="font-size:1.15rem;margin-bottom:0.45rem">${escapeHtml(u.title)}</h4>
+        <p style="font-size:0.9rem;color:var(--mute);line-height:1.5;margin:0">${escapeHtml(u.rationale || u.whyAddLater || u.purpose || '')}</p>
+      </div>
+    `).join('');
+  }
+
+  function updateUrlAndRefetch() {
+    const newUrl = `solution-builder.html?biz=${encodeURIComponent(activeBiz)}${activeDesc ? '&desc=' + encodeURIComponent(activeDesc) : ''}&ideas=${encodeURIComponent(activeIdeaIds.join(','))}`;
+    history.pushState(null, '', newUrl);
+    fetchSolution();
+  }
+
+  // Add Module Modal logic
+  openAddModuleBtn.addEventListener('click', () => {
+    populateAddModulesList();
+    addModal.classList.add('open');
+    addModal.setAttribute('aria-hidden', 'false');
+    moduleSearchInput.value = '';
+    moduleSearchInput.focus();
+  });
+
+  closeAddModalBtn.addEventListener('click', () => {
+    addModal.classList.remove('open');
+    addModal.setAttribute('aria-hidden', 'true');
+  });
+
+  addModal.addEventListener('click', e => {
+    if (e.target === addModal) {
+      addModal.classList.remove('open');
+      addModal.setAttribute('aria-hidden', 'true');
+    }
+  });
+
+  function populateAddModulesList(filterText = '') {
+    if (typeof FIXIA_IDEAS_DATABASE === 'undefined') {
+      addModulesList.innerHTML = '<p style="color:var(--mute)">No catalog available.</p>';
+      return;
+    }
+
+    const search = filterText.toLowerCase().trim();
+    const available = [];
+
+    FIXIA_IDEAS_DATABASE.forEach(ind => {
+      ind.ideas.forEach(idea => {
+        if (!activeIdeaIds.includes(idea.id)) {
+          if (!search || idea.title.toLowerCase().includes(search) || ind.name.toLowerCase().includes(search) || idea.oneLiner.toLowerCase().includes(search)) {
+            available.push({ ...idea, industryName: ind.name });
+          }
+        }
+      });
+    });
+
+    if (available.length === 0) {
+      addModulesList.innerHTML = '<p style="color:var(--mute);padding:1rem;text-align:center">No additional matching modules found.</p>';
+      return;
+    }
+
+    addModulesList.innerHTML = available.slice(0, 30).map(item => `
+      <div style="background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:0.9rem 1.1rem;display:flex;justify-content:space-between;align-items:center;gap:0.75rem">
+        <div>
+          <span style="font:700 0.72rem var(--mono);color:var(--cobalt);text-transform:uppercase">${escapeHtml(item.industryName)}</span>
+          <b style="display:block;font-size:0.96rem;color:var(--ink);margin:0.15rem 0">${escapeHtml(item.title)}</b>
+          <span style="font-size:0.84rem;color:var(--mute);line-height:1.4;display:block">${escapeHtml(item.oneLiner)}</span>
+        </div>
+        <button type="button" class="btn sm add-mod-btn" data-add-id="${escapeHtml(item.id)}" style="flex:none;white-space:nowrap">
+          + Add
+        </button>
+      </div>
+    `).join('');
+
+    addModulesList.querySelectorAll('.add-mod-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const addId = btn.getAttribute('data-add-id');
+        if (!activeIdeaIds.includes(addId)) {
+          activeIdeaIds.push(addId);
+          addModal.classList.remove('open');
+          addModal.setAttribute('aria-hidden', 'true');
+          updateUrlAndRefetch();
+        }
+      });
+    });
+  }
+
+  moduleSearchInput.addEventListener('input', e => {
+    populateAddModulesList(e.target.value);
+  });
+
+  // Share blueprint link
+  shareBtn.addEventListener('click', () => {
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(window.location.href).then(() => {
+        const orig = shareBtn.textContent;
+        shareBtn.textContent = '✓ Link Copied!';
+        setTimeout(() => { shareBtn.textContent = orig; }, 2200);
+      });
+    }
+  });
+
+  // Emergency local synthesis fallback
+  function renderLocalSynthesis() {
+    renderSolution({
+      solutionName: `${activeBiz || 'Business'} Operational OS`,
+      source: 'curated',
+      overview: {
+        solutionName: `${activeBiz || 'Business'} Operational OS`,
+        tagline: `An interconnected operational platform connecting ${activeIdeaIds.length} core workflows into one synchronized system.`,
+        whatItDoes: `Unifies your selected software modules into a single shared database, replacing paperwork and scattered messaging with automated staff task queues and executive visibility.`,
+        mainBenefits: [
+          'Eliminates double-entry and handoff delays across team members',
+          'Automates daily reconciliation, inventory deductions, and customer notices',
+          'Recovers 12+ weekly hours previously spent on manual admin tasks',
+          'Zero recurring per-user SaaS license fees with 100% database ownership'
+        ],
+        whyModulesWorkTogether: 'Customer interactions automatically trigger fulfillment tasks, record accounting entries, and dispatch customer notifications.'
+      },
+      modules: activeIdeaIds.map(id => ({
+        id,
+        title: id.replace(/^[a-z]+-/, '').replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase()),
+        softwareType: 'Custom Module',
+        purpose: 'Engineered specifically for operational efficiency.',
+        features: ['Automated queue dispatch', 'Offline synchronization', 'Real-time telemetry'],
+        dataManaged: 'Active tickets, status logs, timestamps',
+        connectsTo: 'Syncs continuously with central operations hub.'
+      })),
+      userRoles: [
+        { role: 'Business Owner', access: 'Complete Executive Oversight', canDo: 'Monitor revenues, review audit logs, and adjust operational settings.' },
+        { role: 'Operations Staff', access: 'Floor Terminal & Action Queues', canDo: 'Process tickets, fulfill orders, and log completions.' }
+      ],
+      workflowSteps: [
+        { step: 1, actor: 'Customer or Client', action: 'Initiates a booking, order, or service request', systemResponse: 'Validates details and logs transaction to central database' },
+        { step: 2, actor: 'Operations Terminal', action: 'Staff views ticket in priority order', systemResponse: 'Updates status and notifies customer in real time' },
+        { step: 3, actor: 'Executive System', action: 'Owner views consolidated daily summary', systemResponse: 'Generates reconciliation and archives encrypted audit logs' }
+      ],
+      dashboard: {
+        overviewKpis: [
+          { label: 'Active Pipeline', value: '100% Live', note: 'Real-time status' },
+          { label: 'System Uptime', value: '99.99%', note: 'High availability' }
+        ],
+        pendingTasks: ['Verify morning deliveries', 'Confirm active queue tasks'],
+        liveAlerts: ['Database health nominal', 'Zero error rate across workflows']
+      },
+      futureExpansions: [
+        { title: 'Automated Predictive Reordering', rationale: 'Analyzes 60-day historical consumption to forecast exact purchase cycles.' }
+      ]
+    });
+  }
+
+  function escapeHtml(str = '') {
+    return String(str)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;');
+  }
+
+  // Initial load
+  parseQueryParams();
+  fetchSolution();
+
+})();
+</script>
+<script src="polish.js?v=20261025d"></script>
+</body>
+</html>

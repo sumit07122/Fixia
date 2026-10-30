@@ -1,0 +1,1137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Software Ideas for Your Business – FIXIA · Your Business. Smarter with Software.</title>
+<meta name="description" content="Discover personalized software, apps, and automation ideas tailored to how your business actually works.">
+<link rel="icon" type="image/svg+xml" href="logo/fixia-favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css?v=20261025d">
+<link rel="stylesheet" href="polish.css?v=20261025d">
+<style>
+/* ==========================================================
+   PERSONALIZED RESULTS EXPERIENCE STYLES
+   ========================================================== */
+.res-top {
+  padding: clamp(3rem, 6.5vw, 5.5rem) 0 2rem;
+  position: relative;
+}
+.res-header-card {
+  background: var(--ink);
+  color: #fff;
+  border-radius: 28px;
+  padding: clamp(2rem, 5vw, 3.6rem);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 35px 75px -25px rgba(16, 16, 16, 0.45);
+}
+.res-meta-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+.res-source-pill {
+  font: 700 0.76rem var(--mono);
+  padding: 0.35rem 0.85rem;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+.res-source-pill.ai {
+  background: rgba(255, 74, 28, 0.18);
+  color: var(--hi);
+  border: 1px solid rgba(255, 74, 28, 0.4);
+}
+.res-source-pill.curated {
+  background: rgba(62, 142, 102, 0.18);
+  color: #4ADE80;
+  border: 1px solid rgba(62, 142, 102, 0.4);
+}
+.res-back-link {
+  color: #A39D90;
+  font: 600 0.85rem var(--mono);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  transition: color 0.2s;
+}
+.res-back-link:hover { color: #fff; }
+
+.res-header-card h1 {
+  font-size: clamp(2.4rem, 5.2vw, 4.4rem);
+  letter-spacing: -0.04em;
+  line-height: 1.02;
+  margin-bottom: 0.65rem;
+  max-width: none;
+}
+.res-header-card h1 em {
+  font: italic 400 1.08em 'Instrument Serif', serif;
+  color: var(--hi);
+}
+.res-sub {
+  color: #B5AFA2;
+  font-size: clamp(1.05rem, 1.4vw, 1.2rem);
+  line-height: 1.55;
+  max-width: 44rem;
+  margin: 0;
+}
+.res-desc-quote {
+  margin-top: 1.25rem;
+  padding: 0.85rem 1.2rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-left: 3px solid var(--hi);
+  border-radius: 0 12px 12px 0;
+  font-size: 0.95rem;
+  color: #D4CEC0;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+/* Inline Edit / Search Refinement Box */
+.refine-bar {
+  margin-top: 2rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  background: rgba(255, 255, 255, 0.06);
+  padding: 0.5rem;
+  border-radius: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+.refine-input {
+  flex: 1;
+  min-width: 240px;
+  background: transparent;
+  border: 0;
+  color: #fff;
+  padding: 0.6rem 1rem;
+  font-size: 0.98rem;
+}
+.refine-input:focus { outline: 0; }
+.refine-input::placeholder { color: #8C867B; }
+.refine-btn {
+  background: var(--hi);
+  border: 0;
+  color: var(--ink);
+  font: 700 0.88rem var(--mono);
+  padding: 0.65rem 1.4rem;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: transform 0.2s, background 0.2s;
+  white-space: nowrap;
+}
+.refine-btn:hover {
+  background: #fff;
+  transform: translateY(-1px);
+}
+
+/* Tier Filter Tabs */
+.res-tier-nav {
+  display: flex;
+  gap: 0.5rem;
+  margin: 3rem 0 2rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--line);
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.res-tier-btn {
+  background: transparent;
+  border: 1.5px solid var(--line);
+  border-radius: 999px;
+  padding: 0.6rem 1.25rem;
+  font: 600 0.92rem var(--display);
+  color: var(--mute);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.res-tier-btn:hover {
+  border-color: var(--ink);
+  color: var(--ink);
+}
+.res-tier-btn.active {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: #fff;
+}
+.res-tier-btn .pill {
+  font: 700 0.72rem var(--mono);
+  background: rgba(255, 255, 255, 0.2);
+  padding: 0.15rem 0.5rem;
+  border-radius: 999px;
+}
+.res-tier-btn:not(.active) .pill {
+  background: var(--paper);
+  color: var(--mute);
+}
+
+/* Ideas Grid */
+.res-ideas-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 1.5rem;
+}
+.res-idea-card {
+  background: #fff;
+  border: 1px solid rgba(16, 16, 16, 0.1);
+  border-radius: 22px;
+  padding: 1.75rem 1.65rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: transform 0.25s var(--ease), border-color 0.25s, box-shadow 0.25s, background 0.25s;
+  position: relative;
+  box-shadow: 0 4px 18px -2px rgba(16, 16, 16, 0.05), 0 1px 3px rgba(16, 16, 16, 0.03);
+  overflow: hidden;
+}
+.res-idea-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #101010, #5E5A52);
+  transition: background 0.25s;
+}
+.res-idea-card.essential::before {
+  background: linear-gradient(90deg, #059669, #34D399);
+}
+.res-idea-card.growth::before {
+  background: linear-gradient(90deg, #C2330C, #F97316);
+}
+.res-idea-card.next-gen::before {
+  background: linear-gradient(90deg, #7C3AED, #A78BFA);
+}
+.res-idea-card:hover {
+  transform: translateY(-5px);
+  border-color: rgba(194, 51, 12, 0.4);
+  box-shadow: 0 20px 45px -12px rgba(16, 16, 16, 0.12), 0 0 0 1px rgba(194, 51, 12, 0.2);
+}
+.card-tier-tag {
+  font: 700 0.74rem var(--mono);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 0.3rem 0.65rem;
+  border-radius: 999px;
+}
+.card-tier-tag.essential {
+  background: rgba(5, 150, 105, 0.1);
+  color: #059669;
+  border: 1px solid rgba(5, 150, 105, 0.25);
+}
+.card-tier-tag.growth {
+  background: rgba(194, 51, 12, 0.1);
+  color: var(--cobalt);
+  border: 1px solid rgba(194, 51, 12, 0.25);
+}
+.card-tier-tag.next-gen {
+  background: rgba(124, 58, 237, 0.1);
+  color: #7C3AED;
+  border: 1px solid rgba(124, 58, 237, 0.25);
+}
+.card-type-badge {
+  font: 600 0.74rem var(--mono);
+  color: var(--mute);
+  background: var(--paper);
+  padding: 0.28rem 0.65rem;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+}
+.res-idea-card h3 {
+  font-size: 1.35rem;
+  line-height: 1.25;
+  margin: 0.85rem 0 0.45rem;
+  letter-spacing: -0.02em;
+}
+.res-idea-oneliner {
+  font-size: 0.95rem;
+  color: var(--ink);
+  font-weight: 500;
+  line-height: 1.5;
+  margin-bottom: 1rem;
+}
+.why-relevant-box {
+  background: #FFFDF7;
+  border: 1px solid #FED7AA;
+  border-radius: 12px;
+  padding: 0.75rem 0.95rem;
+  font-size: 0.86rem;
+  color: #9A3412;
+  line-height: 1.45;
+  margin-bottom: 0.9rem;
+  display: flex;
+  gap: 0.5rem;
+}
+.prob-snippet {
+  background: #FFF7F6;
+  border: 1px solid #FECACA;
+  border-radius: 12px;
+  padding: 0.8rem 0.95rem;
+  font-size: 0.86rem;
+  color: #991B1B;
+  line-height: 1.45;
+  margin-bottom: 1.25rem;
+}
+.res-card-foot {
+  margin-top: auto;
+  padding-top: 1.2rem;
+  border-top: 1px solid var(--line);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.inspect-btn {
+  background: var(--ink);
+  color: #fff;
+  border: 0;
+  font: 600 0.88rem var(--mono);
+  padding: 0.6rem 1.15rem;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+.inspect-btn:hover {
+  background: var(--cobalt);
+}
+
+/* Floating Solution Builder Dock */
+.solution-dock {
+  position: fixed;
+  bottom: 1.5rem;
+  left: 0;
+  right: 0;
+  z-index: 900;
+  padding: 0 clamp(1rem, 3vw, 2.5rem);
+  pointer-events: none;
+  animation: pin 0.35s var(--ease) both;
+}
+.solution-dock-inner {
+  pointer-events: auto;
+  max-width: 1040px;
+  margin: 0 auto;
+  background: var(--ink);
+  color: #fff;
+  border: 1.5px solid rgba(255, 255, 255, 0.15);
+  border-radius: 24px;
+  padding: 0.9rem 1.4rem;
+  box-shadow: 0 30px 60px -15px rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+.dock-info {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+}
+.dock-count-badge {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: var(--hi);
+  color: var(--ink);
+  font: 800 1.05rem var(--mono);
+  display: grid;
+  place-items: center;
+  flex: none;
+}
+.dock-pills {
+  display: flex;
+  gap: 0.45rem;
+  overflow-x: auto;
+  max-width: 440px;
+  scrollbar-width: none;
+  align-items: center;
+}
+.dock-pill {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 999px;
+  padding: 0.3rem 0.75rem;
+  font: 600 0.8rem var(--mono);
+  color: #fff;
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+.dock-pill-remove {
+  background: transparent;
+  border: 0;
+  color: #A39D90;
+  cursor: pointer;
+  font-size: 0.95rem;
+  padding: 0;
+  display: grid;
+  place-items: center;
+}
+.dock-pill-remove:hover { color: #fff; }
+.dock-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-left: auto;
+}
+
+/* Card Selection Toggle */
+.select-idea-btn {
+  background: var(--paper);
+  border: 1.5px solid var(--line);
+  border-radius: 999px;
+  padding: 0.35rem 0.85rem;
+  font: 600 0.78rem var(--mono);
+  color: var(--ink);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  transition: all 0.2s;
+}
+.select-idea-btn:hover {
+  border-color: var(--ink);
+}
+.select-idea-btn.selected {
+  background: var(--cobalt);
+  border-color: var(--cobalt);
+  color: #fff;
+}
+.res-idea-card.selected {
+  border-color: var(--cobalt);
+  background: #FFFDFB;
+  box-shadow: 0 16px 36px -12px var(--cobalt-glow);
+}
+
+/* Loading State */
+.loading-stage {
+  padding: 5rem 1rem;
+  text-align: center;
+  max-width: 32rem;
+  margin: 0 auto;
+}
+.loading-spinner {
+  width: 52px;
+  height: 52px;
+  border: 3.5px solid var(--line);
+  border-top-color: var(--cobalt);
+  border-radius: 50%;
+  animation: spin 0.85s linear infinite;
+  margin: 0 auto 1.5rem;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* Idea Detail Drawer */
+.detail-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(16, 16, 16, 0.65);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s, visibility 0.3s;
+  display: flex;
+  justify-content: flex-end;
+}
+.detail-modal-backdrop.open {
+  opacity: 1;
+  visibility: visible;
+}
+.detail-drawer {
+  background: #fff;
+  width: 100%;
+  max-width: 680px;
+  height: 100vh;
+  overflow-y: auto;
+  padding: clamp(1.8rem, 4vw, 3rem);
+  box-shadow: -20px 0 60px rgba(0, 0, 0, 0.25);
+  transform: translateX(100%);
+  transition: transform 0.38s var(--ease);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+.detail-modal-backdrop.open .detail-drawer {
+  transform: none;
+}
+.drawer-close-btn {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid var(--line);
+  background: var(--paper);
+  color: var(--ink);
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  font-size: 1.1rem;
+  transition: all 0.2s;
+}
+.drawer-close-btn:hover {
+  background: var(--ink);
+  color: #fff;
+}
+.drawer-sec-title {
+  font: 700 0.8rem var(--mono);
+  color: var(--cobalt);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 0.55rem;
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+.drawer-feat-list {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+.drawer-feat-list li {
+  display: flex;
+  gap: 0.65rem;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+.drawer-feat-list .ico {
+  color: var(--mint);
+  margin-top: 0.2rem;
+}
+
+@media (max-width: 960px) {
+  .detail-drawer { max-width: 100%; height: 90vh; border-radius: 24px 24px 0 0; }
+  .detail-modal-backdrop { align-items: flex-end; }
+  .res-ideas-grid { grid-template-columns: 1fr; }
+}
+</style>
+<script>try{if(!sessionStorage.fx){document.documentElement.classList.add("intro-on");sessionStorage.fx=1}}catch(e){}</script>
+</head>
+<body data-page="ideas">
+<main>
+
+<section class="res-top">
+  <div class="wrap">
+    
+    <!-- Loading State -->
+    <div class="loading-stage" id="loadingStage" style="display:none">
+      <div class="loading-spinner"></div>
+      <h2 style="font-size:1.6rem;margin-bottom:0.4rem">Analyzing your business model...</h2>
+      <p style="color:var(--mute);font-size:0.96rem" id="loadingSub">Formulating tailored Essential, Growth, and Next-Generation software blueprints.</p>
+    </div>
+
+    <!-- Error State -->
+    <div class="loading-stage" id="errorStage" style="display:none">
+      <div style="font-size:2.5rem;margin-bottom:0.5rem">⚠️</div>
+      <h2 style="font-size:1.6rem;margin-bottom:0.4rem">No business specified</h2>
+      <p style="color:var(--mute);font-size:0.96rem;margin-bottom:1.5rem">Please enter a business or industry to discover tailored software ideas.</p>
+      <a class="btn" href="index.html">← Back to Homepage Discovery</a>
+    </div>
+
+    <!-- Results Container -->
+    <div id="resultsContainer" style="display:none">
+      
+      <!-- Top Results Header Card -->
+      <div class="res-header-card">
+        <div class="res-meta-row">
+          <span class="res-source-pill curated" id="sourcePill">
+            <span class="dot"></span> <span id="sourceLabel">Tailored Blueprint</span>
+          </span>
+          <a class="res-back-link" href="ideas.html">
+            Explore All 14 Industries in Library ↗
+          </a>
+        </div>
+
+        <h1 id="resMainHeading">Ideas for your <em>business.</em></h1>
+        <p class="res-sub" id="resSupporting">Here are some ways technology could improve how your business operates.</p>
+
+        <div class="res-desc-quote" id="resDescQuote" style="display:none">
+          <span>🎯 <b>Your Workflow Context:</b></span>
+          <span id="resDescText"></span>
+        </div>
+
+        <!-- Inline Refinement Input -->
+        <form class="refine-bar" id="refineForm">
+          <input class="refine-input" id="refineBizInput" placeholder="Try another business (e.g. Dental Clinic, Auto Detailing, D2C Apparel)..." required>
+          <button class="refine-btn" type="submit">Update Ideas →</button>
+        </form>
+      </div>
+
+      <!-- Tier Filter Tabs -->
+      <div class="res-tier-nav" role="tablist">
+        <button class="res-tier-btn active" type="button" data-tier="all">
+          All Blueprints <span class="pill" id="badgeAll">8</span>
+        </button>
+        <button class="res-tier-btn" type="button" data-tier="essential">
+          <span class="dot" style="background:var(--mint)"></span> Essential Operations <span class="pill" id="badgeEssential">3</span>
+        </button>
+        <button class="res-tier-btn" type="button" data-tier="growth">
+          <span class="dot" style="background:var(--cobalt)"></span> Customer Growth <span class="pill" id="badgeGrowth">3</span>
+        </button>
+        <button class="res-tier-btn" type="button" data-tier="next-gen">
+          <span class="dot" style="background:#8B5CF6"></span> Next-Generation <span class="pill" id="badgeNextGen">2</span>
+        </button>
+      </div>
+
+      <!-- Ideas Grid -->
+      <div class="res-ideas-grid" id="ideasGrid">
+        <!-- Injected dynamically -->
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<!-- IDEA DETAIL MODAL / DRAWER -->
+<div class="detail-modal-backdrop" id="ideaDetailModal" role="dialog" aria-modal="true" aria-hidden="true">
+  <div class="detail-drawer">
+    <button class="drawer-close-btn" id="drawerCloseBtn" type="button" aria-label="Close details">✕</button>
+    
+    <div style="display:flex;gap:0.5rem;margin-bottom:1rem;flex-wrap:wrap">
+      <span class="card-tier-tag" id="modalTierTag">Essential</span>
+      <span class="card-type-badge" id="modalTypeBadge">Website</span>
+    </div>
+
+    <h2 style="font-size:clamp(1.8rem,3.2vw,2.4rem);line-height:1.1;margin-bottom:0.5rem" id="modalTitle">Idea Title</h2>
+    <p style="font-size:1.05rem;color:var(--mute);line-height:1.5;margin-bottom:1.5rem;padding-bottom:1.2rem;border-bottom:1px solid var(--line)" id="modalOneLiner">One line explanation.</p>
+
+    <!-- Why Relevant -->
+    <div style="margin-bottom:1.6rem">
+      <div class="drawer-sec-title">
+        <svg class="ico" width="16" height="16" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        Why This Fits Your Business
+      </div>
+      <div style="background:#FFFBF5;border:1px solid #FED7AA;border-radius:12px;padding:1rem;color:#9A3412;font-size:0.95rem;line-height:1.5" id="modalWhyRelevant"></div>
+    </div>
+
+    <!-- The Problem It Solves -->
+    <div style="margin-bottom:1.6rem">
+      <div class="drawer-sec-title">
+        <svg class="ico" width="16" height="16" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        The Business Problem
+      </div>
+      <div style="background:#FFF1F0;border:1px solid #FECACA;border-radius:12px;padding:1.1rem;color:#991B1B;font-size:0.95rem;line-height:1.5" id="modalProblem"></div>
+    </div>
+
+    <!-- How It Works in Daily Operations -->
+    <div style="margin-bottom:1.6rem">
+      <div class="drawer-sec-title">
+        <svg class="ico" width="16" height="16" viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        How It Works In Daily Operations
+      </div>
+      <div style="background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:1.15rem;font-size:0.96rem;line-height:1.6" id="modalHowItWorks"></div>
+    </div>
+
+    <!-- Core Features -->
+    <div style="margin-bottom:1.6rem">
+      <div class="drawer-sec-title">
+        <svg class="ico" width="16" height="16" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+        Core Features
+      </div>
+      <ul class="drawer-feat-list" id="modalFeatures"></ul>
+    </div>
+
+    <!-- Who Uses It -->
+    <div style="margin-bottom:1.6rem">
+      <div class="drawer-sec-title">
+        <svg class="ico" width="16" height="16" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        Who Uses This
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:0.45rem" id="modalWhoUses"></div>
+    </div>
+
+    <!-- How FIXIA Builds It -->
+    <div style="margin-bottom:1.6rem">
+      <div class="drawer-sec-title">
+        <svg class="ico" width="16" height="16" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+        How FIXIA Custom Builds It
+      </div>
+      <div style="background:var(--ink);color:#fff;border-radius:14px;padding:1.25rem;font-size:0.94rem;line-height:1.55">
+        <p style="color:#D4CEC0;margin:0" id="modalFixiaBuilds">Custom engineered on high-speed frameworks without recurring monthly per-seat fees.</p>
+      </div>
+    </div>
+
+    <!-- Primary Conversion CTA -->
+    <div style="margin-top:2rem;padding-top:1.8rem;border-top:1.5px solid var(--ink);background:var(--paper);border-radius:18px;padding:1.6rem;text-align:center">
+      <h3 style="font-size:1.45rem;margin-bottom:0.35rem">Ready to build this for your business?</h3>
+      <p style="color:var(--mute);font-size:0.92rem;margin-bottom:1.25rem">Speak directly with product engineers. Get a custom architecture blueprint within 6 business hours.</p>
+      <div style="display:flex;gap:0.75rem;justify-content:center;flex-wrap:wrap">
+        <button type="button" class="btn" id="modalToggleSelectBtn" style="background:#fff">
+          + Add to Solution
+        </button>
+        <a class="btn hi" id="modalDiscussBtn" href="contact.html">
+          I want this for my business <svg class="ico"><use href="#arr"/></svg>
+        </a>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Floating Solution Builder Dock -->
+<div class="solution-dock" id="solutionDock" style="display:none">
+  <div class="solution-dock-inner">
+    <div class="dock-info">
+      <span class="dock-count-badge" id="dockCount">0</span>
+      <div>
+        <b style="display:block;font-size:0.95rem;color:#fff">Selected Modules</b>
+        <span style="font-size:0.8rem;color:#B5AFA2" id="dockSub">Ready to combine into one unified system</span>
+      </div>
+    </div>
+
+    <!-- Selected Pills Carousel -->
+    <div class="dock-pills" id="dockPills"></div>
+
+    <div class="dock-actions">
+      <button type="button" class="btn sm ghost" id="dockClearBtn" style="color:#B5AFA2;border-color:rgba(255,255,255,0.2)">Clear</button>
+      <button type="button" class="btn sm hi" id="dockBuildBtn">
+        Build My Solution →
+      </button>
+    </div>
+  </div>
+</div>
+
+</main>
+
+<script src="app.js?v=20261025d"></script>
+<script>
+/* ==========================================================
+   PERSONALIZED RESULTS ENGINE CONTROLLER
+   ========================================================== */
+(function() {
+  const loadingStage = document.getElementById('loadingStage');
+  const errorStage = document.getElementById('errorStage');
+  const resultsContainer = document.getElementById('resultsContainer');
+  const ideasGrid = document.getElementById('ideasGrid');
+  const refineForm = document.getElementById('refineForm');
+  const refineBizInput = document.getElementById('refineBizInput');
+  const modalBackdrop = document.getElementById('ideaDetailModal');
+  const drawerCloseBtn = document.getElementById('drawerCloseBtn');
+
+  let currentData = null;
+  let activeTier = 'all';
+  const selectedIdeas = new Map(); // id -> { id, title, softwareType }
+
+  function getQueryParams() {
+    const p = new URLSearchParams(location.search);
+    return {
+      biz: (p.get('biz') || p.get('business') || '').trim(),
+      desc: (p.get('desc') || p.get('description') || '').trim()
+    };
+  }
+
+  async function fetchIdeas(biz, desc) {
+    if (!biz) {
+      loadingStage.style.display = 'none';
+      errorStage.style.display = 'block';
+      resultsContainer.style.display = 'none';
+      return;
+    }
+
+    loadingStage.style.display = 'block';
+    errorStage.style.display = 'none';
+    resultsContainer.style.display = 'none';
+    document.getElementById('loadingSub').textContent = `Formulating tailored blueprints for "${biz}"...`;
+
+    try {
+      const res = await fetch(`/api/generate-ideas?biz=${encodeURIComponent(biz)}&desc=${encodeURIComponent(desc)}`, {
+        method: 'GET',
+        headers: { 'Accept': 'application/json' }
+      });
+
+      if (!res.ok) throw new Error('Failed to generate');
+      const data = await res.json();
+      currentData = data;
+      renderResults(data);
+    } catch (err) {
+      console.warn('API fetch issue, using local fallback:', err);
+      // Client-side emergency fallback if API is unreachable
+      renderFallback(biz, desc);
+    }
+  }
+
+  function renderResults(data) {
+    loadingStage.style.display = 'none';
+    errorStage.style.display = 'none';
+    resultsContainer.style.display = 'block';
+
+    // Header content
+    document.getElementById('resMainHeading').innerHTML = `Ideas for your <em>${escapeHtml(data.business)}.</em>`;
+    document.getElementById('resSupporting').textContent = data.supporting || "Here are practical ways technology could improve how your business operates.";
+    refineBizInput.value = data.business;
+
+    // Workflow description quote
+    const descQuote = document.getElementById('resDescQuote');
+    const descText = document.getElementById('resDescText');
+    if (data.description) {
+      descText.textContent = `“${data.description}”`;
+      descQuote.style.display = 'flex';
+    } else {
+      descQuote.style.display = 'none';
+    }
+
+    // Source Pill
+    const sourcePill = document.getElementById('sourcePill');
+    const sourceLabel = document.getElementById('sourceLabel');
+    if (data.source === 'ai') {
+      sourcePill.className = 'res-source-pill ai';
+      sourceLabel.textContent = '✨ Personalized AI Architecture';
+    } else {
+      sourcePill.className = 'res-source-pill curated';
+      sourceLabel.textContent = '📚 Curated Engineering Blueprint';
+    }
+
+    // Counters
+    const ideas = data.ideas || [];
+    document.getElementById('badgeAll').textContent = ideas.length;
+    document.getElementById('badgeEssential').textContent = ideas.filter(x => x.tier === 'essential').length;
+    document.getElementById('badgeGrowth').textContent = ideas.filter(x => x.tier === 'growth').length;
+    document.getElementById('badgeNextGen').textContent = ideas.filter(x => x.tier === 'next-gen').length;
+
+    renderIdeaCards();
+  }
+
+  const solutionDock = document.getElementById('solutionDock');
+  const dockCount = document.getElementById('dockCount');
+  const dockPills = document.getElementById('dockPills');
+  const dockClearBtn = document.getElementById('dockClearBtn');
+  const dockBuildBtn = document.getElementById('dockBuildBtn');
+
+  function updateSelectionDock() {
+    const count = selectedIdeas.size;
+    dockCount.textContent = count;
+    
+    if (count === 0) {
+      solutionDock.style.display = 'none';
+      return;
+    }
+
+    solutionDock.style.display = 'block';
+    dockPills.innerHTML = Array.from(selectedIdeas.values()).map(item => `
+      <span class="dock-pill">
+        <span>${escapeHtml(item.title)}</span>
+        <button type="button" class="dock-pill-remove" data-remove="${escapeHtml(item.id)}" title="Remove module">✕</button>
+      </span>
+    `).join('');
+
+    dockPills.querySelectorAll('.dock-pill-remove').forEach(rmBtn => {
+      rmBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const rmId = rmBtn.getAttribute('data-remove');
+        selectedIdeas.delete(rmId);
+        updateSelectionDock();
+        renderIdeaCards();
+      });
+    });
+  }
+
+  dockClearBtn.addEventListener('click', () => {
+    selectedIdeas.clear();
+    updateSelectionDock();
+    renderIdeaCards();
+  });
+
+  dockBuildBtn.addEventListener('click', () => {
+    if (selectedIdeas.size === 0) return;
+    const biz = currentData ? currentData.business : '';
+    const desc = currentData ? currentData.description : '';
+    const ids = Array.from(selectedIdeas.keys()).join(',');
+    window.location.href = `solution-builder.html?biz=${encodeURIComponent(biz)}&desc=${encodeURIComponent(desc)}&ideas=${encodeURIComponent(ids)}`;
+  });
+
+  function renderIdeaCards() {
+    if (!currentData || !Array.isArray(currentData.ideas)) return;
+    const filtered = currentData.ideas.filter(item => {
+      if (activeTier === 'all') return true;
+      return item.tier === activeTier;
+    });
+
+    if (!filtered.length) {
+      ideasGrid.innerHTML = `
+        <div style="grid-column:1/-1;text-align:center;padding:3rem;background:#fff;border-radius:20px;border:1px dashed var(--line)">
+          <p style="color:var(--mute);font-size:1.05rem">No ideas in this specific tier.</p>
+        </div>
+      `;
+      return;
+    }
+
+    ideasGrid.innerHTML = filtered.map(idea => {
+      const ideaId = idea.id || idea.title;
+      const isSelected = selectedIdeas.has(ideaId);
+      const tierClass = idea.tier === 'next-gen' ? 'next-gen' : idea.tier;
+      const tierLabel = idea.tier === 'essential' ? 'Essential Operation' : idea.tier === 'growth' ? 'Customer Growth' : 'Next-Generation';
+      return `
+        <div class="res-idea-card ${isSelected ? 'selected' : ''}">
+          <div>
+            <div style="display:flex;justify-content:space-between;align-items:center;gap:0.6rem;margin-bottom:0.75rem;flex-wrap:wrap">
+              <span class="card-tier-tag ${tierClass}">${tierLabel}</span>
+              <button class="select-idea-btn ${isSelected ? 'selected' : ''}" type="button" data-select-id="${escapeHtml(ideaId)}">
+                ${isSelected ? '✓ Added to System' : '+ Add to Solution'}
+              </button>
+            </div>
+
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:0.5rem;margin-bottom:0.5rem">
+              <span class="card-type-badge">${escapeHtml(idea.softwareType || 'Custom Software')}</span>
+            </div>
+
+            <h3>${escapeHtml(idea.title)}</h3>
+            <div class="res-idea-oneliner">${escapeHtml(idea.oneLiner)}</div>
+
+            ${idea.whyRelevant ? `
+              <div class="why-relevant-box">
+                <span>💡</span>
+                <div><b>Why It Fits:</b> ${escapeHtml(idea.whyRelevant)}</div>
+              </div>
+            ` : ''}
+
+            <div class="prob-snippet">
+              <b style="color:#DC2626">Bottleneck:</b> ${escapeHtml(idea.problem)}
+            </div>
+          </div>
+
+          <div class="res-card-foot">
+            <span style="font:600 0.8rem var(--mono);color:var(--mute)">FIXIA Blueprint</span>
+            <button class="inspect-btn" type="button" data-id="${escapeHtml(ideaId)}">
+              View Workflow ↗
+            </button>
+          </div>
+        </div>
+      `;
+    }).join('');
+
+    // Attach click handlers
+    ideasGrid.querySelectorAll('.inspect-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const id = btn.getAttribute('data-id');
+        openIdeaModal(id);
+      });
+    });
+
+    ideasGrid.querySelectorAll('.select-idea-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const id = btn.getAttribute('data-select-id');
+        const idea = currentData.ideas.find(x => (x.id || x.title) === id);
+        if (!idea) return;
+        if (selectedIdeas.has(id)) {
+          selectedIdeas.delete(id);
+        } else {
+          selectedIdeas.set(id, {
+            id: id,
+            title: idea.title,
+            softwareType: idea.softwareType || 'Custom Software'
+          });
+          if (window.fixiaAnalytics) window.fixiaAnalytics.track('solution_module_selected', { title: idea.title });
+        }
+        updateSelectionDock();
+        renderIdeaCards();
+      });
+    });
+  }
+
+  function openIdeaModal(id) {
+    if (!currentData || !currentData.ideas) return;
+    const idea = currentData.ideas.find(x => (x.id || x.title) === id);
+    if (!idea) return;
+
+    if (window.fixiaAnalytics) window.fixiaAnalytics.track('blueprint_viewed', { title: idea.title, tier: idea.tier });
+
+    const tierClass = idea.tier === 'next-gen' ? 'next-gen' : idea.tier;
+    const tierLabel = idea.tier === 'essential' ? 'Essential Operation' : idea.tier === 'growth' ? 'Customer Growth' : 'Next-Generation';
+
+    const modalTier = document.getElementById('modalTierTag');
+    modalTier.className = `card-tier-tag ${tierClass}`;
+    modalTier.textContent = tierLabel;
+
+    document.getElementById('modalTypeBadge').textContent = idea.softwareType || 'Custom Software';
+    document.getElementById('modalTitle').textContent = idea.title;
+    document.getElementById('modalOneLiner').textContent = idea.oneLiner;
+    document.getElementById('modalWhyRelevant').textContent = idea.whyRelevant || `Engineered specifically to solve operational headaches for ${currentData.business}.`;
+    document.getElementById('modalProblem').textContent = idea.problem;
+    document.getElementById('modalHowItWorks').textContent = idea.howItWorks || idea.oneLiner;
+
+    // Features
+    const featEl = document.getElementById('modalFeatures');
+    featEl.innerHTML = (idea.features || [
+      'Engineered directly around your existing staff workflow',
+      'Real-time cloud database synchronization with offline resilience',
+      'Zero monthly recurring per-user software licensing fees',
+      '100% source code, intellectual property, and database ownership'
+    ]).map(f => `
+      <li>
+        <svg class="ico"><use href="#chk"/></svg>
+        <span>${escapeHtml(f)}</span>
+      </li>
+    `).join('');
+
+    // Who uses
+    const whoEl = document.getElementById('modalWhoUses');
+    whoEl.innerHTML = (idea.whoUses || ['Business Owner', 'Staff', 'Customers']).map(w => `
+      <span style="font:600 0.82rem var(--mono);background:var(--paper);border:1px solid var(--line);padding:0.35rem 0.75rem;border-radius:999px">${escapeHtml(w)}</span>
+    `).join('');
+
+    // Prefill Contact Link
+    const discussBtn = document.getElementById('modalDiscussBtn');
+    const pParam = encodeURIComponent(`We run a "${currentData.business}"${currentData.description ? ' (' + currentData.description + ')' : ''} and want to build the "${idea.title}" blueprint (${idea.softwareType || 'Custom Software'}). Our bottleneck: ${idea.problem}`);
+    discussBtn.href = `contact.html?biz=${encodeURIComponent(currentData.business)}&idea=${encodeURIComponent(idea.title)}&type=${encodeURIComponent(idea.softwareType || 'Custom Software')}&p=${pParam}`;
+
+    // Toggle Select in modal
+    const modalSelectBtn = document.getElementById('modalToggleSelectBtn');
+    const ideaId = idea.id || idea.title;
+    function refreshModalSelectBtn() {
+      if (selectedIdeas.has(ideaId)) {
+        modalSelectBtn.textContent = '✓ Added to Solution';
+        modalSelectBtn.style.background = 'var(--cobalt)';
+        modalSelectBtn.style.color = '#fff';
+      } else {
+        modalSelectBtn.textContent = '+ Add to Solution';
+        modalSelectBtn.style.background = '#fff';
+        modalSelectBtn.style.color = 'var(--ink)';
+      }
+    }
+    refreshModalSelectBtn();
+    modalSelectBtn.onclick = () => {
+      if (selectedIdeas.has(ideaId)) {
+        selectedIdeas.delete(ideaId);
+      } else {
+        selectedIdeas.set(ideaId, {
+          id: ideaId,
+          title: idea.title,
+          softwareType: idea.softwareType || 'Custom Software'
+        });
+      }
+      refreshModalSelectBtn();
+      updateSelectionDock();
+      renderIdeaCards();
+    };
+
+    modalBackdrop.classList.add('open');
+    modalBackdrop.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeIdeaModal() {
+    modalBackdrop.classList.remove('open');
+    modalBackdrop.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  }
+
+  drawerCloseBtn.addEventListener('click', closeIdeaModal);
+  modalBackdrop.addEventListener('click', e => {
+    if (e.target === modalBackdrop) closeIdeaModal();
+  });
+  window.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && modalBackdrop.classList.contains('open')) closeIdeaModal();
+  });
+
+  // Tier tab buttons
+  document.querySelectorAll('.res-tier-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.res-tier-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      activeTier = btn.getAttribute('data-tier');
+      renderIdeaCards();
+    });
+  });
+
+  // Refine Form
+  refineForm.addEventListener('submit', e => {
+    e.preventDefault();
+    const newBiz = refineBizInput.value.trim();
+    if (!newBiz) return;
+    const currentDesc = currentData ? currentData.description : '';
+    history.pushState(null, '', `results.html?biz=${encodeURIComponent(newBiz)}${currentDesc ? '&desc=' + encodeURIComponent(currentDesc) : ''}`);
+    fetchIdeas(newBiz, currentDesc);
+  });
+
+  function escapeHtml(str = '') {
+    return String(str)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;');
+  }
+
+  // Emergency client-side fallback
+  function renderFallback(biz, desc) {
+    const fallbackIdeas = [
+      {
+        id: "fb-1",
+        tier: "essential",
+        title: "Central Operations & Order Dispatch Web Terminal",
+        oneLiner: "Offline-first dashboard replacing paper registers and chaotic phone calls.",
+        problem: "Daily bookings and records scattered across paper slips and WhatsApp chats.",
+        howItWorks: "Staff log orders or bookings in 2 taps on a tablet. Automatically syncs with master revenue records.",
+        features: ["Sub-second order logging", "Offline data synchronization", "Daily cash reconciliation", "Zero paper loss"],
+        whoUses: ["Counter Staff", "Owner"],
+        softwareType: "Custom Software",
+        whyRelevant: `Provides immediate operational structure for a ${biz}.`
+      },
+      {
+        id: "fb-2",
+        tier: "growth",
+        title: "Automated WhatsApp Digital Invoicing & Review Engine",
+        oneLiner: "Dispatches itemized PDF bills to customer WhatsApp with 1-tap Google Maps review links.",
+        problem: "Thermal bills get thrown away, and happy customers leave without reviewing your business.",
+        howItWorks: "Cashier types phone number at checkout. Guest receives a clean branded PDF bill with a review prompt.",
+        features: ["Official WhatsApp Cloud API", "Instant PDF generation", "Review boost funnel", "Customer database capture"],
+        whoUses: ["Customers", "Cashier"],
+        softwareType: "Automation",
+        whyRelevant: `Drives organic repeat visits and 5-star reviews for your ${biz}.`
+      },
+      {
+        id: "fb-3",
+        tier: "next-gen",
+        title: "Self-Service Customer Booking & Membership Portal",
+        oneLiner: "Direct mobile web portal enabling customers to book appointments, order, and pay with zero fees.",
+        problem: "Losing customers during evening rush hours due to busy phone lines.",
+        howItWorks: "Customers open your link, view real-time available slots or products, pay via UPI, and receive an instant digital pass.",
+        features: ["24/7 self-service reservation", "Direct UPI advance payment", "Zero app download required", "Automated slot confirmation"],
+        whoUses: ["Customers", "Operations Team"],
+        softwareType: "Web App",
+        whyRelevant: `Captures high-margin direct customer business for your ${biz}.`
+      }
+    ];
+
+    renderResults({
+      business: biz,
+      description: desc,
+      supporting: "Here are practical ways technology could improve how your business operates.",
+      source: "curated",
+      ideas: fallbackIdeas
+    });
+  }
+
+  // Initial load
+  const initial = getQueryParams();
+  fetchIdeas(initial.biz, initial.desc);
+
+})();
+</script>
+<script src="polish.js?v=20261025d"></script>
+</body>
+</html>
+
