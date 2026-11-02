@@ -202,14 +202,43 @@ h2 {
   transform: none;
 }
 
-/* Native OS cursor restored for clean precision and zero latency */
+/* Customized Cursor Follower */
 .cur {
-  display: none !important;
-  visibility: hidden !important;
-  opacity: 0 !important;
+  display: none;
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--cobalt);
   pointer-events: none !important;
-  width: 0 !important;
-  height: 0 !important;
+  z-index: 9999;
+  transition: width 0.2s var(--ease), height 0.2s var(--ease), opacity 0.2s, background 0.2s;
+  margin: -5px 0 0 -5px;
+  will-change: transform;
+  opacity: 0;
+}
+
+.cur.visible {
+  opacity: 1;
+}
+
+.cur.big {
+  width: 44px;
+  height: 44px;
+  margin: -22px 0 0 -22px;
+  background: var(--cobalt);
+  opacity: 0.16;
+}
+
+.cur.hidden {
+  opacity: 0 !important;
+  transform: scale(0);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .cur { display: block; }
 }
 
 /* Buttons */

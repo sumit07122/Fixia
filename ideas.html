@@ -9,8 +9,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css?v=20261025d">
-<link rel="stylesheet" href="polish.css?v=20261025d">
+<link rel="stylesheet" href="styles.css?v=20261101e">
+<link rel="stylesheet" href="polish.css?v=20261101e">
 <style>
 /* ==========================================================
    EXPLORE IDEAS PAGE STYLES (100% Native to FIXIA Design Tokens)
@@ -894,9 +894,9 @@
     <div style="display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:1.5rem">
       <div style="max-width:38rem">
         <span class="eyebrow">Industry Exploration</span>
-        <h2 data-split>Select your industry.</h2>
+        <h2 data-split>Select your business.</h2>
         <p class="lede" data-r>
-          Every business model runs on different operational bottlenecks. Select your sector below to reveal tailored Essential, Growth, and Next-Generation software blueprints.
+          Every business has its own unique daily headaches. Choose your business type below to explore simple, practical software ideas built for your exact routine.
         </p>
       </div>
 
@@ -942,16 +942,16 @@
     <!-- Tier Filter Tabs -->
     <div class="tier-tabs" role="tablist">
       <button class="tier-tab-btn active" type="button" data-tier="all">
-        All Blueprints <span class="badge-pill" id="badgeAll">8</span>
+        All Software Ideas <span class="badge-pill" id="badgeAll">8</span>
       </button>
       <button class="tier-tab-btn" type="button" data-tier="essential">
-        <span class="dot" style="background:var(--mint)"></span> Essential Operations <span class="badge-pill" id="badgeEssential">3</span>
+        <span class="dot" style="background:var(--mint)"></span> Everyday Essentials <span class="badge-pill" id="badgeEssential">3</span>
       </button>
       <button class="tier-tab-btn" type="button" data-tier="growth">
-        <span class="dot" style="background:var(--cobalt)"></span> Customer Growth <span class="badge-pill" id="badgeGrowth">3</span>
+        <span class="dot" style="background:var(--cobalt)"></span> More Customers &amp; Sales <span class="badge-pill" id="badgeGrowth">3</span>
       </button>
       <button class="tier-tab-btn" type="button" data-tier="next-gen">
-        <span class="dot" style="background:#8B5CF6"></span> Next-Generation <span class="badge-pill" id="badgeNextGen">2</span>
+        <span class="dot" style="background:#8B5CF6"></span> Smart Automation <span class="badge-pill" id="badgeNextGen">2</span>
       </button>
     </div>
 
@@ -1153,6 +1153,15 @@
     });
   });
 
+  function escapeHtml(str = '') {
+    return String(str)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
+  }
+
   // Render 14 Industry Cards
   function renderIndustries(filterText = '') {
     const q = filterText.toLowerCase().trim();
@@ -1164,12 +1173,26 @@
     });
 
     if (!filtered.length) {
-      indGrid.innerHTML = `
-        <div style="grid-column:1/-1;text-align:center;padding:3rem 1rem;background:#fff;border-radius:20px;border:1px dashed var(--line)">
-          <p style="font-size:1.1rem;color:var(--mute);margin-bottom:1rem">No exact industry match found for “<b>${filterText}</b>”.</p>
-          <a class="btn sm" href="#discovery">Use Custom Business Discovery ↓</a>
-        </div>
-      `;
+      indGrid.innerHTML = '';
+      const emptyCard = document.createElement('div');
+      emptyCard.style.cssText = 'grid-column:1/-1;text-align:center;padding:3rem 1rem;background:#fff;border-radius:20px;border:1px dashed var(--line)';
+
+      const p = document.createElement('p');
+      p.style.cssText = 'font-size:1.1rem;color:var(--mute);margin-bottom:1rem';
+      p.appendChild(document.createTextNode('No exact industry match found for “'));
+      const b = document.createElement('b');
+      b.textContent = filterText;
+      p.appendChild(b);
+      p.appendChild(document.createTextNode('”.'));
+
+      const a = document.createElement('a');
+      a.className = 'btn sm';
+      a.href = '#discovery';
+      a.textContent = 'Use Custom Business Discovery ↓';
+
+      emptyCard.appendChild(p);
+      emptyCard.appendChild(a);
+      indGrid.appendChild(emptyCard);
       return;
     }
 
@@ -1427,7 +1450,7 @@
 
 })();
 </script>
-<script src="polish.js?v=20261025d"></script>
+<script src="polish.js?v=20261101e"></script>
 </body>
 </html>
 

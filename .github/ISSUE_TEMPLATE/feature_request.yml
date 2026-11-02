@@ -1,0 +1,26 @@
+name: Feature Request
+description: Propose a new page, interactive tool, or portfolio enhancement
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: Share your ideas for improving the FIXIA experience!
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem or Opportunity
+      description: What challenge or user need does this feature address?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed Solution
+      description: Detailed description of what should be built or changed.
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives Considered
+      description: Any alternative designs or approaches explored.

@@ -337,7 +337,7 @@ B.insertAdjacentHTML('beforeend', `
         <div class="foot-col"><h4>Find us</h4><ul><li><span>fixia.in</span></li><li><a href="https://instagram.com/fixia.official" target="_blank" rel="noopener">@fixia.official ↗</a></li><li><span>Fixed milestones</span></li></ul></div>
       </div>
       <div class="foot-watermark" aria-hidden="true">FIXIA</div>
-      <div class="foot-bottom"><span>© 2026 FIXIA. fixia.in · @fixia.official</span><a href="admin.html" style="color:inherit;opacity:.55">Admin</a><button class="totop" type="button" onclick="scrollTo({top:0,behavior:'smooth'})">Back to top ↑</button></div>
+      <div class="foot-bottom"><span>© 2026 FIXIA. fixia.in · @fixia.official</span><button class="totop" type="button" onclick="scrollTo({top:0,behavior:'smooth'})">Back to top ↑</button></div>
     </div>
   </footer>
 

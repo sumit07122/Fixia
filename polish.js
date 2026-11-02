@@ -74,8 +74,7 @@ let q=0;const run=()=>{q=0;const vh=innerHeight;
  fills.forEach(([e,s])=>{const r=e.getBoundingClientRect(),p=calm?1:Math.min(1,Math.max(0,(vh*.85-r.top)/(r.height+vh*.35)));s.forEach((x,i)=>x.classList.toggle('on',i/s.length<p))});
  steps.forEach(e=>{const r=e.getBoundingClientRect();e.style.setProperty('--sp2',Math.min(1,Math.max(0,(vh*.65-r.top)/r.height)))})};
 addEventListener('scroll',()=>{q||(q=requestAnimationFrame(run))},{passive:true});addEventListener('resize',run);run();
-const cu=document.getElementById('cur');
-if(fine&&cu)addEventListener('pointerover',e=>{const t=e.target.closest&&e.target.closest('.row,.browser-frame');cu.classList.toggle('lbl',!!t);if(t)cu.dataset.t=t.matches('.row')?'Open':'View'},{passive:true});
+const cu=document.getElementById('cur');if(cu)cu.remove();
 })();
 
 (()=>{const u=(n,f)=>Array.from({length:n},(_,i)=>f(i)).join(''),run=t=>`<div class="mo-run"><span>${t}</span><span>${t}</span></div>`,ch=a=>`<div class="mo-ch">${a.map(x=>`<span>${x}</span>`).join('')}</div>`,M=(bg,fg,x)=>`<div class="mo" style="background:${bg};color:${fg}">${x}</div>`;

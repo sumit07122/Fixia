@@ -110,79 +110,83 @@ async function saveToFileStorage(inquiry) {
 }
 
 // PostgreSQL persistent storage adapter
+// Neon Serverless HTTP client cache
+let cachedNeonClient = null;
+let cachedDbUrl = null;
+
+function getNeonClient(dbUrl) {
+  if (cachedNeonClient && cachedDbUrl === dbUrl) {
+    return cachedNeonClient;
+  }
+  try {
+    const { neon } = require('@neondatabase/serverless');
+    cachedNeonClient = neon(dbUrl);
+    cachedDbUrl = dbUrl;
+    return cachedNeonClient;
+  } catch (err) {
+    return null;
+  }
+}
+
+// PostgreSQL persistent storage adapter via Neon HTTP serverless driver
 async function saveToPostgres(inquiry) {
   const dbUrl = process.env.DATABASE_URL || process.env.POSTGRES_URL;
-  if (!dbUrl) return { attempted: false, saved: false };
+  if (!dbUrl) return { attempted: false, saved: false, reason: 'Missing DATABASE_URL environment variable' };
 
-  let pg;
-  try {
-    pg = require('pg');
-  } catch (e) {
-    return { attempted: true, saved: false, reason: 'pg library not installed' };
+  const sql = getNeonClient(dbUrl);
+  if (!sql) {
+    return { attempted: true, saved: false, reason: '@neondatabase/serverless driver unavailable' };
   }
 
-  const { Pool } = pg;
-  const pool = new Pool({
-    connectionString: dbUrl,
-    ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : undefined,
-    connectionTimeoutMillis: 5000
-  });
-
   try {
-    const client = await pool.connect();
-    try {
-      // Ensure schema exists
-      await client.query(`
-        CREATE TABLE IF NOT EXISTS inquiries (
-          id VARCHAR(64) PRIMARY KEY,
-          created_at TIMESTAMPTZ DEFAULT NOW(),
-          name VARCHAR(255) NOT NULL,
-          business VARCHAR(255),
-          email VARCHAR(255),
-          whatsapp VARCHAR(100),
-          business_type VARCHAR(255),
-          focus VARCHAR(255),
-          problem TEXT NOT NULL,
-          budget VARCHAR(100),
-          timeline VARCHAR(100),
-          ip_hash VARCHAR(64),
-          source VARCHAR(50),
-          status VARCHAR(50) DEFAULT 'new'
-        );
-      `);
+    // 1. Ensure schema exists (idempotent DDL)
+    await sql(`
+      CREATE TABLE IF NOT EXISTS inquiries (
+        id VARCHAR(64) PRIMARY KEY,
+        created_at TIMESTAMPTZ DEFAULT NOW(),
+        name VARCHAR(255) NOT NULL,
+        business VARCHAR(255),
+        email VARCHAR(255),
+        whatsapp VARCHAR(100),
+        business_type VARCHAR(255),
+        focus VARCHAR(255),
+        problem TEXT NOT NULL,
+        budget VARCHAR(100),
+        timeline VARCHAR(100),
+        ip_hash VARCHAR(64),
+        source VARCHAR(50),
+        status VARCHAR(50) DEFAULT 'new'
+      );
+    `);
 
-      // Insert record
-      await client.query(`
-        INSERT INTO inquiries (
-          id, created_at, name, business, email, whatsapp,
-          business_type, focus, problem, budget, timeline,
-          ip_hash, source, status
-        ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14);
-      `, [
-        inquiry.id,
-        inquiry.created_at,
-        inquiry.name,
-        inquiry.business,
-        inquiry.email,
-        inquiry.whatsapp,
-        inquiry.businessType,
-        inquiry.focus,
-        inquiry.problem,
-        inquiry.budget,
-        inquiry.timeline,
-        inquiry.ip_hash,
-        inquiry.source,
-        inquiry.status
-      ]);
+    // 2. Insert record via parameterized SQL query
+    await sql(`
+      INSERT INTO inquiries (
+        id, created_at, name, business, email, whatsapp,
+        business_type, focus, problem, budget, timeline,
+        ip_hash, source, status
+      ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14);
+    `, [
+      inquiry.id,
+      inquiry.created_at,
+      inquiry.name,
+      inquiry.business,
+      inquiry.email,
+      inquiry.whatsapp,
+      inquiry.businessType,
+      inquiry.focus,
+      inquiry.problem,
+      inquiry.budget,
+      inquiry.timeline,
+      inquiry.ip_hash,
+      inquiry.source,
+      inquiry.status
+    ]);
 
-      return { attempted: true, saved: true };
-    } finally {
-      client.release();
-    }
+    return { attempted: true, saved: true };
   } catch (dbErr) {
-    return { attempted: true, saved: false, error: dbErr.message };
-  } finally {
-    pool.end().catch(() => {});
+    const safeError = dbErr.code ? `Postgres error code: ${dbErr.code}` : (dbErr.message || 'Database query error');
+    return { attempted: true, saved: false, error: safeError };
   }
 }
 
@@ -398,17 +402,34 @@ async function handler(req, res) {
   };
 
   // 1. Persistent Storage: Try PostgreSQL first if configured, always ensure local file storage
+  // 1. Persistent Storage Pipeline
+  const isProduction = process.env.NODE_ENV === 'production' || Boolean(process.env.VERCEL);
+  const dbConfigured = Boolean(process.env.DATABASE_URL || process.env.POSTGRES_URL);
+
   let pgResult = { attempted: false, saved: false };
-  try {
-    pgResult = await saveToPostgres(record);
-  } catch (e) {
-    pgResult = { attempted: true, saved: false, error: 'Postgres execution error' };
+  if (dbConfigured) {
+    try {
+      pgResult = await saveToPostgres(record);
+    } catch (e) {
+      pgResult = { attempted: true, saved: false, error: 'Database execution error' };
+    }
   }
 
   const fileResult = await saveToFileStorage(record);
 
+  // Production requirement: Must persist to durable database. Never silently fall back to ephemeral /tmp storage on Vercel.
+  if (isProduction && !pgResult.saved) {
+    console.error(`[FIXIA Lead Engine Error] Production inquiry storage failed for ID ${inquiryId}. DB configured: ${dbConfigured}. Reason: ${pgResult.error || pgResult.reason || 'Durable persistence failed'}`);
+    res.statusCode = 503;
+    res.setHeader('Content-Type', 'application/json');
+    return res.end(JSON.stringify({
+      ok: false,
+      error: 'Inquiry persistence service is temporarily unavailable in production. Please contact FIXIA engineering directly on WhatsApp (+91 84488 58700).'
+    }));
+  }
+
   if (!pgResult.saved && !fileResult.saved) {
-    // Both failed
+    // Both database and local file storage failed
     res.statusCode = 500;
     res.setHeader('Content-Type', 'application/json');
     return res.end(JSON.stringify({
@@ -418,7 +439,7 @@ async function handler(req, res) {
   }
 
   // Safe logging (zero personal information in stdout)
-  console.log(`[FIXIA Lead Engine] Stored inquiry ${inquiryId} (Postgres: ${pgResult.saved ? 'YES' : 'NO'}, File: ${fileResult.saved ? 'YES' : 'NO'})`);
+  console.log(`[FIXIA Lead Engine] Stored inquiry ${inquiryId} (Postgres: ${pgResult.saved ? 'YES' : 'NO'}, Local File: ${fileResult.saved ? 'YES' : 'NO'}, Env: ${isProduction ? 'prod' : 'dev'})`);
 
   // 2. Notifications: Trigger only AFTER successful storage, isolated in non-blocking try-catch
   try {

@@ -490,14 +490,36 @@ $('#nx').onclick = async () => {
       window.fixiaAnalytics.track('inquiry_submitted', { inquiryId: data.id });
     }
 
-    // Success confirmation
-    $('#briefSum').innerHTML = `
-      <div><b>Inquiry Reference:</b> <code style="font-family:var(--mono);color:var(--cobalt)">${data.id}</code></div>
-      <div><b>Client:</b> ${$('#uName').value} (${$('#uBiz').value})</div>
-      <div><b>Business:</b> ${$('#bizDo').value}</div>
-      <div><b>Focus:</b> ${picked}</div>
-      <div><b>Problem:</b> “${$('#prob').value}”</div>
-      <div><b>Scope:</b> ${$('#bud').value} · ${$('#time').value}</div>`;
+    // Success confirmation — safe DOM construction to completely prevent XSS
+    const briefSum = $('#briefSum');
+    briefSum.innerHTML = '';
+
+    const summaryItems = [
+      { label: 'Inquiry Reference:', val: data.id, isCode: true },
+      { label: 'Client:', val: `${$('#uName').value} (${$('#uBiz').value || 'Unspecified'})` },
+      { label: 'Business:', val: $('#bizDo').value || 'Unspecified' },
+      { label: 'Focus:', val: picked || 'Custom Solution' },
+      { label: 'Problem:', val: `“${$('#prob').value}”` },
+      { label: 'Scope:', val: `${$('#bud').value} · ${$('#time').value}` }
+    ];
+
+    summaryItems.forEach(item => {
+      const row = document.createElement('div');
+      const labelEl = document.createElement('b');
+      labelEl.textContent = item.label + ' ';
+      row.appendChild(labelEl);
+
+      if (item.isCode) {
+        const codeEl = document.createElement('code');
+        codeEl.style.fontFamily = 'var(--mono)';
+        codeEl.style.color = 'var(--cobalt)';
+        codeEl.textContent = item.val;
+        row.appendChild(codeEl);
+      } else {
+        row.appendChild(document.createTextNode(item.val));
+      }
+      briefSum.appendChild(row);
+    });
 
     // Local client backup
     try {

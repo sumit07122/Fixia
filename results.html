@@ -9,8 +9,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css?v=20261025d">
-<link rel="stylesheet" href="polish.css?v=20261025d">
+<link rel="stylesheet" href="styles.css?v=20261101e">
+<link rel="stylesheet" href="polish.css?v=20261101e">
 <style>
 /* ==========================================================
    PERSONALIZED RESULTS EXPERIENCE STYLES
@@ -539,8 +539,8 @@
     <!-- Loading State -->
     <div class="loading-stage" id="loadingStage" style="display:none">
       <div class="loading-spinner"></div>
-      <h2 style="font-size:1.6rem;margin-bottom:0.4rem">Analyzing your business model...</h2>
-      <p style="color:var(--mute);font-size:0.96rem" id="loadingSub">Formulating tailored Essential, Growth, and Next-Generation software blueprints.</p>
+      <h2 style="font-size:1.6rem;margin-bottom:0.4rem">Finding ideas for your business...</h2>
+      <p style="color:var(--mute);font-size:0.96rem" id="loadingSub">Gathering practical software tools, phone apps, and automated helpers.</p>
     </div>
 
     <!-- Error State -->
@@ -566,7 +566,7 @@
         </div>
 
         <h1 id="resMainHeading">Ideas for your <em>business.</em></h1>
-        <p class="res-sub" id="resSupporting">Here are some ways technology could improve how your business operates.</p>
+        <p class="res-sub" id="resSupporting">Simple, practical software tools to save you hours every week, stop lost sales, and make daily operations smooth.</p>
 
         <div class="res-desc-quote" id="resDescQuote" style="display:none">
           <span>🎯 <b>Your Workflow Context:</b></span>
@@ -583,16 +583,16 @@
       <!-- Tier Filter Tabs -->
       <div class="res-tier-nav" role="tablist">
         <button class="res-tier-btn active" type="button" data-tier="all">
-          All Blueprints <span class="pill" id="badgeAll">8</span>
+          All Software Ideas <span class="pill" id="badgeAll">8</span>
         </button>
         <button class="res-tier-btn" type="button" data-tier="essential">
-          <span class="dot" style="background:var(--mint)"></span> Essential Operations <span class="pill" id="badgeEssential">3</span>
+          <span class="dot" style="background:var(--mint)"></span> Everyday Essentials <span class="pill" id="badgeEssential">3</span>
         </button>
         <button class="res-tier-btn" type="button" data-tier="growth">
-          <span class="dot" style="background:var(--cobalt)"></span> Customer Growth <span class="pill" id="badgeGrowth">3</span>
+          <span class="dot" style="background:var(--cobalt)"></span> More Customers &amp; Sales <span class="pill" id="badgeGrowth">3</span>
         </button>
         <button class="res-tier-btn" type="button" data-tier="next-gen">
-          <span class="dot" style="background:#8B5CF6"></span> Next-Generation <span class="pill" id="badgeNextGen">2</span>
+          <span class="dot" style="background:#8B5CF6"></span> Smart Automation <span class="pill" id="badgeNextGen">2</span>
         </button>
       </div>
 
@@ -632,7 +632,7 @@
     <div style="margin-bottom:1.6rem">
       <div class="drawer-sec-title">
         <svg class="ico" width="16" height="16" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-        The Business Problem
+        The Everyday Headache
       </div>
       <div style="background:#FFF1F0;border:1px solid #FECACA;border-radius:12px;padding:1.1rem;color:#991B1B;font-size:0.95rem;line-height:1.5" id="modalProblem"></div>
     </div>
@@ -761,6 +761,10 @@
       const res = await fetch(`/api/generate-ideas?biz=${encodeURIComponent(biz)}&desc=${encodeURIComponent(desc)}`, {
         method: 'GET',
         headers: { 'Accept': 'application/json' }
+      const res = await fetch('/api/generate-ideas', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify({ business: biz, description: desc })
       });
 
       if (!res.ok) throw new Error('Failed to generate');
@@ -1073,6 +1077,8 @@
       .replace(/</g, '&lt;')
       .replace(/>/g, '&gt;')
       .replace(/"/g, '&quot;');
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
   }
 
   // Emergency client-side fallback
@@ -1131,7 +1137,7 @@
 
 })();
 </script>
-<script src="polish.js?v=20261025d"></script>
+<script src="polish.js?v=20261101e"></script>
 </body>
 </html>
 

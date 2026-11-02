@@ -1,0 +1,162 @@
+name: FIXIA Static Site CI
+
+on:
+  push:
+    branches:
+      - main
+      - 'security/**'
+      - 'feature/**'
+  pull_request:
+    branches:
+      - main
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-website:
+    name: Validate Static Assets & Security
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      # -------------------------------------------------------------
+      # 1. JSON & CONFIGURATION VALIDATION
+      # -------------------------------------------------------------
+      - name: Validate All JSON Files
+        run: |
+          node -e "
+            const fs = require('fs');
+            const jsonFiles = ['projects_data.json', 'vercel.json', 'manifest.webmanifest', 'package.json', 'data/inquiries.json'];
+            for (const f of jsonFiles) {
+              if (fs.existsSync(f)) {
+                try {
+                  JSON.parse(fs.readFileSync(f, 'utf8'));
+                  console.log('✓ Valid JSON: ' + f);
+                } catch (e) {
+                  console.error('✗ Invalid JSON in ' + f + ': ' + e.message);
+                  process.exit(1);
+                }
+              }
+            }
+          "
+
+      # -------------------------------------------------------------
+      # 2. SITEMAP XML VALIDATION
+      # -------------------------------------------------------------
+      - name: Validate Sitemap XML
+        run: |
+          node -e "
+            const fs = require('fs');
+            if (fs.existsSync('sitemap.xml')) {
+              const xml = fs.readFileSync('sitemap.xml', 'utf8');
+              if (!xml.includes('<?xml') || !xml.includes('<urlset') || !xml.includes('</urlset>')) {
+                console.error('✗ Invalid sitemap.xml structure');
+                process.exit(1);
+              }
+              console.log('✓ Valid sitemap.xml structure');
+            }
+          "
+
+      # -------------------------------------------------------------
+      # 3. JAVASCRIPT SYNTAX INTEGRITY CHECKS
+      # -------------------------------------------------------------
+      - name: Check JavaScript Syntax
+        run: |
+          node -e "
+            const fs = require('fs');
+            const { execSync } = require('child_process');
+            const files = ['app.js', 'polish.js', 'analytics.js', 'ideas-data.js', 'serve.js', 'api/inquiry.js', 'api/generate-ideas.js', 'api/generate-solution.js'];
+            for (const f of files) {
+              if (fs.existsSync(f)) {
+                try {
+                  execSync('node --check ' + f, { stdio: 'inherit' });
+                  console.log('✓ JS Syntax OK: ' + f);
+                } catch (e) {
+                  console.error('✗ Syntax Error in ' + f);
+                  process.exit(1);
+                }
+              }
+            }
+          "
+
+      # -------------------------------------------------------------
+      # 4. CRITICAL HTML & ASSET CHECK
+      # -------------------------------------------------------------
+      - name: Validate HTML Entry Points & Favicon
+        run: |
+          node -e "
+            const fs = require('fs');
+            const criticalHtml = ['index.html', '404.html', 'calculator.html', 'solution-builder.html', 'ideas.html', 'pricing.html', 'contact.html'];
+            for (const f of criticalHtml) {
+              if (!fs.existsSync(f)) {
+                console.error('✗ Missing critical HTML file: ' + f);
+                process.exit(1);
+              }
+              const content = fs.readFileSync(f, 'utf8');
+              if (!content.includes('<!DOCTYPE html>') && !content.includes('<!doctype html>')) {
+                console.error('✗ Missing DOCTYPE in ' + f);
+                process.exit(1);
+              }
+            }
+            if (!fs.existsSync('logo/fixia-favicon.svg')) {
+              console.error('✗ Missing brand favicon logo/fixia-favicon.svg');
+              process.exit(1);
+            }
+            console.log('✓ All critical HTML files and brand assets present');
+          "
+
+      # -------------------------------------------------------------
+      # 5. ADMIN & SECRET PROTECTION VERIFICATION
+      # -------------------------------------------------------------
+      - name: Verify Public Admin Disablement & Secret Invariants
+        run: |
+          node -e "
+            const fs = require('fs');
+            // 1. Ensure admin.html does NOT contain old hardcoded credentials or CRM logic
+            if (fs.existsSync('admin.html')) {
+              const adminHtml = fs.readFileSync('admin.html', 'utf8');
+              if (adminHtml.includes('fixia2026') || adminHtml.includes('fx-admin-pass') || adminHtml.includes('fxAdminAuth')) {
+                console.error('✗ SECURITY FAIL: Insecure admin credentials or auth logic found in admin.html');
+                process.exit(1);
+              }
+              if (!adminHtml.includes('404')) {
+                console.error('✗ SECURITY FAIL: admin.html must return a 404 response page');
+                process.exit(1);
+              }
+            }
+            // 2. Ensure vercel.json rewrites /admin to /404.html
+            const vercelJson = JSON.parse(fs.readFileSync('vercel.json', 'utf8'));
+            const adminRewrite = (vercelJson.rewrites || []).find(r => r.source === '/admin');
+            if (!adminRewrite || adminRewrite.destination !== '/404.html') {
+              console.error('✗ SECURITY FAIL: vercel.json must rewrite /admin to /404.html');
+              process.exit(1);
+            }
+            // 3. Ensure data/inquiries.json does not contain personal sample data
+            if (fs.existsSync('data/inquiries.json')) {
+              const inq = JSON.parse(fs.readFileSync('data/inquiries.json', 'utf8'));
+              if (inq.length > 0) {
+                console.error('✗ SECURITY FAIL: data/inquiries.json must be empty in repository');
+                process.exit(1);
+              }
+            }
+            console.log('✓ Admin disablement & secret checks passed');
+          "
+
+      # -------------------------------------------------------------
+      # 6. GITLEAKS SECRET SCANNING
+      # -------------------------------------------------------------
+      - name: Run Gitleaks Secret Scanner
+        uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        continue-on-error: true

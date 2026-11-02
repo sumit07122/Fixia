@@ -1,0 +1,17 @@
+{
+  "name": "fixia-website",
+  "version": "1.0.0",
+  "description": "FIXIA — Digital Engineering Agency for Purpose-Built Business Software",
+  "private": true,
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "scripts": {
+    "start": "node serve.js",
+    "test": "node scratch/test_master.js",
+    "test:security": "node scratch/test_security_phase4a.js"
+  },
+  "dependencies": {
+    "@neondatabase/serverless": "^0.10.4"
+  }
+}

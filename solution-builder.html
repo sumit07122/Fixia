@@ -714,6 +714,10 @@
       const q = `biz=${encodeURIComponent(activeBiz)}&desc=${encodeURIComponent(activeDesc)}&ideas=${encodeURIComponent(activeIdeaIds.join(','))}`;
       const res = await fetch(`/api/generate-solution?${q}`, {
         headers: { 'Accept': 'application/json' }
+      const res = await fetch('/api/generate-solution', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify({ business: activeBiz, description: activeDesc, ideas: activeIdeaIds })
       });
       if (!res.ok) throw new Error('API failed');
       const data = await res.json();
@@ -1086,6 +1090,8 @@
       .replace(/</g, '&lt;')
       .replace(/>/g, '&gt;')
       .replace(/"/g, '&quot;');
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
   }
 
   // Initial load
