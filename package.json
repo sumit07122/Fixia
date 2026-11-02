@@ -12,6 +12,6 @@
     "test:security": "node scratch/test_security_phase4a.js"
   },
   "dependencies": {
-    "@neondatabase/serverless": "^0.10.4"
+    "@neondatabase/serverless": "^1.2.0"
   }
 }
