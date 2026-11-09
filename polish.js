@@ -448,34 +448,7 @@ window.fxSfx = {
     renderLiquid();
   }
 
-  // 4. Dynamic Before vs After Slider Controller
-  const bfaContainer = document.querySelector('.bfa-container');
-  if (bfaContainer) {
-    let isDragging = false;
-    const updateBfa = clientX => {
-      const rect = bfaContainer.getBoundingClientRect();
-      const pos = Math.max(5, Math.min(95, ((clientX - rect.left) / rect.width) * 100));
-      bfaContainer.style.setProperty('--bfa-pos', pos.toFixed(1) + '%');
-    };
-
-    bfaContainer.addEventListener('pointerdown', e => {
-      isDragging = true;
-      bfaContainer.setPointerCapture(e.pointerId);
-      updateBfa(e.clientX);
-    });
-    bfaContainer.addEventListener('pointermove', e => {
-      if (!isDragging) return;
-      updateBfa(e.clientX);
-    });
-    const stopBfa = e => {
-      isDragging = false;
-      try { bfaContainer.releasePointerCapture(e.pointerId); } catch(err) {}
-    };
-    bfaContainer.addEventListener('pointerup', stopBfa);
-    bfaContainer.addEventListener('pointercancel', stopBfa);
-  }
-
-  // 5. Real-Time ROI / Performance Calculator Controller
+  // 4. Real-Time ROI / Performance Calculator Controller
   const roiHours = document.getElementById('roiHours');
   const roiStaff = document.getElementById('roiStaff');
   const roiRev = document.getElementById('roiRev');

@@ -89,7 +89,7 @@ footer{background:#060B1A;padding:4rem 0 2rem}
 /* sitewide polish */
 ::selection{background:rgba(194,51,12,.2)}
 .work-filters{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1.6rem}
-.filter-btn{background:#fff;border:1.5px solid var(--line);color:var(--mute);padding:.5rem 1rem;border-radius:999px;font-weight:600;font-size:.9rem;transition:all .2s}
+.filter-btn{background:#fff;border:1.5px solid var(--line);color:var(--mute);padding:.5rem 1.1rem;min-height:44px;display:inline-flex;align-items:center;justify-content:center;border-radius:999px;font-weight:600;font-size:.9rem;cursor:pointer;transition:all .2s}
 .filter-btn:hover{border-color:var(--ink);color:var(--ink)}
 .filter-btn.active{background:var(--ink);border-color:var(--ink);color:#fff}
 .demo-badge{font:600 .75rem var(--mono);text-transform:uppercase;letter-spacing:.06em;color:var(--mute);background:var(--paper2);padding:.25rem .7rem;border-radius:999px}
@@ -139,7 +139,7 @@ body,header{transition:background-color .5s,color .5s}
 .intro, .intro-on .intro, .wipe, html:not(.intro-on) .wipe, body.out .wipe { display: none !important; opacity: 0 !important; visibility: hidden !important; pointer-events: none !important; }
 
 /* hero pin, scroll-fill, stats, rows */
-.hero .pin{position:absolute;right:-3rem;top:5rem;width:clamp(120px,20vw,280px);aspect-ratio:1;border-radius:50%;background:var(--hi);z-index:-1;transform:translate3d(0,var(--py,0),0)}
+.hero .pin{position:absolute;right:0;top:5rem;width:clamp(120px,20vw,280px);aspect-ratio:1;border-radius:50%;background:var(--hi);z-index:-1;transform:translate3d(0,var(--py,0),0)}
 .fill{font:800 clamp(1.8rem,4.4vw,3.8rem)/1.08 var(--display);letter-spacing:-.045em;max-width:30ch}
 .fill span{opacity:.16;transition:opacity .35s}.fill span.on{opacity:1}
 .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1.2rem;margin-top:3rem}
@@ -726,8 +726,17 @@ body,header{transition:background-color .5s,color .5s}
   font: 700 1.05rem var(--display);
   color: var(--hi);
   display: flex;
+  flex-wrap: wrap;
+  gap: 0.85rem;
   align-items: center;
   justify-content: space-between;
+}
+@media (max-width: 480px) {
+  .ease-card.fixia .ease-outcome .btn {
+    width: 100%;
+    justify-content: center;
+    text-align: center;
+  }
 }
 
 @media(max-width: 860px) {
@@ -1749,6 +1758,39 @@ body,header{transition:background-color .5s,color .5s}
   }
 }
 
+@media (max-width: 480px) {
+  .hero-mockup-3d {
+    overflow: hidden;
+    max-width: 100%;
+  }
+  .mockup-ambient-glow {
+    width: min(320px, 90vw);
+    height: min(320px, 90vw);
+  }
+  .card-desktop {
+    padding: 1rem;
+    box-sizing: border-box;
+  }
+  .d-search {
+    min-width: 0;
+    max-width: 100%;
+  }
+  .d-search span {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}
+
+@media (max-width: 360px) {
+  .d-badge {
+    display: none;
+  }
+  .card-desktop {
+    padding: 0.85rem;
+  }
+}
+
 /* ==========================================================
    AGENCY CRAFT SYSTEM: ADVANCED MATERIALS, LAYOUTS & MOTION
    ========================================================== */
@@ -1915,134 +1957,7 @@ body,header{transition:background-color .5s,color .5s}
   opacity: 0.6;
 }
 
-/* 8. Dynamic Before vs After Interactive Slider */
-.bfa-section {
-  padding: clamp(3rem, 6vw, 5.5rem) 0;
-  position: relative;
-}
-.bfa-container {
-  position: relative;
-  width: 100%;
-  max-width: 1100px;
-  margin: 2.2rem auto 0;
-  height: clamp(340px, 45vw, 480px);
-  border-radius: 24px;
-  overflow: hidden;
-  box-shadow: 0 32px 72px -16px rgba(16, 16, 16, 0.15);
-  border: 1px solid var(--line);
-  user-select: none;
-  touch-action: none;
-  background: #101012;
-}
-.bfa-pane {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: clamp(1.5rem, 4vw, 3rem);
-}
-.bfa-before {
-  background: #141416;
-  color: #fff;
-  z-index: 1;
-}
-.bfa-after {
-  background: radial-gradient(80% 80% at 90% 10%, rgba(255, 74, 28, 0.18), transparent 70%), #F7F3EA;
-  color: var(--ink);
-  z-index: 2;
-  width: var(--bfa-pos, 50%);
-  overflow: hidden;
-  border-right: 2px solid #FF4A1C;
-}
-.bfa-content-wrap {
-  width: 100%;
-  max-width: 960px;
-  min-width: 760px;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 2rem;
-  align-items: center;
-}
-.bfa-card {
-  padding: 1.8rem;
-  border-radius: 18px;
-}
-.bfa-before .bfa-card {
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-}
-.bfa-after .bfa-card {
-  background: #ffffff;
-  border: 1px solid rgba(16, 16, 16, 0.08);
-  box-shadow: 0 16px 36px rgba(16, 16, 16, 0.06);
-}
-.bfa-badge-bad {
-  display: inline-block;
-  font: 700 0.75rem var(--mono);
-  color: #EF4444;
-  background: rgba(239, 68, 68, 0.14);
-  border: 1px solid rgba(239, 68, 68, 0.3);
-  padding: 0.3rem 0.75rem;
-  border-radius: 999px;
-  margin-bottom: 0.8rem;
-}
-.bfa-badge-good {
-  display: inline-block;
-  font: 700 0.75rem var(--mono);
-  color: #10B981;
-  background: rgba(16, 185, 129, 0.14);
-  border: 1px solid rgba(16, 185, 129, 0.3);
-  padding: 0.3rem 0.75rem;
-  border-radius: 999px;
-  margin-bottom: 0.8rem;
-}
-.bfa-list {
-  list-style: none;
-  padding: 0;
-  margin: 1rem 0 0;
-  display: flex;
-  flex-direction: column;
-  gap: 0.65rem;
-  font-size: 0.92rem;
-}
-.bfa-list li {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-.bfa-handle {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: var(--bfa-pos, 50%);
-  width: 44px;
-  transform: translateX(-50%);
-  z-index: 10;
-  cursor: ew-resize;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  pointer-events: all;
-}
-.bfa-handle-btn {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background: #FF4A1C;
-  color: #fff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 0 20px rgba(255, 74, 28, 0.6), 0 4px 12px rgba(0, 0, 0, 0.3);
-  border: 2px solid #fff;
-  transition: transform 0.15s;
-}
-.bfa-handle:hover .bfa-handle-btn {
-  transform: scale(1.1);
-}
+
 
 /* 9. Real-Time ROI / Performance Calculator */
 .roi-section {
@@ -2148,10 +2063,6 @@ body,header{transition:background-color .5s,color .5s}
 
 @media (max-width: 860px) {
   .roi-grid {
-    grid-template-columns: 1fr;
-  }
-  .bfa-content-wrap {
-    min-width: 0;
     grid-template-columns: 1fr;
   }
 }

@@ -278,26 +278,48 @@ B.insertAdjacentHTML('afterbegin', `
       </nav>
       <div class="navr">
         <a class="btn sm" href="contact.html">Start a project</a>
-        <button type="button" class="mob-btn" id="mobBtn" aria-label="Toggle navigation"><span></span></button>
+        <button type="button" class="mob-btn" id="mobBtn" aria-label="Toggle navigation" aria-expanded="false" aria-controls="mobNav"><span></span></button>
       </div>
     </div>
   </header>
-  <div class="mob-nav" id="mobNav" aria-hidden="true">
+  <div class="mob-nav" id="mobNav" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Mobile Navigation">
     <div class="mob-links">
       ${pages.map(p => `<a href="${p[0]}.html"${PG === p[0] ? ' aria-current="page"' : ''}>${p[1]} <span>→</span></a>`).join('')}
     </div>
-    <div style="display:flex;flex-direction:column;gap:1rem">
+    <div style="display:flex;flex-direction:column;gap:1rem;margin-top:2rem">
       <a class="btn hi" href="contact.html">Start a project →</a>
     </div>
   </div>
 `);
 
-/* Mobile Menu Toggle */
+/* Mobile Menu Toggle & Keyboard Accessibility */
 const mobBtn = $('#mobBtn'), mobNav = $('#mobNav');
 if (mobBtn && mobNav) {
+  function setMobileMenu(open) {
+    B.classList.toggle('menu-open', open);
+    document.documentElement.classList.toggle('menu-open', open);
+    mobBtn.setAttribute('aria-expanded', String(open));
+    mobNav.setAttribute('aria-hidden', String(!open));
+  }
+
   mobBtn.addEventListener('click', () => {
-    const isOpen = B.classList.toggle('menu-open');
-    mobNav.setAttribute('aria-hidden', !isOpen);
+    const isOpen = B.classList.contains('menu-open');
+    setMobileMenu(!isOpen);
+  });
+
+  // Close when selecting any link
+  mobNav.addEventListener('click', e => {
+    if (e.target.closest('a')) {
+      setMobileMenu(false);
+    }
+  });
+
+  // Close when Escape is pressed
+  window.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && B.classList.contains('menu-open')) {
+      setMobileMenu(false);
+      mobBtn.focus();
+    }
   });
 }
 

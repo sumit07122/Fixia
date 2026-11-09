@@ -19,12 +19,17 @@
 .hero {
   padding: clamp(1.8rem, 3.8vw, 2.8rem) 0 0;
   position: relative;
+  overflow: hidden;
 }
 .hero-top {
   display: grid;
   grid-template-columns: 1.15fr 0.95fr;
   gap: clamp(2rem, 4vw, 3.5rem);
   align-items: center;
+}
+.hero-top > div {
+  min-width: 0;
+  max-width: 100%;
 }
 .hero-discovery-card {
   margin-top: 1.5rem;
@@ -33,6 +38,8 @@
   border-radius: 24px;
   padding: clamp(1.2rem, 2.5vw, 1.8rem);
   box-shadow: 0 24px 50px -20px rgba(16, 16, 16, 0.22);
+  max-width: 100%;
+  box-sizing: border-box;
 }
 .disc-input-group {
   margin-bottom: 0.85rem;
@@ -54,6 +61,8 @@
   position: relative;
   display: flex;
   align-items: center;
+  min-width: 0;
+  width: 100%;
 }
 .disc-field-ico {
   position: absolute;
@@ -67,6 +76,8 @@
 }
 .hero-discovery-card input {
   width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
   padding: 0.82rem 1.15rem;
   border: 1.5px solid var(--line);
   border-radius: 14px;
@@ -132,304 +143,42 @@
   transform: translateY(-1px);
 }
 
-/* ==========================================================
-   HOMEPAGE: EXPLORE IDEAS FOR YOUR BUSINESS SHOWCASE
-   ========================================================== */
-.home-showcase-sec {
-  padding: clamp(3.5rem, 6vw, 5rem) 0 4rem;
-  background: #FAF8F5;
-  border-top: 1.5px solid var(--line);
-  border-bottom: 1.5px solid var(--line);
-  position: relative;
-}
-.showcase-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-  flex-wrap: wrap;
-  gap: 1.5rem;
-  margin-bottom: 2rem;
-}
-.showcase-header-left {
-  max-width: 44rem;
-}
-.showcase-eyebrow {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  font: 700 0.74rem var(--mono);
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--cobalt);
-  background: rgba(37, 71, 245, 0.08);
-  padding: 0.3rem 0.85rem;
-  border-radius: 999px;
-  margin-bottom: 0.85rem;
-}
-.showcase-eyebrow .live-dot {
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: var(--cobalt);
-  animation: pulse-dot 2s infinite;
-}
-.showcase-title {
-  font-size: clamp(2rem, 3.8vw, 2.75rem);
-  letter-spacing: -0.035em;
-  line-height: 1.12;
-  margin: 0 0 0.6rem;
-  color: var(--ink);
-}
-.showcase-title em {
-  font-style: italic;
-  font-family: 'Instrument Serif', Georgia, serif;
-  font-weight: 400;
-  color: var(--cobalt);
-}
-.showcase-sub {
-  font-size: clamp(1rem, 1.3vw, 1.12rem);
-  color: var(--mute);
-  line-height: 1.55;
-  margin: 0;
-}
-
-/* Category Tab Pill Selector */
-.showcase-tabs-scroll {
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
-  padding-bottom: 0.5rem;
-  margin-bottom: 2rem;
-  scrollbar-width: thin;
-}
-.showcase-tabs {
-  display: flex;
-  gap: 0.55rem;
-  min-width: max-content;
-  padding: 2px;
-}
-.showcase-tab {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.65rem;
-  padding: 0.7rem 1.25rem;
-  border-radius: 999px;
-  border: 1.5px solid var(--line);
-  background: #fff;
-  color: var(--ink);
-  font: 600 0.92rem var(--display);
-  cursor: pointer;
-  transition: all 0.22s var(--ease);
-  white-space: nowrap;
-}
-.showcase-tab .tab-emoji {
-  font-size: 1.15rem;
-  line-height: 1;
-}
-.showcase-tab .tab-count {
-  font: 700 0.7rem var(--mono);
-  padding: 0.15rem 0.55rem;
-  border-radius: 999px;
-  background: var(--paper);
-  color: var(--mute);
-  transition: all 0.22s;
-}
-.showcase-tab:hover {
-  border-color: var(--ink);
-  transform: translateY(-2px);
-  box-shadow: 0 6px 16px -6px rgba(16, 16, 16, 0.12);
-}
-.showcase-tab.active {
-  background: var(--ink);
-  color: #fff;
-  border-color: var(--ink);
-  box-shadow: 0 10px 24px -10px rgba(16, 16, 16, 0.35);
-}
-.showcase-tab.active .tab-count {
-  background: var(--hi);
-  color: var(--ink);
-}
-
-/* 3-Column Idea Cards Grid */
-.showcase-cards-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1.4rem;
-  margin-bottom: 2.2rem;
-}
-@media (max-width: 1080px) {
-  .showcase-cards-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-@media (max-width: 720px) {
-  .showcase-cards-grid {
-    grid-template-columns: 1fr;
-  }
-}
-
-/* Individual Idea Card */
-.showcase-card {
-  background: #fff;
-  border: 1.5px solid var(--line);
-  border-radius: 22px;
-  padding: 1.55rem;
-  display: flex;
-  flex-direction: column;
-  transition: transform 0.25s var(--ease), border-color 0.25s, box-shadow 0.25s;
-  box-shadow: 0 10px 30px -15px rgba(16, 16, 16, 0.06);
-  position: relative;
-}
-.showcase-card:hover {
-  transform: translateY(-4px);
-  border-color: var(--ink);
-  box-shadow: 0 20px 40px -20px rgba(16, 16, 16, 0.16);
-}
-.card-top-pills {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 0.5rem;
-  margin-bottom: 0.9rem;
-}
-.card-type-tag {
-  font: 700 0.72rem var(--mono);
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  padding: 0.25rem 0.7rem;
-  border-radius: 999px;
-  background: var(--paper);
-  color: var(--ink);
-  border: 1px solid var(--line);
-}
-.card-tier-pill {
-  font: 700 0.7rem var(--mono);
-  text-transform: uppercase;
-  color: #059669;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.35rem;
-}
-.card-tier-pill::before {
-  content: "";
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: currentColor;
-}
-.card-title {
-  font-size: 1.25rem;
-  letter-spacing: -0.025em;
-  line-height: 1.25;
-  color: var(--ink);
-  margin: 0 0 1rem;
-  font-weight: 700;
-}
-
-/* Pain & Solution Blocks */
-.card-block {
-  border-radius: 14px;
-  padding: 0.95rem 1.05rem;
-  margin-bottom: 0.85rem;
-  font-size: 0.91rem;
-  line-height: 1.5;
-}
-.card-block.headache {
-  background: #FFF5F2;
-  border-left: 3.5px solid #FF4A1C;
-  color: #7A2410;
-}
-.card-block.solution {
-  background: #F0FDF4;
-  border-left: 3.5px solid #16A34A;
-  color: #14532D;
-}
-.card-block-label {
-  display: flex;
-  align-items: center;
-  gap: 0.4rem;
-  font: 700 0.72rem var(--mono);
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  margin-bottom: 0.35rem;
-}
-.card-block.headache .card-block-label { color: #C2330C; }
-.card-block.solution .card-block-label { color: #15803D; }
-
-/* Benefits Checklist */
-.card-benefits {
-  display: flex;
-  flex-direction: column;
-  gap: 0.4rem;
-  margin: 0.6rem 0 1.25rem;
-  font-size: 0.85rem;
-  color: var(--mute);
-}
-.card-benefits span {
-  display: flex;
-  align-items: center;
-  gap: 0.45rem;
-}
-.card-benefits svg {
-  color: #16A34A;
-  flex-shrink: 0;
-}
-
-/* Action button */
-.card-footer-cta {
-  margin-top: auto;
-  padding-top: 1rem;
-  border-top: 1px solid var(--line);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 0.75rem;
-}
-.card-footer-cta .btn {
-  width: 100%;
-  justify-content: center;
-  font-size: 0.92rem;
-  padding: 0.75rem 1.2rem;
-}
-
-/* Showcase Bottom Strip */
-.showcase-bottom-banner {
-  background: #fff;
-  border: 1.5px solid var(--ink);
-  border-radius: 20px;
-  padding: 1.4rem 1.8rem;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 1.2rem;
-  box-shadow: 0 12px 28px -15px rgba(16, 16, 16, 0.12);
-}
-.showcase-bottom-text h4 {
-  font-size: 1.15rem;
-  margin: 0 0 0.2rem;
-  color: var(--ink);
-}
-.showcase-bottom-text p {
-  font-size: 0.92rem;
-  color: var(--mute);
-  margin: 0;
-}
-.showcase-bottom-actions {
-  display: flex;
-  gap: 0.75rem;
-  flex-wrap: wrap;
-}
-
 /* Legacy support classes */
 .pop-ind-sec { display: none; }
 .pop-ind-grid { display: none; }
 h1 {
-  font-size: clamp(2.6rem, 5.2vw, 4.6rem);
+  font-size: clamp(2.1rem, 5.2vw, 4.6rem);
   letter-spacing: -0.04em;
-  line-height: 0.96;
+  line-height: 0.98;
 }
 h1 span.l { display: block; }
 h1 .l:nth-child(2) { color: var(--cobalt); }
+
+@media (max-width: 640px) {
+  .disc-actions-row .btn {
+    width: 100%;
+    min-height: 48px;
+  }
+  .disc-agency-tag {
+    max-width: 100%;
+    text-align: center;
+  }
+  .disc-chip {
+    min-height: 42px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.45rem 0.9rem;
+  }
+  .hero-identity-statement {
+    max-width: 100% !important;
+  }
+}
+@media (max-width: 360px) {
+  h1 { font-size: 1.95rem; }
+  .disc-field-wrap input { padding-left: 2.3rem; font-size: 0.9rem; }
+  .disc-field-ico { left: 0.75rem; width: 16px; height: 16px; }
+}
 .type {
   margin-top: 0.95rem;
   font: 600 clamp(0.95rem, 1.35vw, 1.15rem) var(--display);
@@ -1278,46 +1027,6 @@ input[type="range"] {
 <!-- 02. MARQUEE CAPABILITY STRIP -->
 <div class="mq" aria-hidden="true" style="margin-top:4rem"><div id="mq"></div></div>
 
-<!-- 03. EXPLORE IDEAS FOR YOUR BUSINESS SHOWCASE -->
-<section class="home-showcase-sec" id="explore-showcase">
-  <div class="wrap">
-    <div class="showcase-header">
-      <div class="showcase-header-left">
-        <span class="showcase-eyebrow"><span class="live-dot"></span> Explore Ideas For Your Business</span>
-        <h2 class="showcase-title">What software could <em>do for your business.</em></h2>
-        <p class="showcase-sub">Pick your business type below. See real, simple software tools that fix everyday headaches, save your staff hours of manual work, and stop lost sales.</p>
-      </div>
-      <div>
-        <a class="btn ghost sm" href="ideas.html">Browse all 112 ideas (14 industries) →</a>
-      </div>
-    </div>
-
-    <!-- Category Tab Switcher -->
-    <div class="showcase-tabs-scroll" role="tablist" aria-label="Business categories">
-      <div class="showcase-tabs" id="showcaseTabs">
-        <!-- Injected dynamically with fallback -->
-      </div>
-    </div>
-
-    <!-- Idea Cards Grid -->
-    <div class="showcase-cards-grid" id="showcaseCardsGrid" aria-live="polite">
-      <!-- Injected dynamically based on selected tab -->
-    </div>
-
-    <!-- Bottom Action Banner -->
-    <div class="showcase-bottom-banner" data-r>
-      <div class="showcase-bottom-text">
-        <h4>Don't see your exact business above?</h4>
-        <p>We build custom software, web tools, and phone apps for any business routine or paper workflow.</p>
-      </div>
-      <div class="showcase-bottom-actions">
-        <a class="btn hi sm" href="contact.html">Tell Us What You Need Built →</a>
-        <a class="btn ghost sm" href="ideas.html">Explore All 14 Industries →</a>
-      </div>
-    </div>
-  </div>
-</section>
-
 <!-- 04. WHAT WE BUILD (SERVICES SUMMARY & INTERACTIVE SHOWROOM) -->
 <section class="sec" id="services">
   <div class="wrap">
@@ -1592,64 +1301,6 @@ input[type="range"] {
         <div class="ease-outcome">
           <span>Average Time Saved: 15+ Hours Every Week</span>
           <a class="btn hi sm" href="contact.html">Automate Your Business →</a>
-        </div>
-      </div>
-    </div>
-
-    <!-- Dynamic Before vs After Interactive Split Slider -->
-    <div style="margin-top:4rem" data-r>
-      <div style="text-align:center;max-width:36rem;margin:0 auto 1.5rem">
-        <span class="eyebrow" style="margin:0 auto">Interactive Comparison</span>
-        <h3 style="font-size:clamp(1.6rem,3.2vw,2.3rem);letter-spacing:-0.03em;margin-top:0.6rem">Slide to compare: The old headache vs. FIXIA engineered clarity.</h3>
-        <p style="color:var(--mute);font-size:0.95rem">Drag the divider left or right to see how our custom software transforms daily business operations.</p>
-      </div>
-
-      <div class="bfa-container">
-        <!-- Before Pane (Left / Underneath) -->
-        <div class="bfa-pane bfa-before">
-          <div class="bfa-content-wrap">
-            <div class="bfa-card">
-              <span class="bfa-badge-bad">✕ WITHOUT FIXIA · MANUAL SPREADSHEETS</span>
-              <h4 style="font-size:1.3rem;margin:0 0 0.5rem">Scattered records &amp; revenue disputes.</h4>
-              <p style="color:#B5AFA2;font-size:0.9rem;line-height:1.5;margin:0">Paper tokens, manual minutes, unbilled snacks, customer queues, and 2 hours of stressful evening book reconciliation.</p>
-              <ul class="bfa-list" style="color:#FCA5A5">
-                <li>✕ Paper booking tokens lost or misplaced</li>
-                <li>✕ 15% - 20% table revenue leakage</li>
-                <li>✕ Constant customer WhatsApp disputes</li>
-              </ul>
-            </div>
-            <div style="background:rgba(255,255,255,0.03);border:1px dashed rgba(255,255,255,0.15);border-radius:18px;padding:1.8rem;display:flex;flex-direction:column;gap:0.75rem">
-              <span style="font:700 0.75rem var(--mono);color:#EF4444">MANUAL WORKLOAD</span>
-              <div style="font:800 2.2rem var(--mono);color:#fff">18.5 hrs <span style="font-size:0.9rem;font-weight:500;color:#94A3B8">/ week</span></div>
-              <p style="color:#94A3B8;font-size:0.85rem;margin:0">Spent on manual ledger entries and phone calls.</p>
-            </div>
-          </div>
-        </div>
-
-        <!-- After Pane (Right / Over top with width) -->
-        <div class="bfa-pane bfa-after">
-          <div class="bfa-content-wrap">
-            <div class="bfa-card">
-              <span class="bfa-badge-good">✓ WITH FIXIA · AUTOMATED CLOUD SOFTWARE</span>
-              <h4 style="font-size:1.3rem;margin:0 0 0.5rem;color:var(--ink)">Real-time sync &amp; total owner visibility.</h4>
-              <p style="color:var(--mute);font-size:0.9rem;line-height:1.5;margin:0">Automated session matrix timers, 1-click POS combo billing, instant WhatsApp receipts, and zero-leakage daily close.</p>
-              <ul class="bfa-list" style="color:#059669">
-                <li>✓ 0ms real-time table state sync</li>
-                <li>✓ 100% accurate billing &amp; zero disputes</li>
-                <li>✓ Automated WhatsApp payment pushes</li>
-              </ul>
-            </div>
-            <div style="background:#fff;border:1px solid rgba(16,16,16,0.1);border-radius:18px;padding:1.8rem;box-shadow:0 12px 28px rgba(16,16,16,0.06);display:flex;flex-direction:column;gap:0.75rem">
-              <span style="font:700 0.75rem var(--mono);color:#10B981">AUTOMATION GAIN</span>
-              <div style="font:800 2.2rem var(--mono);color:var(--ink)">~3.2 hrs <span style="font-size:0.9rem;font-weight:500;color:var(--mute)">/ week</span></div>
-              <p style="color:var(--mute);font-size:0.85rem;margin:0">82% routine administrative time recovered.</p>
-            </div>
-          </div>
-        </div>
-
-        <!-- Draggable Handle -->
-        <div class="bfa-handle" aria-label="Drag to compare before and after">
-          <div class="bfa-handle-btn">↔</div>
         </div>
       </div>
     </div>
@@ -2003,440 +1654,6 @@ input[type="range"] {
 
 <script src="app.js?v=20261101e"></script>
 <script>
-/* ==========================================================
-   HOMEPAGE INTERACTIVE: EXPLORE IDEAS FOR YOUR BUSINESS
-   ========================================================== */
-(function() {
-  const HOME_SHOWCASE_DATA = [
-    {
-      id: "restaurants",
-      name: "Restaurants & Cafes",
-      emoji: "🍽️",
-      count: 8,
-      ideas: [
-        {
-          id: "rest-qr-order",
-          title: "Table QR Digital Menu & Self-Ordering",
-          type: "Self-Ordering Web App",
-          badge: "Essential",
-          problem: "Waiters running back and forth with paper slips during dinner rush, missing special instructions, and customers waiting 10 minutes just to wave someone down for the bill.",
-          solution: "Customers scan a QR code on their table with their phone, see delicious food photos, and tap to order. The kitchen display chimes immediately with the table number, and the bill is sent straight to WhatsApp with a UPI payment link.",
-          benefits: ["Zero app download needed for diners", "Chimes instantly on kitchen screen", "Instant WhatsApp bill with UPI payment"],
-          contactProblem: "Table QR Ordering & Kitchen Display System for Restaurant",
-          budget: "₹14,999 - ₹30,000"
-        },
-        {
-          id: "rest-kds",
-          title: "Kitchen Display Screen & Station Dispatcher",
-          type: "Kitchen Tablet App",
-          badge: "Essential",
-          problem: "Paper food slips getting lost near boiling pans, orders getting delayed, and cooks having no idea how long a hungry customer has been waiting for their food.",
-          solution: "Inexpensive Android tablets in the kitchen show incoming tickets in clear green, turning yellow and red if a dish takes too long. Cooks tap 'Done' with gloved or wet hands to let captains know food is ready.",
-          benefits: ["Replaces noisy paper KOT slips completely", "Color-coded timers warn of delayed dishes", "Runs smoothly on basic 10-inch Android tablets"],
-          contactProblem: "Kitchen Display Screen (KDS) & Order Dispatcher",
-          budget: "₹14,999 - ₹30,000"
-        },
-        {
-          id: "rest-inventory",
-          title: "Raw Ingredient & Daily Stock Tracker",
-          type: "Owner Dashboard",
-          badge: "Growth",
-          problem: "Raw cheese, milk, or meat mysteriously vanishing, ingredients running out in the middle of dinner service, and no way to know if food was wasted or stolen.",
-          solution: "Every dish recipe is linked to raw ingredients. When 20 paneer burgers sell, the system automatically deducts the buns and paneer, and alerts the owner on WhatsApp if stock runs low.",
-          benefits: ["Automatic ingredient deduction per dish", "Evening WhatsApp low-stock alert", "Daily variance check (Used vs Remaining)"],
-          contactProblem: "Recipe-Linked Raw Stock & Wastage Tracker",
-          budget: "₹30,000 - ₹60,000"
-        }
-      ]
-    },
-    {
-      id: "gyms",
-      name: "Gyms & Fitness",
-      emoji: "🏋️",
-      count: 8,
-      ideas: [
-        {
-          id: "gym-attendance",
-          title: "Member QR / Biometric Check-In & Fee Reminders",
-          type: "Member Terminal & WhatsApp Bot",
-          badge: "Essential",
-          problem: "Members working out for months after their fee expired because counter staff forgets to check paper registers, leading to awkward arguments over unpaid dues.",
-          solution: "Members tap their QR code or fingerprint at the entrance. If their membership is expired, the screen notifies front desk and sends a polite payment link to their WhatsApp.",
-          benefits: ["Automatic door check-in with live photo", "Polite WhatsApp fee reminders on autopilot", "Zero awkward payment conversations"],
-          contactProblem: "Gym Member Attendance & Automatic WhatsApp Fee Reminders",
-          budget: "₹14,999 - ₹30,000"
-        },
-        {
-          id: "gym-member-portal",
-          title: "Branded Member Workout & Diet Portal",
-          type: "Member Phone App",
-          badge: "Growth",
-          problem: "Trainers typing messy diet charts into personal WhatsApp chats that clients quickly lose, leading to frustrated gym members who quit after 2 months.",
-          solution: "A sleek, branded phone web app for your gym where members log in to view their daily exercises, rep goals, body measurements, and trainer diet charts.",
-          benefits: ["Works on any smartphone without app stores", "Tracks weight & fat loss progress visually", "Increases membership renewal by 40%"],
-          contactProblem: "Branded Member Workout & Nutrition Mobile Portal",
-          budget: "₹30,000 - ₹60,000"
-        },
-        {
-          id: "gym-trainer-erp",
-          title: "Trainer Scheduling & Locker Management",
-          type: "Front-Desk Dashboard",
-          badge: "Growth",
-          problem: "Double-booking personal trainers, lost locker keys, and confused shift handovers between morning and evening receptionists.",
-          solution: "A clean dashboard showing occupied lockers, locker renewal dates, trainer session calendars, and collecting renewal fees automatically.",
-          benefits: ["Visual locker grid with expiry dates", "Trainer commission & session tally", "Shift handover cash reconciliation"],
-          contactProblem: "Gym Front-Desk Locker & Trainer Scheduling System",
-          budget: "₹14,999 - ₹30,000"
-        }
-      ]
-    },
-    {
-      id: "coaching",
-      name: "Coaching & Tuition",
-      emoji: "📚",
-      count: 8,
-      ideas: [
-        {
-          id: "coach-attendance",
-          title: "Instant Absentee WhatsApp Alert to Parents",
-          type: "Teacher Mobile App",
-          badge: "Essential",
-          problem: "Teachers spending 15 minutes of every 60-minute class calling roll, while parents complain they were never told their child was skipping tuition.",
-          solution: "Teachers tap student attendance on their phone in 30 seconds. Parents of absent students instantly receive an automatic WhatsApp message informing them of the absence.",
-          benefits: ["30-second digital roll call on phone", "Instant automatic WhatsApp alert to parents", "Builds incredible parent trust and reputation"],
-          contactProblem: "Coaching Student Attendance & Parent WhatsApp Alerts",
-          budget: "₹14,999 - ₹30,000"
-        },
-        {
-          id: "coach-fees",
-          title: "Fee Installment Ledger & Digital Receipts",
-          type: "Institute Admin Portal",
-          badge: "Essential",
-          problem: "Scribbled paper receipt books, parents arguing about which month was paid, and institute owners spending entire weekends doing accounts by hand.",
-          solution: "Records student installments, generates instant branded PDF receipts sent to parent WhatsApp, and sends gentle reminder messages 3 days before dues are expired.",
-          benefits: ["1-click WhatsApp PDF fee receipt", "Automated upcoming installment reminders", "Zero manual calculation or ledger errors"],
-          contactProblem: "Coaching Fee Installment Management & Receipt System",
-          budget: "₹14,999 - ₹30,000"
-        },
-        {
-          id: "coach-lectures",
-          title: "Private Video Lecture Vault & Test Portal",
-          type: "Student Learning App",
-          badge: "Growth",
-          problem: "Students missing classes due to illness and falling behind, or teachers sharing YouTube video links that get forwarded to students who never paid tuition fees.",
-          solution: "A secure, private student web app where only paid students can watch recorded video lectures, download chapter notes, and attempt practice quizzes.",
-          benefits: ["Screen-recording protected video player", "Chapter-wise PDF study notes download", "MCQ tests with instant student scorecards"],
-          contactProblem: "Secure Student Video Lecture App & Test Portal",
-          budget: "₹30,000 - ₹60,000"
-        }
-      ]
-    },
-    {
-      id: "real-estate",
-      name: "Real Estate & Property",
-      emoji: "🏢",
-      count: 8,
-      ideas: [
-        {
-          id: "prop-plot-map",
-          title: "Interactive Colony Plot Map & Availability Selector",
-          type: "Interactive Web Portal",
-          badge: "Essential",
-          problem: "Showing buyers blurry photocopies of township maps where customers cannot tell which plots are sold, booked, or still available for purchase.",
-          solution: "An interactive, color-coded map on your tablet or website. Buyers tap any plot number to see exact square yard dimensions, facing direction, price, and booking status.",
-          benefits: ["Color-coded plots (Green=Open, Red=Sold)", "Works beautifully on tablets during site visits", "Prevents double-booking same plot"],
-          contactProblem: "Interactive Colony Plot Map & Live Availability Portal",
-          budget: "₹14,999 - ₹30,000"
-        },
-        {
-          id: "prop-lead-crm",
-          title: "Buyer Lead Matchmaker & WhatsApp Broadcast",
-          type: "Broker CRM & WhatsApp Tool",
-          badge: "Growth",
-          problem: "Customer inquiries written down in pocket diaries and forgotten, while serious property buyers purchase from another broker who followed up faster.",
-          solution: "Captures every buyer inquiry, records their budget and preferred locality, and allows you to match and WhatsApp new plots or villas to 50 buyers in 1 click.",
-          benefits: ["Auto-matches buyers with incoming plots", "1-click WhatsApp brochure dispatch", "Never lose a high-value property buyer"],
-          contactProblem: "Real Estate Buyer CRM & WhatsApp Matchmaker",
-          budget: "₹14,999 - ₹30,000"
-        },
-        {
-          id: "prop-video-showcase",
-          title: "Prestige Property Showcase & Virtual Tour Portal",
-          type: "Prestige Listing Portal",
-          badge: "Growth",
-          problem: "Driving 20 kilometers with clients to view a home, only for them to reject it in 30 seconds because the layout was not what they imagined.",
-          solution: "A modern listing portal with 4K video walkthroughs, high-res photo galleries, verified legal registry documents, and a 'Schedule Site Visit' calendar.",
-          benefits: ["Filters by price, plot size, and gated colony", "Direct WhatsApp 'Book Site Visit' button", "High-conversion presentation for premium villas"],
-          contactProblem: "Prestige Real Estate Showcase & Video Tour Portal",
-          budget: "₹30,000 - ₹60,000"
-        }
-      ]
-    },
-    {
-      id: "clinics",
-      name: "Clinics & Healthcare",
-      emoji: "🏥",
-      count: 8,
-      ideas: [
-        {
-          id: "clinic-token",
-          title: "WhatsApp Appointment & Live Token Queue",
-          type: "Patient Queue System",
-          badge: "Essential",
-          problem: "Waiting rooms packed with 25 coughing patients for 2 hours, and receptionists exhausted answering endless phone calls asking 'when will doctor see me?'.",
-          solution: "Patients book appointments online or on WhatsApp and receive a live digital token number. They can check 'Now Serving Token #12' on their phone and arrive on time.",
-          benefits: ["Empties crowded, noisy waiting rooms", "Live token number visible on patient phone", "Cuts receptionist phone calls by 75%"],
-          contactProblem: "Clinic WhatsApp Appointment & Live Token Queue System",
-          budget: "₹14,999 - ₹30,000"
-        },
-        {
-          id: "clinic-rx",
-          title: "3-Click Fast Digital Prescription Pad",
-          type: "Doctor Tablet Tool",
-          badge: "Essential",
-          problem: "Doctors handwriting paper prescriptions that chemists misread, and patients losing past paper prescriptions when returning for follow-ups.",
-          solution: "Clean digital prescription maker on doctor's tablet or laptop with saved medicine dosages and advice. Prints a crisp slip or sends PDF to patient's WhatsApp.",
-          benefits: ["Fast 3-click medicine search with saved doses", "Instant WhatsApp PDF copy for patient", "Permanent patient past visit history lookup"],
-          contactProblem: "Doctor Digital Prescription & Patient History Tool",
-          budget: "₹14,999 - ₹30,000"
-        },
-        {
-          id: "clinic-recall",
-          title: "Preventive Care & Vaccine Recall Reminders",
-          type: "Automated Patient Assistant",
-          badge: "Growth",
-          problem: "Patients with diabetes, thyroid, or hypertension forgetting routine follow-ups, or parents missing childhood vaccination dates.",
-          solution: "System automatically schedules follow-up dates and sends a warm WhatsApp reminder when routine lab checkups, medication renewals, or vaccines are due.",
-          benefits: ["Automated WhatsApp vaccination schedules", "Chronic patient follow-up recall", "Increases clinic return visits and patient care"],
-          contactProblem: "Clinic Preventive Care & Vaccine WhatsApp Reminder System",
-          budget: "₹14,999 - ₹30,000"
-        }
-      ]
-    },
-    {
-      id: "retail",
-      name: "Retail & Shops",
-      emoji: "🛍️",
-      count: 8,
-      ideas: [
-        {
-          id: "retail-pos",
-          title: "Fast Barcode Billing & WhatsApp Invoicing",
-          type: "Counter POS Software",
-          badge: "Essential",
-          problem: "Long queues at checkout counter, expensive thermal paper receipt rolls, and customers throwing paper bills into dustbins seconds after walking out.",
-          solution: "Scan barcodes using a handheld scanner or phone camera, generate the bill in 5 seconds, accept UPI, and send an official GST bill straight to customer WhatsApp.",
-          benefits: ["5-second barcode checkout speed", "Zero thermal paper printer costs", "Builds customer phone database automatically"],
-          contactProblem: "Retail Barcode Billing & WhatsApp Invoice System",
-          budget: "₹14,999 - ₹30,000"
-        },
-        {
-          id: "retail-expiry",
-          title: "Low-Stock & Expiry Date Alert Tracker",
-          type: "Inventory Dashboard",
-          badge: "Essential",
-          problem: "Finding expired packaged foods or cosmetics on back shelves resulting in dead stock loss, or running out of best-selling items right before weekends.",
-          solution: "Tracks product batches and expiration dates. Warns shopkeeper on WhatsApp 30 days before items expire and flags fast-moving items running low.",
-          benefits: ["Stops dead inventory and expired stock losses", "WhatsApp alerts for items running low", "Fast daily stock audit on mobile phone"],
-          contactProblem: "Retail Low-Stock & Expiration Date Alert System",
-          budget: "₹14,999 - ₹30,000"
-        },
-        {
-          id: "retail-loyalty",
-          title: "Customer Birthday & Repeat Visit WhatsApp Offers",
-          type: "Customer Loyalty Booster",
-          badge: "Growth",
-          problem: "Customers buying once and never coming back, losing sales to big e-commerce and supermarket chains.",
-          solution: "Auto-saves customer phone numbers at checkout. Automatically sends a special ₹100 birthday voucher or a 'We miss you' coupon after 45 days of no visit.",
-          benefits: ["Automated WhatsApp birthday greetings & offers", "Brings dormant customers back into the shop", "Zero manual marketing work required"],
-          contactProblem: "Shop Customer Loyalty & Automated WhatsApp Offer System",
-          budget: "₹14,999 - ₹30,000"
-        }
-      ]
-    },
-    {
-      id: "gaming",
-      name: "Snooker & Gaming",
-      emoji: "🎱",
-      count: 8,
-      ideas: [
-        {
-          id: "game-timers",
-          title: "Live Snooker / Pool Table Session Matrix",
-          type: "Real-Time Arena ERP",
-          badge: "Essential",
-          problem: "Staff noting game start times on paper slips or chalkboards, players arguing over played minutes, and unbilled 15-minute game sessions leaking cash.",
-          solution: "A high-visibility counter screen showing all 8 tables with ticking minute timers. When a table stops, it calculates exact charges to the second with zero room for dispute.",
-          benefits: ["Real-time per-minute timer display", "100% elimination of table time disputes", "Prevents staff cash skimming"],
-          contactProblem: "Live Snooker Table Session Matrix & Timer System",
-          budget: "₹14,999 - ₹30,000"
-        },
-        {
-          id: "game-combo-pos",
-          title: "Table + Snack Combined Billing",
-          type: "Integrated POS App",
-          badge: "Essential",
-          problem: "Players ordering cold drinks, fries, and extra cues during play, and staff forgetting to add snack orders to the final gaming bill.",
-          solution: "Staff taps Table #4 to add drinks or snacks in 2 seconds. When the session ends, gaming duration and food orders merge into one seamless WhatsApp bill.",
-          benefits: ["1-tap snack adding to any active table", "Consolidated single bill for game + cafe", "Stops unbilled snack revenue leakage"],
-          contactProblem: "Gaming Arena Table & Cafe Combined POS System",
-          budget: "₹14,999 - ₹30,000"
-        },
-        {
-          id: "game-booking",
-          title: "VIP Cabin Online Reservation & Tournaments",
-          type: "Player Booking Portal",
-          badge: "Growth",
-          problem: "Regular players arriving on busy Friday evenings only to find all tables full and walking away, plus manual knockout tournament brackets on paper.",
-          solution: "Players can check live table availability from home, reserve a VIP cabin with an advance UPI token deposit, and sign up for weekend knockout tournaments.",
-          benefits: ["Advance booking with UPI deposit", "Live tournament knockout bracket screen", "Guarantees full occupancy on peak nights"],
-          contactProblem: "Snooker VIP Cabin Booking & Tournament Portal",
-          budget: "₹14,999 - ₹30,000"
-        }
-      ]
-    },
-    {
-      id: "transport",
-      name: "Transport & Fleet",
-      emoji: "🚗",
-      count: 8,
-      ideas: [
-        {
-          id: "trans-dispatch",
-          title: "Driver Job Cards & Delivery Proof App",
-          type: "Driver Smartphone App",
-          badge: "Essential",
-          problem: "Calling drivers 10 times a day asking 'where have you reached?', confusion over drop addresses, and lost paper delivery slips.",
-          solution: "Clean smartphone app for drivers displaying their pickup address, customer phone number, and route. Drivers tap 'Delivered' and take a recipient photo.",
-          benefits: ["Clear job cards on driver smartphone", "Photo proof of delivery with timestamp", "Cuts routine check-in calls to zero"],
-          contactProblem: "Driver Mobile Job Cards & Proof of Delivery App",
-          budget: "₹14,999 - ₹30,000"
-        },
-        {
-          id: "trans-maintenance",
-          title: "Fleet Service & Document Renewal Tracker",
-          type: "Fleet Manager Dashboard",
-          badge: "Essential",
-          problem: "Vehicles breaking down on highways because an oil change was forgotten, or vehicles impounded for expired fitness certificates or pollution permits.",
-          solution: "Tracks kilometers and calendar dates for every vehicle in your fleet. Sends WhatsApp alerts to fleet manager 15 days before servicing or permits expire.",
-          benefits: ["Avoids expensive highway breakdowns", "Never miss fitness, insurance or permit renewals", "Maintains complete service expense ledger"],
-          contactProblem: "Fleet Maintenance & Document Renewal Alert System",
-          budget: "₹14,999 - ₹30,000"
-        },
-        {
-          id: "trans-live-link",
-          title: "Customer Live Shipment Tracking Link",
-          type: "Customer Tracking Web Portal",
-          badge: "Growth",
-          problem: "Anxious customers constantly calling your office asking where their goods are, tying up phone lines and customer service time.",
-          solution: "When a shipment departs, customer automatically receives a WhatsApp message with a live tracking link showing vehicle progress and estimated arrival time.",
-          benefits: ["Customer opens link directly on phone without app", "Shows live milestone progress and ETA", "Eliminates 80% of customer status phone calls"],
-          contactProblem: "Customer Live Shipment Tracking & WhatsApp Alert System",
-          budget: "₹30,000 - ₹60,000"
-        }
-      ]
-    }
-  ];
-
-  function escapeHtml(s) {
-    if (!s) return '';
-    return String(s)
-      .replace(/&/g, '&amp;')
-      .replace(/</g, '&lt;')
-      .replace(/>/g, '&gt;')
-      .replace(/"/g, '&quot;')
-      .replace(/'/g, '&#39;');
-  }
-
-  const tabsWrap = document.getElementById('showcaseTabs');
-  const cardsWrap = document.getElementById('showcaseCardsGrid');
-  if (!tabsWrap || !cardsWrap) return;
-
-  let activeCatId = 'restaurants';
-
-  // Check URL hash for initial tab
-  const hash = (window.location.hash || '').replace('#', '').toLowerCase();
-  const matchedCat = HOME_SHOWCASE_DATA.find(c => c.id === hash);
-  if (matchedCat) activeCatId = matchedCat.id;
-
-  function renderTabs() {
-    tabsWrap.innerHTML = HOME_SHOWCASE_DATA.map(c => `
-      <button type="button" class="showcase-tab ${c.id === activeCatId ? 'active' : ''}" data-cat="${c.id}" role="tab" aria-selected="${c.id === activeCatId}">
-        <span class="tab-emoji">${c.emoji}</span>
-        <span>${escapeHtml(c.name)}</span>
-        <span class="tab-count">${c.count}</span>
-      </button>
-    `).join('');
-
-    tabsWrap.querySelectorAll('.showcase-tab').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const cat = btn.getAttribute('data-cat');
-        if (cat && cat !== activeCatId) {
-          activeCatId = cat;
-          renderTabs();
-          renderCards(cat);
-        }
-      });
-    });
-  }
-
-  function renderCards(catId) {
-    const category = HOME_SHOWCASE_DATA.find(c => c.id === catId) || HOME_SHOWCASE_DATA[0];
-    cardsWrap.innerHTML = category.ideas.map(idea => `
-      <div class="showcase-card">
-        <div class="card-top-pills">
-          <span class="card-type-tag">${escapeHtml(idea.type)}</span>
-          <span class="card-tier-pill">${escapeHtml(idea.badge)}</span>
-        </div>
-        <h3 class="card-title">${escapeHtml(idea.title)}</h3>
-        <div class="card-block headache">
-          <div class="card-block-label">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-            The Everyday Headache
-          </div>
-          <span>${escapeHtml(idea.problem)}</span>
-        </div>
-        <div class="card-block solution">
-          <div class="card-block-label">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
-            How The Software Fixes It
-          </div>
-          <span>${escapeHtml(idea.solution)}</span>
-        </div>
-        <div class="card-benefits">
-          ${idea.benefits.map(b => `<span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>${escapeHtml(b)}</span>`).join('')}
-        </div>
-        <div class="card-footer-cta">
-          <a class="btn hi sm" href="contact.html?problem=${encodeURIComponent(idea.contactProblem)}&budget=${encodeURIComponent(idea.budget)}">Plan This Solution →</a>
-        </div>
-      </div>
-    `).join('');
-  }
-
-  // Hook into hero discovery chips to switch category
-  document.querySelectorAll('.disc-chip').forEach(chip => {
-    chip.addEventListener('click', () => {
-      const val = (chip.getAttribute('data-val') || chip.textContent).toLowerCase();
-      let targetId = null;
-      if (val.includes('restaurant')) targetId = 'restaurants';
-      else if (val.includes('gym')) targetId = 'gyms';
-      else if (val.includes('coaching')) targetId = 'coaching';
-      else if (val.includes('estate') || val.includes('property')) targetId = 'real-estate';
-      else if (val.includes('clinic')) targetId = 'clinics';
-      else if (val.includes('retail') || val.includes('shop')) targetId = 'retail';
-
-      if (targetId) {
-        activeCatId = targetId;
-        renderTabs();
-        renderCards(targetId);
-      }
-    });
-  });
-
-  renderTabs();
-  renderCards(activeCatId);
-})();
-
 /* Typing Headline Prompt */
 const pr = ['websites that work on every phone.','Android apps your customers will use.','software that replaces your Excel sheets.','systems that run your whole business.','the software you have been missing.'];
 let pi = 0, ci = 0, del = 0;

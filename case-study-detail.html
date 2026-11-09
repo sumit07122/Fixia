@@ -359,6 +359,51 @@
   .case-body { grid-template-columns: 1fr; }
   .case-sidebar { position: static; }
 }
+
+@media (max-width: 600px) {
+  .mockup-bar {
+    padding: 0 0.75rem;
+    gap: 0.5rem;
+  }
+  .mockup-dots {
+    display: none;
+  }
+  .mockup-url {
+    min-width: 0;
+    flex: 1;
+    padding: 0.25rem 0.6rem;
+    font-size: 0.72rem;
+  }
+  .mockup-url span {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    display: block;
+    min-width: 0;
+  }
+  .bf-live-pill {
+    padding: 0.25rem 0.55rem;
+    font-size: 0.72rem;
+  }
+  .case-nav-pill {
+    min-height: 44px;
+    padding: 0.45rem 0.95rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .metrics-strip { grid-template-columns: 1fr; gap: 1rem; }
+  .dev-pill { min-height: 42px; display: inline-flex; align-items: center; justify-content: center; }
+}
+
+@media (max-width: 380px) {
+  .mockup-url {
+    display: none;
+  }
+  .mockup-bar {
+    justify-content: flex-end;
+  }
+}
 </style>
 </head>
 <body data-page="work">
