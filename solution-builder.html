@@ -656,6 +656,10 @@
           <a class="btn hi" id="discussSolutionBtn" href="contact.html">
             Discuss This Solution →
           </a>
+          <a class="btn" id="waSolutionBtn" style="background:#22C55E;color:#fff;border-color:#16A34A;display:inline-flex;align-items:center;gap:0.45rem" href="https://wa.me/917017936338?text=Hi%20FIXIA!%20I%20designed%20a%20solution%20on%20your%20website%20and%20want%20to%20discuss%20building%20it." target="_blank" rel="noopener noreferrer">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91S17.5 2 12.04 2zm5.79 14c-.24.67-1.39 1.28-1.92 1.34-.51.06-1.17.09-3.79-.98-2.24-.92-3.69-3.21-3.8-3.36-.11-.15-.92-1.22-.92-2.33s.58-1.65.79-1.87c.21-.22.46-.28.61-.28.15 0 .31 0 .44.01.14.01.32-.05.5.38.18.43.62 1.51.67 1.62.05.11.08.24.01.38-.07.14-.11.23-.22.36-.11.13-.23.29-.33.39-.11.11-.23.23-.1.45.13.22.58.96 1.24 1.55.85.76 1.57 1 1.79 1.11.22.11.35.09.48-.06.13-.15.56-.65.71-.87.15-.22.3-.18.5-.11.2.07 1.29.61 1.51.72.22.11.37.17.42.26.05.09.05.53-.19 1.2z"/></svg>
+            Chat on WhatsApp
+          </a>
         </div>
       </div>
 
@@ -817,6 +821,10 @@
     const moduleTitles = (data.modules || []).map(m => m.title).join(', ');
     const summaryText = `We want to build the "${solName}" system for our ${activeBiz || 'business'}. Modules selected: ${moduleTitles}.`;
     discussSolutionBtn.href = `contact.html?biz=${encodeURIComponent(activeBiz)}&solutionName=${encodeURIComponent(solName)}&solutionSummary=${encodeURIComponent(summaryText)}&p=${encodeURIComponent(summaryText)}`;
+    const waBtn = document.getElementById('waSolutionBtn');
+    if (waBtn) {
+      waBtn.href = `https://wa.me/917017936338?text=${encodeURIComponent(`Hi FIXIA! I designed a "${solName}" system on your Solution Builder for my ${activeBiz || 'business'} and would like to discuss building it.`)}`;
+    }
   }
 
   function renderActiveModuleChips(modules) {

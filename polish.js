@@ -264,7 +264,7 @@ window.fxSfx = {
         <div class="bot-plan-stat">⏱️ ${data.saved}</div>
 
         <div class="bot-plan-actions">
-          <a class="bot-plan-btn" href="https://wa.me/918448858700?text=${encodeURIComponent('Hi FIXIA, I run a ' + data.title + ' and want to automate it.')}" target="_blank" rel="noopener">WhatsApp Blueprint ↗</a>
+          <a class="bot-plan-btn" href="https://wa.me/917017936338?text=${encodeURIComponent('Hi FIXIA, I run a ' + data.title + ' and want to automate it.')}" target="_blank" rel="noopener">WhatsApp Blueprint ↗</a>
           <a class="bot-plan-btn sub" href="${data.demo}" ${data.demo.startsWith('http') ? 'target="_blank" rel="noopener"' : ''}>${data.demoName}</a>
           <a class="bot-plan-btn sub" href="contact.html?p=${encodeURIComponent('I want to discuss automating my ' + data.title)}">Get Need-Based Quote</a>
         </div>
@@ -315,7 +315,7 @@ window.fxSfx = {
             <li><b>3. Need-Based Pricing:</b> We charge only for the exact screens you need—no monthly per-user licenses.</li>
           </ul>
           <div class="bot-plan-actions">
-            <a class="bot-plan-btn" href="https://wa.me/918448858700?text=${encodeURIComponent('Hi FIXIA, I want to automate my ' + query)}" target="_blank" rel="noopener">Discuss via WhatsApp ↗</a>
+            <a class="bot-plan-btn" href="https://wa.me/917017936338?text=${encodeURIComponent('Hi FIXIA, I want to automate my ' + query)}" target="_blank" rel="noopener">Discuss via WhatsApp ↗</a>
             <a class="bot-plan-btn sub" href="contact.html?p=${encodeURIComponent('I want to build software for: ' + query)}">Request 48-Hour Blueprint</a>
           </div>
         </div>

@@ -4,176 +4,160 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Start a Project – FIXIA · Your Business. Smarter with Software.</title>
-<meta name="description" content="Tell FIXIA what business problem you want to solve. Transparent milestone estimates starting from ₹14,999 with 100% source code ownership.">
+<meta name="description" content="Contact FIXIA product engineers. Custom software, high-speed websites, Android apps, and business automation with 100% source code ownership.">
 <link rel="icon" type="image/svg+xml" href="logo/fixia-favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css?v=20261025d">
+<link rel="stylesheet" href="styles.css?v=20261101e">
+<link rel="stylesheet" href="polish.css?v=20261101e">
 <style>
-.ct {
+.contact-layout {
   display: grid;
-  grid-template-columns: 0.95fr 1.2fr;
-  gap: clamp(2rem, 5vw, 5rem);
-  padding: clamp(3rem, 7vw, 5.5rem) 0 clamp(4rem, 8vw, 7rem);
+  grid-template-columns: 1fr 1.15fr;
+  gap: clamp(2rem, 5vw, 4.5rem);
+  padding: clamp(3rem, 6.5vw, 5.5rem) 0 clamp(4rem, 8vw, 7rem);
   align-items: start;
 }
-.ct h1 {
-  font-size: clamp(2.7rem, 6vw, 5.2rem);
-  letter-spacing: -0.045em;
-  line-height: 0.95;
-}
-.side ul {
-  list-style: none;
-  padding: 0;
-  margin-top: 2rem;
-}
-.side li {
-  display: flex;
-  gap: 0.8rem;
-  padding: 0.85rem 0;
-  border-top: 1px solid var(--line);
-  font-weight: 500;
-}
-.side li .ico { color: var(--mint); margin-top: 0.3rem; }
-.blueprint-card {
-  margin-top: 1.8rem;
-  background: var(--ink);
-  color: #fff;
-  border-radius: 20px;
-  padding: 1.35rem;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-}
-.blueprint-card small {
-  font: 600 0.74rem var(--mono);
-  text-transform: uppercase;
-  color: var(--hi);
-  display: flex;
-  align-items: center;
-  gap: 0.4rem;
-  margin-bottom: 0.4rem;
-}
-.blueprint-card p {
-  font-size: 0.92rem;
-  color: #D4CEC0;
-  line-height: 1.5;
+
+.contact-side h1 {
+  font-size: clamp(2.4rem, 5.2vw, 4.4rem);
+  letter-spacing: -0.04em;
+  line-height: 0.98;
+  margin-top: 0.4rem;
 }
 
-.box {
-  background: #fff;
-  border: 1.5px solid var(--ink);
-  border-radius: 28px;
-  padding: clamp(1.4rem, 3.2vw, 2.5rem);
-  box-shadow: 0 36px 70px -45px rgba(16, 16, 16, 0.45);
-}
-.box-head {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 1rem;
-  font: 600 0.8rem var(--mono);
-  color: var(--mute);
-}
-.pg {
-  display: flex;
-  gap: 0.4rem;
-  margin-bottom: 1.8rem;
-}
-.pg i {
-  flex: 1;
-  height: 5px;
-  border-radius: 9px;
-  background: var(--line);
-  overflow: hidden;
-  position: relative;
-}
-.pg i::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: var(--cobalt);
-  transform: scaleX(0);
-  transform-origin: 0;
-  transition: transform 0.55s var(--ease);
-}
-.pg i.on::after { transform: none; }
-
-.step { display: none; }
-.step.on { display: block; animation: slide 0.45s var(--ease) both; }
-@keyframes slide {
-  from { opacity: 0; transform: translateX(18px); }
-  to { opacity: 1; transform: none; }
-}
-.step h2 {
-  font-size: 1.75rem;
-  max-width: none;
-  margin-bottom: 0.4rem;
-}
-.step-sub {
-  color: var(--mute);
-  font-size: 0.94rem;
-  margin-bottom: 1.35rem;
-}
-.opts {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.55rem;
-  margin-bottom: 1.2rem;
-}
-.opts label { position: relative; }
-.opts input { position: absolute; opacity: 0; inset: 0; cursor: pointer; }
-.opts span {
-  display: block;
-  border: 1.5px solid var(--line);
-  border-radius: 999px;
-  padding: 0.58rem 1.05rem;
-  font-weight: 600;
-  font-size: 0.92rem;
-  transition: all 0.2s;
-}
-.opts input:hover + span { border-color: var(--ink); }
-.opts input:checked + span {
-  background: var(--ink);
-  color: #fff;
-  border-color: var(--ink);
-}
-.opts input:focus-visible + span { outline: 3px solid var(--cobalt); outline-offset: 3px; }
-
-.f {
+.direct-cards-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 1rem;
+  margin-top: 2rem;
 }
-.f .full { grid-column: 1 / -1; }
-label.t {
+
+.direct-card {
+  background: #ffffff;
+  border: 1.5px solid var(--line);
+  border-radius: 20px;
+  padding: 1.25rem;
   display: flex;
   flex-direction: column;
-  gap: 0.35rem;
-  font-weight: 600;
-  font-size: 0.9rem;
+  justify-content: space-between;
+  gap: 0.85rem;
+  transition: transform 0.25s var(--ease), border-color 0.25s, box-shadow 0.25s;
 }
-.f input, .f select, .f textarea {
-  font: 400 0.98rem var(--body);
-  padding: 0.78rem 1rem;
+
+.direct-card:hover {
+  transform: translateY(-3px);
+  border-color: var(--ink);
+  box-shadow: 0 16px 36px -12px rgba(16, 16, 16, 0.14);
+}
+
+.direct-card-top {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.direct-card-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.direct-card-icon.wa { background: rgba(34, 197, 94, 0.14); color: #16A34A; }
+.direct-card-icon.phone { background: rgba(37, 71, 245, 0.1); color: var(--cobalt); }
+.direct-card-icon.email { background: rgba(194, 51, 12, 0.1); color: var(--hi); }
+.direct-card-icon.ig { background: rgba(225, 48, 108, 0.1); color: #E1306C; }
+
+.direct-card-title {
+  font: 700 0.94rem var(--display);
+  color: var(--ink);
+}
+
+.direct-card-val {
+  font: 600 0.88rem var(--mono);
+  color: var(--ink);
+  word-break: break-all;
+}
+
+.direct-card-note {
+  font-size: 0.78rem;
+  color: var(--mute);
+  line-height: 1.35;
+}
+
+.contact-form-box {
+  background: #ffffff;
+  border: 1.5px solid var(--ink);
+  border-radius: 28px;
+  padding: clamp(1.5rem, 3.5vw, 2.8rem);
+  box-shadow: 0 36px 70px -45px rgba(16, 16, 16, 0.45);
+}
+
+.contact-form-head {
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid var(--line);
+  margin-bottom: 1.5rem;
+}
+
+.contact-form-head h3 {
+  font-size: 1.65rem;
+  letter-spacing: -0.03em;
+  margin-bottom: 0.25rem;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.15rem;
+}
+
+.form-grid .full {
+  grid-column: 1 / -1;
+}
+
+.form-label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  font: 600 0.88rem var(--display);
+  color: var(--ink);
+}
+
+.form-label input,
+.form-label select,
+.form-label textarea {
+  font: 500 0.98rem var(--body);
+  padding: 0.8rem 1.05rem;
   border: 1.5px solid var(--line);
   border-radius: 12px;
-  background: #fff;
+  background: #ffffff;
   color: var(--ink);
   width: 100%;
+  box-sizing: border-box;
   transition: border-color 0.2s, box-shadow 0.2s;
 }
-.f input:focus, .f select:focus, .f textarea:focus {
+
+.form-label input:focus,
+.form-label select:focus,
+.form-label textarea:focus {
   outline: 0;
   border-color: var(--cobalt);
-  box-shadow: 0 0 0 4px rgba(194, 51, 12, 0.14);
+  box-shadow: 0 0 0 4px rgba(194, 51, 12, 0.12);
 }
-.prompt-chips {
+
+.form-chips {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.4rem;
-  margin-top: 0.45rem;
+  gap: 0.45rem;
+  margin-top: 0.5rem;
 }
-.prompt-chips button {
+
+.form-chips button {
   background: var(--paper);
   border: 1px solid var(--line);
   border-radius: 999px;
@@ -183,369 +167,479 @@ label.t {
   align-items: center;
   justify-content: center;
   font-size: 0.82rem;
+  font-weight: 600;
   color: var(--mute);
+  cursor: pointer;
   transition: all 0.2s;
 }
-.prompt-chips button:hover {
+
+.form-chips button:hover {
   border-color: var(--cobalt);
   color: var(--cobalt);
+  background: #fff;
 }
 
-.nv {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: 1.8rem;
-  padding-top: 1.2rem;
-  border-top: 1px solid var(--line);
-  gap: 0.6rem;
-}
-.ok {
-  text-align: center;
-  padding: 2rem 0;
+.form-error {
   display: none;
+  background: #FEF2F2;
+  border: 1.5px solid #FCA5A5;
+  border-radius: 12px;
+  padding: 0.85rem 1.1rem;
+  color: #991B1B;
+  font-size: 0.88rem;
+  margin-top: 1.15rem;
+  line-height: 1.45;
 }
-.ok.on { display: block; animation: slide 0.55s var(--ease) both; }
-.ok .tick {
-  width: 4rem;
-  height: 4rem;
+
+.form-success {
+  display: none;
+  text-align: center;
+  padding: 1.5rem 0;
+  animation: slide 0.5s var(--ease) both;
+}
+
+.form-success.on {
+  display: block;
+}
+
+.form-success .tick {
+  width: 4.2rem;
+  height: 4.2rem;
   border-radius: 50%;
   background: var(--mint);
   color: #fff;
   display: grid;
   place-items: center;
-  margin: 0 auto 1rem;
-  font-size: 1.9rem;
+  margin: 0 auto 1.25rem;
+  font-size: 2rem;
 }
-.ok h2 { font-size: 2.1rem; margin: 0 auto 0.6rem; }
-.ok p { color: var(--mute); margin-bottom: 1.4rem; }
-.brief-summary {
+
+.form-success h2 {
+  font-size: 2rem;
+  letter-spacing: -0.03em;
+  margin-bottom: 0.5rem;
+}
+
+.form-success p {
+  color: var(--mute);
+  font-size: 0.98rem;
+  max-width: 28rem;
+  margin: 0 auto 1.5rem;
+  line-height: 1.5;
+}
+
+.form-summary-card {
   text-align: left;
   background: var(--paper);
   border: 1px solid var(--line);
-  border-radius: 16px;
-  padding: 1.1rem;
-  margin-bottom: 1.5rem;
-  font-size: 0.9rem;
+  border-radius: 18px;
+  padding: 1.25rem;
+  margin-bottom: 1.75rem;
+  font-size: 0.92rem;
   display: flex;
   flex-direction: column;
-  gap: 0.45rem;
+  gap: 0.5rem;
 }
-@media (max-width: 900px) {
-  .ct, .f { grid-template-columns: 1fr; }
-  .nv { flex-direction: column-reverse; gap: 0.8rem; }
-  .nv .btn { width: 100%; min-height: 48px; }
+
+@media (max-width: 960px) {
+  .contact-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .direct-cards-grid {
+    grid-template-columns: 1fr;
+  }
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+  .contact-form-box {
+    padding: clamp(1.2rem, 4vw, 1.8rem);
+    border-radius: 22px;
+  }
 }
 </style>
-<link rel="stylesheet" href="polish.css?v=20261025d">
-<script>try{if(!sessionStorage.fx){document.documentElement.classList.add("intro-on");sessionStorage.fx=1}}catch(e){}</script></head>
+<script>try{if(!sessionStorage.fx){document.documentElement.classList.add("intro-on");sessionStorage.fx=1}}catch(e){}</script>
+</head>
 <body data-page="contact" data-noend="1">
 <main>
-<div class="wrap ct">
-  <div class="side">
-    <span class="eyebrow">Direct Engineering Discovery</span>
-    <h1 data-split>Have a problem worth solving?</h1>
-    <p class="lede" data-r>Tell us what is slowing your business down. We'll figure out what to build and reply with a custom solution blueprint, timeline, and fixed milestone range.</p>
-    <ul data-r>
-      <li><svg class="ico"><use href="#chk"/></svg>First architecture ideas within 6 business hours via WhatsApp &amp; email</li>
-      <li><svg class="ico"><use href="#chk"/></svg>Speak directly with product engineers—zero sales fluff</li>
-      <li><svg class="ico"><use href="#chk"/></svg>Fixed-milestone pricing &amp; 100% source code ownership</li>
-    </ul>
-    <div class="blueprint-card" data-r>
-      <small><span class="dot"></span>Accepting New Client Projects</small>
-      <p>Even if you aren't sure whether you need a web app, automation, or AI agent—just describe the bottleneck in plain words.</p>
-    </div>
+<div class="wrap contact-layout">
+  
+  <!-- Left Column: Agency Identity & Direct Contact Cards -->
+  <div class="contact-side">
+    <span class="eyebrow">Direct Engineering Reach-Out</span>
+    <h1 data-split>Have a business problem? <em>Let's build the solution.</em></h1>
+    <p class="lede" data-r>Tell us what your business needs. Speak directly with product engineers—zero sales pressure, transparent milestone estimates, and 100% source code ownership.</p>
 
-    <!-- Direct WhatsApp Contact Pill -->
-    <div style="margin-top:1.5rem;padding:1.15rem 1.3rem;background:#F0FDF4;border:1.5px solid #BBF7D0;border-radius:18px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:0.75rem" data-r>
-      <div>
-        <b style="color:#166534;font-size:0.92rem;display:block">Prefer instant chat?</b>
-        <span style="color:#15803D;font-size:0.84rem">Message our engineering team directly on WhatsApp</span>
-      </div>
-      <a class="btn sm" style="background:#22C55E;color:#fff;border-color:#16A34A;display:inline-flex;align-items:center;gap:0.4rem" href="https://wa.me/918448858700?text=Hi%20FIXIA,%20I'd%20like%20to%20discuss%20a%20software%20project%20for%20my%20business." target="_blank" rel="noopener noreferrer">
-        <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91S17.5 2 12.04 2zm5.79 14c-.24.67-1.39 1.28-1.92 1.34-.51.06-1.17.09-3.79-.98-2.24-.92-3.69-3.21-3.8-3.36-.11-.15-.92-1.22-.92-2.33s.58-1.65.79-1.87c.21-.22.46-.28.61-.28.15 0 .31 0 .44.01.14.01.32-.05.5.38.18.43.62 1.51.67 1.62.05.11.08.24.01.38-.07.14-.11.23-.22.36-.11.13-.23.29-.33.39-.11.11-.23.23-.1.45.13.22.58.96 1.24 1.55.85.76 1.57 1 1.79 1.11.22.11.35.09.48-.06.13-.15.56-.65.71-.87.15-.22.3-.18.5-.11.2.07 1.29.61 1.51.72.22.11.37.17.42.26.05.09.05.53-.19 1.2z"/></svg>
-        WhatsApp Us
-      </a>
-    </div>
-  </div>
-
-  <div class="box" data-r>
-    <div class="box-head">
-      <span id="stepLabel">STEP 01 OF 03 · THE PROBLEM</span>
-      <span>~90 Seconds</span>
-    </div>
-    <div class="pg" id="pg"><i class="on"></i><i></i><i></i></div>
-
-    <form id="fm" novalidate>
-      <!-- STEP 1: Problem & Focus Area -->
-      <div class="step on">
-        <div id="ideaBanner" style="display:none;align-items:center;gap:.5rem;background:rgba(194,51,12,.08);border:1.5px solid rgba(194,51,12,.25);border-radius:999px;padding:.4rem 1rem;font:600 .82rem var(--mono);color:var(--cobalt);margin-bottom:1.2rem">
-          <span>💡 Inquiring about blueprint:</span> <b id="ideaBannerText" style="color:var(--ink)"></b>
-        </div>
-        <h2>What's slowing you down, or what would you like to build?</h2>
-        <p class="step-sub">Pick one or more areas (or select “Not sure yet—advise me”).</p>
-        <div class="opts" id="kind"></div>
-        <div class="f">
-          <div class="full">
-            <label class="t">What's the problem? (Describe it like you'd tell a friend) *
-              <textarea id="prob" name="problem" rows="4" placeholder="e.g. Our sales team tracks 200+ leads on WhatsApp and Excel, and follow-ups keep slipping..." required></textarea>
-            </label>
-            <div class="prompt-chips">
-              <button type="button" onclick="fillP('We manage everything in Excel and need a custom dashboard.')">+ Replacing Excel</button>
-              <button type="button" onclick="fillP('We are losing leads on WhatsApp and need a CRM + automated follow-ups.')">+ WhatsApp CRM</button>
-              <button type="button" onclick="fillP('I have a SaaS/app idea and need an MVP built from scratch.')">+ New SaaS / App Idea</button>
+    <!-- 4 Direct Contact Cards (WhatsApp, Phone, Email, Instagram) -->
+    <div class="direct-cards-grid" data-r>
+      
+      <!-- Card 1: WhatsApp -->
+      <div class="direct-card">
+        <div>
+          <div class="direct-card-top">
+            <div class="direct-card-icon wa">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91S17.5 2 12.04 2zm5.79 14c-.24.67-1.39 1.28-1.92 1.34-.51.06-1.17.09-3.79-.98-2.24-.92-3.69-3.21-3.8-3.36-.11-.15-.92-1.22-.92-2.33s.58-1.65.79-1.87c.21-.22.46-.28.61-.28.15 0 .31 0 .44.01.14.01.32-.05.5.38.18.43.62 1.51.67 1.62.05.11.08.24.01.38-.07.14-.11.23-.22.36-.11.13-.23.29-.33.39-.11.11-.23.23-.1.45.13.22.58.96 1.24 1.55.85.76 1.57 1 1.79 1.11.22.11.35.09.48-.06.13-.15.56-.65.71-.87.15-.22.3-.18.5-.11.2.07 1.29.61 1.51.72.22.11.37.17.42.26.05.09.05.53-.19 1.2z"/></svg>
+            </div>
+            <div>
+              <div class="direct-card-title">WhatsApp</div>
+              <div class="direct-card-note">Fastest response · Instant chat</div>
             </div>
           </div>
+          <div class="direct-card-val" style="margin-top:0.75rem">+91 70179 36338</div>
         </div>
+        <a class="btn sm" style="background:#22C55E;color:#fff;border-color:#16A34A;width:100%;justify-content:center" href="https://wa.me/917017936338?text=Hi%20FIXIA!%20I%20visited%20your%20website%20and%20would%20like%20to%20discuss%20a%20digital%20solution%20for%20my%20business." target="_blank" rel="noopener noreferrer">Start a Conversation →</a>
       </div>
 
-      <!-- STEP 2: Business Context, Budget & Timeline -->
-      <div class="step">
-        <h2>Tell us a bit about your business &amp; timeline.</h2>
-        <p class="step-sub">This helps us size the right architecture and milestone plan.</p>
-        <div class="f">
-          <label class="t full">What does your business do? *
-            <input id="bizDo" name="business_type" placeholder="e.g. Multi-branch sports arena, D2C brand, property advisory, travel operator..." required>
-          </label>
-          <label class="t">Indicative Budget Range
-            <select name="budget" id="bud">
-              <option selected>₹14,999 – ₹50,000 (Foundational Tier)</option>
-              <option>₹50,000 – ₹1,50,000 (Growth Tier)</option>
-              <option>₹1,50,000+ (Scale / Full System)</option>
-              <option>Not sure yet — suggest options</option>
-            </select>
-          </label>
-          <label class="t">Target Timeline
-            <select name="timeline" id="time">
-              <option>Urgent (2–4 weeks)</option>
-              <option selected>1–2 months</option>
-              <option>Flexible / Planning ahead</option>
-            </select>
-          </label>
-        </div>
-      </div>
-
-      <!-- STEP 3: Contact Details -->
-      <div class="step">
-        <h2>Where should we send your solution plan?</h2>
-        <p class="step-sub">We'll share a concise architecture breakdown via WhatsApp and email.</p>
-        <div class="f">
-          <label class="t">Your Name *
-            <input id="uName" name="name" required autocomplete="name" placeholder="Aarav Sharma">
-          </label>
-          <label class="t">Business / Company Name *
-            <input id="uBiz" name="business" required autocomplete="organization" placeholder="Apex Operations Pvt Ltd">
-          </label>
-          <label class="t">Email Address *
-            <input id="uMail" type="email" name="email" required autocomplete="email" placeholder="you@company.com">
-          </label>
-          <label class="t">WhatsApp Number *
-            <input id="uWa" type="tel" name="whatsapp" required autocomplete="tel" placeholder="+91 98765 43210">
-          </label>
-
-          <!-- Honeypot spam trap -->
-          <div style="display:none" aria-hidden="true">
-            <input type="text" name="website_hp" id="websiteHp" tabindex="-1" autocomplete="off">
+      <!-- Card 2: Phone -->
+      <div class="direct-card">
+        <div>
+          <div class="direct-card-top">
+            <div class="direct-card-icon phone">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            </div>
+            <div>
+              <div class="direct-card-title">Phone</div>
+              <div class="direct-card-note">Mon–Sat · 10am to 8pm IST</div>
+            </div>
           </div>
+          <div class="direct-card-val" style="margin-top:0.75rem">+91 70179 36338</div>
         </div>
-
-        <!-- Submission Error Box -->
-        <div id="inquiryError" style="display:none;background:#FEF2F2;border:1.5px solid #FCA5A5;border-radius:12px;padding:0.9rem 1.1rem;color:#991B1B;font-size:0.9rem;margin-top:1rem;line-height:1.4"></div>
+        <a class="btn sm ghost" style="width:100%;justify-content:center" href="tel:+917017936338">Call FIXIA →</a>
       </div>
 
-      <div class="nv">
-        <button type="button" class="btn ghost sm" id="bk" style="visibility:hidden">← Back</button>
-        <button type="button" class="btn sm" id="nx">Next Step →</button>
+      <!-- Card 3: Email -->
+      <div class="direct-card">
+        <div>
+          <div class="direct-card-top">
+            <div class="direct-card-icon email">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+            </div>
+            <div>
+              <div class="direct-card-title">Email</div>
+              <div class="direct-card-note">Scopes &amp; technical RFPs</div>
+            </div>
+          </div>
+          <div class="direct-card-val" style="margin-top:0.75rem">devloper@fixia.in</div>
+        </div>
+        <a class="btn sm ghost" style="width:100%;justify-content:center" href="mailto:devloper@fixia.in">Send an Email →</a>
+      </div>
+
+      <!-- Card 4: Instagram -->
+      <div class="direct-card">
+        <div>
+          <div class="direct-card-top">
+            <div class="direct-card-icon ig">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+            </div>
+            <div>
+              <div class="direct-card-title">Instagram</div>
+              <div class="direct-card-note">Builds &amp; live demos</div>
+            </div>
+          </div>
+          <div class="direct-card-val" style="margin-top:0.75rem">@fixia.official</div>
+        </div>
+        <a class="btn sm ghost" style="width:100%;justify-content:center" href="https://www.instagram.com/fixia.official/" target="_blank" rel="noopener noreferrer">Follow FIXIA ↗</a>
+      </div>
+
+    </div>
+
+    <!-- Guarantees list -->
+    <ul style="list-style:none;padding:0;margin-top:2rem" data-r>
+      <li style="display:flex;gap:0.75rem;padding:0.75rem 0;border-top:1px solid var(--line);font-weight:500"><svg class="ico" style="color:var(--mint);margin-top:0.25rem"><use href="#chk"/></svg><span>First architecture plan &amp; estimate within 6 business hours</span></li>
+      <li style="display:flex;gap:0.75rem;padding:0.75rem 0;border-top:1px solid var(--line);font-weight:500"><svg class="ico" style="color:var(--mint);margin-top:0.25rem"><use href="#chk"/></svg><span>Direct collaboration with senior engineers — zero sales middlemen</span></li>
+      <li style="display:flex;gap:0.75rem;padding:0.75rem 0;border-top:1px solid var(--line);font-weight:500"><svg class="ico" style="color:var(--mint);margin-top:0.25rem"><use href="#chk"/></svg><span>Transparent milestone pricing &amp; 100% full source code ownership</span></li>
+    </ul>
+  </div>
+
+  <!-- Right Column: Complete Form -->
+  <div class="contact-form-box" data-r>
+    <div class="contact-form-head">
+      <h3>Tell us about your project</h3>
+      <p style="color:var(--mute);font-size:0.92rem;margin-top:0.3rem">We'll review your requirements and reply with a custom solution blueprint and milestone range.</p>
+    </div>
+
+    <!-- Incoming Blueprint Indicator -->
+    <div id="ideaBanner" style="display:none;align-items:center;gap:.5rem;background:rgba(194,51,12,.08);border:1.5px solid rgba(194,51,12,.25);border-radius:999px;padding:.4rem 1rem;font:600 .82rem var(--mono);color:var(--cobalt);margin-bottom:1.4rem">
+      <span>💡 Inquiring about:</span> <b id="ideaBannerText" style="color:var(--ink)"></b>
+    </div>
+
+    <form id="contactForm" novalidate>
+      <div class="form-grid">
+        
+        <!-- Full Name -->
+        <label class="form-label">
+          Full Name *
+          <input type="text" id="userName" name="name" required autocomplete="name" placeholder="Aarav Sharma">
+        </label>
+
+        <!-- Business Name (optional) -->
+        <label class="form-label">
+          Business Name (optional)
+          <input type="text" id="userBiz" name="business" autocomplete="organization" placeholder="e.g. Apex Hospitality, Gym, Clinic...">
+        </label>
+
+        <!-- Phone Number -->
+        <label class="form-label">
+          Phone Number *
+          <input type="tel" id="userPhone" name="phone" required autocomplete="tel" placeholder="+91 70179 36338">
+        </label>
+
+        <!-- Email -->
+        <label class="form-label">
+          Email Address *
+          <input type="email" id="userEmail" name="email" required autocomplete="email" placeholder="you@company.com">
+        </label>
+
+        <!-- What do you need? (dropdown) -->
+        <label class="form-label full">
+          What do you need? *
+          <select id="userNeed" name="focus" required>
+            <option value="Website Development">Website Development</option>
+            <option value="Custom Software">Custom Software</option>
+            <option value="Mobile Application">Mobile Application</option>
+            <option value="Business Management System">Business Management System</option>
+            <option value="Automation &amp; Integrations">Automation &amp; Integrations</option>
+            <option value="Other">Other</option>
+          </select>
+        </label>
+
+        <!-- Tell us about your project -->
+        <label class="form-label full">
+          Tell us about your project *
+          <textarea id="userProblem" name="problem" rows="4" required placeholder="Describe what is slowing your business down, or the software solution you would like to build..."></textarea>
+          <div class="form-chips">
+            <button type="button" onclick="fillProjectDesc('We track bookings on WhatsApp and need an automated booking portal + instant digital tickets.')">+ Automated Booking Portal</button>
+            <button type="button" onclick="fillProjectDesc('We manage everything across Excel sheets and need a unified cloud management system.')">+ Replacing Excel Sheets</button>
+            <button type="button" onclick="fillProjectDesc('We need a staff Android app for billing, order dispatch, and live table status.')">+ Staff Mobile App</button>
+          </div>
+        </label>
+
+        <!-- Anti-Spam Honeypot Field -->
+        <div style="display:none" aria-hidden="true">
+          <input type="text" name="website_hp" id="websiteHp" tabindex="-1" autocomplete="off">
+        </div>
+
+      </div>
+
+      <!-- Error Box -->
+      <div class="form-error" id="formError"></div>
+
+      <!-- Submit Action -->
+      <div style="margin-top:1.6rem">
+        <button type="submit" class="btn hi" id="contactSubmitBtn" style="width:100%;min-height:50px;font-size:1.02rem;justify-content:center">
+          Send Project Inquiry →
+        </button>
       </div>
     </form>
 
-    <div class="ok" id="ok">
+    <!-- Success Confirmation -->
+    <div class="form-success" id="formSuccess">
       <div class="tick"><svg class="ico"><use href="#chk"/></svg></div>
-      <h2>Problem received. FIXIA is on it.</h2>
-      <p>Our engineering leads will review your brief and message you on WhatsApp and email within 6 business hours.</p>
-      <div class="brief-summary" id="briefSum"></div>
-      <a class="btn" href="index.html">Back to homepage</a>
+      <h2>Project Inquiry Received</h2>
+      <p>Our engineering leads are reviewing your brief. We'll message you on WhatsApp and email within 6 business hours with your custom plan.</p>
+      <div class="form-summary-card" id="formSummaryBody"></div>
+      <div style="display:flex;gap:0.85rem;justify-content:center;flex-wrap:wrap">
+        <a class="btn" style="background:#22C55E;color:#fff;border-color:#16A34A;display:inline-flex;align-items:center;gap:0.4rem" href="https://wa.me/917017936338?text=Hi%20FIXIA!%20I%20just%20submitted%20a%20project%20inquiry%20on%20your%20website%20and%20would%20like%20to%20follow%20up." target="_blank" rel="noopener noreferrer">
+          Chat on WhatsApp ↗
+        </a>
+        <a class="btn ghost" href="index.html">Back to Homepage</a>
+      </div>
     </div>
+
   </div>
+
 </div>
 </main>
-<script src="app.js?v=20261025d"></script>
+
+<script src="app.js?v=20261101e"></script>
 <script>
-const K = ['Website','Android app','Custom software','ERP / business system','Online store','Bot or automation','Not sure yet — advise me'];
 const q = new URLSearchParams(location.search);
+const userNeedSelect = document.getElementById('userNeed');
+const probInput = document.getElementById('userProblem');
+const bizInput = document.getElementById('userBiz');
+const ideaBanner = document.getElementById('ideaBanner');
+const ideaBannerText = document.getElementById('ideaBannerText');
 
-// Map incoming software types from ideas.html
-const incomingType = (q.get('type') || '').toLowerCase();
-const shouldCheck = (k) => {
-  if (!q.get('p') && !q.get('idea')) return k === 'Not sure yet — advise me';
-  if (incomingType.includes('web') && k === 'Website') return true;
-  if (incomingType.includes('mobile') || incomingType.includes('app')) {
-    if (k === 'Android app') return true;
-  }
-  if ((incomingType.includes('custom') || incomingType.includes('dash') || incomingType.includes('pos')) && k === 'Custom software') return true;
-  if (incomingType.includes('erp') && k === 'ERP / business system') return true;
-  if ((incomingType.includes('bot') || incomingType.includes('auto')) && k === 'Bot or automation') return true;
-  return false;
-};
+// Prefill from query parameters
+if (q.get('p')) probInput.value = q.get('p');
+if (q.get('biz')) bizInput.value = q.get('biz');
 
-$('#kind').innerHTML = K.map((k, i) => `<label><input type="checkbox" value="${k}" ${shouldCheck(k) ? 'checked' : ''}><span>${k}</span></label>`).join('');
-if (q.get('p')) $('#prob').value = q.get('p');
-if (q.get('biz')) {
-  if ($('#bizDo')) $('#bizDo').value = q.get('biz');
-  if ($('#uBiz')) $('#uBiz').value = q.get('biz');
-}
+const reqType = (q.get('type') || '').toLowerCase();
+if (reqType.includes('web')) userNeedSelect.value = 'Website Development';
+else if (reqType.includes('app') || reqType.includes('mobile') || reqType.includes('android')) userNeedSelect.value = 'Mobile Application';
+else if (reqType.includes('erp') || reqType.includes('manage')) userNeedSelect.value = 'Business Management System';
+else if (reqType.includes('auto') || reqType.includes('bot')) userNeedSelect.value = 'Automation & Integrations';
+else if (reqType.includes('custom') || reqType.includes('pos')) userNeedSelect.value = 'Custom Software';
+
 if (q.get('solutionName')) {
-  const b = $('#ideaBanner'), bt = $('#ideaBannerText');
-  if (b && bt) {
-    bt.textContent = 'Unified Architecture: ' + q.get('solutionName');
-    b.style.display = 'inline-flex';
+  if (ideaBanner && ideaBannerText) {
+    ideaBannerText.textContent = 'Unified Solution: ' + q.get('solutionName');
+    ideaBanner.style.display = 'inline-flex';
   }
 } else if (q.get('idea')) {
-  const b = $('#ideaBanner'), bt = $('#ideaBannerText');
-  if (b && bt) {
-    bt.textContent = q.get('idea');
-    b.style.display = 'inline-flex';
+  if (ideaBanner && ideaBannerText) {
+    ideaBannerText.textContent = q.get('idea');
+    ideaBanner.style.display = 'inline-flex';
   }
 }
 
-function fillP(txt) {
-  const el = $('#prob');
-  el.value = el.value ? el.value + ' ' + txt : txt;
-  el.focus();
+function fillProjectDesc(text) {
+  if (!probInput) return;
+  probInput.value = probInput.value ? probInput.value + ' ' + text : text;
+  probInput.focus();
 }
 
-const steps = $$('.step'), pg = $$('#pg i');
-const stepTitles = [
-  'STEP 01 OF 03 · THE PROBLEM',
-  'STEP 02 OF 03 · BUSINESS & TIMELINE',
-  'STEP 03 OF 03 · YOUR DETAILS'
-];
-let n = 0;
+// Client-side Validation & Submission
+const form = document.getElementById('contactForm');
+const submitBtn = document.getElementById('contactSubmitBtn');
+const errBox = document.getElementById('formError');
+const successBox = document.getElementById('formSuccess');
+const summaryBody = document.getElementById('formSummaryBody');
 
-function go(i) {
-  n = i;
-  steps.forEach((s, j) => s.classList.toggle('on', j === i));
-  pg.forEach((p, j) => p.classList.toggle('on', j <= i));
-  $('#stepLabel').textContent = stepTitles[i];
-  $('#bk').style.visibility = i ? 'visible' : 'hidden';
-  $('#nx').innerHTML = i === 2 ? `Send Problem Brief ${ic('arr')}` : 'Next Step →';
+function isValidEmail(email) {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email.trim());
 }
 
-$('#bk').onclick = () => go(n - 1);
-$('#nx').onclick = async () => {
-  const f = $('#fm');
-  if (n === 0 && !$('#prob').value.trim()) {
-    $('#prob').focus();
-    $('#prob').style.borderColor = '#dc2626';
-    return;
-  }
-  if (n === 1 && !$('#bizDo').value.trim()) {
-    $('#bizDo').focus();
-    $('#bizDo').style.borderColor = '#dc2626';
-    return;
-  }
-  if (n < 2) return go(n + 1);
-  if (!f.reportValidity()) return;
+function isValidPhone(phone) {
+  const digits = phone.replace(/\D/g, '');
+  return digits.length >= 7 && digits.length <= 16;
+}
 
-  const emailVal = $('#uMail').value.trim();
-  const waVal = $('#uWa').value.trim();
-  const errBox = $('#inquiryError');
-  errBox.style.display = 'none';
+if (form) {
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    errBox.style.display = 'none';
 
-  if (!emailVal && !waVal) {
-    $('#uWa').focus();
-    $('#uWa').style.borderColor = '#dc2626';
-    errBox.textContent = 'Please provide an email or WhatsApp number so we can send your solution blueprint.';
-    errBox.style.display = 'block';
-    return;
-  }
-
-  // Prevent duplicate submissions and show loading state
-  const nxBtn = $('#nx');
-  nxBtn.disabled = true;
-  nxBtn.innerHTML = `Securing Brief... <span class="dot"></span>`;
-
-  const picked = $$('#kind input:checked').map(x => x.value).join(', ') || 'Custom Solution';
-  const payload = {
-    name: $('#uName').value.trim(),
-    business: $('#uBiz').value.trim(),
-    email: emailVal,
-    whatsapp: waVal,
-    businessType: $('#bizDo').value.trim(),
-    focus: picked,
-    problem: $('#prob').value.trim(),
-    budget: $('#bud').value,
-    timeline: $('#time').value,
-    website_hp: $('#websiteHp') ? $('#websiteHp').value : '',
-    source: q.get('solutionName') ? 'solution_builder' : (q.get('idea') ? 'idea_blueprint' : 'web_contact')
-  };
-
-  try {
-    const res = await fetch('/api/inquiry', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-      body: JSON.stringify(payload)
+    // Reset input highlights
+    [form.userName, form.userPhone, form.userEmail, form.userProblem].forEach(input => {
+      if (input) input.style.borderColor = '';
     });
 
-    const data = await res.json();
-    if (!res.ok || !data.ok) {
-      throw new Error(data.error || 'Server rejected submission');
+    const name = form.userName.value.trim();
+    const business = form.userBiz.value.trim();
+    const phone = form.userPhone.value.trim();
+    const email = form.userEmail.value.trim();
+    const focus = form.userNeed.value;
+    const problem = form.userProblem.value.trim();
+    const honeypot = form.websiteHp ? form.websiteHp.value : '';
+
+    // Validations
+    if (!name || name.length < 2) {
+      form.userName.focus();
+      form.userName.style.borderColor = '#dc2626';
+      errBox.textContent = 'Please enter your full name (minimum 2 characters).';
+      errBox.style.display = 'block';
+      return;
     }
 
-    if (window.fixiaAnalytics) {
-      window.fixiaAnalytics.track('inquiry_submitted', { inquiryId: data.id });
+    if (!phone || !isValidPhone(phone)) {
+      form.userPhone.focus();
+      form.userPhone.style.borderColor = '#dc2626';
+      errBox.textContent = 'Please enter a valid phone or WhatsApp number.';
+      errBox.style.display = 'block';
+      return;
     }
 
-    // Success confirmation — safe DOM construction to completely prevent XSS
-    const briefSum = $('#briefSum');
-    briefSum.innerHTML = '';
+    if (!email || !isValidEmail(email)) {
+      form.userEmail.focus();
+      form.userEmail.style.borderColor = '#dc2626';
+      errBox.textContent = 'Please enter a valid email address.';
+      errBox.style.display = 'block';
+      return;
+    }
 
-    const summaryItems = [
-      { label: 'Inquiry Reference:', val: data.id, isCode: true },
-      { label: 'Client:', val: `${$('#uName').value} (${$('#uBiz').value || 'Unspecified'})` },
-      { label: 'Business:', val: $('#bizDo').value || 'Unspecified' },
-      { label: 'Focus:', val: picked || 'Custom Solution' },
-      { label: 'Problem:', val: `“${$('#prob').value}”` },
-      { label: 'Scope:', val: `${$('#bud').value} · ${$('#time').value}` }
-    ];
+    if (!problem || problem.length < 10) {
+      form.userProblem.focus();
+      form.userProblem.style.borderColor = '#dc2626';
+      errBox.textContent = 'Please tell us about your project or business requirement (at least 10 characters).';
+      errBox.style.display = 'block';
+      return;
+    }
 
-    summaryItems.forEach(item => {
-      const row = document.createElement('div');
-      const labelEl = document.createElement('b');
-      labelEl.textContent = item.label + ' ';
-      row.appendChild(labelEl);
+    // Loading state
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = 'Securing Project Inquiry...';
 
-      if (item.isCode) {
-        const codeEl = document.createElement('code');
-        codeEl.style.fontFamily = 'var(--mono)';
-        codeEl.style.color = 'var(--cobalt)';
-        codeEl.textContent = item.val;
-        row.appendChild(codeEl);
-      } else {
-        row.appendChild(document.createTextNode(item.val));
-      }
-      briefSum.appendChild(row);
-    });
+    const payload = {
+      name,
+      business: business || 'Unspecified',
+      whatsapp: phone,
+      email,
+      focus,
+      problem,
+      website_hp: honeypot,
+      source: q.get('solutionName') ? 'solution_builder' : (q.get('idea') ? 'idea_blueprint' : 'contact_page')
+    };
 
-    // Local client backup
     try {
-      const L = JSON.parse(localStorage.getItem('fx-leads') || '[]');
-      L.unshift({ ...payload, id: data.id, at: new Date().toISOString(), status: 'new' });
-      localStorage.setItem('fx-leads', JSON.stringify(L));
-    } catch (e) {}
+      const res = await fetch('/api/inquiry', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify(payload)
+      });
 
-    f.style.display = 'none';
-    $('#pg').style.display = 'none';
-    $('.box-head').style.display = 'none';
-    $('#ok').classList.add('on');
-  } catch (err) {
-    nxBtn.disabled = false;
-    nxBtn.innerHTML = `Send Problem Brief ${ic('arr')}`;
-    errBox.textContent = `⚠️ ${err.message || 'Unable to store your problem brief. Please check your connection or message us on WhatsApp.'}`;
-    errBox.style.display = 'block';
-  }
-};
+      const data = await res.json();
+      if (!res.ok || !data.ok) {
+        throw new Error(data.error || 'Server was unable to store your inquiry.');
+      }
+
+      if (window.fixiaAnalytics) {
+        window.fixiaAnalytics.track('inquiry_submitted', { inquiryId: data.id });
+      }
+
+      // Safe DOM construction for summary confirmation
+      summaryBody.innerHTML = '';
+      const summaryItems = [
+        { label: 'Inquiry Reference:', val: data.id, isCode: true },
+        { label: 'Client Name:', val: `${name} ${business ? '(' + business + ')' : ''}` },
+        { label: 'Selected Category:', val: focus },
+        { label: 'Contact Phone / WhatsApp:', val: phone },
+        { label: 'Email Address:', val: email },
+        { label: 'Project Brief:', val: `“${problem}”` }
+      ];
+
+      summaryItems.forEach(item => {
+        const row = document.createElement('div');
+        const labelEl = document.createElement('b');
+        labelEl.textContent = item.label + ' ';
+        row.appendChild(labelEl);
+
+        if (item.isCode) {
+          const codeEl = document.createElement('code');
+          codeEl.style.fontFamily = 'var(--mono)';
+          codeEl.style.color = 'var(--cobalt)';
+          codeEl.textContent = item.val;
+          row.appendChild(codeEl);
+        } else {
+          row.appendChild(document.createTextNode(item.val));
+        }
+        summaryBody.appendChild(row);
+      });
+
+      // Save to client backup
+      try {
+        const L = JSON.parse(localStorage.getItem('fx-leads') || '[]');
+        L.unshift({ ...payload, id: data.id, at: new Date().toISOString(), status: 'new' });
+        localStorage.setItem('fx-leads', JSON.stringify(L));
+      } catch (e) {}
+
+      form.style.display = 'none';
+      if (ideaBanner) ideaBanner.style.display = 'none';
+      successBox.classList.add('on');
+    } catch (err) {
+      submitBtn.disabled = false;
+      submitBtn.innerHTML = 'Send Project Inquiry →';
+      errBox.textContent = `⚠️ ${err.message || 'Unable to store your project brief. Please message us directly on WhatsApp (+91 70179 36338).'}`;
+      errBox.style.display = 'block';
+    }
+  });
+}
 </script>
-<script src="polish.js?v=20261025d"></script>
+<script src="polish.js?v=20261101e"></script>
 </body>
 </html>

@@ -308,7 +308,7 @@ async function handler(req, res) {
     res.setHeader('Content-Type', 'application/json');
     return res.end(JSON.stringify({
       ok: false,
-      error: 'Too many submissions from this connection. Please wait a few minutes or reach us directly on WhatsApp (+91 84488 58700).'
+      error: 'Too many submissions from this connection. Please wait a few minutes or reach us directly on WhatsApp (+91 70179 36338).'
     }));
   }
 
@@ -424,7 +424,7 @@ async function handler(req, res) {
     res.setHeader('Content-Type', 'application/json');
     return res.end(JSON.stringify({
       ok: false,
-      error: 'Inquiry persistence service is temporarily unavailable in production. Please contact FIXIA engineering directly on WhatsApp (+91 84488 58700).'
+      error: 'Inquiry persistence service is temporarily unavailable in production. Please contact FIXIA engineering directly on WhatsApp (+91 70179 36338).'
     }));
   }
 
@@ -434,7 +434,7 @@ async function handler(req, res) {
     res.setHeader('Content-Type', 'application/json');
     return res.end(JSON.stringify({
       ok: false,
-      error: 'Unable to save inquiry to persistent storage. Please reach our engineering leads directly on WhatsApp (+91 84488 58700).'
+      error: 'Unable to save inquiry to persistent storage. Please reach our engineering leads directly on WhatsApp (+91 70179 36338).'
     }));
   }
 

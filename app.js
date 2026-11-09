@@ -277,7 +277,7 @@ B.insertAdjacentHTML('afterbegin', `
         ${pages.map(p => `<a href="${p[0]}.html"${PG === p[0] ? ' aria-current="page"' : ''}>${p[1]}</a>`).join('')}
       </nav>
       <div class="navr">
-        <a class="btn sm" href="contact.html">Start a project</a>
+        <a class="btn sm hi" href="contact.html">Discuss Your Project →</a>
         <button type="button" class="mob-btn" id="mobBtn" aria-label="Toggle navigation" aria-expanded="false" aria-controls="mobNav"><span></span></button>
       </div>
     </div>
@@ -286,8 +286,17 @@ B.insertAdjacentHTML('afterbegin', `
     <div class="mob-links">
       ${pages.map(p => `<a href="${p[0]}.html"${PG === p[0] ? ' aria-current="page"' : ''}>${p[1]} <span>→</span></a>`).join('')}
     </div>
-    <div style="display:flex;flex-direction:column;gap:1rem;margin-top:2rem">
-      <a class="btn hi" href="contact.html">Start a project →</a>
+    <div style="display:flex;flex-direction:column;gap:0.75rem;margin-top:2rem">
+      <a class="btn hi" href="contact.html">Discuss Your Project →</a>
+      <a class="btn" style="background:#22C55E;color:#fff;border-color:#16A34A;display:flex;align-items:center;justify-content:center;gap:0.5rem" href="https://wa.me/917017936338?text=Hi%20FIXIA!%20I%20visited%20your%20website%20and%20would%20like%20to%20discuss%20a%20digital%20solution%20for%20my%20business." target="_blank" rel="noopener noreferrer">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91S17.5 2 12.04 2zm5.79 14c-.24.67-1.39 1.28-1.92 1.34-.51.06-1.17.09-3.79-.98-2.24-.92-3.69-3.21-3.8-3.36-.11-.15-.92-1.22-.92-2.33s.58-1.65.79-1.87c.21-.22.46-.28.61-.28.15 0 .31 0 .44.01.14.01.32-.05.5.38.18.43.62 1.51.67 1.62.05.11.08.24.01.38-.07.14-.11.23-.22.36-.11.13-.23.29-.33.39-.11.11-.23.23-.1.45.13.22.58.96 1.24 1.55.85.76 1.57 1 1.79 1.11.22.11.35.09.48-.06.13-.15.56-.65.71-.87.15-.22.3-.18.5-.11.2.07 1.29.61 1.51.72.22.11.37.17.42.26.05.09.05.53-.19 1.2z"/></svg>
+        Chat on WhatsApp
+      </a>
+      <div style="display:flex;align-items:center;justify-content:center;gap:1.25rem;margin-top:0.5rem;font:600 0.82rem var(--mono);color:rgba(255,255,255,0.7)">
+        <a href="tel:+917017936338" style="color:inherit;text-decoration:none">📞 +91 70179 36338</a>
+        <span>·</span>
+        <a href="mailto:devloper@fixia.in" style="color:inherit;text-decoration:none">✉️ devloper@fixia.in</a>
+      </div>
     </div>
   </div>
 `);
@@ -323,16 +332,44 @@ if (mobBtn && mobNav) {
   });
 }
 
+/* Contextual WhatsApp Message Generator */
+function getContextualWaMessage() {
+  const p = (location.pathname || '').toLowerCase();
+  const q = new URLSearchParams(location.search);
+  if (p.includes('web.html')) return "Hi FIXIA! I'm interested in getting a website developed for my business.";
+  if (p.includes('android.html')) return "Hi FIXIA! I'm interested in getting a mobile application developed for my business.";
+  if (p.includes('software.html') || p.includes('erp.html')) return "Hi FIXIA! I want to discuss custom business software.";
+  if (p.includes('ai.html')) return "Hi FIXIA! I'm interested in automating some of my business operations.";
+  if (p.includes('pricing.html')) return "Hi FIXIA! I'd like to discuss a practical milestone estimate for my business.";
+  if (p.includes('case-study-detail.html')) {
+    const id = q.get('id');
+    if (id) return `Hi FIXIA! I saw your ${id} case study and want to build something similar for my business.`;
+    return "Hi FIXIA! I saw your client work and want to discuss a digital solution for my business.";
+  }
+  if (p.includes('ideas.html') || p.includes('results.html')) {
+    const biz = q.get('biz');
+    if (biz) return `Hi FIXIA! I'm looking for software ideas for my ${biz} business.`;
+    return "Hi FIXIA! I want to discuss a digital solution for my business.";
+  }
+  if (p.includes('solution-builder.html')) return "Hi FIXIA! I'm using your Solution Builder and want to discuss a custom system.";
+  return "Hi FIXIA! I visited your website and would like to discuss a digital solution for my business.";
+}
+
+const contextualWaUrl = `https://wa.me/917017936338?text=${encodeURIComponent(getContextualWaMessage())}`;
+
 if (!B.dataset.noend) {
   B.insertAdjacentHTML('beforeend', `
     <div class="end-wrap"><div class="wrap">
       <section class="end finale">
-        <h2 data-r>Got a problem? <em>Let’s fix it.</em></h2>
+        <h2 data-r>Have a business problem? <em>Let's build the solution.</em></h2>
         <div class="row">
-          <p data-r>Tell us your problem in plain words. You get a plan and a fixed price in 48 hours.</p>
+          <p data-r>Tell us what your business needs. We'll help you find the right digital solution and provide a fixed milestone estimate.</p>
           <div class="end-actions">
-            <a class="btn hi" href="contact.html">Tell us your problem ${ic('arr')}</a>
-            <a class="btn ghost" style="color:#fff;border-color:rgba(255,255,255,.35)" href="work.html">See the work</a>
+            <a class="btn hi" href="contact.html">Discuss Your Project ${ic('arr')}</a>
+            <a class="btn ghost" style="color:#fff;border-color:rgba(255,255,255,.35);display:inline-flex;align-items:center;gap:0.45rem" href="${contextualWaUrl}" target="_blank" rel="noopener noreferrer">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91S17.5 2 12.04 2zm5.79 14c-.24.67-1.39 1.28-1.92 1.34-.51.06-1.17.09-3.79-.98-2.24-.92-3.69-3.21-3.8-3.36-.11-.15-.92-1.22-.92-2.33s.58-1.65.79-1.87c.21-.22.46-.28.61-.28.15 0 .31 0 .44.01.14.01.32-.05.5.38.18.43.62 1.51.67 1.62.05.11.08.24.01.38-.07.14-.11.23-.22.36-.11.13-.23.29-.33.39-.11.11-.23.23-.1.45.13.22.58.96 1.24 1.55.85.76 1.57 1 1.79 1.11.22.11.35.09.48-.06.13-.15.56-.65.71-.87.15-.22.3-.18.5-.11.2.07 1.29.61 1.51.72.22.11.37.17.42.26.05.09.05.53-.19 1.2z"/></svg>
+              Chat on WhatsApp
+            </a>
           </div>
         </div>
         <div class="fin-steps"><span><b>01</b>30-min call</span><span><b>02</b>Blueprint in 48h</span><span><b>03</b>Weekly staging links</span><span><b>04</b>You own the code</span></div>
@@ -348,20 +385,128 @@ B.insertAdjacentHTML('beforeend', `
         <div class="foot-brand">
           <a class="logo" href="index.html" style="color:#fff;font-size:1.35rem;display:inline-flex"><svg class="mk" aria-hidden="true"><use href="#lg"/></svg><span class="wm">FIXIA</span></a>
           <p style="margin-top:0.75rem;line-height:1.55"><b style="color:#fff">Your Business. Smarter with Software.</b><br>We build custom websites, mobile apps, and business software with 100% source code ownership and zero monthly rent.</p>
+          <div style="margin-top:1.25rem;display:flex;gap:0.75rem;flex-wrap:wrap">
+            <a class="btn sm hi" href="contact.html">Discuss Your Project →</a>
+            <a class="btn sm ghost" style="color:#fff;border-color:rgba(255,255,255,.3)" href="${contextualWaUrl}" target="_blank" rel="noopener noreferrer">WhatsApp Us ↗</a>
+          </div>
         </div>
-        <div class="foot-col"><h4>Services</h4><ul><li><a href="web.html">Websites</a></li><li><a href="android.html">Android apps</a></li><li><a href="software.html">Custom software</a></li><li><a href="erp.html">ERP systems</a></li><li><a href="ai.html">Bots &amp; automation</a></li></ul></div>
-        <div class="foot-col"><h4>Work</h4><ul>
-          <li><a href="ideas.html">Explore Ideas</a></li>
-          <li><a href="work.html">All projects</a></li><li><a href="about.html">About</a></li><li><a href="pricing.html">Pricing</a></li>
-          <li><a href="https://himalaya-escape.vercel.app/" target="_blank" rel="noopener">Himalaya Escape ↗</a></li>
-          <li><a href="https://oneshot-livid.vercel.app/" target="_blank" rel="noopener">One Shot ↗</a></li>
-          <li><a href="https://flexora-ivory.vercel.app/" target="_blank" rel="noopener">Flexora ↗</a></li></ul></div>
-        <div class="foot-col"><h4>Find us</h4><ul><li><span>fixia.in</span></li><li><a href="https://instagram.com/fixia.official" target="_blank" rel="noopener">@fixia.official ↗</a></li><li><span>Fixed milestones</span></li></ul></div>
+        <div class="foot-col">
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="ideas.html">Solutions &amp; Blueprints</a></li>
+            <li><a href="work.html">Work</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="pricing.html">Pricing</a></li>
+          </ul>
+        </div>
+        <div class="foot-col">
+          <h4>Get in Touch</h4>
+          <ul>
+            <li><a href="tel:+917017936338">📞 +91 70179 36338</a></li>
+            <li><a href="mailto:devloper@fixia.in">✉️ devloper@fixia.in</a></li>
+            <li><a href="https://www.instagram.com/fixia.official/" target="_blank" rel="noopener">📸 @fixia.official</a></li>
+            <li><span style="color:#A39D90;font-size:0.86rem">Mon–Sat · 10am to 8pm IST</span></li>
+          </ul>
+        </div>
+        <div class="foot-col">
+          <h4>Social &amp; Chat</h4>
+          <ul>
+            <li><a href="${contextualWaUrl}" target="_blank" rel="noopener">💬 WhatsApp Chat ↗</a></li>
+            <li><a href="https://www.instagram.com/fixia.official/" target="_blank" rel="noopener">📷 Instagram Profile ↗</a></li>
+            <li><span style="color:#22C55E;font-size:0.86rem">● Direct engineering support</span></li>
+            <li><span style="color:#A39D90;font-size:0.86rem">100% Source Code Ownership</span></li>
+          </ul>
+        </div>
       </div>
       <div class="foot-watermark" aria-hidden="true">FIXIA</div>
-      <div class="foot-bottom"><span>© 2026 FIXIA. fixia.in · @fixia.official</span><button class="totop" type="button" onclick="scrollTo({top:0,behavior:'smooth'})">Back to top ↑</button></div>
+      <div class="foot-bottom">
+        <span>© 2026 FIXIA. All rights reserved. fixia.in · <a href="mailto:devloper@fixia.in" style="color:inherit">devloper@fixia.in</a> · <a href="tel:+917017936338" style="color:inherit">+91 70179 36338</a></span>
+        <button class="totop" type="button" onclick="scrollTo({top:0,behavior:'smooth'})">Back to top ↑</button>
+      </div>
     </div>
   </footer>
+
+  <!-- Desktop Floating WhatsApp Widget & Contact Panel -->
+  <div class="fx-contact-widget" id="fxContactWidget">
+    <div class="fx-contact-panel" id="fxContactPanel" role="dialog" aria-modal="false" aria-label="Direct Contact Channels">
+      <div class="fx-panel-head">
+        <div class="fx-panel-status">
+          <span class="fx-live-dot"></span>
+          <span><b>Engineering Online</b> · Fast Response</span>
+        </div>
+        <button type="button" class="fx-panel-close" id="fxPanelClose" aria-label="Close contact panel">✕</button>
+      </div>
+      <div class="fx-panel-body">
+        <a class="fx-channel-card" href="${contextualWaUrl}" target="_blank" rel="noopener noreferrer">
+          <div class="fx-channel-icon wa">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91S17.5 2 12.04 2zm5.79 14c-.24.67-1.39 1.28-1.92 1.34-.51.06-1.17.09-3.79-.98-2.24-.92-3.69-3.21-3.8-3.36-.11-.15-.92-1.22-.92-2.33s.58-1.65.79-1.87c.21-.22.46-.28.61-.28.15 0 .31 0 .44.01.14.01.32-.05.5.38.18.43.62 1.51.67 1.62.05.11.08.24.01.38-.07.14-.11.23-.22.36-.11.13-.23.29-.33.39-.11.11-.23.23-.1.45.13.22.58.96 1.24 1.55.85.76 1.57 1 1.79 1.11.22.11.35.09.48-.06.13-.15.56-.65.71-.87.15-.22.3-.18.5-.11.2.07 1.29.61 1.51.72.22.11.37.17.42.26.05.09.05.53-.19 1.2z"/></svg>
+          </div>
+          <div class="fx-channel-info">
+            <div class="fx-channel-title">WhatsApp Chat <span class="fx-pill-fast">⚡ Instant</span></div>
+            <div class="fx-channel-sub">+91 70179 36338</div>
+          </div>
+          <span class="fx-channel-arrow">→</span>
+        </a>
+        <a class="fx-channel-card" href="tel:+917017936338">
+          <div class="fx-channel-icon call">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          </div>
+          <div class="fx-channel-info">
+            <div class="fx-channel-title">Direct Phone Call</div>
+            <div class="fx-channel-sub">+91 70179 36338</div>
+          </div>
+          <span class="fx-channel-arrow">→</span>
+        </a>
+        <a class="fx-channel-card" href="mailto:devloper@fixia.in">
+          <div class="fx-channel-icon mail">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+          </div>
+          <div class="fx-channel-info">
+            <div class="fx-channel-title">Official Email</div>
+            <div class="fx-channel-sub">devloper@fixia.in</div>
+          </div>
+          <span class="fx-channel-arrow">→</span>
+        </a>
+        <a class="fx-channel-card" href="https://www.instagram.com/fixia.official/" target="_blank" rel="noopener noreferrer">
+          <div class="fx-channel-icon ig">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+          </div>
+          <div class="fx-channel-info">
+            <div class="fx-channel-title">Instagram Updates</div>
+            <div class="fx-channel-sub">@fixia.official</div>
+          </div>
+          <span class="fx-channel-arrow">→</span>
+        </a>
+        <a class="fx-channel-plan" href="contact.html">
+          <span>Need a customized scope or formal estimate?</span>
+          <b>Send Project Inquiry →</b>
+        </a>
+      </div>
+    </div>
+    <button type="button" class="fx-float-trigger" id="fxFloatTrigger" aria-label="Direct contact & WhatsApp channels" aria-expanded="false">
+      <svg viewBox="0 0 24 24" width="28" height="28" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91S17.5 2 12.04 2zm5.79 14c-.24.67-1.39 1.28-1.92 1.34-.51.06-1.17.09-3.79-.98-2.24-.92-3.69-3.21-3.8-3.36-.11-.15-.92-1.22-.92-2.33s.58-1.65.79-1.87c.21-.22.46-.28.61-.28.15 0 .31 0 .44.01.14.01.32-.05.5.38.18.43.62 1.51.67 1.62.05.11.08.24.01.38-.07.14-.11.23-.22.36-.11.13-.23.29-.33.39-.11.11-.23.23-.1.45.13.22.58.96 1.24 1.55.85.76 1.57 1 1.79 1.11.22.11.35.09.48-.06.13-.15.56-.65.71-.87.15-.22.3-.18.5-.11.2.07 1.29.61 1.51.72.22.11.37.17.42.26.05.09.05.53-.19 1.2z"/></svg>
+      <span class="fx-trigger-badge" aria-hidden="true">1</span>
+    </button>
+  </div>
+
+  <!-- Mobile Sticky Bottom Contact Bar -->
+  <div class="fx-mob-bottom-bar" id="fxMobBar" role="region" aria-label="Quick Contact Bar">
+    <a class="fx-mob-btn wa" href="${contextualWaUrl}" target="_blank" rel="noopener noreferrer">
+      <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91S17.5 2 12.04 2zm5.79 14c-.24.67-1.39 1.28-1.92 1.34-.51.06-1.17.09-3.79-.98-2.24-.92-3.69-3.21-3.8-3.36-.11-.15-.92-1.22-.92-2.33s.58-1.65.79-1.87c.21-.22.46-.28.61-.28.15 0 .31 0 .44.01.14.01.32-.05.5.38.18.43.62 1.51.67 1.62.05.11.08.24.01.38-.07.14-.11.23-.22.36-.11.13-.23.29-.33.39-.11.11-.23.23-.1.45.13.22.58.96 1.24 1.55.85.76 1.57 1 1.79 1.11.22.11.35.09.48-.06.13-.15.56-.65.71-.87.15-.22.3-.18.5-.11.2.07 1.29.61 1.51.72.22.11.37.17.42.26.05.09.05.53-.19 1.2z"/></svg>
+      <span>WhatsApp</span>
+    </a>
+    <a class="fx-mob-btn call" href="tel:+917017936338">
+      <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+      <span>Call</span>
+    </a>
+    <a class="fx-mob-btn cta" href="contact.html">
+      <span>Discuss Project</span>
+      <span class="arr" aria-hidden="true">→</span>
+    </a>
+  </div>
 
   <!-- Project Detail Modal -->
   <div class="proj-modal-backdrop" id="projModal" role="dialog" aria-modal="true" aria-hidden="true">
@@ -371,6 +516,42 @@ B.insertAdjacentHTML('beforeend', `
     </div>
   </div>
 `);
+
+/* Floating Contact Widget Listeners */
+const fxTrigger = $('#fxFloatTrigger'), fxPanel = $('#fxContactPanel'), fxClose = $('#fxPanelClose');
+if (fxTrigger && fxPanel) {
+  function toggleContactPanel(open) {
+    const isCurrentlyOpen = fxPanel.classList.contains('open');
+    const newState = typeof open === 'boolean' ? open : !isCurrentlyOpen;
+    fxPanel.classList.toggle('open', newState);
+    fxTrigger.setAttribute('aria-expanded', String(newState));
+  }
+
+  fxTrigger.addEventListener('click', (e) => {
+    e.stopPropagation();
+    toggleContactPanel();
+  });
+
+  if (fxClose) {
+    fxClose.addEventListener('click', (e) => {
+      e.stopPropagation();
+      toggleContactPanel(false);
+    });
+  }
+
+  document.addEventListener('click', (e) => {
+    if (!e.target.closest('#fxContactWidget')) {
+      toggleContactPanel(false);
+    }
+  });
+
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && fxPanel.classList.contains('open')) {
+      toggleContactPanel(false);
+      fxTrigger.focus();
+    }
+  });
+}
 }
 
 /* Project Modal Handlers */
